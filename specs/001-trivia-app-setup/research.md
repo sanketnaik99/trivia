@@ -1,6 +1,10 @@
-# Research: Quizable App Initial Setup
+# Research: Quizable App Initial Setup (Auth + Theme Foundation)
 
 Created: 2025-10-30
+
+## Scope for this iteration
+- **In scope**: Auth flow (Clerk), theme toggle (next-themes + Tailwind)
+- **Deferred**: Rooms, Groups, Leaderboards, Supabase persistence, Cloudflare Durable Objects (future features)
 
 ## Decisions and Rationale
 
@@ -20,33 +24,33 @@ Created: 2025-10-30
 - Alternatives: Auth0, custom auth (rejected per constitution)
 
 ### Room identifiers
-- Decision: UUID v4 for `roomId`
+- Decision: UUID v4 for `roomId` **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Unambiguous, globally unique, easy backend generation
 - Alternatives: 6-digit PINs, alphanumeric codes (acceptable UX but lower entropy)
 
 ### Room capacity
-- Decision: Max 16 participants
+- Decision: Max 16 participants **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Good UX/layout trade-off for MVP
 - Alternatives: 8/32/64/no limit (performance or UX trade-offs)
 
 ### Group leaderboard model
-- Decision: Rank by total points across sessions
+- Decision: Rank by total points across sessions **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Simple, transparent; extensible with tiebreakers later
 - Alternatives: Average score, wins-first, Elo
 
 ### Presence and realtime room coordination
-- Decision: Cloudflare Durable Objects with WebSockets (one Durable Object per room)
+- Decision: Cloudflare Durable Objects with WebSockets (one Durable Object per room) **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Strong consistency and ordered events per room, built-in concurrency control, low-latency broadcast to participants; scalable without managing servers
 - Alternatives: Client polling (simpler but higher latency), Supabase Realtime (good option but adds dependency on row change streams), Pusher/Ably (managed but adds vendor cost), raw WebSocket server (ops burden)
 
 ### Data persistence
-- Decision: Supabase (Postgres) accessed via `@supabase/supabase-js` from server functions
+- Decision: Supabase (Postgres) accessed via `@supabase/supabase-js` from server functions **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Managed Postgres with built-in RLS, generous free tier, simple DX; scalable beyond MVP; aligns with "future hosted DB" direction
 - Authorization: For MVP, perform DB operations in server functions using the service role key with explicit authorization checks against Clerk session; consider RLS policies keyed by a user identifier in a later iteration
 - Alternatives: SQLite (server-only) — simpler locally but less scalable and multi-instance unfriendly; direct Postgres (self-hosted) — higher ops burden
 
 ### Group invites
-- Decision: Shareable invite link (signed, expiring)
+- Decision: Shareable invite link (signed, expiring) **[DEFERRED TO FUTURE FEATURE]**
 - Rationale: Low friction onboarding; works across platforms
 - Alternatives: In-app user search (needs directory), email invites (adds email infra)
 
@@ -57,4 +61,4 @@ Created: 2025-10-30
 
 ## Open Questions Resolved
 
-All NEEDS CLARIFICATION items for planning are resolved above. If future constraints change (hosting limits, DB choice), revisit Data persistence and Presence updates.
+All NEEDS CLARIFICATION items for planning are resolved above. Rooms, Groups, persistence, and realtime features are explicitly deferred to future iterations; this feature focuses on auth and theme foundation only.

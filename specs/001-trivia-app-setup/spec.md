@@ -11,17 +11,16 @@
 
 - Q: Application name → A: Quizable
 - Q: Testing requirements → A: No automated tests required
-- Q: Room identifier format → A: UUID
-- Q: Group leaderboard scoring model → A: Total points across sessions
-- Q: Max participants per room → A: 16
+- Q: Room identifier format → A: UUID (deferred to future feature)
+- Q: Group leaderboard scoring model → A: Total points across sessions (deferred to future feature)
+- Q: Max participants per room → A: 16 (deferred to future feature)
+- Q: Feature scope for this iteration → A: Auth flow + theme toggle only; rooms/groups deferred
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Acceptance Validation *(mandatory)*
 
 **Note**: "Testing" in this section refers to acceptance validation scenarios, not automated test implementation.
 
-### User Story 1 - User Authentication Flow (Priority: P1)
-
-A user visits Quizable and must log in before accessing any features. If they are already logged in, they are taken directly to the home screen. This ensures only authenticated users can participate in trivia sessions.
+### User Story 1 - User Authentication Flow (Priority: P1) **[IN SCOPE]**A user visits Quizable and must log in before accessing any features. If they are already logged in, they are taken directly to the home screen. This ensures only authenticated users can participate in trivia sessions.
 
 **Why this priority**: Authentication is the foundation for all other features. Without it, no user-specific functionality (rooms, groups, leaderboards) can work. This must be delivered first.
 
@@ -37,7 +36,7 @@ A user visits Quizable and must log in before accessing any features. If they ar
 
 ---
 
-### User Story 2 - Room Management (Priority: P2)
+### User Story 2 - Room Management (Priority: P2) **[OUT OF SCOPE - DEFERRED]**
 
 Once authenticated, a user can either host a new trivia room or join an existing room. Hosting creates a new session that others can join, while joining allows participation in an existing session. This enables the core trivia gameplay experience.
 
@@ -45,19 +44,11 @@ Once authenticated, a user can either host a new trivia room or join an existing
 
 **Independent Test**: Can be fully tested by logging in and attempting to host a room (which generates a room code/ID) and join a room (using a valid room code/ID). Delivers value by enabling users to play trivia together.
 
-**Acceptance Scenarios**:
-
-1. **Given** user is on the home screen, **When** they select "Host Room", **Then** a new room is created and they receive a room identifier to share
-2. **Given** user is on the home screen, **When** they select "Join Room", **Then** they are prompted to enter a room identifier
-3. **Given** user has entered a valid room identifier, **When** they submit, **Then** they successfully join the room
-4. **Given** user has entered an invalid room identifier, **When** they submit, **Then** they see an error message indicating the room doesn't exist
-5. **Given** user is hosting a room, **When** other users join, **Then** the host can see all participants
-6. **Given** user is in a room, **When** they leave, **Then** they return to the home screen
-7. **Given** a room already has 16 participants, **When** another user attempts to join, **Then** they see an error that the room is full and cannot join
+**Deferred**: Room creation, joining, and real-time presence will be implemented in a future feature iteration.
 
 ---
 
-### User Story 3 - Group Creation and Management (Priority: P3)
+### User Story 3 - Group Creation and Management (Priority: P3) **[OUT OF SCOPE - DEFERRED]**
 
 Users can create groups to organize recurring trivia sessions with the same participants. Each group maintains a persistent leaderboard that tracks results across multiple trivia sessions, allowing for long-term competition tracking.
 
@@ -65,18 +56,11 @@ Users can create groups to organize recurring trivia sessions with the same part
 
 **Independent Test**: Can be fully tested by creating a group, adding members, and verifying the group appears in the user's group list. Delivers value by enabling persistent competition tracking.
 
-**Acceptance Scenarios**:
-
-1. **Given** user is on the home screen, **When** they select "Create Group", **Then** they are prompted to name the group
-2. **Given** user has named a group, **When** they confirm creation, **Then** the group is created and they become the group owner
-3. **Given** user has created a group, **When** they view the group, **Then** they see a leaderboard (initially empty)
-4. **Given** user is viewing a group, **When** they invite others, **Then** invited users receive a notification or invitation link
-5. **Given** user is a group member, **When** they view the group, **Then** they see the group leaderboard with rankings
-6. **Given** multiple trivia sessions have been completed within a group, **When** users view the leaderboard, **Then** they see cumulative rankings based on all sessions
+**Deferred**: Group creation, invitations, and leaderboards will be implemented in a future feature iteration.
 
 ---
 
-### User Story 4 - Theme Customization (Priority: P4)
+### User Story 4 - Theme Customization (Priority: P4) **[IN SCOPE]**
 
 Users can toggle between light and dark themes based on their preference. The selected theme persists across sessions and applies to all screens in the application.
 

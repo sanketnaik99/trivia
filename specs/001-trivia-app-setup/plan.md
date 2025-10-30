@@ -7,7 +7,7 @@
 
 ## Summary
 
-Implement the initial Quizable feature set: Clerk-gated authentication; authenticated users land on Home to host or join a room (UUID, max 16 participants); create Groups with persistent leaderboards ranked by total points; provide light/dark theme toggle. Technical approach: TanStack Start (SSR + SPA) with TanStack Router/Query, shadcn/ui on Tailwind; theme via Tailwind design tokens and next-themes (class strategy); Clerk for auth; persistence via Supabase (Postgres) accessed from server functions; realtime presence and room coordination via Cloudflare Durable Objects with WebSockets.
+Implement the initial Quizable foundation: Clerk-gated authentication with protected routes; authenticated users land on Home screen; provide light/dark theme toggle with persistence. Technical approach: TanStack Start (SSR + SPA) with TanStack Router, shadcn/ui on Tailwind; theme via Tailwind design tokens and next-themes (class strategy); Clerk for auth. **Out of scope for this iteration**: Room creation/joining, Groups, leaderboards, Supabase persistence, Cloudflare Durable Objects (deferred to future features).
 
 ## Technical Context
 
@@ -18,15 +18,14 @@ Implement the initial Quizable feature set: Clerk-gated authentication; authenti
 -->
 
 **Language/Version**: TypeScript 5.x, React 19.2, Node 18+ (Vite)
-**Primary Dependencies**: @tanstack/react-start, @tanstack/react-router, @tanstack/react-query, shadcn/ui, tailwindcss, next-themes, @clerk/clerk-react, class-variance-authority, clsx, tailwind-merge, lucide-react, @supabase/supabase-js
-**Storage**: Supabase (Postgres) with Row Level Security (RLS); server functions use supabase-js with service role for privileged ops and user-scoped authorization via Clerk session
-**Realtime/Coordination**: Cloudflare Durable Objects (one object per room) handling WebSocket connections, presence lists, and fanout; TanStack Start app connects over WS
+**Primary Dependencies**: @tanstack/react-start, @tanstack/react-router, shadcn/ui, tailwindcss, next-themes, @clerk/clerk-react, class-variance-authority, clsx, tailwind-merge, lucide-react
+**Storage**: N/A (no persistence needed for auth + theme; deferred to future features)
 **Testing**: No unit, integration, or e2e tests required (per constitution and user input)
 **Target Platform**: Web app (SSR + SPA) on TanStack Start
 **Project Type**: Single web project (frontend + server functions in one repo)
-**Performance Goals**: From spec success criteria (home load <2s, theme apply <1s, host/join <15s)
-**Constraints**: Room capacity 16; UUID room IDs; auth-gated routes; leaderboard ranks by total points
-**Scale/Scope**: MVP target ~100 concurrent rooms, ~1k concurrent users; Durable Objects provide ordered, single-shard coordination per room; Supabase free-tier friendly
+**Performance Goals**: From spec success criteria (home load <2s, theme apply <1s, login <30s)
+**Constraints**: Auth-gated routes; theme persistence via localStorage
+**Scale/Scope**: Foundation for future features (rooms, groups, leaderboards)
 
 ## Constitution Check
 
