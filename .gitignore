@@ -11,3 +11,12 @@ count.txt
 .output
 .vinxi
 todos.json
+build/
+*.log
+.env*
+.vscode/
+.idea/
+Thumbs.db
+*.tmp
+*.swp
+coverage/

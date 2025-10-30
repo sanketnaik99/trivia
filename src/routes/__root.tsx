@@ -1,54 +1,62 @@
 import {
-  HeadContent,
-  Scripts,
-  createRootRouteWithContext,
-} from '@tanstack/react-router'
+	HeadContent,
+	Scripts,
+	createRootRouteWithContext,
+} from "@tanstack/react-router";
 
-import ClerkProvider from '../integrations/clerk/provider'
+import ClerkProvider from "../integrations/clerk/provider";
 
-import appCss from '../styles.css?url'
+import appCss from "../styles.css?url";
 
-import type { QueryClient } from '@tanstack/react-query'
+import type { QueryClient } from "@tanstack/react-query";
 
 interface MyRouterContext {
-  queryClient: QueryClient
+	queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  head: () => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'Trivia',
-      },
-    ],
-    links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
-  }),
+	head: () => ({
+		meta: [
+			{
+				charSet: "utf-8",
+			},
+			{
+				name: "viewport",
+				content: "width=device-width, initial-scale=1",
+			},
+			{
+				title: "Trivia",
+			},
+		],
+		links: [
+			{
+				rel: "stylesheet",
+				href: appCss,
+			},
+		],
+	}),
 
-  shellComponent: RootDocument,
-})
+	shellComponent: RootDocument,
+});
+
+import ThemeProvider from "../integrations/theme/provider";
+import Header from "../components/Header";
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <ClerkProvider>{children}</ClerkProvider>
-        <Scripts />
-      </body>
-    </html>
-  )
+	return (
+		<html lang="en">
+			<head>
+				<HeadContent />
+			</head>
+			<body>
+				<ClerkProvider>
+					<ThemeProvider>
+						<Header />
+						{children}
+					</ThemeProvider>
+				</ClerkProvider>
+				<Scripts />
+			</body>
+		</html>
+	);
 }
