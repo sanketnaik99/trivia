@@ -17,13 +17,15 @@ To build this application for production:
 npm run build
 ```
 
-## Testing
+## Testing (Not Required)
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+This project has [Vitest](https://vitest.dev/) available for testing, but **testing is not required** for feature development. If you choose to write tests, you can run them with:
 
 ```bash
 npm run test
 ```
+
+Note: Per the project constitution, E2E and integration tests are explicitly not required. Manual testing and validation is the primary quality assurance method.
 
 ## Styling
 
