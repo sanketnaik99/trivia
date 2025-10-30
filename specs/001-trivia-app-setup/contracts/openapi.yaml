@@ -1,0 +1,253 @@
+openapi: 3.1.0
+info:
+  title: Quizable API (MVP)
+  version: 0.1.0
+  description: REST contracts for rooms, groups, and sessions
+servers:
+  - url: https://localhost:3000
+paths:
+  /api/rooms:
+    post:
+      summary: Create room
+      security:
+        - clerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: string
+                  format: uuid
+              required: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+  /api/rooms/{roomId}:
+    get:
+      summary: Get room
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+  /api/rooms/{roomId}/join:
+    post:
+      summary: Join room
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200': { description: Joined }
+        '404': { description: Room not found }
+        '409': { description: Room full or closed }
+  /api/rooms/{roomId}/leave:
+    post:
+      summary: Leave room
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200': { description: Left }
+        '404': { description: Room not found }
+  /api/groups:
+    get:
+      summary: List my groups
+      security:
+        - clerkAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+    post:
+      summary: Create group
+      security:
+        - clerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+              required: [name]
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /api/groups/{groupId}:
+    get:
+      summary: Get group
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /api/groups/{groupId}/invite:
+    post:
+      summary: Create invite link
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url: { type: string, format: uri }
+  /api/groups/{groupId}/leaderboard:
+    get:
+      summary: Get leaderboard
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: groupId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderboardEntry'
+  /api/sessions/{sessionId}/complete:
+    post:
+      summary: Complete session and post scores
+      security:
+        - clerkAuth: []
+      parameters:
+        - in: path
+          name: sessionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scores:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Score'
+              required: [scores]
+      responses:
+        '200': { description: Updated leaderboard }
+
+components:
+  securitySchemes:
+    clerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Room:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        hostUserId: { type: string }
+        status: { type: string, enum: [waiting, active, completed] }
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+    Participant:
+      type: object
+      properties:
+        userId: { type: string }
+        joinedAt: { type: string, format: date-time }
+    Group:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        ownerUserId: { type: string }
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupMember'
+    GroupMember:
+      type: object
+      properties:
+        userId: { type: string }
+        joinedAt: { type: string, format: date-time }
+    LeaderboardEntry:
+      type: object
+      properties:
+        userId: { type: string }
+        totalPoints: { type: integer }
+        sessionsPlayed: { type: integer }
+        rank: { type: integer }
+    Score:
+      type: object
+      properties:
+        userId: { type: string }
+        points: { type: integer }
+      required: [userId, points]
