@@ -75,40 +75,40 @@
 
 ### HTTP API Endpoints for User Story 1
 
-- [ ] T025 [P] [US1] Create app/api/room/create/route.ts - POST endpoint to create room with Durable Object stub creation
-- [ ] T026 [P] [US1] Create app/api/room/[code]/route.ts - GET endpoint to validate room exists via Durable Object
-- [ ] T027 [P] [US1] Create app/api/room/[code]/join/route.ts - POST endpoint to join room with name uniqueness check
+- [x] T025 [P] [US1] Create app/api/room/create/route.ts - POST endpoint to create room with Durable Object stub creation
+- [x] T026 [P] [US1] Create app/api/room/[code]/route.ts - GET endpoint to validate room exists via Durable Object
+- [x] T027 [P] [US1] Create app/api/room/[code]/join/route.ts - POST endpoint to join room with name uniqueness check
 
 ### Durable Object Implementation for User Story 1
 
-- [ ] T028 [US1] Implement room creation logic in workers/room-durable-object.ts (generateRoomCode function, initialize state)
-- [ ] T029 [US1] Implement room validation logic in workers/room-durable-object.ts (check room exists, return metadata)
-- [ ] T030 [US1] Implement join room logic in workers/room-durable-object.ts (validate capacity, check duplicate names, add participant)
-- [ ] T031 [US1] Implement WebSocket connection handling in workers/room-durable-object.ts (upgrade, session management, broadcast)
-- [ ] T032 [US1] Implement JOIN message handler in workers/room-durable-object.ts (add participant, broadcast PLAYER_JOINED)
-- [ ] T033 [US1] Implement LEAVE message handler in workers/room-durable-object.ts (remove participant, broadcast PLAYER_LEFT, cleanup)
-- [ ] T034 [US1] Implement ROOM_STATE broadcast in workers/room-durable-object.ts (send full state on connection)
+- [x] T028 [US1] Implement room creation logic in workers/room-durable-object.ts (generateRoomCode function, initialize state)
+- [x] T029 [US1] Implement room validation logic in workers/room-durable-object.ts (check room exists, return metadata)
+- [x] T030 [US1] Implement join room logic in workers/room-durable-object.ts (validate capacity, check duplicate names, add participant)
+- [x] T031 [US1] Implement WebSocket connection handling in workers/room-durable-object.ts (upgrade, session management, broadcast)
+- [x] T032 [US1] Implement JOIN message handler in workers/room-durable-object.ts (add participant, broadcast PLAYER_JOINED)
+- [x] T033 [US1] Implement LEAVE message handler in workers/room-durable-object.ts (remove participant, broadcast PLAYER_LEFT, cleanup)
+- [x] T034 [US1] Implement ROOM_STATE broadcast in workers/room-durable-object.ts (send full state on connection)
 
 ### UI Components for User Story 1
 
-- [ ] T035 [P] [US1] Create app/components/create-room-form.tsx with name input and create button
-- [ ] T036 [P] [US1] Create app/components/join-room-form.tsx with name input, room code input, and join button
-- [ ] T037 [P] [US1] Create app/components/room-lobby.tsx with participant list display and ready status
-- [ ] T038 [P] [US1] Create app/components/participant-card.tsx with participant name, ready badge, and "You" indicator
-- [ ] T039 [P] [US1] Create app/components/room-code-display.tsx with large room code and copy button
+- [x] T035 [P] [US1] Create app/components/create-room-form.tsx with name input and create button
+- [x] T036 [P] [US1] Create app/components/join-room-form.tsx with name input, room code input, and join button
+- [x] T037 [P] [US1] Create app/components/room-lobby.tsx with participant list display and ready status
+- [x] T038 [P] [US1] Create app/components/participant-card.tsx with participant name, ready badge, and "You" indicator
+- [x] T039 [P] [US1] Create app/components/room-code-display.tsx with large room code and copy button
 
 ### Integration for User Story 1
 
-- [ ] T040 [US1] Update app/page.tsx to render CreateRoomForm and JoinRoomForm side-by-side (responsive grid)
-- [ ] T041 [US1] Implement create room flow in app/page.tsx (API call, navigate to /room/[code])
-- [ ] T042 [US1] Implement join room flow in app/page.tsx (validate code, API call, navigate to /room/[code])
-- [ ] T043 [US1] Update app/room/[code]/page.tsx to establish WebSocket connection using app/lib/websocket.ts
-- [ ] T044 [US1] Update app/room/[code]/page.tsx to send JOIN message on connection
-- [ ] T045 [US1] Update app/room/[code]/page.tsx to render RoomLobby with participants from ROOM_STATE
-- [ ] T046 [US1] Implement real-time participant updates (PLAYER_JOINED, PLAYER_LEFT) in app/room/[code]/page.tsx
-- [ ] T047 [US1] Add responsive design for mobile (320px+), tablet (768px+), desktop (1024px+) to all US1 components
-- [ ] T048 [US1] Add error handling for invalid room codes, network errors, and connection failures
-- [ ] T049 [US1] Verify clean code standards: component organization, TypeScript types, no unused code
+- [x] T040 [US1] Update app/page.tsx to render CreateRoomForm and JoinRoomForm side-by-side (responsive grid)
+- [x] T041 [US1] Implement create room flow in app/page.tsx (API call, navigate to /room/[code])
+- [x] T042 [US1] Implement join room flow in app/page.tsx (validate code, API call, navigate to /room/[code])
+- [x] T043 [US1] Update app/room/[code]/page.tsx to establish WebSocket connection using app/lib/websocket.ts
+- [x] T044 [US1] Update app/room/[code]/page.tsx to send JOIN message on connection
+- [x] T045 [US1] Update app/room/[code]/page.tsx to render RoomLobby with participants from ROOM_STATE
+- [x] T046 [US1] Implement real-time participant updates (PLAYER_JOINED, PLAYER_LEFT) in app/room/[code]/page.tsx
+- [x] T047 [US1] Add responsive design for mobile (320px+), tablet (768px+), desktop (1024px+) to all US1 components
+- [x] T048 [US1] Add error handling for invalid room codes, network errors, and connection failures
+- [x] T049 [US1] Verify clean code standards: component organization, TypeScript types, no unused code
 
 **Checkpoint**: User Story 1 complete - Users can create/join rooms and see participants in real-time
 
