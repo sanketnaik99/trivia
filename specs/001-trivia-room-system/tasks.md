@@ -44,20 +44,20 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T011 Create app/layout.tsx with root layout, metadata, and global Tailwind imports
-- [ ] T012 [P] Configure app/globals.css with Tailwind directives and custom CSS variables for theme
-- [ ] T013 [P] Create app/page.tsx as home page with placeholder for create/join forms
-- [ ] T014 [P] Create app/lib/utils.ts with cn() utility for className merging
-- [ ] T015 [P] Create components/ui/ directory and add shadcn/ui components (button.tsx, input.tsx, card.tsx, badge.tsx)
-- [ ] T016 Create app/lib/types.ts with TypeScript types for Room, Participant, Question, Round, GameState, ConnectionStatus
-- [ ] T017 Create app/lib/questions.ts with hardcoded array of 10 trivia questions (typed answer format with correctAnswer and acceptedAnswers)
-- [ ] T018 [P] Create app/lib/websocket.ts with WebSocket client wrapper (connection, reconnection logic, message handlers)
-- [ ] T019 [P] Create app/lib/room-state.ts with utility functions for room state management and answer normalization
-- [ ] T020 Create workers/room-durable-object.ts with base Durable Object class structure and WebSocket upgrade handler
-- [ ] T021 Create workers/types.ts with TypeScript types for WebSocket message protocol (ClientMessage, ServerMessage unions)
-- [ ] T022 Create app/room/[code]/page.tsx as room page with dynamic route parameter
-- [ ] T023 [P] Create app/components/loading.tsx with loading spinner component
-- [ ] T024 [P] Create app/components/error-display.tsx with error message component
+- [x] T011 Create app/layout.tsx with root layout, metadata, and global Tailwind imports
+- [x] T012 [P] Configure app/globals.css with Tailwind directives and custom CSS variables for theme
+- [x] T013 [P] Create app/page.tsx as home page with placeholder for create/join forms
+- [x] T014 [P] Create app/lib/utils.ts with cn() utility for className merging
+- [x] T015 [P] Create components/ui/ directory and add shadcn/ui components (button.tsx, input.tsx, card.tsx, badge.tsx)
+- [x] T016 Create app/lib/types.ts with TypeScript types for Room, Participant, Question, Round, GameState, ConnectionStatus
+- [x] T017 Create app/lib/questions.ts with hardcoded array of 10 trivia questions (typed answer format with correctAnswer and acceptedAnswers)
+- [x] T018 [P] Create app/lib/websocket.ts with WebSocket client wrapper (connection, reconnection logic, message handlers)
+- [x] T019 [P] Create app/lib/room-state.ts with utility functions for room state management and answer normalization
+- [x] T020 Create workers/room-durable-object.ts with base Durable Object class structure and WebSocket upgrade handler
+- [x] T021 Create workers/types.ts with TypeScript types for WebSocket message protocol (ClientMessage, ServerMessage unions)
+- [x] T022 Create app/room/[code]/page.tsx as room page with dynamic route parameter
+- [x] T023 [P] Create app/components/loading.tsx with loading spinner component
+- [x] T024 [P] Create app/components/error-display.tsx with error message component
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
