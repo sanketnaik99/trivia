@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreateRoomForm } from './components/create-room-form';
 import { JoinRoomForm } from './components/join-room-form';
+import { SlotMachine } from './components/slot-machine';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const router = useRouter();
@@ -11,6 +13,7 @@ export default function Home() {
   const [joinError, setJoinError] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isJoining, setIsJoining] = useState(false);
+  const [showSlotMachine, setShowSlotMachine] = useState(false);
 
   const handleCreateRoom = async (name: string) => {
     setIsCreating(true);
@@ -90,11 +93,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <main className="w-full max-w-4xl">
+      <main className="w-full max-w-4xl space-y-6">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">Trivia Room</h1>
           <p className="text-muted-foreground">Create or join a room to start playing!</p>
         </div>
+        
+        {/* Slot Machine Section */}
+        {showSlotMachine && (
+          <div className="flex justify-center">
+            <SlotMachine onClose={() => setShowSlotMachine(false)} />
+          </div>
+        )}
+        
+        {!showSlotMachine && (
+          <div className="flex justify-center">
+            <Button
+              onClick={() => setShowSlotMachine(true)}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold text-lg shadow-lg"
+              size="lg"
+            >
+              🎰 Play Slot Machine
+            </Button>
+          </div>
+        )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <CreateRoomForm

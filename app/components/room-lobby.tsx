@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { Participant } from '@/app/lib/types';
 import { ParticipantCard } from '@/app/components/participant-card';
 import { RoomCodeDisplay } from '@/app/components/room-code-display';
+import { SlotMachine } from '@/app/components/slot-machine';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -14,6 +16,7 @@ interface RoomLobbyProps {
 }
 
 export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle }: RoomLobbyProps) {
+  const [showSlotMachine, setShowSlotMachine] = useState(false);
   const readyCount = participants.filter((p) => p.isReady).length;
   const totalCount = participants.length;
   const allReady = readyCount === totalCount && totalCount > 1;
@@ -23,6 +26,11 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-4">
       <RoomCodeDisplay roomCode={roomCode} />
+
+      {/* Slot Machine */}
+      {showSlotMachine && (
+        <SlotMachine onClose={() => setShowSlotMachine(false)} />
+      )}
 
       <Card>
         <CardHeader>
@@ -40,7 +48,7 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
             </div>
           )}
           
-          <div className="mb-4">
+          <div className="mb-4 space-y-2">
             <Button
               onClick={onReadyToggle}
               variant={isReady ? 'outline' : 'default'}
@@ -48,6 +56,14 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
               size="lg"
             >
               {isReady ? 'Not Ready' : 'Ready to Play'}
+            </Button>
+            <Button
+              onClick={() => setShowSlotMachine(!showSlotMachine)}
+              variant="secondary"
+              className="w-full min-h-11 text-lg"
+              size="lg"
+            >
+              {showSlotMachine ? '🎰 Close Slot Machine' : '🎰 Play Slot Machine'}
             </Button>
           </div>
 
