@@ -115,6 +115,7 @@ export class RoomDurableObject {
     const [client, server] = Object.values(webSocketPair);
 
     // Accept the WebSocket using Hibernation API
+    // We'll store player ID in tags after JOIN message
     this.state.acceptWebSocket(server as WebSocket);
 
     return new Response(null, {
@@ -322,6 +323,9 @@ export class RoomDurableObject {
       }
     }
 
+    console.log(`READY message - Found playerId: ${playerId}, Sessions size: ${this.sessions.size}`);
+    console.log(`Active participants:`, Array.from(this.roomState.participants.keys()));
+
     if (!playerId) {
       this.sendError(ws, 'NOT_JOINED', 'You must join the room first');
       return;
@@ -333,9 +337,13 @@ export class RoomDurableObject {
       return;
     }
 
-    // Only allow ready state changes in lobby
-    if (this.roomState.gameState !== 'lobby') {
-      this.sendError(ws, 'INVALID_STATE', 'Can only change ready state in lobby');
+    // Debug logging
+    console.log(`READY message received. Current gameState: ${this.roomState.gameState}, isReady: ${payload.isReady}`);
+
+    // Allow ready state changes in lobby and results (T096)
+    if (this.roomState.gameState !== 'lobby' && this.roomState.gameState !== 'results') {
+      console.error(`Invalid state for READY: ${this.roomState.gameState}`);
+      this.sendError(ws, 'INVALID_STATE', `Can only change ready state in lobby or results (current: ${this.roomState.gameState})`);
       return;
     }
 
@@ -356,10 +364,15 @@ export class RoomDurableObject {
     const hasEnoughPlayers = this.roomState.participants.size >= 2;
 
     if (allReady && hasEnoughPlayers) {
-      // Start game after a short delay
-      setTimeout(() => {
-        this.startGame();
-      }, GAME_START_DELAY);
+      // If in results state, start next round (T097)
+      if (this.roomState.gameState === 'results') {
+        this.startNextRound();
+      } else {
+        // Start game after a short delay
+        setTimeout(() => {
+          this.startGame();
+        }, GAME_START_DELAY);
+      }
     }
   }
 
@@ -406,6 +419,29 @@ export class RoomDurableObject {
         duration: ROUND_DURATION,
       },
     });
+  }
+
+  // T097: Start next round from results state
+  private startNextRound() {
+    // Reset ready states for all participants
+    for (const participant of this.roomState.participants.values()) {
+      participant.isReady = false;
+    }
+
+    // Clear current round data
+    this.roomState.currentRound = null;
+    this.roomState.currentQuestion = null;
+
+    // Transition back to lobby
+    this.roomState.gameState = 'lobby';
+
+    // Broadcast updated room state to all
+    this.broadcastRoomState();
+
+    // Immediately start the next game (since all were ready)
+    setTimeout(() => {
+      this.startGame();
+    }, GAME_START_DELAY);
   }
 
   private selectQuestion(): Question | null {
@@ -596,6 +632,9 @@ export class RoomDurableObject {
         results,
       },
     });
+
+    // Broadcast room state to ensure all clients have updated gameState
+    this.broadcastRoomState();
 
     // Clear round timer
     this.roomState.roundTimer = null;

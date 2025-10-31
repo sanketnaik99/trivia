@@ -242,26 +242,26 @@
 
 ### Durable Object Implementation for User Story 5
 
-- [ ] T096 [P] [US5] Update READY handler in workers/room-durable-object.ts to work in "results" state
-- [ ] T097 [US5] Implement next round logic in workers/room-durable-object.ts (select new unused question, reset ready states)
-- [ ] T098 [US5] Implement room cleanup in workers/room-durable-object.ts (delete when all players leave)
-- [ ] T099 [US5] Add question tracking in workers/room-durable-object.ts (track used question IDs, avoid repeats)
+- [X] T096 [P] [US5] Update READY handler in workers/room-durable-object.ts to work in "results" state
+- [X] T097 [US5] Implement next round logic in workers/room-durable-object.ts (select new unused question, reset ready states)
+- [X] T098 [US5] Implement room cleanup in workers/room-durable-object.ts (delete when all players leave)
+- [X] T099 [US5] Add question tracking in workers/room-durable-object.ts (track used question IDs, avoid repeats)
 
 ### UI Components for User Story 5
 
-- [ ] T100 [P] [US5] Update app/components/round-results.tsx to add "Ready for Next Round" button
-- [ ] T101 [P] [US5] Update app/components/room-lobby.tsx to add "Leave Room" button
+- [X] T100 [P] [US5] Update app/components/round-results.tsx to add "Ready for Next Round" button
+- [X] T101 [P] [US5] Update app/components/room-lobby.tsx to add "Leave Room" button
 - [ ] T102 [P] [US5] Create app/components/leave-confirmation.tsx with confirmation dialog before leaving
 
 ### Integration for User Story 5
 
-- [ ] T103 [US5] Update app/room/[code]/page.tsx to handle ready up from results state (transition to lobby)
-- [ ] T104 [US5] Update app/room/[code]/page.tsx to handle leave room action (send LEAVE, navigate to home)
-- [ ] T105 [US5] Update app/room/[code]/page.tsx to handle PLAYER_LEFT updates (remove from participant list)
-- [ ] T106 [US5] Add navigation logic to return to home page after leaving in app/room/[code]/page.tsx
-- [ ] T107 [US5] Implement room cleanup detection (all players gone) in workers/room-durable-object.ts
-- [ ] T108 [US5] Add responsive design for continue/leave buttons (full width on mobile, inline on desktop)
-- [ ] T109 [US5] Verify clean code standards: clear navigation flow, proper cleanup
+- [X] T103 [US5] Update app/room/[code]/page.tsx to handle ready up from results state (transition to lobby)
+- [X] T104 [US5] Update app/room/[code]/page.tsx to handle leave room action (send LEAVE, navigate to home)
+- [X] T105 [US5] Update app/room/[code]/page.tsx to handle PLAYER_LEFT updates (remove from participant list)
+- [X] T106 [US5] Add navigation logic to return to home page after leaving in app/room/[code]/page.tsx
+- [X] T107 [US5] Implement room cleanup detection (all players gone) in workers/room-durable-object.ts
+- [X] T108 [US5] Add responsive design for continue/leave buttons (full width on mobile, inline on desktop)
+- [X] T109 [US5] Verify clean code standards: clear navigation flow, proper cleanup
 
 **Checkpoint**: User Story 5 complete - Players can play multiple rounds or leave gracefully
 

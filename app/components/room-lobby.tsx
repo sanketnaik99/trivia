@@ -11,9 +11,10 @@ interface RoomLobbyProps {
   participants: Participant[];
   currentUserId: string;
   onReadyToggle?: () => void;
+  onLeaveRoom?: () => void;
 }
 
-export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle }: RoomLobbyProps) {
+export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom }: RoomLobbyProps) {
   const readyCount = participants.filter((p) => p.isReady).length;
   const totalCount = participants.length;
   const allReady = readyCount === totalCount && totalCount > 1;
@@ -40,7 +41,7 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
             </div>
           )}
           
-          <div className="mb-4">
+          <div className="mb-4 space-y-2">
             <Button
               onClick={onReadyToggle}
               variant={isReady ? 'outline' : 'default'}
@@ -49,6 +50,18 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
             >
               {isReady ? 'Not Ready' : 'Ready to Play'}
             </Button>
+            
+            {/* T101: Leave Room button */}
+            {onLeaveRoom && (
+              <Button
+                onClick={onLeaveRoom}
+                variant="ghost"
+                className="w-full sm:w-auto"
+                size="sm"
+              >
+                Leave Room
+              </Button>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
