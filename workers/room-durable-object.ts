@@ -25,6 +25,72 @@ interface Env {
 }
 
 const MAX_PARTICIPANTS = 8;
+const GAME_START_DELAY = 15000; // 15 seconds countdown before game starts
+const ROUND_DURATION = 180000; // 3 minutes in milliseconds
+
+// Hardcoded questions (same as in app/lib/questions.ts)
+const QUESTIONS: Question[] = [
+  {
+    id: 'q1',
+    text: 'What is the capital of France?',
+    correctAnswer: 'Paris',
+    acceptedAnswers: ['Paris'],
+  },
+  {
+    id: 'q2',
+    text: 'Who painted the Mona Lisa?',
+    correctAnswer: 'Leonardo da Vinci',
+    acceptedAnswers: ['Leonardo da Vinci', 'Da Vinci', 'Leonardo Di Ser Piero Da Vinci'],
+  },
+  {
+    id: 'q3',
+    text: 'What is the largest planet in our solar system?',
+    correctAnswer: 'Jupiter',
+    acceptedAnswers: ['Jupiter'],
+  },
+  {
+    id: 'q4',
+    text: 'What year did World War II end?',
+    correctAnswer: '1945',
+    acceptedAnswers: ['1945'],
+  },
+  {
+    id: 'q5',
+    text: 'What is the chemical symbol for gold?',
+    correctAnswer: 'Au',
+    acceptedAnswers: ['Au', 'AU'],
+  },
+  {
+    id: 'q6',
+    text: 'What is the smallest country in the world?',
+    correctAnswer: 'Vatican City',
+    acceptedAnswers: ['Vatican City', 'Vatican', 'The Vatican'],
+  },
+  {
+    id: 'q7',
+    text: 'How many continents are there?',
+    correctAnswer: '7',
+    acceptedAnswers: ['7', 'Seven', 'seven'],
+  },
+  {
+    id: 'q8',
+    text: 'What is the speed of light in meters per second? (rounded to nearest million)',
+    correctAnswer: '300000000',
+    acceptedAnswers: ['300000000', '3e8', '3×10^8', '300 million'],
+  },
+  {
+    id: 'q9',
+    text: 'Who wrote "Romeo and Juliet"?',
+    correctAnswer: 'William Shakespeare',
+    acceptedAnswers: ['William Shakespeare', 'Shakespeare', 'W. Shakespeare'],
+  },
+  {
+    id: 'q10',
+    text: 'What is the largest ocean on Earth?',
+    correctAnswer: 'Pacific Ocean',
+    acceptedAnswers: ['Pacific Ocean', 'Pacific', 'The Pacific'],
+  },
+];
 
 export class RoomDurableObject {
   private state: DurableObjectState;
@@ -218,7 +284,7 @@ export class RoomDurableObject {
         await this.handleJoinMessage(ws, message.payload);
         break;
       case 'READY':
-        await this.handleReadyMessage();
+        await this.handleReadyMessage(ws, message.payload);
         break;
       case 'ANSWER':
         await this.handleAnswerMessage();
@@ -282,9 +348,113 @@ export class RoomDurableObject {
     this.sendRoomState(ws);
   }
 
-  private async handleReadyMessage() {
-    // Ready logic will be implemented in Phase 4 (User Story 2)
-    console.log('Ready message received - will be implemented in Phase 4');
+  private async handleReadyMessage(ws: WebSocket, payload: { isReady: boolean }) {
+    // Find player ID for this WebSocket
+    let playerId: string | null = null;
+    for (const [id, session] of this.sessions.entries()) {
+      if (session === ws) {
+        playerId = id;
+        break;
+      }
+    }
+
+    if (!playerId) {
+      this.sendError(ws, 'NOT_JOINED', 'You must join the room first');
+      return;
+    }
+
+    const participant = this.roomState.participants.get(playerId);
+    if (!participant) {
+      this.sendError(ws, 'PARTICIPANT_NOT_FOUND', 'Participant not found');
+      return;
+    }
+
+    // Only allow ready state changes in lobby
+    if (this.roomState.gameState !== 'lobby') {
+      this.sendError(ws, 'INVALID_STATE', 'Can only change ready state in lobby');
+      return;
+    }
+
+    // Toggle ready status
+    participant.isReady = payload.isReady;
+
+    // Broadcast ready state change to all participants
+    this.broadcast({
+      type: 'PLAYER_READY',
+      payload: {
+        playerId: participant.id,
+        isReady: participant.isReady,
+      },
+    });
+
+    // Check if all players are ready and there are at least 2 players
+    const allReady = Array.from(this.roomState.participants.values()).every(p => p.isReady);
+    const hasEnoughPlayers = this.roomState.participants.size >= 2;
+
+    if (allReady && hasEnoughPlayers) {
+      // Start game after a short delay
+      setTimeout(() => {
+        this.startGame();
+      }, GAME_START_DELAY);
+    }
+  }
+
+  private startGame() {
+    // Select a random unused question
+    const question = this.selectQuestion();
+    if (!question) {
+      console.error('No questions available');
+      return;
+    }
+
+    // Create round
+    const startTime = Date.now();
+    this.roomState.currentQuestion = question;
+    this.roomState.currentRound = {
+      questionId: question.id,
+      startTime,
+      duration: ROUND_DURATION,
+      answers: [],
+      winnerId: null,
+    };
+    this.roomState.gameState = 'active';
+
+    // Reset all participants to not ready and mark as connected
+    for (const participant of this.roomState.participants.values()) {
+      participant.isReady = false;
+    }
+
+    // Broadcast game start to all participants (question without answers)
+    this.broadcast({
+      type: 'GAME_START',
+      payload: {
+        question: {
+          id: question.id,
+          text: question.text,
+        },
+        startTime,
+        duration: ROUND_DURATION,
+      },
+    });
+  }
+
+  private selectQuestion(): Question | null {
+    // Get questions that haven't been used yet
+    const unusedQuestions = QUESTIONS.filter(
+      q => !this.roomState.usedQuestionIds.includes(q.id)
+    );
+
+    if (unusedQuestions.length === 0) {
+      // If all questions have been used, reset and start over
+      this.roomState.usedQuestionIds = [];
+      return QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
+    }
+
+    // Select a random unused question
+    const selectedQuestion = unusedQuestions[Math.floor(Math.random() * unusedQuestions.length)];
+    this.roomState.usedQuestionIds.push(selectedQuestion.id);
+    
+    return selectedQuestion;
   }
 
   private async handleAnswerMessage() {

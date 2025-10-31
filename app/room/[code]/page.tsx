@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { Participant } from '@/app/lib/types';
 import { RoomLobby } from '@/app/components/room-lobby';
+import { GameCountdown } from '@/app/components/game-countdown';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
 
@@ -13,6 +14,8 @@ type ServerMessage =
   | { type: 'ROOM_STATE'; payload: RoomState }
   | { type: 'PLAYER_JOINED'; payload: { participant: Participant } }
   | { type: 'PLAYER_LEFT'; payload: { playerId: string; playerName: string } }
+  | { type: 'PLAYER_READY'; payload: { playerId: string; isReady: boolean } }
+  | { type: 'GAME_START'; payload: { question: { id: string; text: string }; startTime: number; duration: number } }
   | { type: 'ERROR'; payload: { code: string; message: string } };
 
 interface RoomState {
@@ -33,6 +36,7 @@ export default function RoomPage() {
   const [room, setRoom] = useState<RoomState | null>(null);
   const [playerId, setPlayerId] = useState<string>('');
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
+  const [showCountdown, setShowCountdown] = useState(false);
   
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -66,6 +70,50 @@ export default function RoomPage() {
             participants: prevRoom.participants.filter(
               (p) => p.id !== message.payload.playerId
             ),
+          };
+        });
+        break;
+      
+      case 'PLAYER_READY':
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          const updatedParticipants = prevRoom.participants.map((p) =>
+            p.id === message.payload.playerId
+              ? { ...p, isReady: message.payload.isReady }
+              : p
+          );
+          
+          // Check if all players are ready and trigger countdown
+          const allReady = updatedParticipants.every((p) => p.isReady);
+          const enoughPlayers = updatedParticipants.length >= 2;
+          
+          if (allReady && enoughPlayers && message.payload.isReady) {
+            setShowCountdown(true);
+          } else {
+            setShowCountdown(false);
+          }
+          
+          return {
+            ...prevRoom,
+            participants: updatedParticipants,
+          };
+        });
+        break;
+      
+      case 'GAME_START':
+        // Hide countdown and transition to game view
+        setShowCountdown(false);
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          return {
+            ...prevRoom,
+            gameState: 'active',
+            currentQuestion: message.payload.question,
+            currentRound: {
+              startTime: message.payload.startTime,
+              duration: message.payload.duration,
+              answeredCount: 0,
+            },
           };
         });
         break;
@@ -148,6 +196,21 @@ export default function RoomPage() {
     connectFnRef.current = connectWebSocket;
   }, [connectWebSocket]);
 
+  const handleReadyToggle = useCallback(() => {
+    if (!wsRef.current || !room) return;
+
+    const currentUser = room.participants.find((p) => p.id === playerId);
+    if (!currentUser) return;
+
+    // Send READY message to toggle ready state
+    wsRef.current.send(JSON.stringify({
+      type: 'READY',
+      payload: {
+        isReady: !currentUser.isReady,
+      },
+    }));
+  }, [room, playerId]);
+
   useEffect(() => {
     // Get player info from sessionStorage
     const storedPlayerId = sessionStorage.getItem('playerId');
@@ -201,11 +264,33 @@ export default function RoomPage() {
           </div>
         )}
         
-        <RoomLobby
-          roomCode={roomCode}
-          participants={room.participants}
-          currentUserId={playerId}
-        />
+        {showCountdown ? (
+          <GameCountdown onComplete={() => setShowCountdown(false)} />
+        ) : (
+          <>
+            {room.gameState === 'lobby' && (
+              <RoomLobby
+                roomCode={roomCode}
+                participants={room.participants}
+                currentUserId={playerId}
+                onReadyToggle={handleReadyToggle}
+              />
+            )}
+
+            {room.gameState === 'active' && (
+              <div className="text-center p-8">
+                <p className="text-2xl">Game is active - This will be implemented in Phase 5</p>
+                <p className="text-muted-foreground mt-4">Question: {room.currentQuestion ? JSON.stringify(room.currentQuestion) : 'Loading...'}</p>
+              </div>
+            )}
+
+            {room.gameState === 'results' && (
+              <div className="text-center p-8">
+                <p className="text-2xl">Results - This will be implemented in Phase 6</p>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

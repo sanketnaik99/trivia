@@ -126,26 +126,26 @@
 
 ### Durable Object Implementation for User Story 2
 
-- [ ] T050 [P] [US2] Implement READY message handler in workers/room-durable-object.ts (toggle ready status)
-- [ ] T051 [US2] Implement ready state broadcast in workers/room-durable-object.ts (PLAYER_READY message to all)
-- [ ] T052 [US2] Implement auto-start game logic in workers/room-durable-object.ts (check all ready, select question, create round)
-- [ ] T053 [US2] Implement GAME_START broadcast in workers/room-durable-object.ts (send question without answers, startTime, duration)
-- [ ] T054 [US2] Implement question selection logic in workers/room-durable-object.ts (random unused question from 10 hardcoded)
+- [x] T050 [P] [US2] Implement READY message handler in workers/room-durable-object.ts (toggle ready status)
+- [x] T051 [US2] Implement ready state broadcast in workers/room-durable-object.ts (PLAYER_READY message to all)
+- [x] T052 [US2] Implement auto-start game logic in workers/room-durable-object.ts (check all ready, select question, create round)
+- [x] T053 [US2] Implement GAME_START broadcast in workers/room-durable-object.ts (send question without answers, startTime, duration)
+- [x] T054 [US2] Implement question selection logic in workers/room-durable-object.ts (random unused question from 10 hardcoded)
 
 ### UI Components for User Story 2
 
-- [ ] T055 [P] [US2] Update app/components/room-lobby.tsx to add Ready/Unready button for each participant
-- [ ] T056 [P] [US2] Update app/components/participant-card.tsx to show ready status badge (green/gray)
-- [ ] T057 [P] [US2] Create app/components/game-countdown.tsx with 3-2-1 countdown animation before question appears
+- [x] T055 [P] [US2] Update app/components/room-lobby.tsx to add Ready/Unready button for each participant
+- [x] T056 [P] [US2] Update app/components/participant-card.tsx to show ready status badge (green/gray)
+- [x] T057 [P] [US2] Create app/components/game-countdown.tsx with 3-2-1 countdown animation before question appears
 
 ### Integration for User Story 2
 
-- [ ] T058 [US2] Update app/room/[code]/page.tsx to send READY message when user clicks ready button
-- [ ] T059 [US2] Update app/room/[code]/page.tsx to handle PLAYER_READY updates and re-render lobby
-- [ ] T060 [US2] Update app/room/[code]/page.tsx to handle GAME_START message and transition to game view
-- [ ] T061 [US2] Add responsive design verification for ready buttons (44x44px touch targets on mobile)
-- [ ] T062 [US2] Add visual feedback for ready status changes (smooth transitions, color changes)
-- [ ] T063 [US2] Verify clean code standards: clear state management, no prop drilling
+- [x] T058 [US2] Update app/room/[code]/page.tsx to send READY message when user clicks ready button
+- [x] T059 [US2] Update app/room/[code]/page.tsx to handle PLAYER_READY updates and re-render lobby
+- [x] T060 [US2] Update app/room/[code]/page.tsx to handle GAME_START message and transition to game view
+- [x] T061 [US2] Add responsive design verification for ready buttons (44x44px touch targets on mobile)
+- [x] T062 [US2] Add visual feedback for ready status changes (smooth transitions, color changes)
+- [x] T063 [US2] Verify clean code standards: clear state management, no prop drilling
 
 **Checkpoint**: User Story 2 complete - Players can ready up and game auto-starts
 

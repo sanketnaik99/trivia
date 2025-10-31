@@ -4,17 +4,21 @@ import { Participant } from '@/app/lib/types';
 import { ParticipantCard } from '@/app/components/participant-card';
 import { RoomCodeDisplay } from '@/app/components/room-code-display';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 interface RoomLobbyProps {
   roomCode: string;
   participants: Participant[];
   currentUserId: string;
+  onReadyToggle?: () => void;
 }
 
-export function RoomLobby({ roomCode, participants, currentUserId }: RoomLobbyProps) {
+export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle }: RoomLobbyProps) {
   const readyCount = participants.filter((p) => p.isReady).length;
   const totalCount = participants.length;
-  const allReady = readyCount === totalCount && totalCount > 0;
+  const allReady = readyCount === totalCount && totalCount > 1;
+  const currentUser = participants.find((p) => p.id === currentUserId);
+  const isReady = currentUser?.isReady || false;
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-4">
@@ -35,6 +39,18 @@ export function RoomLobby({ roomCode, participants, currentUserId }: RoomLobbyPr
               All players ready! Game starting soon...
             </div>
           )}
+          
+          <div className="mb-4">
+            <Button
+              onClick={onReadyToggle}
+              variant={isReady ? 'outline' : 'default'}
+              className="w-full min-h-11 text-lg"
+              size="lg"
+            >
+              {isReady ? 'Not Ready' : 'Ready to Play'}
+            </Button>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {participants.map((participant) => (
               <ParticipantCard
