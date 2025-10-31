@@ -9,4 +9,4 @@ script_name = "trivia-room-workers"
 
 [[migrations]]
 tag = "v1"
-new_classes = ["RoomDurableObject"]
+new_sqlite_classes = ["RoomDurableObject"]
