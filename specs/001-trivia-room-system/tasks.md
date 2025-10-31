@@ -25,16 +25,16 @@
 
 **Purpose**: Project initialization and basic structure for Next.js + Cloudflare Workers
 
-- [ ] T001 Initialize Next.js 16.0.1 project with TypeScript and App Router at repository root
-- [ ] T002 Install core dependencies: react@19.2.0, next@16.0.1, typescript@5+, tailwindcss@4
-- [ ] T003 [P] Configure TypeScript with strict mode in tsconfig.json
-- [ ] T004 [P] Configure ESLint per constitution (no testing rules) in eslint.config.mjs
-- [ ] T005 [P] Setup Tailwind CSS 4 configuration with responsive breakpoints (320px, 768px, 1024px) in tailwind.config.ts
-- [ ] T006 [P] Initialize shadcn/ui and install core components (Button, Input, Card, Badge)
-- [ ] T007 [P] Create workers/ directory and initialize Cloudflare Workers project
-- [ ] T008 [P] Configure wrangler.toml for Durable Objects with RoomDurableObject binding
-- [ ] T009 [P] Setup environment variables in .env.local (NEXT_PUBLIC_WS_URL, NEXT_PUBLIC_API_URL)
-- [ ] T010 Create .gitignore to exclude node_modules, .env.local, .next, .wrangler
+- [x] T001 Initialize Next.js 16.0.1 project with TypeScript and App Router at repository root
+- [x] T002 Install core dependencies: react@19.2.0, next@16.0.1, typescript@5+, tailwindcss@4
+- [x] T003 [P] Configure TypeScript with strict mode in tsconfig.json
+- [x] T004 [P] Configure ESLint per constitution (no testing rules) in eslint.config.mjs
+- [x] T005 [P] Setup Tailwind CSS 4 configuration with responsive breakpoints (320px, 768px, 1024px) in tailwind.config.ts
+- [x] T006 [P] Initialize shadcn/ui and install core components (Button, Input, Card, Badge)
+- [x] T007 [P] Create workers/ directory and initialize Cloudflare Workers project
+- [x] T008 [P] Configure wrangler.toml for Durable Objects with RoomDurableObject binding
+- [x] T009 [P] Setup environment variables in .env.local (NEXT_PUBLIC_WS_URL, NEXT_PUBLIC_API_URL)
+- [x] T010 Create .gitignore to exclude node_modules, .env.local, .next, .wrangler
 
 ---
 
