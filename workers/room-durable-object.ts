@@ -12,12 +12,20 @@ interface Question {
   acceptedAnswers?: string[];
 }
 
+interface ParticipantAnswer {
+  participantId: string;
+  answerText: string | null;
+  timestamp: number | null;
+  isCorrect: boolean;
+}
+
 interface Round {
   questionId: string;
   startTime: number;
   duration: number;
-  answers: unknown[];
+  participantAnswers: ParticipantAnswer[];
   winnerId: string | null;
+  endTime: number | null;
 }
 
 interface Env {
@@ -103,6 +111,7 @@ export class RoomDurableObject {
     currentQuestion: Question | null;
     currentRound: Round | null;
     usedQuestionIds: string[];
+    roundTimer: ReturnType<typeof setTimeout> | null;
   };
 
   constructor(state: DurableObjectState, env: Env) {
@@ -116,6 +125,7 @@ export class RoomDurableObject {
       currentQuestion: null,
       currentRound: null,
       usedQuestionIds: [],
+      roundTimer: null,
     };
   }
 
@@ -287,7 +297,7 @@ export class RoomDurableObject {
         await this.handleReadyMessage(ws, message.payload);
         break;
       case 'ANSWER':
-        await this.handleAnswerMessage();
+        await this.handleAnswerMessage(ws, message.payload);
         break;
       case 'LEAVE':
         await this.handleLeaveMessage(ws);
@@ -414,8 +424,9 @@ export class RoomDurableObject {
       questionId: question.id,
       startTime,
       duration: ROUND_DURATION,
-      answers: [],
+      participantAnswers: [],
       winnerId: null,
+      endTime: null,
     };
     this.roomState.gameState = 'active';
 
@@ -423,6 +434,11 @@ export class RoomDurableObject {
     for (const participant of this.roomState.participants.values()) {
       participant.isReady = false;
     }
+
+    // Set up timer to auto-end round after 3 minutes
+    this.roomState.roundTimer = setTimeout(() => {
+      this.endRound();
+    }, ROUND_DURATION);
 
     // Broadcast game start to all participants (question without answers)
     this.broadcast({
@@ -457,9 +473,174 @@ export class RoomDurableObject {
     return selectedQuestion;
   }
 
-  private async handleAnswerMessage() {
-    // Answer logic will be implemented in Phase 5 (User Story 3)
-    console.log('Answer message received - will be implemented in Phase 5');
+  private async handleAnswerMessage(ws: WebSocket, payload: { answerText: string; timestamp: number }) {
+    // Find player ID for this WebSocket
+    let playerId: string | null = null;
+    for (const [id, session] of this.sessions.entries()) {
+      if (session === ws) {
+        playerId = id;
+        break;
+      }
+    }
+
+    if (!playerId) {
+      this.sendError(ws, 'NOT_JOINED', 'You must join the room first');
+      return;
+    }
+
+    // Validate game state
+    if (this.roomState.gameState !== 'active') {
+      this.sendError(ws, 'INVALID_STATE', 'Cannot answer when game is not active');
+      return;
+    }
+
+    if (!this.roomState.currentRound || !this.roomState.currentQuestion) {
+      this.sendError(ws, 'NO_ACTIVE_ROUND', 'No active round');
+      return;
+    }
+
+    // Check if player already answered
+    const existingAnswer = this.roomState.currentRound.participantAnswers.find(
+      pa => pa.participantId === playerId
+    );
+    if (existingAnswer) {
+      this.sendError(ws, 'ALREADY_ANSWERED', 'You have already answered this question');
+      return;
+    }
+
+    // Validate timestamp (must be within round duration)
+    if (payload.timestamp < 0 || payload.timestamp > ROUND_DURATION) {
+      this.sendError(ws, 'INVALID_TIMESTAMP', 'Invalid timestamp');
+      return;
+    }
+
+    // Normalize and check answer correctness
+    const isCorrect = this.checkAnswer(payload.answerText, this.roomState.currentQuestion);
+
+    // Store answer
+    const participantAnswer: ParticipantAnswer = {
+      participantId: playerId,
+      answerText: payload.answerText,
+      timestamp: payload.timestamp,
+      isCorrect,
+    };
+    this.roomState.currentRound.participantAnswers.push(participantAnswer);
+
+    // Send confirmation to submitter (T065)
+    const confirmMessage: ServerMessage = {
+      type: 'ANSWER_SUBMITTED',
+      payload: {
+        answerText: payload.answerText,
+        timestamp: payload.timestamp,
+      },
+    };
+    try {
+      ws.send(JSON.stringify(confirmMessage));
+    } catch (error) {
+      console.error('Failed to send answer confirmation:', error);
+    }
+
+    // Broadcast answer count update to all (T066)
+    this.broadcast({
+      type: 'ANSWER_COUNT_UPDATE',
+      payload: {
+        answeredCount: this.roomState.currentRound.participantAnswers.length,
+        totalCount: this.roomState.participants.size,
+      },
+    });
+
+    // Check if all participants have answered (T068)
+    if (this.roomState.currentRound.participantAnswers.length === this.roomState.participants.size) {
+      // Clear the timer and end the round immediately
+      if (this.roomState.roundTimer) {
+        clearTimeout(this.roomState.roundTimer);
+        this.roomState.roundTimer = null;
+      }
+      this.endRound();
+    }
+  }
+
+  private normalizeAnswer(answer: string): string {
+    return answer.trim().toLowerCase();
+  }
+
+  private checkAnswer(userAnswer: string, question: Question): boolean {
+    const normalized = this.normalizeAnswer(userAnswer);
+    const correctNormalized = this.normalizeAnswer(question.correctAnswer);
+
+    if (normalized === correctNormalized) {
+      return true;
+    }
+
+    // Check accepted alternatives
+    if (question.acceptedAnswers) {
+      return question.acceptedAnswers.some(
+        accepted => this.normalizeAnswer(accepted) === normalized
+      );
+    }
+
+    return false;
+  }
+
+  private endRound() {
+    if (!this.roomState.currentRound || !this.roomState.currentQuestion) {
+      return;
+    }
+
+    // Mark round as ended
+    this.roomState.currentRound.endTime = Date.now();
+
+    // Add empty answers for participants who didn't answer
+    for (const participant of this.roomState.participants.values()) {
+      const hasAnswered = this.roomState.currentRound.participantAnswers.some(
+        pa => pa.participantId === participant.id
+      );
+      if (!hasAnswered) {
+        this.roomState.currentRound.participantAnswers.push({
+          participantId: participant.id,
+          answerText: null,
+          timestamp: null,
+          isCorrect: false,
+        });
+      }
+    }
+
+    // Calculate winner (fastest correct answer)
+    const correctAnswers = this.roomState.currentRound.participantAnswers
+      .filter(pa => pa.isCorrect && pa.timestamp !== null)
+      .sort((a, b) => (a.timestamp ?? Infinity) - (b.timestamp ?? Infinity));
+
+    const winnerId = correctAnswers.length > 0 ? correctAnswers[0].participantId : null;
+    this.roomState.currentRound.winnerId = winnerId;
+
+    // Prepare results with participant names
+    const results = this.roomState.currentRound.participantAnswers.map(pa => {
+      const participant = this.roomState.participants.get(pa.participantId);
+      return {
+        participantId: pa.participantId,
+        participantName: participant?.name ?? 'Unknown',
+        answerText: pa.answerText,
+        timestamp: pa.timestamp,
+        isCorrect: pa.isCorrect,
+      };
+    });
+
+    // Transition to results state
+    this.roomState.gameState = 'results';
+
+    // Broadcast round end with results
+    this.broadcast({
+      type: 'ROUND_END',
+      payload: {
+        correctAnswer: this.roomState.currentQuestion.correctAnswer,
+        acceptedAnswers: this.roomState.currentQuestion.acceptedAnswers ?? [this.roomState.currentQuestion.correctAnswer],
+        winnerId,
+        results,
+      },
+    });
+
+    // Clear round timer
+    this.roomState.roundTimer = null;
   }
 
   private async handleLeaveMessage(ws: WebSocket) {
@@ -496,6 +677,11 @@ export class RoomDurableObject {
 
     // If no participants left, clean up room state
     if (this.roomState.participants.size === 0) {
+      // Clear any active timers
+      if (this.roomState.roundTimer) {
+        clearTimeout(this.roomState.roundTimer);
+      }
+      
       this.roomState = {
         code: '',
         participants: new Map(),
@@ -503,6 +689,7 @@ export class RoomDurableObject {
         currentQuestion: null,
         currentRound: null,
         usedQuestionIds: [],
+        roundTimer: null,
       };
     }
   }

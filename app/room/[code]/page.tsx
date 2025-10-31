@@ -5,6 +5,9 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Participant } from '@/app/lib/types';
 import { RoomLobby } from '@/app/components/room-lobby';
 import { GameCountdown } from '@/app/components/game-countdown';
+import { GameQuestion } from '@/app/components/game-question';
+import { GameTimer } from '@/app/components/game-timer';
+import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
 
@@ -16,14 +19,38 @@ type ServerMessage =
   | { type: 'PLAYER_LEFT'; payload: { playerId: string; playerName: string } }
   | { type: 'PLAYER_READY'; payload: { playerId: string; isReady: boolean } }
   | { type: 'GAME_START'; payload: { question: { id: string; text: string }; startTime: number; duration: number } }
+  | { type: 'ANSWER_SUBMITTED'; payload: { answerText: string; timestamp: number } }
+  | { type: 'ANSWER_COUNT_UPDATE'; payload: { answeredCount: number; totalCount: number } }
+  | { type: 'ROUND_END'; payload: RoundEndPayload }
   | { type: 'ERROR'; payload: { code: string; message: string } };
+
+interface ResultEntry {
+  participantId: string;
+  participantName: string;
+  answerText: string | null;
+  timestamp: number | null;
+  isCorrect: boolean;
+}
+
+interface RoundEndPayload {
+  correctAnswer: string;
+  acceptedAnswers: string[];
+  winnerId: string | null;
+  results: ResultEntry[];
+}
+
+interface CurrentRound {
+  startTime: number;
+  duration: number;
+  answeredCount: number;
+}
 
 interface RoomState {
   roomCode: string;
   gameState: 'lobby' | 'active' | 'results';
   participants: Participant[];
-  currentQuestion: unknown;
-  currentRound: unknown;
+  currentQuestion: { id: string; text: string } | null;
+  currentRound: CurrentRound | null;
 }
 
 export default function RoomPage() {
@@ -37,6 +64,8 @@ export default function RoomPage() {
   const [playerId, setPlayerId] = useState<string>('');
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const [showCountdown, setShowCountdown] = useState(false);
+  const [hasAnswered, setHasAnswered] = useState(false);
+  const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -103,6 +132,8 @@ export default function RoomPage() {
       case 'GAME_START':
         // Hide countdown and transition to game view
         setShowCountdown(false);
+        setHasAnswered(false);
+        setGameStartTime(message.payload.startTime);
         setRoom((prevRoom) => {
           if (!prevRoom) return prevRoom;
           return {
@@ -114,6 +145,37 @@ export default function RoomPage() {
               duration: message.payload.duration,
               answeredCount: 0,
             },
+          };
+        });
+        break;
+      
+      case 'ANSWER_SUBMITTED':
+        // Mark that we've submitted an answer (T076)
+        setHasAnswered(true);
+        break;
+      
+      case 'ANSWER_COUNT_UPDATE':
+        // Update answered count (T077)
+        setRoom((prevRoom) => {
+          if (!prevRoom || !prevRoom.currentRound) return prevRoom;
+          return {
+            ...prevRoom,
+            currentRound: {
+              ...prevRoom.currentRound,
+              answeredCount: message.payload.answeredCount,
+            },
+          };
+        });
+        break;
+      
+      case 'ROUND_END':
+        // Transition to results state
+        console.log('Round ended:', message.payload);
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          return {
+            ...prevRoom,
+            gameState: 'results',
           };
         });
         break;
@@ -211,6 +273,22 @@ export default function RoomPage() {
     }));
   }, [room, playerId]);
 
+  const handleSubmitAnswer = useCallback((answer: string) => {
+    if (!wsRef.current || !gameStartTime) return;
+
+    // Calculate timestamp from round start (T075)
+    const timestamp = Date.now() - gameStartTime;
+
+    // Send ANSWER message
+    wsRef.current.send(JSON.stringify({
+      type: 'ANSWER',
+      payload: {
+        answerText: answer,
+        timestamp,
+      },
+    }));
+  }, [gameStartTime]);
+
   useEffect(() => {
     // Get player info from sessionStorage
     const storedPlayerId = sessionStorage.getItem('playerId');
@@ -277,10 +355,27 @@ export default function RoomPage() {
               />
             )}
 
-            {room.gameState === 'active' && (
-              <div className="text-center p-8">
-                <p className="text-2xl">Game is active - This will be implemented in Phase 5</p>
-                <p className="text-muted-foreground mt-4">Question: {room.currentQuestion ? JSON.stringify(room.currentQuestion) : 'Loading...'}</p>
+            {room.gameState === 'active' && room.currentQuestion && room.currentRound && (
+              <div className="space-y-6">
+                {/* Timer at the top (T074) */}
+                <GameTimer
+                  startTime={room.currentRound.startTime}
+                  duration={room.currentRound.duration}
+                />
+
+                {/* Question or Waiting State */}
+                {hasAnswered ? (
+                  <WaitingState
+                    answeredCount={room.currentRound.answeredCount}
+                    totalCount={room.participants.length}
+                  />
+                ) : (
+                  <GameQuestion
+                    questionText={room.currentQuestion.text}
+                    onSubmitAnswer={handleSubmitAnswer}
+                    disabled={hasAnswered}
+                  />
+                )}
               </div>
             )}
 

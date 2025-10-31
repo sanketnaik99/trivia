@@ -164,30 +164,30 @@
 
 ### Durable Object Implementation for User Story 3
 
-- [ ] T064 [P] [US3] Implement ANSWER message handler in workers/room-durable-object.ts (validate, store answerText and timestamp)
-- [ ] T065 [US3] Implement ANSWER_SUBMITTED confirmation in workers/room-durable-object.ts (send to submitter)
-- [ ] T066 [US3] Implement ANSWER_COUNT_UPDATE broadcast in workers/room-durable-object.ts (answeredCount/totalCount)
-- [ ] T067 [US3] Implement timer logic in workers/room-durable-object.ts (3-minute server-side timer, auto-end round)
-- [ ] T068 [US3] Implement round end detection in workers/room-durable-object.ts (all answered OR timer expired)
+- [x] T064 [P] [US3] Implement ANSWER message handler in workers/room-durable-object.ts (validate, store answerText and timestamp)
+- [x] T065 [US3] Implement ANSWER_SUBMITTED confirmation in workers/room-durable-object.ts (send to submitter)
+- [x] T066 [US3] Implement ANSWER_COUNT_UPDATE broadcast in workers/room-durable-object.ts (answeredCount/totalCount)
+- [x] T067 [US3] Implement timer logic in workers/room-durable-object.ts (3-minute server-side timer, auto-end round)
+- [x] T068 [US3] Implement round end detection in workers/room-durable-object.ts (all answered OR timer expired)
 
 ### UI Components for User Story 3
 
-- [ ] T069 [P] [US3] Create app/components/game-question.tsx with question text, text input field, and submit button
-- [ ] T070 [P] [US3] Create app/components/game-timer.tsx with countdown display (MM:SS format) and progress bar
-- [ ] T071 [P] [US3] Create app/components/waiting-state.tsx with "Waiting for others" message and answer progress
-- [ ] T072 [P] [US3] Update app/components/game-question.tsx to disable input after submission
+- [x] T069 [P] [US3] Create app/components/game-question.tsx with question text, text input field, and submit button
+- [x] T070 [P] [US3] Create app/components/game-timer.tsx with countdown display (MM:SS format) and progress bar
+- [x] T071 [P] [US3] Create app/components/waiting-state.tsx with "Waiting for others" message and answer progress
+- [x] T072 [P] [US3] Update app/components/game-question.tsx to disable input after submission
 
 ### Integration for User Story 3
 
-- [ ] T073 [US3] Update app/room/[code]/page.tsx to render game view when gameState is "active"
-- [ ] T074 [US3] Update app/room/[code]/page.tsx to initialize client-side countdown from GAME_START (startTime, duration)
-- [ ] T075 [US3] Update app/room/[code]/page.tsx to send ANSWER message with answerText and timestamp
-- [ ] T076 [US3] Update app/room/[code]/page.tsx to handle ANSWER_SUBMITTED and show waiting state
-- [ ] T077 [US3] Update app/room/[code]/page.tsx to handle ANSWER_COUNT_UPDATE and display progress
-- [ ] T078 [US3] Implement client-side timer sync in app/lib/room-state.ts (calculate from server startTime)
-- [ ] T079 [US3] Add responsive design for question display (large text on desktop, readable on mobile)
-- [ ] T080 [US3] Add visual feedback for answer submission (loading state, success confirmation)
-- [ ] T081 [US3] Verify clean code standards: no magic numbers, clear timer logic
+- [x] T073 [US3] Update app/room/[code]/page.tsx to render game view when gameState is "active"
+- [x] T074 [US3] Update app/room/[code]/page.tsx to initialize client-side countdown from GAME_START (startTime, duration)
+- [x] T075 [US3] Update app/room/[code]/page.tsx to send ANSWER message with answerText and timestamp
+- [x] T076 [US3] Update app/room/[code]/page.tsx to handle ANSWER_SUBMITTED and show waiting state
+- [x] T077 [US3] Update app/room/[code]/page.tsx to handle ANSWER_COUNT_UPDATE and display progress
+- [x] T078 [US3] Implement client-side timer sync in app/lib/room-state.ts (calculate from server startTime)
+- [x] T079 [US3] Add responsive design for question display (large text on desktop, readable on mobile)
+- [x] T080 [US3] Add visual feedback for answer submission (loading state, success confirmation)
+- [x] T081 [US3] Verify clean code standards: no magic numbers, clear timer logic
 
 **Checkpoint**: User Story 3 complete - Players can answer questions with synchronized timer
 
