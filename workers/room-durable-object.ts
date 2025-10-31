@@ -4,6 +4,7 @@
  */
 
 import { ClientMessage, ServerMessage, Participant } from './types';
+import questionsData from './questions.json';
 
 interface Question {
   id: string;
@@ -32,73 +33,26 @@ interface Env {
   ROOMS: DurableObjectNamespace;
 }
 
+type RawQuestion = {
+  id: string;
+  text: string;
+  correctAnswer: string;
+  acceptedAnswers?: string[];
+};
+
 const MAX_PARTICIPANTS = 8;
 const GAME_START_DELAY = 15000; // 15 seconds countdown before game starts
 const ROUND_DURATION = 180000; // 3 minutes in milliseconds
 
-// Hardcoded questions (same as in app/lib/questions.ts)
-const QUESTIONS: Question[] = [
-  {
-    id: 'q1',
-    text: 'What is the capital of France?',
-    correctAnswer: 'Paris',
-    acceptedAnswers: ['Paris'],
-  },
-  {
-    id: 'q2',
-    text: 'Who painted the Mona Lisa?',
-    correctAnswer: 'Leonardo da Vinci',
-    acceptedAnswers: ['Leonardo da Vinci', 'Da Vinci', 'Leonardo Di Ser Piero Da Vinci'],
-  },
-  {
-    id: 'q3',
-    text: 'What is the largest planet in our solar system?',
-    correctAnswer: 'Jupiter',
-    acceptedAnswers: ['Jupiter'],
-  },
-  {
-    id: 'q4',
-    text: 'What year did World War II end?',
-    correctAnswer: '1945',
-    acceptedAnswers: ['1945'],
-  },
-  {
-    id: 'q5',
-    text: 'What is the chemical symbol for gold?',
-    correctAnswer: 'Au',
-    acceptedAnswers: ['Au', 'AU'],
-  },
-  {
-    id: 'q6',
-    text: 'What is the smallest country in the world?',
-    correctAnswer: 'Vatican City',
-    acceptedAnswers: ['Vatican City', 'Vatican', 'The Vatican'],
-  },
-  {
-    id: 'q7',
-    text: 'How many continents are there?',
-    correctAnswer: '7',
-    acceptedAnswers: ['7', 'Seven', 'seven'],
-  },
-  {
-    id: 'q8',
-    text: 'What is the speed of light in meters per second? (rounded to nearest million)',
-    correctAnswer: '300000000',
-    acceptedAnswers: ['300000000', '3e8', '3×10^8', '300 million'],
-  },
-  {
-    id: 'q9',
-    text: 'Who wrote "Romeo and Juliet"?',
-    correctAnswer: 'William Shakespeare',
-    acceptedAnswers: ['William Shakespeare', 'Shakespeare', 'W. Shakespeare'],
-  },
-  {
-    id: 'q10',
-    text: 'What is the largest ocean on Earth?',
-    correctAnswer: 'Pacific Ocean',
-    acceptedAnswers: ['Pacific Ocean', 'Pacific', 'The Pacific'],
-  },
-];
+// Load questions from JSON source
+const QUESTIONS: Question[] = (questionsData as RawQuestion[])
+  .filter((q) => q && typeof q.id === 'string' && typeof q.text === 'string' && typeof q.correctAnswer === 'string')
+  .map((q) => ({
+    id: q.id as string,
+    text: q.text as string,
+    correctAnswer: q.correctAnswer as string,
+    acceptedAnswers: Array.isArray(q.acceptedAnswers) && q.acceptedAnswers.length > 0 ? q.acceptedAnswers as string[] : undefined,
+  }));
 
 export class RoomDurableObject {
   private state: DurableObjectState;
@@ -455,6 +409,10 @@ export class RoomDurableObject {
   }
 
   private selectQuestion(): Question | null {
+    if (QUESTIONS.length === 0) {
+      console.error('No questions available in questions.json');
+      return null;
+    }
     // Get questions that haven't been used yet
     const unusedQuestions = QUESTIONS.filter(
       q => !this.roomState.usedQuestionIds.includes(q.id)

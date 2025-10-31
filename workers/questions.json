@@ -1,0 +1,1400 @@
+[
+{
+  "id": "POP-003",
+  "text": "What is Chandler Bing's embarrassing and rarely-mentioned middle name on 'Friends'?",
+  "correctAnswer": "Muriel",
+  "acceptedAnswers": ["Muriel"]
+},
+{
+  "id": "POP-005",
+  "text": "The iconic sitcom 'Friends' ran for how many seasons?",
+  "correctAnswer": "10",
+  "acceptedAnswers": ["10"]
+},
+{
+  "id": "POP-006",
+  "text": "What was the name of the fictional coffee shop where the main characters of 'Friends' frequently hung out?",
+  "correctAnswer": "Central Perk",
+  "acceptedAnswers": ["Central Perk"]
+},
+{
+  "id": "POP-007",
+  "text": "What iconic tagline was featured in the sci-fi show 'The X-Files'?",
+  "correctAnswer": "The truth is out there",
+  "acceptedAnswers": ["The truth is out there"]
+},
+{
+  "id": "POP-009",
+  "text": "In the 1999 film 'The Matrix', what color pill does Neo take to learn the truth about reality?",
+  "correctAnswer": "The red pill",
+  "acceptedAnswers": ["The red pill"]
+},
+{
+  "id": "POP-010",
+  "text": "What James Cameron film was the highest-grossing movie of the 1990s and held the all-time box office record for 12 years?",
+  "correctAnswer": "Titanic",
+  "acceptedAnswers": ["Titanic"]
+},
+{
+  "id": "POP-012",
+  "text": "In the thriller 'Se7en', what desperate question does Brad Pitt's character scream at the end of the film?",
+  "correctAnswer": "What's in the box?",
+  "acceptedAnswers": ["What's in the box?"]
+},
+{
+  "id": "POP-013",
+  "text": "The line 'There's no crying in baseball!' comes from what 1992 film starring Tom Hanks as a cynical manager of a women's baseball team?",
+  "correctAnswer": "A League of Their Own",
+  "acceptedAnswers": ["A League of Their Own"]
+},
+{
+  "id": "POP-014",
+  "text": "The 1995 teen comedy 'Clueless' is a modern retelling of what classic Jane Austen novel?",
+  "correctAnswer": "Emma",
+  "acceptedAnswers": ["Emma"]
+},
+{
+  "id": "POP-015",
+  "text": "What was the first animated feature film to be nominated for a Best Picture Oscar?",
+  "correctAnswer": "Beauty and the Beast",
+  "acceptedAnswers": ["Beauty and the Beast"]
+},
+{
+  "id": "POP-016",
+  "text": "Who composed the iconic, sweeping score for the 1993 film 'Jurassic Park'?",
+  "correctAnswer": "John Williams",
+  "acceptedAnswers": ["John Williams"]
+},
+{
+  "id": "POP-018",
+  "text": "Nirvana's hit song 'Smells Like Teen Spirit' was unwittingly named after a brand of what product?",
+  "correctAnswer": "Deodorant",
+  "acceptedAnswers": ["Deodorant"]
+},
+{
+  "id": "POP-019",
+  "text": "The 'grunge' music movement of the early 1990s is most associated with what U.S. city, home to bands like Nirvana, Pearl Jam, and Soundgarden?",
+  "correctAnswer": "Seattle",
+  "acceptedAnswers": ["Seattle"]
+},
+{
+  "id": "POP-020",
+  "text": "What Irish rock band had major 90s hits with the songs 'Linger' and 'Zombie'?",
+  "correctAnswer": "The Cranberries",
+  "acceptedAnswers": ["The Cranberries"]
+},
+{
+  "id": "POP-022",
+  "text": "What punk rock band released the massively successful album 'Dookie' in 1994?",
+  "correctAnswer": "Green Day",
+  "acceptedAnswers": ["Green Day"]
+},
+{
+  "id": "POP-023",
+  "text": "What are the 'Spice' names of the five members of the Spice Girls?",
+  "correctAnswer": "Scary, Sporty, Posh, Baby, and Ginger",
+  "acceptedAnswers": ["Scary, Sporty, Posh, Baby, and Ginger"]
+},
+{
+  "id": "POP-024",
+  "text": "Which member of the Spice Girls was not part of the group's original lineup?",
+  "correctAnswer": "Emma Bunton",
+  "acceptedAnswers": ["Emma Bunton"]
+},
+{
+  "id": "POP-025",
+  "text": "Before his successful solo career, Justin Timberlake was a member of which 90s boy band?",
+  "correctAnswer": "*NSYNC",
+  "acceptedAnswers": ["*NSYNC"]
+},
+{
+  "id": "POP-026",
+  "text": "Whitney Houston's iconic 1992 hit 'I Will Always Love You' was a cover of a song originally written and performed by what country music legend?",
+  "correctAnswer": "Dolly Parton",
+  "acceptedAnswers": ["Dolly Parton"]
+},
+{
+  "id": "POP-027",
+  "text": "What Spanish duo was responsible for the 1990s dance craze 'Macarena'?",
+  "correctAnswer": "Los Del Rio",
+  "acceptedAnswers": ["Los Del Rio"]
+},
+{
+  "id": "POP-028",
+  "text": "What was the first rap song to hit No. 1 on the Billboard Hot 100?",
+  "correctAnswer": "Ice Ice Baby",
+  "acceptedAnswers": ["Ice Ice Baby"]
+},
+{
+  "id": "POP-029",
+  "text": "The intense 1990s hip-hop rivalry between the East and West coasts was primarily focused on which two rappers?",
+  "correctAnswer": "2Pac and The Notorious B.I.G.",
+  "acceptedAnswers": ["2Pac and The Notorious B.I.G."]
+},
+{
+  "id": "POP-031",
+  "text": "What famous three-word phrase would you hear from your computer after connecting to the internet via America Online (AOL) in the 90s?",
+  "correctAnswer": "You've got mail!",
+  "acceptedAnswers": ["You've got mail!"]
+},
+{
+  "id": "POP-032",
+  "text": "What was the common name for the stock market bubble in the late 1990s, fueled by heavy investment in internet-based companies?",
+  "correctAnswer": "The Dot-com bubble",
+  "acceptedAnswers": ["The Dot-com bubble"]
+},
+{
+  "id": "POP-033",
+  "text": "What Microsoft Office assistant, shaped like a piece of office stationery, was notorious for offering unsolicited help to users?",
+  "correctAnswer": "Clippy",
+  "acceptedAnswers": ["Clippy"]
+},
+{
+  "id": "POP-034",
+  "text": "The search engine Google first debuted in 1998, but it was initially developed under what different, less appealing name?",
+  "correctAnswer": "BackRub",
+  "acceptedAnswers": ["BackRub"]
+},
+{
+  "id": "POP-035",
+  "text": "What handheld digital pet from Japan became a massive fad in the 1990s, requiring owners to feed and care for it?",
+  "correctAnswer": "Tamagotchi",
+  "acceptedAnswers": ["Tamagotchi"]
+},
+{
+  "id": "POP-037",
+  "text": "The widespread fear that computers would fail to handle the date change from 1999 to 2000 was known by what alphanumeric name?",
+  "correctAnswer": "Y2K",
+  "acceptedAnswers": ["Y2K"]
+},
+{
+  "id": "POP-038",
+  "text": "What puzzle video game, famous for its falling blocks, was the first to be played by an astronaut in space?",
+  "correctAnswer": "Tetris",
+  "acceptedAnswers": ["Tetris"]
+},
+{
+  "id": "POP-040",
+  "text": "What was the name of the first cloned sheep, born in 1996?",
+  "correctAnswer": "Dolly",
+  "acceptedAnswers": ["Dolly"]
+},
+{
+  "id": "POP-042",
+  "text": "What stuffed animal collectibles with heart-shaped tags became a massive investment craze in the 1990s?",
+  "correctAnswer": "Beanie Babies",
+  "acceptedAnswers": ["Beanie Babies"]
+},
+{
+  "id": "POP-043",
+  "text": "What was the first 'reality TV' show, which debuted on MTV in 1992 and featured a group of strangers living together?",
+  "correctAnswer": "The Real World",
+  "acceptedAnswers": ["The Real World"]
+},
+{
+  "id": "POP-044",
+  "text": "What actor received a record-breaking $20 million for a single role in the 1996 film 'The Cable Guy'?",
+  "correctAnswer": "Jim Carrey",
+  "acceptedAnswers": ["Jim Carrey"]
+},
+{
+  "id": "POP-045",
+  "text": "The character Steve Urkel, known for his catchphrase 'Did I do that?', was the nerdy neighbor on what 90s sitcom?",
+  "correctAnswer": "Family Matters",
+  "acceptedAnswers": ["Family Matters"]
+},
+{
+  "id": "POP-046",
+  "text": "In 1992, then-presidential candidate Bill Clinton played what musical instrument on 'The Arsenio Hall Show'?",
+  "correctAnswer": "Saxophone",
+  "acceptedAnswers": ["Saxophone"]
+},
+{
+  "id": "POP-047",
+  "text": "What video game character's iconic red shoes were inspired by the cover of Michael Jackson's album 'Bad'?",
+  "correctAnswer": "Sonic the Hedgehog",
+  "acceptedAnswers": ["Sonic the Hedgehog"]
+},
+{
+  "id": "POP-049",
+  "text": "The 2004 documentary 'Super Size Me' chronicled 30 days of eating exclusively from which fast-food chain?",
+  "correctAnswer": "McDonald's",
+  "acceptedAnswers": ["McDonald's"]
+},
+{
+  "id": "POP-050",
+  "text": "On the reality show 'Newlyweds', Jessica Simpson famously became confused about whether she was eating chicken or fish while eating what brand of tuna?",
+  "correctAnswer": "Chicken of the Sea",
+  "acceptedAnswers": ["Chicken of the Sea"]
+},
+{
+  "id": "POP-051",
+  "text": "The best-selling book 'The Da Vinci Code' sparked widespread debate and a blockbuster movie in the 2000s. Who wrote the novel?",
+  "correctAnswer": "Dan Brown",
+  "acceptedAnswers": ["Dan Brown"]
+},
+{
+  "id": "POP-052",
+  "text": "In 2002, Justin Timberlake and what pop superstar had a famous breakup, which was followed by Timberlake's release of the song 'Cry Me a River'?",
+  "correctAnswer": "Britney Spears",
+  "acceptedAnswers": ["Britney Spears"]
+},
+{
+  "id": "POP-053",
+  "text": "What was the name of the life simulation video game series, created by Will Wright and first released in 2000, where players control virtual people?",
+  "correctAnswer": "The Sims",
+  "acceptedAnswers": ["The Sims"]
+},
+{
+  "id": "POP-054",
+  "text": "E.L. James's erotic novel series 'Fifty Shades of Grey' originally started as fan fiction for what young adult book series?",
+  "correctAnswer": "Twilight",
+  "acceptedAnswers": ["Twilight"]
+},
+{
+  "id": "POP-055",
+  "text": "What was the name of the first solo album Beyoncé released in 2003 after her time with Destiny's Child?",
+  "correctAnswer": "Dangerously in Love",
+  "acceptedAnswers": ["Dangerously in Love"]
+},
+{
+  "id": "POP-056",
+  "text": "The 2004 movie 'Mean Girls' popularized what slang term, which Gretchen Wieners unsuccessfully tried to make happen?",
+  "correctAnswer": "Fetch",
+  "acceptedAnswers": ["Fetch"]
+},
+{
+  "id": "POP-058",
+  "text": "In 2007, a viral YouTube video showed a baby named Charlie doing what to his older brother's finger?",
+  "correctAnswer": "Biting it",
+  "acceptedAnswers": ["Biting it"]
+},
+{
+  "id": "POP-059",
+  "text": "What social media platform, which launched in 2003, was the most popular in the world from 2005 to 2008 and automatically assigned 'Tom' as everyone's first friend?",
+  "correctAnswer": "MySpace",
+  "acceptedAnswers": ["MySpace"]
+},
+{
+  "id": "POP-061",
+  "text": "The 2003 hit 'Hey Ya!' by OutKast famously instructed listeners to 'shake it like a' what?",
+  "correctAnswer": "Polaroid picture",
+  "acceptedAnswers": ["Polaroid picture"]
+},
+{
+  "id": "POP-062",
+  "text": "What 2000s rock anthem by The Killers starts with the lyric: 'Comin' out of my cage, and I've been doin' just fine'?",
+  "correctAnswer": "Mr. Brightside",
+  "acceptedAnswers": ["Mr. Brightside"]
+},
+{
+  "id": "POP-063",
+  "text": "In 2003, who was the runner-up to Kelly Clarkson in the inaugural season of 'American Idol'?",
+  "correctAnswer": "Justin Guarini",
+  "acceptedAnswers": ["Justin Guarini"]
+},
+{
+  "id": "POP-064",
+  "text": "The infamous 'wardrobe malfunction' during the Super Bowl XXXVIII halftime show involved Janet Jackson and what other performer?",
+  "correctAnswer": "Justin Timberlake",
+  "acceptedAnswers": ["Justin Timberlake"]
+},
+{
+  "id": "POP-065",
+  "text": "What was the name of Apple's smallest iPod model, which was first released in 2005 and had no screen?",
+  "correctAnswer": "iPod Shuffle",
+  "acceptedAnswers": ["iPod Shuffle"]
+},
+{
+  "id": "POP-066",
+  "text": "What reality TV show, which premiered in 2007, introduced the world to the Kardashian-Jenner family?",
+  "correctAnswer": "Keeping Up With the Kardashians",
+  "acceptedAnswers": ["Keeping Up With the Kardashians"]
+},
+{
+  "id": "POP-067",
+  "text": "What socialite and reality TV star trademarked the catchphrase 'That's hot'?",
+  "correctAnswer": "Paris Hilton",
+  "acceptedAnswers": ["Paris Hilton"]
+},
+{
+  "id": "POP-069",
+  "text": "What 2001 film won the first-ever Academy Award for Best Animated Feature?",
+  "correctAnswer": "Shrek",
+  "acceptedAnswers": ["Shrek"]
+},
+{
+  "id": "POP-071",
+  "text": "In 2008, swimmer Michael Phelps won a record eight gold medals at the Olympic Games held in what city?",
+  "correctAnswer": "Beijing",
+  "acceptedAnswers": ["Beijing"]
+},
+{
+  "id": "POP-072",
+  "text": "What 2008 film starring Kristen Stewart and Robert Pattinson launched a global vampire phenomenon?",
+  "correctAnswer": "Twilight",
+  "acceptedAnswers": ["Twilight"]
+},
+{
+  "id": "POP-073",
+  "text": "Rihanna's 2007 mega-hit 'Umbrella' famously features a guest verse from what rapper?",
+  "correctAnswer": "Jay-Z",
+  "acceptedAnswers": ["Jay-Z"]
+},
+{
+  "id": "POP-074",
+  "text": "The TV show 'Gossip Girl' was famously narrated by what actress, who voiced the titular blogger?",
+  "correctAnswer": "Kristen Bell",
+  "acceptedAnswers": ["Kristen Bell"]
+},
+{
+  "id": "POP-075",
+  "text": "What line of sneakers featuring removable wheels in the heel became a popular fad in the 2000s?",
+  "correctAnswer": "Heelys",
+  "acceptedAnswers": ["Heelys"]
+},
+{
+  "id": "POP-076",
+  "text": "In the 2004 film 'Anchorman', Will Ferrell's character Ron Burgundy says, 'Well, that escalated' what?",
+  "correctAnswer": "Quickly",
+  "acceptedAnswers": ["Quickly"]
+},
+{
+  "id": "POP-077",
+  "text": "The internet prank of inserting a link to Rick Astley's 'Never Gonna Give You Up' music video is known by what name?",
+  "correctAnswer": "Rickrolling",
+  "acceptedAnswers": ["Rickrolling"]
+},
+{
+  "id": "POP-079",
+  "text": "In 2015, a photo of what item of clothing went viral, sparking a massive online debate about whether its colors were blue and black or white and gold?",
+  "correctAnswer": "A dress",
+  "acceptedAnswers": ["A dress"]
+},
+{
+  "id": "POP-080",
+  "text": "In a popular meme, a dog sits in a room engulfed in flames while calmly saying what three-word phrase?",
+  "correctAnswer": "This is fine",
+  "acceptedAnswers": ["This is fine"]
+},
+{
+  "id": "POP-081",
+  "text": "What is the slang term for being an obsessive fan of a celebrity, derived from a 2000 Eminem song about a disturbed admirer?",
+  "correctAnswer": "Stan",
+  "acceptedAnswers": ["Stan"]
+},
+{
+  "id": "POP-082",
+  "text": "What does the Gen Z slang term 'iykyk' stand for?",
+  "correctAnswer": "If you know, you know",
+  "acceptedAnswers": ["If you know, you know"]
+},
+{
+  "id": "POP-084",
+  "text": "The slang term 'sus,' meaning suspicious, was heavily popularized by what multiplayer video game of social deduction that became a hit in 2020?",
+  "correctAnswer": "Among Us",
+  "acceptedAnswers": ["Among Us"]
+},
+{
+  "id": "POP-085",
+  "text": "What does the acronym 'GOAT' stand for in pop culture and sports?",
+  "correctAnswer": "Greatest of All Time",
+  "acceptedAnswers": ["Greatest of All Time"]
+},
+{
+  "id": "POP-086",
+  "text": "What term refers to the act of suddenly ending all communication with someone without explanation?",
+  "correctAnswer": "Ghosting",
+  "acceptedAnswers": ["Ghosting"]
+},
+{
+  "id": "POP-090",
+  "text": "Besides Captain America, which other Avenger was shown to be able to lift Thor's hammer in the MCU films?",
+  "correctAnswer": "Vision",
+  "acceptedAnswers": ["Vision"]
+},
+{
+  "id": "POP-094",
+  "text": "The U.S. version of the sitcom 'The Office' is set in a branch of what fictional paper company?",
+  "correctAnswer": "Dunder Mifflin",
+  "acceptedAnswers": ["Dunder Mifflin"]
+},
+{
+  "id": "POP-095",
+  "text": "In 'The Office,' regional manager Michael Scott drives his car into what body of water after his GPS gives him bad directions?",
+  "correctAnswer": "A lake",
+  "acceptedAnswers": ["A lake"]
+},
+{
+  "id": "POP-096",
+  "text": "The critically acclaimed TV series 'Breaking Bad' follows Walter White, a high school teacher of what subject?",
+  "correctAnswer": "Chemistry",
+  "acceptedAnswers": ["Chemistry"]
+},
+{
+  "id": "POP-097",
+  "text": "In 'Game of Thrones,' Daenerys Targaryen is often referred to as the 'Mother of' what mythical creatures?",
+  "correctAnswer": "Dragons",
+  "acceptedAnswers": ["Dragons"]
+},
+{
+  "id": "POP-098",
+  "text": "The viral 'Renegade' dance, which took over TikTok in 2020, was created by what teenage choreographer?",
+  "correctAnswer": "Jalaiah Harmon",
+  "acceptedAnswers": ["Jalaiah Harmon"]
+},
+{
+  "id": "POP-099",
+  "text": "The social media platform X was known by what name until its rebranding in 2023?",
+  "correctAnswer": "Twitter",
+  "acceptedAnswers": ["Twitter"]
+},
+{
+  "id": "POP-100",
+  "text": "What popular chat application, known for its server-based communities, is particularly favored by gamers?",
+  "correctAnswer": "Discord",
+  "acceptedAnswers": ["Discord"]
+},
+{
+  "id": "POP-102",
+  "text": "In 2019, Forbes magazine controversially named what member of the Kardashian-Jenner family the 'youngest self-made billionaire ever'?",
+  "correctAnswer": "Kylie Jenner",
+  "acceptedAnswers": ["Kylie Jenner"]
+},
+{
+  "id": "POP-103",
+  "text": "What young Swedish environmental activist gained international recognition for initiating the 'School Strike for Climate' movement?",
+  "correctAnswer": "Greta Thunberg",
+  "acceptedAnswers": ["Greta Thunberg"]
+},
+{
+  "id": "POP-104",
+  "text": "What Netflix dating show, which premiered in 2020, requires its contestants to remain celibate to win the grand prize?",
+  "correctAnswer": "Too Hot to Handle",
+  "acceptedAnswers": ["Too Hot to Handle"]
+},
+{
+  "id": "POP-105",
+  "text": "The most-watched YouTube video of all time is a children's song about what family of sharks?",
+  "correctAnswer": "Baby Shark",
+  "acceptedAnswers": ["Baby Shark"]
+},
+{
+  "id": "POP-106",
+  "text": "What is Lady Gaga's real name?",
+  "correctAnswer": "Stefani Germanotta",
+  "acceptedAnswers": ["Stefani Germanotta"]
+},
+{
+  "id": "POP-107",
+  "text": "In the movie 'Elf', what is the first rule in the Code of Elves?",
+  "correctAnswer": "Treat every day like Christmas",
+  "acceptedAnswers": ["Treat every day like Christmas"]
+},
+{
+  "id": "POP-108",
+  "text": "On what day of the week do 'The Plastics' wear pink in the movie 'Mean Girls'?",
+  "correctAnswer": "Wednesday",
+  "acceptedAnswers": ["Wednesday"]
+},
+{
+  "id": "POP-109",
+  "text": "In the 'Harry Potter' series, what is the name of the broomstick sport played at Hogwarts?",
+  "correctAnswer": "Quidditch",
+  "acceptedAnswers": ["Quidditch"]
+},
+{
+  "id": "TECH-001",
+  "text": "What popular programming language, developed by Sun Microsystems, was named after a type of coffee from Indonesia?",
+  "correctAnswer": "Java",
+  "acceptedAnswers": ["Java"]
+},
+{
+  "id": "TECH-002",
+  "text": "Who is credited with creating the C++ programming language?",
+  "correctAnswer": "Bjarne Stroustrup",
+  "acceptedAnswers": ["Bjarne Stroustrup"]
+},
+{
+  "id": "TECH-003",
+  "text": "What is the name of the penguin mascot for the Linux operating system?",
+  "correctAnswer": "Tux",
+  "acceptedAnswers": ["Tux"]
+},
+{
+  "id": "TECH-004",
+  "text": "What does the acronym GUI, often pronounced 'gooey,' stand for in computing?",
+  "correctAnswer": "Graphical User Interface",
+  "acceptedAnswers": ["Graphical User Interface"]
+},
+{
+  "id": "TECH-005",
+  "text": "In the tech industry, what does the acronym SaaS stand for?",
+  "correctAnswer": "Software as a Service",
+  "acceptedAnswers": ["Software as a Service"]
+},
+{
+  "id": "TECH-006",
+  "text": "What type of malicious software replicates itself to spread to other computers, often using a computer network to do so?",
+  "correctAnswer": "A worm",
+  "acceptedAnswers": ["A worm"]
+},
+{
+  "id": "TECH-007",
+  "text": "What character encoding standard, which predates Unicode, is based on the English alphabet?",
+  "correctAnswer": "ASCII",
+  "acceptedAnswers": ["ASCII"]
+},
+{
+  "id": "TECH-009",
+  "text": "What do the acronyms CPU and RAM stand for in computer hardware?",
+  "correctAnswer": "Central Processing Unit and Random Access Memory",
+  "acceptedAnswers": ["Central Processing Unit and Random Access Memory"]
+},
+{
+  "id": "TECH-010",
+  "text": "What is the common term for a vulnerability in a system that allows a user to bypass security mechanisms?",
+  "correctAnswer": "A back door",
+  "acceptedAnswers": ["A back door"]
+},
+{
+  "id": "TECH-012",
+  "text": "Who created Git, the widely used version control system?",
+  "correctAnswer": "Linus Torvalds",
+  "acceptedAnswers": ["Linus Torvalds"]
+},
+{
+  "id": "TECH-013",
+  "text": "What is the name of the octopus-cat hybrid mascot of the software development platform GitHub?",
+  "correctAnswer": "Octocat",
+  "acceptedAnswers": ["Octocat"]
+},
+{
+  "id": "TECH-014",
+  "text": "What is the name of the popular open-source content management system used to create websites and blogs, which powers over 40% of the web?",
+  "correctAnswer": "WordPress",
+  "acceptedAnswers": ["WordPress"]
+},
+{
+  "id": "TECH-015",
+  "text": "What 'U' is a popular, user-friendly Linux distribution based on Debian?",
+  "correctAnswer": "Ubuntu",
+  "acceptedAnswers": ["Ubuntu"]
+},
+{
+  "id": "TECH-016",
+  "text": "Who co-founded Apple Inc. along with Steve Jobs?",
+  "correctAnswer": "Steve Wozniak",
+  "acceptedAnswers": ["Steve Wozniak"]
+},
+{
+  "id": "TECH-018",
+  "text": "Who is credited with inventing the World Wide Web?",
+  "correctAnswer": "Tim Berners-Lee",
+  "acceptedAnswers": ["Tim Berners-Lee"]
+},
+{
+  "id": "TECH-019",
+  "text": "Before becoming a global e-commerce giant, what product did Amazon primarily sell?",
+  "correctAnswer": "Books",
+  "acceptedAnswers": ["Books"]
+},
+{
+  "id": "TECH-021",
+  "text": "What athletic apparel company was originally known as 'Blue Ribbon Sports'?",
+  "correctAnswer": "Nike",
+  "acceptedAnswers": ["Nike"]
+},
+{
+  "id": "TECH-022",
+  "text": "Who founded the online auction site eBay in 1995?",
+  "correctAnswer": "Pierre Omidyar",
+  "acceptedAnswers": ["Pierre Omidyar"]
+},
+{
+  "id": "TECH-023",
+  "text": "In what year was the very first model of the Apple iPhone released?",
+  "correctAnswer": "2007",
+  "acceptedAnswers": ["2007"]
+},
+{
+  "id": "TECH-025",
+  "text": "What Nintendo home console, released in 2006, pioneered the use of motion controls in gaming?",
+  "correctAnswer": "The Wii",
+  "acceptedAnswers": ["The Wii"]
+},
+{
+  "id": "TECH-026",
+  "text": "What was the first microprocessor, released by Intel in 1971?",
+  "correctAnswer": "Intel 4004",
+  "acceptedAnswers": ["Intel 4004"]
+},
+{
+  "id": "TECH-027",
+  "text": "What company invented the floppy disk in 1971?",
+  "correctAnswer": "IBM",
+  "acceptedAnswers": ["IBM"]
+},
+{
+  "id": "TECH-028",
+  "text": "What is the best-selling video game of all time, known for its blocky, procedurally-generated 3D world?",
+  "correctAnswer": "Minecraft",
+  "acceptedAnswers": ["Minecraft"]
+},
+{
+  "id": "TECH-029",
+  "text": "The augmented reality mobile game 'Pokémon Go' became a global phenomenon upon its release in what year?",
+  "correctAnswer": "2016",
+  "acceptedAnswers": ["2016"]
+},
+{
+  "id": "TECH-030",
+  "text": "What massively multiplayer online role-playing game (MMORPG), released by Blizzard in 2004, has dominated the genre for years?",
+  "correctAnswer": "World of Warcraft",
+  "acceptedAnswers": ["World of Warcraft"]
+},
+{
+  "id": "TECH-031",
+  "text": "The fifth installment of 'The Elder Scrolls' series, a popular action RPG released in 2011, is better known by what one-word subtitle?",
+  "correctAnswer": "Skyrim",
+  "acceptedAnswers": ["Skyrim"]
+},
+{
+  "id": "TECH-032",
+  "text": "In the 'Harry Potter' series, who is revealed to be the Half-Blood Prince?",
+  "correctAnswer": "Severus Snape",
+  "acceptedAnswers": ["Severus Snape"]
+},
+{
+  "id": "TECH-033",
+  "text": "What is the full name of Frodo's loyal friend and companion in 'The Lord of the Rings'?",
+  "correctAnswer": "Samwise Gamgee",
+  "acceptedAnswers": ["Samwise Gamgee"]
+},
+{
+  "id": "TECH-034",
+  "text": "What cult classic 2001 film starring Jake Gyllenhaal features time travel, a mysterious man in a rabbit suit named Frank, and a jet engine crashing into a house?",
+  "correctAnswer": "Donnie Darko",
+  "acceptedAnswers": ["Donnie Darko"]
+},
+{
+  "id": "TECH-035",
+  "text": "What British sitcom is set in the IT department of the fictional Reynholm Industries?",
+  "correctAnswer": "The IT Crowd",
+  "acceptedAnswers": ["The IT Crowd"]
+},
+{
+  "id": "TECH-037",
+  "text": "What does the acronym URL stand for?",
+  "correctAnswer": "Uniform Resource Locator",
+  "acceptedAnswers": ["Uniform Resource Locator"]
+},
+{
+  "id": "TECH-038",
+  "text": "What does the computer acronym PnP stand for?",
+  "correctAnswer": "Plug and Play",
+  "acceptedAnswers": ["Plug and Play"]
+},
+{
+  "id": "TECH-040",
+  "text": "What does FTP stand for in the context of networking?",
+  "correctAnswer": "File Transfer Protocol",
+  "acceptedAnswers": ["File Transfer Protocol"]
+},
+{
+  "id": "TECH-041",
+  "text": "What does the 'Fn' key on a computer keyboard stand for?",
+  "correctAnswer": "Function",
+  "acceptedAnswers": ["Function"]
+},
+{
+  "id": "TECH-042",
+  "text": "What is the name of the open-source web browser created by the Mozilla Foundation?",
+  "correctAnswer": "Firefox",
+  "acceptedAnswers": ["Firefox"]
+},
+{
+  "id": "TECH-043",
+  "text": "What company, founded by Larry Ellison, is a dominant force in database software?",
+  "correctAnswer": "Oracle",
+  "acceptedAnswers": ["Oracle"]
+},
+{
+  "id": "TECH-045",
+  "text": "What is the name for a computer virus that is disguised as a legitimate program?",
+  "correctAnswer": "A Trojan horse",
+  "acceptedAnswers": ["A Trojan horse"]
+},
+{
+  "id": "TECH-046",
+  "text": "The daily puzzle game Wordle was acquired by what major newspaper in 2022?",
+  "correctAnswer": "The New York Times",
+  "acceptedAnswers": ["The New York Times"]
+},
+{
+  "id": "TECH-047",
+  "text": "What is the name of the series of small, single-board computers developed in the UK to promote the teaching of basic computer science?",
+  "correctAnswer": "Raspberry Pi",
+  "acceptedAnswers": ["Raspberry Pi"]
+},
+{
+  "id": "TECH-048",
+  "text": "What does the acronym API stand for in software development?",
+  "correctAnswer": "Application Programming Interface",
+  "acceptedAnswers": ["Application Programming Interface"]
+},
+{
+  "id": "TECH-049",
+  "text": "What is the name of the process of finding and fixing errors in a computer program's source code?",
+  "correctAnswer": "Debugging",
+  "acceptedAnswers": ["Debugging"]
+},
+{
+  "id": "TECH-050",
+  "text": "In web development, what do HTML and CSS stand for?",
+  "correctAnswer": "HyperText Markup Language and Cascading Style Sheets",
+  "acceptedAnswers": ["HyperText Markup Language and Cascading Style Sheets"]
+},
+{
+  "id": "TECH-051",
+  "text": "What does SQL, a language used to manage data in relational databases, stand for?",
+  "correctAnswer": "Structured Query Language",
+  "acceptedAnswers": ["Structured Query Language"]
+},
+{
+  "id": "TECH-053",
+  "text": "The concept of 'object-oriented programming' is central to which language developed by James Gosling?",
+  "correctAnswer": "Java",
+  "acceptedAnswers": ["Java"]
+},
+{
+  "id": "TECH-056",
+  "text": "What is the name of the high-level programming language created by Guido van Rossum and first released in 1991?",
+  "correctAnswer": "Python",
+  "acceptedAnswers": ["Python"]
+},
+{
+  "id": "TECH-057",
+  "text": "What is the term for the human-readable version of a computer program, before it is compiled or interpreted?",
+  "correctAnswer": "Source code",
+  "acceptedAnswers": ["Source code"]
+},
+{
+  "id": "TECH-058",
+  "text": "What does the acronym 'IP' stand for in TCP/IP?",
+  "correctAnswer": "Internet Protocol",
+  "acceptedAnswers": ["Internet Protocol"]
+},
+{
+  "id": "TECH-059",
+  "text": "In cryptography, what is the process of converting information or data into a code to prevent unauthorized access?",
+  "correctAnswer": "Encryption",
+  "acceptedAnswers": ["Encryption"]
+},
+{
+  "id": "SCI-001",
+  "text": "What are the four fundamental states of matter?",
+  "correctAnswer": "Solid, liquid, gas, and plasma",
+  "acceptedAnswers": ["Solid, liquid, gas, and plasma"]
+},
+{
+  "id": "SCI-004",
+  "text": "What is the chemical symbol for the element gold?",
+  "correctAnswer": "Au",
+  "acceptedAnswers": ["Au"]
+},
+{
+  "id": "SCI-005",
+  "text": "What is the hardest known natural substance on Earth?",
+  "correctAnswer": "Diamond",
+  "acceptedAnswers": ["Diamond"]
+},
+{
+  "id": "SCI-006",
+  "text": "How many bones are in the adult human body?",
+  "correctAnswer": "206",
+  "acceptedAnswers": ["206"]
+},
+{
+  "id": "SCI-008",
+  "text": "What is the largest organ in the human body?",
+  "correctAnswer": "The skin",
+  "acceptedAnswers": ["The skin"]
+},
+{
+  "id": "SCI-009",
+  "text": "What is the name of the deepest point in the Earth's oceans?",
+  "correctAnswer": "The Mariana Trench",
+  "acceptedAnswers": ["The Mariana Trench"]
+},
+{
+  "id": "SCI-010",
+  "text": "What is the most abundant chemical element in the universe?",
+  "correctAnswer": "Hydrogen",
+  "acceptedAnswers": ["Hydrogen"]
+},
+{
+  "id": "SCI-013",
+  "text": "What is the name of the galaxy that contains our Solar System?",
+  "correctAnswer": "The Milky Way",
+  "acceptedAnswers": ["The Milky Way"]
+},
+{
+  "id": "SCI-014",
+  "text": "In 2006, the International Astronomical Union controversially reclassified what celestial body as a 'dwarf planet'?",
+  "correctAnswer": "Pluto",
+  "acceptedAnswers": ["Pluto"]
+},
+{
+  "id": "SCI-015",
+  "text": "What is the name of the largest volcano in our solar system, located on the planet Mars?",
+  "correctAnswer": "Olympus Mons",
+  "acceptedAnswers": ["Olympus Mons"]
+},
+{
+  "id": "SCI-016",
+  "text": "Which planet in our solar system is known for having the highest average surface temperature?",
+  "correctAnswer": "Venus",
+  "acceptedAnswers": ["Venus"]
+},
+{
+  "id": "SCI-017",
+  "text": "Which planet in our solar system has the shortest day, rotating on its axis in just under 10 hours?",
+  "correctAnswer": "Jupiter",
+  "acceptedAnswers": ["Jupiter"]
+},
+{
+  "id": "SCI-018",
+  "text": "What is the scientific term for the process by which plants use sunlight to synthesize foods from carbon dioxide and water?",
+  "correctAnswer": "Photosynthesis",
+  "acceptedAnswers": ["Photosynthesis"]
+},
+{
+  "id": "SCI-019",
+  "text": "What part of an atom has no electric charge?",
+  "correctAnswer": "Neutron",
+  "acceptedAnswers": ["Neutron"]
+},
+{
+  "id": "SCI-020",
+  "text": "What is the common name for the chemical compound H₂O?",
+  "correctAnswer": "Water",
+  "acceptedAnswers": ["Water"]
+},
+{
+  "id": "SCI-021",
+  "text": "What is the name of the force that pulls objects toward the center of the Earth?",
+  "correctAnswer": "Gravity",
+  "acceptedAnswers": ["Gravity"]
+},
+{
+  "id": "SCI-023",
+  "text": "What substance, essential for life, are human hair and fingernails primarily made of?",
+  "correctAnswer": "Keratin",
+  "acceptedAnswers": ["Keratin"]
+},
+{
+  "id": "SCI-024",
+  "text": "What is the name of the iron-containing protein in red blood cells that transports oxygen throughout the body?",
+  "correctAnswer": "Hemoglobin",
+  "acceptedAnswers": ["Hemoglobin"]
+},
+{
+  "id": "SCI-025",
+  "text": "The process of a solid changing directly into a gas, bypassing the liquid state, is called what?",
+  "correctAnswer": "Sublimation",
+  "acceptedAnswers": ["Sublimation"]
+},
+{
+  "id": "HIST-003",
+  "text": "In what year did the Berlin Wall, which divided East and West Berlin, fall?",
+  "correctAnswer": "1989",
+  "acceptedAnswers": ["1989"]
+},
+{
+  "id": "HIST-004",
+  "text": "The 1986 nuclear disaster at the Chernobyl Nuclear Power Plant occurred in which present-day country?",
+  "correctAnswer": "Ukraine",
+  "acceptedAnswers": ["Ukraine"]
+},
+{
+  "id": "HIST-005",
+  "text": "Who is credited with inventing the first commercially successful printing press around 1440?",
+  "correctAnswer": "Johannes Gutenberg",
+  "acceptedAnswers": ["Johannes Gutenberg"]
+},
+{
+  "id": "HIST-009",
+  "text": "Who was the first person to walk on the moon?",
+  "correctAnswer": "Neil Armstrong",
+  "acceptedAnswers": ["Neil Armstrong"]
+},
+{
+  "id": "HIST-010",
+  "text": "The period of racial segregation in South Africa from 1948 to the early 1990s was known by what name?",
+  "correctAnswer": "Apartheid",
+  "acceptedAnswers": ["Apartheid"]
+},
+{
+  "id": "GEO-001",
+  "text": "Which is the only continent to have land in all four hemispheres?",
+  "correctAnswer": "Africa",
+  "acceptedAnswers": ["Africa"]
+},
+{
+  "id": "GEO-002",
+  "text": "What country has the most natural lakes in the world?",
+  "correctAnswer": "Canada",
+  "acceptedAnswers": ["Canada"]
+},
+{
+  "id": "GEO-003",
+  "text": "Contrary to popular belief, what Northeastern African country has more ancient pyramids than Egypt?",
+  "correctAnswer": "Sudan",
+  "acceptedAnswers": ["Sudan"]
+},
+{
+  "id": "GEO-004",
+  "text": "Due to its position in the Southern Hemisphere, Australia experiences which season during December?",
+  "correctAnswer": "Summer",
+  "acceptedAnswers": ["Summer"]
+},
+{
+  "id": "GEO-006",
+  "text": "What is the capital city of Canada?",
+  "correctAnswer": "Ottawa",
+  "acceptedAnswers": ["Ottawa"]
+},
+{
+  "id": "GEO-007",
+  "text": "The ancient city of Constantinople is known by what name today?",
+  "correctAnswer": "Istanbul",
+  "acceptedAnswers": ["Istanbul"]
+},
+{
+  "id": "GEO-008",
+  "text": "What is the tallest mountain on Earth?",
+  "correctAnswer": "Mount Everest",
+  "acceptedAnswers": ["Mount Everest"]
+},
+{
+  "id": "GEO-009",
+  "text": "What is the longest river in the world?",
+  "correctAnswer": "The Nile River",
+  "acceptedAnswers": ["The Nile River"]
+},
+{
+  "id": "GEO-010",
+  "text": "Which country is home to the Amazon Rainforest?",
+  "correctAnswer": "Brazil",
+  "acceptedAnswers": ["Brazil"]
+},
+{
+  "id": "GEO-011",
+  "text": "What is the smallest country in the world?",
+  "correctAnswer": "Vatican City",
+  "acceptedAnswers": ["Vatican City"]
+},
+{
+  "id": "GEO-012",
+  "text": "What is the most populous country in the world as of 2024?",
+  "correctAnswer": "India",
+  "acceptedAnswers": ["India"]
+},
+{
+  "id": "GEO-013",
+  "text": "The Great Barrier Reef is located in the Coral Sea, off the coast of which Australian state?",
+  "correctAnswer": "Queensland",
+  "acceptedAnswers": ["Queensland"]
+},
+{
+  "id": "GEO-014",
+  "text": "Which European country is shaped like a hexagon?",
+  "correctAnswer": "France",
+  "acceptedAnswers": ["France"]
+},
+{
+  "id": "GEO-015",
+  "text": "What is the only country that is also an entire continent?",
+  "correctAnswer": "Australia",
+  "acceptedAnswers": ["Australia"]
+},
+{
+  "id": "AUTO-001",
+  "text": "What color and make of SUV became infamous during the low-speed police chase involving O.J. Simpson in 1994?",
+  "correctAnswer": "White Ford Bronco",
+  "acceptedAnswers": ["White Ford Bronco"]
+},
+{
+  "id": "AUTO-002",
+  "text": "What is the name of the fictional time-traveling car in the 'Back to the Future' film series?",
+  "correctAnswer": "The DeLorean",
+  "acceptedAnswers": ["The DeLorean"]
+},
+{
+  "id": "AUTO-003",
+  "text": "What was the name of the modified 1959 Cadillac ambulance used by the 'Ghostbusters'?",
+  "correctAnswer": "Ecto-1",
+  "acceptedAnswers": ["Ecto-1"]
+},
+{
+  "id": "AUTO-004",
+  "text": "What was the first car to be mass-produced on a moving assembly line?",
+  "correctAnswer": "Ford Model T",
+  "acceptedAnswers": ["Ford Model T"]
+},
+{
+  "id": "AUTO-005",
+  "text": "The German automaker BMW's logo is a stylized representation of a propeller set against what two colors, which are the state colors of Bavaria?",
+  "correctAnswer": "Blue and white",
+  "acceptedAnswers": ["Blue and white"]
+},
+{
+  "id": "AUTO-006",
+  "text": "What is the best-selling car model of all time, with over 50 million units sold worldwide?",
+  "correctAnswer": "Toyota Corolla",
+  "acceptedAnswers": ["Toyota Corolla"]
+},
+{
+  "id": "AUTO-007",
+  "text": "What American electric vehicle company, founded in 2003, is named after the inventor Nikola Tesla?",
+  "correctAnswer": "Tesla",
+  "acceptedAnswers": ["Tesla"]
+},
+{
+  "id": "AUTO-008",
+  "text": "In automotive terms, what does the acronym 'LSD' stand for?",
+  "correctAnswer": "Limited-Slip Differential",
+  "acceptedAnswers": ["Limited-Slip Differential"]
+},
+{
+  "id": "AUTO-009",
+  "text": "What does AMG, the high-performance subsidiary of Mercedes-Benz, stand for?",
+  "correctAnswer": "Aufrecht, Melcher, Großaspach",
+  "acceptedAnswers": ["Aufrecht, Melcher, Großaspach"]
+},
+{
+  "id": "AUTO-010",
+  "text": "What was the first car company to offer a factory-installed AM radio as an option?",
+  "correctAnswer": "Chevrolet",
+  "acceptedAnswers": ["Chevrolet"]
+},
+{
+  "id": "AUTO-011",
+  "text": "The 'prancing horse' or 'Cavallino Rampante' is the famous logo of which Italian luxury sports car manufacturer?",
+  "correctAnswer": "Ferrari",
+  "acceptedAnswers": ["Ferrari"]
+},
+{
+  "id": "AUTO-012",
+  "text": "What Japanese automaker produces the popular hybrid vehicle, the Prius?",
+  "correctAnswer": "Toyota",
+  "acceptedAnswers": ["Toyota"]
+},
+{
+  "id": "AUTO-013",
+  "text": "What does the 'S' in SUV stand for?",
+  "correctAnswer": "Sport",
+  "acceptedAnswers": ["Sport"]
+},
+{
+  "id": "AUTO-014",
+  "text": "The Volkswagen Beetle was originally commissioned in the 1930s by which German leader?",
+  "correctAnswer": "Adolf Hitler",
+  "acceptedAnswers": ["Adolf Hitler"]
+},
+{
+  "id": "AUTO-015",
+  "text": "What is the common term for the device in a car that measures the distance traveled?",
+  "correctAnswer": "Odometer",
+  "acceptedAnswers": ["Odometer"]
+},
+{
+    "id": "POP-002",
+    "text": "On the show 'Friends', how many times did Ross Geller get divorced?",
+    "correctAnswer": "Three",
+    "acceptedAnswers": ["3"]
+  },
+  {
+    "id": "POP-004",
+    "text": "The 'Friends' theme song, 'I'll Be There for You' by The Rembrandts, was a radio hit but only reached what peak position on the Billboard Hot 100 chart?",
+    "correctAnswer": "17",
+    "acceptedAnswers": ["No. 17", "Number 17"]
+  },
+  {
+    "id": "POP-008",
+    "text": "The term 'shipping,' used to describe fan support for a romantic pairing of fictional characters, originated in the online fandom of what 90s sci-fi show?",
+    "correctAnswer": "The X-Files",
+    "acceptedAnswers": ["X-Files"]
+  },
+  {
+    "id": "POP-011",
+    "text": "What iconic line does Kevin McCallister play on a gangster film to scare off the Wet Bandits in 'Home Alone'?",
+    "correctAnswer": "Keep the change, ya filthy animal!",
+    "acceptedAnswers": ["Keep the change ya filthy animal"]
+  },
+  {
+    "id": "POP-017",
+    "text": "Despite his terrifying presence, Anthony Hopkins won a Best Actor Oscar for playing Hannibal Lecter in 'The Silence of the Lambs' with only about how many minutes of screen time?",
+    "correctAnswer": "16 minutes",
+    "acceptedAnswers": ["16"]
+  },
+  {
+    "id": "POP-021",
+    "text": "What was the bestselling rock album of the 1990s, featuring hits like 'Ironic' and 'You Oughta Know'?",
+    "correctAnswer": "Jagged Little Pill",
+    "acceptedAnswers": ["Alanis Morissette's Jagged Little Pill"]
+  },
+  {
+    "id": "POP-030",
+    "text": "How old was rapper The Notorious B.I.G. when he was murdered in 1997?",
+    "correctAnswer": "24",
+    "acceptedAnswers": ["24 years old"]
+  },
+  {
+    "id": "POP-036",
+    "text": "What popular 90s toy was banned from National Security Agency (NSA) offices over fears it could be used for eavesdropping?",
+    "correctAnswer": "Furby",
+    "acceptedAnswers": ["Furbies"]
+  },
+  {
+    "id": "POP-039",
+    "text": "What 1997 Nintendo 64 first-person shooter, based on a James Bond film, is widely considered one of the greatest video games of all time?",
+    "correctAnswer": "GoldenEye 007",
+    "acceptedAnswers": ["GoldenEye", "Golden Eye"]
+  },
+  {
+    "id": "POP-041",
+    "text": "In the 90s, you had to get off the telephone if you wanted to do what?",
+    "correctAnswer": "Access the internet",
+    "acceptedAnswers": ["Use the internet", "Go online", "Use dial-up"]
+  },
+  {
+    "id": "POP-048",
+    "text": "The dance move known as 'The Carlton' was popularized by Alfonso Ribeiro on what 90s sitcom?",
+    "correctAnswer": "The Fresh Prince of Bel-Air",
+    "acceptedAnswers": ["Fresh Prince"]
+  },
+  {
+    "id": "POP-057",
+    "text": "What footwear brand, known for its sheepskin boots, saw a massive surge in popularity in the early 2000s after being featured on Oprah's 'Favorite Things'?",
+    "correctAnswer": "Ugg",
+    "acceptedAnswers": ["Uggs", "Ugg boots"]
+  },
+  {
+    "id": "POP-060",
+    "text": "What rapper, also known as Slim Shady, won an Academy Award for Best Original Song in 2003 for 'Lose Yourself'?",
+    "correctAnswer": "Eminem",
+    "acceptedAnswers": ["Marshall Mathers"]
+  },
+  {
+    "id": "POP-068",
+    "text": "In 2008, Heath Ledger posthumously won the Academy Award for Best Supporting Actor for his portrayal of which comic book villain?",
+    "correctAnswer": "The Joker",
+    "acceptedAnswers": ["Joker"]
+  },
+  {
+    "id": "POP-070",
+    "text": "The TV series 'Lost', which premiered in 2004, is about the survivors of a plane crash on what kind of mysterious landmass?",
+    "correctAnswer": "An island",
+    "acceptedAnswers": ["A mysterious island"]
+  },
+  {
+    "id": "POP-078",
+    "text": "The viral 'ALS Ice Bucket Challenge' of 2014 raised awareness and over $115 million for research into what disease, also known as Lou Gehrig's disease?",
+    "correctAnswer": "ALS",
+    "acceptedAnswers": ["Amyotrophic lateral sclerosis"]
+  },
+  {
+    "id": "POP-083",
+    "text": "In modern internet slang, if someone is lying, they are said to be doing what?",
+    "correctAnswer": "Capping",
+    "acceptedAnswers": ["Cap"]
+  },
+  {
+    "id": "POP-087",
+    "text": "If a Gen Z individual tells you to 'touch grass,' what are they suggesting you do?",
+    "correctAnswer": "Get off the internet and go outside",
+    "acceptedAnswers": ["Go outside", "Get off the internet"]
+  },
+  {
+    "id": "POP-088",
+    "text": "The Netflix series 'Stranger Things' is set in what fictional town in Indiana?",
+    "correctAnswer": "Hawkins",
+    "acceptedAnswers": ["Hawkins, Indiana"]
+  },
+  {
+    "id": "POP-089",
+    "text": "In the Marvel Cinematic Universe, what is the name of Thor's enchanted hammer?",
+    "correctAnswer": "Mjölnir",
+    "acceptedAnswers": ["Mjolnir"]
+  },
+  {
+    "id": "POP-091",
+    "text": "In 'Avengers: Infinity War,' how many Infinity Stones does Thanos need to collect to achieve his goal of wiping out half of all life?",
+    "correctAnswer": "Six",
+    "acceptedAnswers": ["6"]
+  },
+  {
+    "id": "POP-092",
+    "text": "What day is unofficially celebrated as 'Star Wars Day' due to a pun on a famous line from the movies?",
+    "correctAnswer": "May 4th",
+    "acceptedAnswers": ["May 4", "May the 4th"]
+  },
+  {
+    "id": "POP-093",
+    "text": "What is the name of Han Solo's iconic spaceship in 'Star Wars'?",
+    "correctAnswer": "The Millennium Falcon",
+    "acceptedAnswers": ["Millennium Falcon"]
+  },
+  {
+    "id": "POP-101",
+    "text": "The photo and video sharing app Instagram was launched in 2010 and was acquired two years later by what tech giant?",
+    "correctAnswer": "Facebook",
+    "acceptedAnswers": ["Meta"]
+  },
+  {
+    "id": "TECH-008",
+    "text": "How many bits are in one byte?",
+    "correctAnswer": "8",
+    "acceptedAnswers": ["Eight"]
+  },
+  {
+    "id": "TECH-011",
+    "text": "What is the official name for the 'prove you're not a robot' tests commonly found on websites?",
+    "correctAnswer": "CAPTCHA",
+    "acceptedAnswers": ["Captcha"]
+  },
+  {
+    "id": "TECH-017",
+    "text": "Bill Gates famously dropped out of what university to found Microsoft?",
+    "correctAnswer": "Harvard University",
+    "acceptedAnswers": ["Harvard"]
+  },
+  {
+    "id": "TECH-020",
+    "text": "The online retailer Amazon was originally incorporated under what magical-sounding name?",
+    "correctAnswer": "Cadabra",
+    "acceptedAnswers": ["Cadabra, Inc."]
+  },
+  {
+    "id": "TECH-024",
+    "text": "What was the first home video game console, released in 1972?",
+    "correctAnswer": "The Magnavox Odyssey",
+    "acceptedAnswers": ["Magnavox Odyssey"]
+  },
+  {
+    "id": "TECH-036",
+    "text": "In a classic logic puzzle, how do you measure exactly 45 minutes using only two ropes that each take one hour to burn completely from end to end?",
+    "correctAnswer": "Light one rope at both ends and the other at one end. When the first rope burns out (30 mins), light the other end of the second rope.",
+    "acceptedAnswers": ["Light one rope at both ends and the other at one end simultaneously"]
+  },
+  {
+    "id": "TECH-039",
+    "text": "The file-sharing software Napster was named after creator Shawn Fanning's nickname, which was based on his what?",
+    "correctAnswer": "Frizzy hair",
+    "acceptedAnswers": ["Hair"]
+  },
+  {
+    "id": "TECH-044",
+    "text": "What is the common keyboard shortcut (using the Ctrl key on Windows) for the 'copy' function?",
+    "correctAnswer": "Ctrl+C",
+    "acceptedAnswers": ["Control C", "Ctrl C"]
+  },
+  {
+    "id": "TECH-052",
+    "text": "What is the term for a software development methodology where requirements and solutions evolve through the collaborative effort of self-organizing and cross-functional teams?",
+    "correctAnswer": "Agile",
+    "acceptedAnswers": ["Agile methodology"]
+  },
+  {
+    "id": "TECH-054",
+    "text": "What is the name of the world's first programmable, electronic, general-purpose digital computer, completed in 1945?",
+    "correctAnswer": "ENIAC",
+    "acceptedAnswers": ["Electronic Numerical Integrator and Computer"]
+  },
+  {
+    "id": "TECH-055",
+    "text": "What does the term 'open source' mean in relation to software?",
+    "correctAnswer": "The source code is freely available for modification and redistribution",
+    "acceptedAnswers": ["Its source code is available to the public"]
+  },
+  {
+    "id": "TECH-060",
+    "text": "What is the name for the small block of fast memory located on the CPU that stores frequently used data?",
+    "correctAnswer": "Cache",
+    "acceptedAnswers": ["CPU cache"]
+  },
+  {
+    "id": "SCI-002",
+    "text": "What is the only metal that is liquid at room temperature?",
+    "correctAnswer": "Mercury",
+    "acceptedAnswers": ["Hg"]
+  },
+  {
+    "id": "SCI-003",
+    "text": "At what temperature are the Celsius and Fahrenheit scales equal?",
+    "correctAnswer": "-40 degrees",
+    "acceptedAnswers": ["-40"]
+  },
+  {
+    "id": "SCI-007",
+    "text": "Unlike mammals and reptiles, sharks have a skeleton made of cartilage, meaning they have how many bones?",
+    "correctAnswer": "Zero",
+    "acceptedAnswers": ["0", "None"]
+  },
+  {
+    "id": "SCI-011",
+    "text": "What blood type is known as the 'universal donor'?",
+    "correctAnswer": "O negative",
+    "acceptedAnswers": ["O-"]
+  },
+  {
+    "id": "SCI-012",
+    "text": "Roughly how long does it take for light from the Sun to reach Earth?",
+    "correctAnswer": "8 minutes",
+    "acceptedAnswers": ["8 minutes and 20 seconds", "About 8 minutes"]
+  },
+  {
+    "id": "SCI-022",
+    "text": "A Geiger counter is used to measure what?",
+    "correctAnswer": "Radiation",
+    "acceptedAnswers": ["Ionizing radiation"]
+  },
+  {
+    "id": "HIST-001",
+    "text": "The shortest war in recorded history, the Anglo-Zanzibar War of 1896, lasted for approximately how long?",
+    "correctAnswer": "38 minutes",
+    "acceptedAnswers": ["About 40 minutes", "38-45 minutes"]
+  },
+  {
+    "id": "HIST-002",
+    "text": "The assassination of which Archduke is widely cited as the trigger for the start of World War I?",
+    "correctAnswer": "Archduke Franz Ferdinand",
+    "acceptedAnswers": ["Franz Ferdinand"]
+  },
+  {
+    "id": "HIST-006",
+    "text": "What is considered the largest contiguous land empire in history?",
+    "correctAnswer": "The Mongol Empire",
+    "acceptedAnswers": ["Mongol Empire"]
+  },
+  {
+    "id": "HIST-007",
+    "text": "What was the name of the secret U.S. program to develop the atomic bomb during World War II?",
+    "correctAnswer": "The Manhattan Project",
+    "acceptedAnswers": ["Manhattan Project"]
+  },
+  {
+    "id": "HIST-008",
+    "text": "The ancient Roman city of Pompeii was famously destroyed in 79 A.D. by the eruption of what volcano?",
+    "correctAnswer": "Mount Vesuvius",
+    "acceptedAnswers": ["Vesuvius"]
+  },
+  {
+    "id": "GEO-005",
+    "text": "What is the world's largest desert, covering most of a continent?",
+    "correctAnswer": "The Antarctic Polar Desert",
+    "acceptedAnswers": ["Antarctica"]
+  }
+]
