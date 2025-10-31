@@ -10,6 +10,9 @@ import { GameTimer } from '@/app/components/game-timer';
 import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
+import dynamic from 'next/dynamic';
+
+const RoundResults = dynamic(() => import('@/app/components/round-results'), { ssr: false });
 
 type ConnectionStatusType = 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
 
@@ -66,6 +69,7 @@ export default function RoomPage() {
   const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
+  const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
   
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -169,8 +173,8 @@ export default function RoomPage() {
         break;
       
       case 'ROUND_END':
-        // Transition to results state
-        console.log('Round ended:', message.payload);
+        // Transition to results state and store results
+        setRoundResults(message.payload);
         setRoom((prevRoom) => {
           if (!prevRoom) return prevRoom;
           return {
@@ -379,9 +383,15 @@ export default function RoomPage() {
               </div>
             )}
 
-            {room.gameState === 'results' && (
-              <div className="text-center p-8">
-                <p className="text-2xl">Results - This will be implemented in Phase 6</p>
+            {room.gameState === 'results' && roundResults && (
+              <div className="text-center p-4">
+                <RoundResults
+                  correctAnswer={roundResults.correctAnswer}
+                  acceptedAnswers={roundResults.acceptedAnswers}
+                  winnerId={roundResults.winnerId}
+                  results={roundResults.results}
+                  currentUserId={playerId}
+                />
               </div>
             )}
           </>

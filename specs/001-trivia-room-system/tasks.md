@@ -205,26 +205,26 @@
 
 ### Durable Object Implementation for User Story 4
 
-- [ ] T082 [US4] Implement winner calculation in workers/room-durable-object.ts (normalize answers, find fastest correct)
-- [ ] T083 [US4] Implement answer normalization in workers/room-durable-object.ts (lowercase, trim, check acceptedAnswers)
-- [ ] T084 [US4] Implement ROUND_END broadcast in workers/room-durable-object.ts (correctAnswer, acceptedAnswers, winnerId, results)
-- [ ] T085 [US4] Update room state to "results" after round ends in workers/room-durable-object.ts
+- [x] T082 [US4] Implement winner calculation in workers/room-durable-object.ts (normalize answers, find fastest correct)
+- [x] T083 [US4] Implement answer normalization in workers/room-durable-object.ts (lowercase, trim, check acceptedAnswers)
+- [x] T084 [US4] Implement ROUND_END broadcast in workers/room-durable-object.ts (correctAnswer, acceptedAnswers, winnerId, results)
+- [x] T085 [US4] Update room state to "results" after round ends in workers/room-durable-object.ts
 
 ### UI Components for User Story 4
 
-- [ ] T086 [P] [US4] Create app/components/round-results.tsx with correct answer display and winner announcement
-- [ ] T087 [P] [US4] Create app/components/player-result-card.tsx showing participant answer, time, correct/incorrect indicator
-- [ ] T088 [P] [US4] Create app/components/winner-banner.tsx with prominent winner display or "No Winner This Round"
+- [x] T086 [P] [US4] Create app/components/round-results.tsx with correct answer display and winner announcement
+- [x] T087 [P] [US4] Create app/components/player-result-card.tsx showing participant answer, time, correct/incorrect indicator
+- [x] T088 [P] [US4] Create app/components/winner-banner.tsx with prominent winner display or "No Winner This Round"
 
 ### Integration for User Story 4
 
-- [ ] T089 [US4] Update app/room/[code]/page.tsx to handle ROUND_END message and transition to results view
-- [ ] T090 [US4] Update app/room/[code]/page.tsx to render RoundResults when gameState is "results"
-- [ ] T091 [US4] Display all player results sorted by correctness, then speed in app/components/round-results.tsx
-- [ ] T092 [US4] Highlight current user's result in app/components/player-result-card.tsx
-- [ ] T093 [US4] Add responsive design for results screen (stack on mobile, grid on desktop)
-- [ ] T094 [US4] Add visual celebrations for winner (confetti animation, color highlight)
-- [ ] T095 [US4] Verify clean code standards: clear winner calculation logic, no complex conditionals
+- [x] T089 [US4] Update app/room/[code]/page.tsx to handle ROUND_END message and transition to results view
+- [x] T090 [US4] Update app/room/[code]/page.tsx to render RoundResults when gameState is "results"
+- [x] T091 [US4] Display all player results sorted by correctness, then speed in app/components/round-results.tsx
+- [x] T092 [US4] Highlight current user's result in app/components/player-result-card.tsx
+- [x] T093 [US4] Add responsive design for results screen (stack on mobile, grid on desktop)
+- [x] T094 [US4] Add visual celebrations for winner (confetti animation, color highlight)
+- [x] T095 [US4] Verify clean code standards: clear winner calculation logic, no complex conditionals
 
 **Checkpoint**: User Story 4 complete - Round winners are correctly determined and displayed
 
