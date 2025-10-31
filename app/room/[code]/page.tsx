@@ -293,6 +293,40 @@ export default function RoomPage() {
     }));
   }, [gameStartTime]);
 
+  // T103: Handle ready up from results state
+  const handleReadyForNextRound = useCallback(() => {
+    if (!wsRef.current || !room) return;
+
+    // Send READY message to transition back to lobby and start next round
+    wsRef.current.send(JSON.stringify({
+      type: 'READY',
+      payload: {
+        isReady: true,
+      },
+    }));
+  }, [room]);
+
+  // T104 & T106: Handle leave room action
+  const handleLeaveRoom = useCallback(() => {
+    if (!wsRef.current) return;
+
+    // Send LEAVE message
+    wsRef.current.send(JSON.stringify({
+      type: 'LEAVE',
+      payload: {},
+    }));
+
+    // Close WebSocket
+    wsRef.current.close();
+
+    // Clear session storage
+    sessionStorage.removeItem('playerId');
+    sessionStorage.removeItem('playerName');
+
+    // Navigate to home page
+    router.push('/');
+  }, [router]);
+
   useEffect(() => {
     // Get player info from sessionStorage
     const storedPlayerId = sessionStorage.getItem('playerId');
@@ -356,6 +390,7 @@ export default function RoomPage() {
                 participants={room.participants}
                 currentUserId={playerId}
                 onReadyToggle={handleReadyToggle}
+                onLeaveRoom={handleLeaveRoom}
               />
             )}
 
@@ -391,6 +426,8 @@ export default function RoomPage() {
                   winnerId={roundResults.winnerId}
                   results={roundResults.results}
                   currentUserId={playerId}
+                  participants={room.participants}
+                  onReadyForNextRound={handleReadyForNextRound}
                 />
               </div>
             )}
