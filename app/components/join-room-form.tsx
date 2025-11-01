@@ -34,7 +34,7 @@ export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomF
         <CardDescription>Enter a room code to join an existing game</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Join room form">
           <div className="space-y-2">
             <label htmlFor="join-name" className="text-sm font-medium">
               Your Name
@@ -49,6 +49,7 @@ export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomF
               required
               disabled={isLoading}
               className="w-full"
+              aria-describedby={error ? "join-error" : undefined}
             />
           </div>
           <div className="space-y-2">
@@ -65,10 +66,12 @@ export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomF
               required
               disabled={isLoading}
               className="w-full font-mono text-lg tracking-wider"
+              aria-describedby={error ? "join-error" : undefined}
+              aria-invalid={roomCode.length > 0 && roomCode.length !== 6}
             />
           </div>
           {error && (
-            <p className="text-sm text-red-600" role="alert">
+            <p id="join-error" className="text-sm text-red-600" role="alert" aria-live="polite">
               {error}
             </p>
           )}
@@ -76,6 +79,7 @@ export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomF
             type="submit"
             className="w-full"
             disabled={isLoading || !name.trim() || roomCode.length !== 6}
+            aria-busy={isLoading}
           >
             {isLoading ? 'Joining...' : 'Join Room'}
           </Button>

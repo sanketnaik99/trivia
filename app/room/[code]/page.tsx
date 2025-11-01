@@ -79,6 +79,11 @@ export default function RoomPage() {
   const MAX_RECONNECT_ATTEMPTS = 5;
   const RECONNECT_DELAY = 2000;
 
+  // Set page title (T115)
+  useEffect(() => {
+    document.title = `Room ${roomCode} | Trivia Room`;
+  }, [roomCode]);
+
   const handleMessage = useCallback((message: ServerMessage) => {
     switch (message.type) {
       case 'ROOM_STATE':
@@ -374,11 +379,27 @@ export default function RoomPage() {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-4xl mx-auto">
-        {connectionStatus === 'reconnecting' && (
-          <div className="mb-4 p-3 bg-yellow-100 text-yellow-800 rounded-md text-center">
-            Reconnecting... (Attempt {reconnectAttempts}/{MAX_RECONNECT_ATTEMPTS})
-          </div>
-        )}
+        {/* Connection Status Indicator (T111) */}
+        <div className="mb-4 flex items-center justify-center">
+          {connectionStatus === 'connected' && (
+            <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm flex items-center gap-2">
+              <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
+              Connected
+            </div>
+          )}
+          {connectionStatus === 'reconnecting' && (
+            <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-2">
+              <span className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
+              Reconnecting... (Attempt {reconnectAttempts}/{MAX_RECONNECT_ATTEMPTS})
+            </div>
+          )}
+          {connectionStatus === 'disconnected' && (
+            <div className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm flex items-center gap-2">
+              <span className="w-2 h-2 bg-red-600 rounded-full"></span>
+              Disconnected
+            </div>
+          )}
+        </div>
         
         {showCountdown ? (
           <GameCountdown onComplete={() => setShowCountdown(false)} />

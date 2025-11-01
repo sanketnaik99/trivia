@@ -14,9 +14,9 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
   return (
     <Card
       className={cn(
-        'transition-all',
+        'transition-all duration-300 ease-in-out',
         isCurrentUser && 'ring-2 ring-primary',
-        participant.isReady && 'bg-green-50 border-green-200'
+        participant.isReady && 'bg-green-50 border-green-200 scale-[1.02]'
       )}
     >
       <CardContent className="p-4">
@@ -24,13 +24,13 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
           <div className="flex-1 min-w-0">
             <p className="font-medium truncate">{participant.name}</p>
             {isCurrentUser && (
-              <Badge variant="secondary" className="mt-1">
+              <Badge variant="secondary" className="mt-1 animate-in fade-in duration-300">
                 You
               </Badge>
             )}
           </div>
           {participant.isReady && (
-            <Badge variant="default" className="ml-2 bg-green-600">
+            <Badge variant="default" className="ml-2 bg-green-600 animate-in slide-in-from-right duration-300">
               Ready
             </Badge>
           )}

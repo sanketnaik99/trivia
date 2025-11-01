@@ -28,9 +28,14 @@ export function GameQuestion({ questionText, onSubmitAnswer, disabled = false }:
 
   return (
     <Card className="w-full max-w-2xl mx-auto p-6 md:p-8">
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6" aria-label="Answer trivia question">
         <div className="space-y-4">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+          <h2 
+            className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight"
+            id="question-text"
+            role="heading"
+            aria-level={2}
+          >
             {questionText}
           </h2>
         </div>
@@ -45,6 +50,9 @@ export function GameQuestion({ questionText, onSubmitAnswer, disabled = false }:
             className="text-base md:text-lg h-12 md:h-14"
             autoFocus
             autoComplete="off"
+            aria-label="Your answer"
+            aria-describedby="question-text"
+            aria-required="true"
           />
 
           <Button
@@ -52,13 +60,18 @@ export function GameQuestion({ questionText, onSubmitAnswer, disabled = false }:
             disabled={!answer.trim() || disabled || isSubmitting}
             className="w-full h-12 md:h-14 text-base md:text-lg font-semibold"
             size="lg"
+            aria-busy={isSubmitting}
           >
             {isSubmitting ? 'Submitting...' : 'Submit Answer'}
           </Button>
         </div>
 
         {disabled && (
-          <p className="text-sm md:text-base text-center text-gray-600 dark:text-gray-400">
+          <p 
+            className="text-sm md:text-base text-center text-gray-600 dark:text-gray-400"
+            role="status"
+            aria-live="polite"
+          >
             Answer submitted. Waiting for other players...
           </p>
         )}
