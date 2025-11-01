@@ -4,9 +4,13 @@
     "private": true,
     "packageManager": "npm@10.9.3",
     "scripts": {
-        "dev": "turbo dev"
+        "dev": "turbo dev",
+        "build": "turbo build"
     },
     "workspaces": [
         "apps/*"
-    ]
+    ],
+    "dependencies": {
+        "turbo": "^2.6.0"
+    }
 }
