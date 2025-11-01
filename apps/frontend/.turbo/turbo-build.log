@@ -3,22 +3,15 @@
 > trivia@0.1.0 build
 > next build
 
-[1G[0K [33m[1m⚠[22m[39m Warning: Next.js inferred your workspace root, but it may not be correct.
- We detected multiple lockfiles and selected the directory of /Users/sanketnaik99/Coding/React/trivia/package-lock.json as the root directory.
- To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
-   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
- Detected additional lockfiles: 
-   * /Users/sanketnaik99/Coding/React/trivia/apps/frontend/package-lock.json
-
-   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
+[1G[0K   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
    - Environments: .env.local
 
  [37m[1m [22m[39m Creating an optimized production build ...
- [32m[1m✓[22m[39m Compiled successfully in 1117.2ms
-[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 1296.3ms  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 1296.3ms     [32m[1m✓[22m[39m Finished TypeScript in 1296.3ms 
-[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data in 222.5ms     [32m[1m✓[22m[39m Collecting page data in 222.5ms 
-[?25l [37m[1m [22m[39m Generating static pages (0/5)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/5)  [36m[=   ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (5/5) in 278.3ms
-[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 5.8ms     [32m[1m✓[22m[39m Finalizing page optimization in 5.8ms 
+ [32m[1m✓[22m[39m Compiled successfully in 1028.8ms
+[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 1254.9ms  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 1254.9ms     [32m[1m✓[22m[39m Finished TypeScript in 1254.9ms 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data in 213.9ms     [32m[1m✓[22m[39m Collecting page data in 213.9ms 
+[?25l [37m[1m [22m[39m Generating static pages (0/5)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/5)  [36m[=   ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (5/5) in 253.4ms
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 6.1ms     [32m[1m✓[22m[39m Finalizing page optimization in 6.1ms 
 
 [4mRoute (app)[24m
 ┌ ○ /
