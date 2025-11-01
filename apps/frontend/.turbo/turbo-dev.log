@@ -2,14 +2,10 @@
 > trivia@0.1.0 dev
 > next dev
 
-[1G[0K [33m[1m⚠[22m[39m Found lockfile missing swc dependencies, patching...
-   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
+[1G[0K   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
    - Local:        http://localhost:3000
    - Network:      http://192.168.1.69:3000
    - Environments: .env.local
 
  [32m[1m✓[22m[39m Starting...
- [32m[1m✓[22m[39m Ready in 547ms
- [33m[1m⚠[22m[39m Lockfile was successfully patched, please run "npm install" to ensure @next/swc dependencies are downloaded
-[?25h
-[1G[0K⠙[1G[0K
+ [32m[1m✓[22m[39m Ready in 1426ms
