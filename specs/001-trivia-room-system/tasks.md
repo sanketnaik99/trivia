@@ -271,24 +271,24 @@
 
 **Purpose**: Improvements that affect multiple user stories and final quality checks
 
-- [ ] T110 [P] Add reconnection logic in app/lib/websocket.ts (exponential backoff, max 5 attempts)
-- [ ] T111 [P] Add connection status indicator in app/room/[code]/page.tsx (connected/reconnecting/disconnected)
-- [ ] T112 [P] Implement error boundaries in app/layout.tsx for graceful error handling
-- [ ] T113 [P] Add loading states for all async operations (create room, join room, WebSocket connect)
-- [ ] T114 [P] Optimize bundle size: verify tree-shaking, remove unused imports
-- [ ] T115 [P] Add page metadata (titles, descriptions) to all pages for SEO
+- [x] T110 [P] Add reconnection logic in app/lib/websocket.ts (exponential backoff, max 5 attempts)
+- [x] T111 [P] Add connection status indicator in app/room/[code]/page.tsx (connected/reconnecting/disconnected)
+- [x] T112 [P] Implement error boundaries in app/layout.tsx for graceful error handling
+- [x] T113 [P] Add loading states for all async operations (create room, join room, WebSocket connect)
+- [x] T114 [P] Optimize bundle size: verify tree-shaking, remove unused imports
+- [x] T115 [P] Add page metadata (titles, descriptions) to all pages for SEO
 - [ ] T116 [P] Verify responsive design on real devices (iOS Safari, Android Chrome, tablets)
-- [ ] T117 [P] Add smooth transitions and animations (page transitions, state changes)
-- [ ] T118 [P] Implement proper focus management for accessibility (keyboard navigation)
-- [ ] T119 [P] Add proper ARIA labels to all interactive elements
-- [ ] T120 Code review all components for clean code principles (DRY, SOLID, clear naming)
-- [ ] T121 Verify all TypeScript types are explicit (no implicit any)
-- [ ] T122 Run ESLint and fix all warnings across codebase
-- [ ] T123 Verify constitution compliance: no testing infrastructure, Next.js/Tailwind/shadcn used
+- [x] T117 [P] Add smooth transitions and animations (page transitions, state changes)
+- [x] T118 [P] Implement proper focus management for accessibility (keyboard navigation)
+- [x] T119 [P] Add proper ARIA labels to all interactive elements
+- [x] T120 Code review all components for clean code principles (DRY, SOLID, clear naming)
+- [x] T121 Verify all TypeScript types are explicit (no implicit any)
+- [x] T122 Run ESLint and fix all warnings across codebase
+- [x] T123 Verify constitution compliance: no testing infrastructure, Next.js/Tailwind/shadcn used
 - [ ] T124 Manual testing following quickstart.md validation workflows
 - [ ] T125 Performance audit: verify <3s page load, <2s real-time latency
-- [ ] T126 Create README.md with setup instructions, tech stack, and project structure
-- [ ] T127 Add deployment documentation for Vercel (Next.js) and Cloudflare (Workers)
+- [x] T126 Create README.md with setup instructions, tech stack, and project structure
+- [x] T127 Add deployment documentation for Vercel (Next.js) and Cloudflare (Workers)
 
 ---
 

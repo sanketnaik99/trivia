@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface PlayerResult {
   participantId: string;
   participantName: string;
@@ -13,7 +11,7 @@ interface WinnerBannerProps {
   results: PlayerResult[];
 }
 
-const WinnerBanner: React.FC<WinnerBannerProps> = ({ winnerId, results }) => {
+const WinnerBanner = ({ winnerId, results }: WinnerBannerProps) => {
   if (!winnerId) {
     return (
       <div className="w-full text-center py-4 text-2xl font-bold text-gray-600">
