@@ -2,10 +2,75 @@
 > trivia@0.1.0 dev
 > next dev
 
-[1G[0K   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
+[1G[0K [33m[1m⚠[22m[39m Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/sanketnaik99/Coding/React/trivia/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/sanketnaik99/Coding/React/trivia/apps/frontend/package-lock.json
+
+   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
    - Local:        http://localhost:3000
    - Network:      http://192.168.1.69:3000
    - Environments: .env.local
 
  [32m[1m✓[22m[39m Starting...
- [32m[1m✓[22m[39m Ready in 1426ms
+ [32m[1m✓[22m[39m Ready in 409ms
+ GET / [32m200[39m in 1037ms[2m (compile: 931ms, render: 106ms)[22m
+ GET /room/JVRETY [32m200[39m in 469ms[2m (compile: 446ms, render: 23ms)[22m
+ GET / [32m200[39m in 43ms[2m (compile: 7ms, render: 36ms)[22m
+ GET /room/JVRETY [32m200[39m in 39ms[2m (compile: 18ms, render: 21ms)[22m
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ GET / [32m200[39m in 53ms[2m (compile: 8ms, render: 44ms)[22m
+ GET /room/KNG32G [32m200[39m in 75ms[2m (compile: 43ms, render: 32ms)[22m
+ GET /room/KNG32G [32m200[39m in 98ms[2m (compile: 18ms, render: 80ms)[22m
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ GET / [32m200[39m in 49ms[2m (compile: 4ms, render: 45ms)[22m
+ GET /room/PB5S8G [32m200[39m in 100ms[2m (compile: 45ms, render: 55ms)[22m
+ [32m[1m✓[22m[39m Compiled in 44ms
+ [32m[1m✓[22m[39m Compiled in 38ms
+ GET / [32m200[39m in 50ms[2m (compile: 9ms, render: 41ms)[22m
+ GET /room/KTDBFV [32m200[39m in 85ms[2m (compile: 42ms, render: 43ms)[22m
+ GET /room/KTDBFV [32m200[39m in 33ms[2m (compile: 10ms, render: 23ms)[22m
+ GET / [32m200[39m in 57ms[2m (compile: 9ms, render: 48ms)[22m
+ GET / [32m200[39m in 48ms[2m (compile: 8ms, render: 40ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 22ms[2m (compile: 8ms, render: 14ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 30ms[2m (compile: 10ms, render: 20ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 53ms[2m (compile: 20ms, render: 33ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 16ms[2m (compile: 2ms, render: 14ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1584µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 11ms[2m (compile: 1854µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1780µs, render: 7ms)[22m
+ GET /room/WXY8T4 [33m404[39m in 239ms[2m (compile: 164ms, render: 76ms)[22m
+ GET /room/WXY8T4 [33m404[39m in 34ms[2m (compile: 1709µs, render: 32ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 24ms[2m (compile: 5ms, render: 19ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 15ms[2m (compile: 1895µs, render: 13ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1725µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1788µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 11ms[2m (compile: 1916µs, render: 10ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1729µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 12ms[2m (compile: 1870µs, render: 10ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 11ms[2m (compile: 1820µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1929µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1578µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 12ms[2m (compile: 2ms, render: 10ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1592µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 2ms, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1802µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1675µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 12ms[2m (compile: 1858µs, render: 10ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 18ms[2m (compile: 3ms, render: 15ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 24ms[2m (compile: 3ms, render: 21ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1781µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 8ms[2m (compile: 1539µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 8ms[2m (compile: 1598µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 11ms[2m (compile: 1841µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1933µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1572µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 11ms[2m (compile: 1792µs, render: 9ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1749µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 9ms[2m (compile: 1556µs, render: 7ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 10ms[2m (compile: 1726µs, render: 8ms)[22m
+ GET /room/WXY8T4 [32m200[39m in 51ms[2m (compile: 1836µs, render: 49ms)[22m

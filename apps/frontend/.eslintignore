@@ -1,0 +1,18 @@
+node_modules/
+dist/
+build/
+.next/
+coverage/
+*.min.js
+.vercel/
+.turbo/
+.vscode/
+.idea/
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Ignore compiled output
+*.tsbuildinfo

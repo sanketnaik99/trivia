@@ -1,117 +1,73 @@
 /**
- * WebSocket client wrapper for Trivia Room System
- * Handles connection, reconnection logic, and message handling
+ * Socket.IO client wrapper for Trivia Room System
+ * Normalizes event handling to previous WebSocket-style API
  */
+
+import { io, type Socket } from 'socket.io-client';
+import { API_CONFIG } from './config';
 
 type MessageHandler = (data: unknown) => void;
 
-interface WebSocketConfig {
-  url: string;
-  reconnectInterval?: number;
-  maxReconnectAttempts?: number;
+interface SocketClientConfig {
+  url?: string;
+  options?: Record<string, unknown>;
 }
 
-export class WebSocketClient {
-  private ws: WebSocket | null = null;
+export class SocketClient {
+  private socket: Socket | null = null;
+  private handlers: Map<string, MessageHandler[]> = new Map();
   private url: string;
-  private reconnectInterval: number;
-  private maxReconnectAttempts: number;
-  private reconnectAttempts = 0;
-  private messageHandlers: Map<string, MessageHandler[]> = new Map();
-  private reconnectTimeout: NodeJS.Timeout | null = null;
-  
-  constructor(config: WebSocketConfig) {
-    this.url = config.url;
-    this.reconnectInterval = config.reconnectInterval || 1000;
-    this.maxReconnectAttempts = config.maxReconnectAttempts || 5;
+
+  constructor(config: SocketClientConfig = {}) {
+    this.url = config.url || API_CONFIG.socketUrl;
   }
 
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(this.url);
+        this.socket = io(this.url, { transports: ['websocket'], autoConnect: true });
 
-        this.ws.onopen = () => {
-          console.log('[WebSocket] Connected');
-          this.reconnectAttempts = 0;
+        this.socket.on('connect', () => {
+          console.log('[Socket.IO] connected', this.socket?.id);
           resolve();
-        };
+        });
 
-        this.ws.onmessage = (event) => {
-          try {
-            const message = JSON.parse(event.data);
-            this.handleMessage(message);
-          } catch (error) {
-            console.error('[WebSocket] Failed to parse message:', error);
-          }
-        };
+        this.socket.on('disconnect', (reason: unknown) => {
+          console.log('[Socket.IO] disconnected', reason);
+          this.emit('disconnect', { reason });
+        });
 
-        this.ws.onerror = (error) => {
-          console.error('[WebSocket] Error:', error);
-          reject(error);
-        };
-
-        this.ws.onclose = () => {
-          console.log('[WebSocket] Disconnected');
-          this.attemptReconnect();
-        };
-      } catch (error) {
-        reject(error);
+        this.socket.onAny((event: string, ...args: unknown[]) => {
+          const payload = args.length > 0 ? args[0] : null;
+          this.handleMessage({ type: event, payload });
+        });
+      } catch (err) {
+        reject(err);
       }
     });
   }
 
-  private attemptReconnect() {
-    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.error('[WebSocket] Max reconnection attempts reached');
-      this.emit('max_reconnect_reached', {});
-      return;
-    }
-
-    this.reconnectAttempts++;
-    const delay = this.reconnectInterval * Math.pow(2, this.reconnectAttempts - 1);
-    
-    console.log(`[WebSocket] Attempting reconnect ${this.reconnectAttempts}/${this.maxReconnectAttempts} in ${delay}ms`);
-    this.emit('reconnecting', { attempt: this.reconnectAttempts, maxAttempts: this.maxReconnectAttempts });
-
-    this.reconnectTimeout = setTimeout(() => {
-      this.connect().catch((error) => {
-        console.error('[WebSocket] Reconnection failed:', error);
-      });
-    }, delay);
-  }
-
-  send(type: string, payload: Record<string, unknown> = {}) {
-    if (this.ws?.readyState === WebSocket.OPEN) {
-      const message = JSON.stringify({ type, payload });
-      this.ws.send(message);
-    } else {
-      console.warn('[WebSocket] Cannot send message, not connected');
-    }
+  send(event: string, payload: Record<string, unknown> = {}) {
+    if (!this.socket) return console.warn('[Socket.IO] not connected');
+    console.log('[Socket.IO] Sending event:', event, payload);
+    this.socket.emit(event, payload);
   }
 
   on(messageType: string, handler: MessageHandler) {
-    if (!this.messageHandlers.has(messageType)) {
-      this.messageHandlers.set(messageType, []);
-    }
-    this.messageHandlers.get(messageType)!.push(handler);
+    if (!this.handlers.has(messageType)) this.handlers.set(messageType, []);
+    this.handlers.get(messageType)!.push(handler);
   }
 
   off(messageType: string, handler: MessageHandler) {
-    const handlers = this.messageHandlers.get(messageType);
-    if (handlers) {
-      const index = handlers.indexOf(handler);
-      if (index > -1) {
-        handlers.splice(index, 1);
-      }
-    }
+    const hs = this.handlers.get(messageType);
+    if (!hs) return;
+    const i = hs.indexOf(handler);
+    if (i >= 0) hs.splice(i, 1);
   }
 
   private handleMessage(message: { type: string; payload: unknown }) {
-    const handlers = this.messageHandlers.get(message.type);
-    if (handlers) {
-      handlers.forEach(handler => handler(message.payload));
-    }
+    const hs = this.handlers.get(message.type);
+    if (hs) hs.forEach((h) => h(message.payload));
   }
 
   private emit(type: string, payload: unknown) {
@@ -119,17 +75,15 @@ export class WebSocketClient {
   }
 
   disconnect() {
-    if (this.reconnectTimeout) {
-      clearTimeout(this.reconnectTimeout);
-      this.reconnectTimeout = null;
-    }
-    if (this.ws) {
-      this.ws.close();
-      this.ws = null;
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = null;
     }
   }
 
-  getReadyState(): number {
-    return this.ws?.readyState ?? WebSocket.CLOSED;
+  isConnected() {
+    return !!this.socket && this.socket.connected;
   }
 }
+
+export default SocketClient;
