@@ -125,19 +125,19 @@ This project uses Turborepo monorepo structure:
 
 ### Score Tracking Backend for User Story 2
 
-- [ ] T047 [P] [US2] Update apps/backend/src/services/game.service.ts endRound method to increment winner's score by 1, increment roundsWon, set lastWinTimestamp
-- [ ] T048 [P] [US2] Add calculateLeaderboard method to game.service.ts (sort by score descending, tie-break by lastWinTimestamp descending, assign rankings)
-- [ ] T049 [US2] Update apps/backend/src/socket/room.handler.ts handleJoin to initialize new participants with score=0, roundsWon=0, lastWinTimestamp=null
-- [ ] T050 [US2] Update apps/backend/src/services/game.service.ts to include leaderboard in ROOM_STATE payload (call calculateLeaderboard)
-- [ ] T051 [US2] Update apps/backend/src/services/game.service.ts endRound to include leaderboard, winnerScore, scoreChange per participant in ROUND_END payload
+- [X] T047 [P] [US2] Update apps/backend/src/services/game.service.ts endRound method to increment winner's score by 1, increment roundsWon, set lastWinTimestamp
+- [X] T048 [P] [US2] Add calculateLeaderboard method to game.service.ts (sort by score descending, tie-break by lastWinTimestamp descending, assign rankings)
+- [X] T049 [US2] Update apps/backend/src/socket/room.handler.ts handleJoin to initialize new participants with score=0, roundsWon=0, lastWinTimestamp=null
+- [X] T050 [US2] Update apps/backend/src/services/game.service.ts to include leaderboard in ROOM_STATE payload (call calculateLeaderboard)
+- [X] T051 [US2] Update apps/backend/src/services/game.service.ts endRound to include leaderboard, winnerScore, scoreChange per participant in ROUND_END payload
 
 ### Score Display Frontend for User Story 2
 
-- [ ] T052 [P] [US2] Update apps/frontend/app/components/participant-card.tsx to display participant score next to name
-- [ ] T053 [P] [US2] Create apps/frontend/app/components/leaderboard.tsx component with sorted list of participants (rank, name, score, rounds won) using shadcn/ui Card
-- [ ] T054 [US2] Update apps/frontend/app/room/[code]/page.tsx to display leaderboard component in lobby and results states
-- [ ] T055 [US2] Update apps/frontend/app/components/round-results.tsx to show score changes (+1 for winner, 0 for others) and updated leaderboard
-- [ ] T056 [US2] Add responsive styling to leaderboard component for mobile (320px+), tablet (768px+), desktop (1024px+) using Tailwind
+- [X] T052 [P] [US2] Update apps/frontend/app/components/participant-card.tsx to display participant score next to name
+- [X] T053 [P] [US2] Create apps/frontend/app/components/leaderboard.tsx component with sorted list of participants (rank, name, score, rounds won) using shadcn/ui Card
+- [X] T054 [US2] Update apps/frontend/app/room/[code]/page.tsx to display leaderboard component in lobby and results states
+- [X] T055 [US2] Update apps/frontend/app/components/round-results.tsx to show score changes (+1 for winner, 0 for others) and updated leaderboard
+- [X] T056 [US2] Add responsive styling to leaderboard component for mobile (320px+), tablet (768px+), desktop (1024px+) using Tailwind
 
 **Checkpoint**: At this point, User Story 2 should be independently functional. Test by playing multiple rounds and verifying scores accumulate correctly, leaderboard updates, and tie-breaking works.
 

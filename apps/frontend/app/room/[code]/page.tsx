@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { SocketClient } from '@/app/lib/websocket';
 import { Participant } from '@/app/lib/types';
+import { Leaderboard, type LeaderboardEntry } from '@/app/components/leaderboard';
 import { RoomLobby } from '@/app/components/room-lobby';
 import { GameCountdown } from '@/app/components/game-countdown';
 import { GameQuestion } from '@/app/components/game-question';
@@ -34,13 +35,19 @@ interface ResultEntry {
   answerText: string | null;
   timestamp: number | null;
   isCorrect: boolean;
+  // T055: Score fields from backend
+  scoreChange?: number;
+  newScore?: number;
 }
 
 interface RoundEndPayload {
   correctAnswer: string;
   acceptedAnswers: string[];
   winnerId: string | null;
+  winnerName?: string | null;
+  winnerScore?: number | null;
   results: ResultEntry[];
+  leaderboard?: LeaderboardEntry[];
 }
 
 interface CurrentRound {
@@ -55,6 +62,8 @@ interface RoomState {
   participants: Participant[];
   currentQuestion: { id: string; text: string } | null;
   currentRound: CurrentRound | null;
+  // T050: Include leaderboard in ROOM_STATE
+  leaderboard?: LeaderboardEntry[];
 }
 
 export default function RoomPage() {
@@ -387,13 +396,19 @@ export default function RoomPage() {
         ) : (
           <>
             {room.gameState === 'lobby' && (
-              <RoomLobby
-                roomCode={roomCode}
-                participants={room.participants}
-                currentUserId={playerId}
-                onReadyToggle={handleReadyToggle}
-                onLeaveRoom={handleLeaveRoom}
-              />
+              <div className="space-y-6">
+                <RoomLobby
+                  roomCode={roomCode}
+                  participants={room.participants}
+                  currentUserId={playerId}
+                  onReadyToggle={handleReadyToggle}
+                  onLeaveRoom={handleLeaveRoom}
+                />
+                {/* T054: Show leaderboard in lobby */}
+                {room.leaderboard && room.leaderboard.length > 0 && (
+                  <Leaderboard title="Leaderboard" leaderboard={room.leaderboard} />
+                )}
+              </div>
             )}
 
             {room.gameState === 'active' && room.currentQuestion && room.currentRound && (
@@ -421,16 +436,26 @@ export default function RoomPage() {
             )}
 
             {room.gameState === 'results' && roundResults && (
-              <div className="text-center p-4">
-                <RoundResults
-                  correctAnswer={roundResults.correctAnswer}
-                  acceptedAnswers={roundResults.acceptedAnswers}
-                  winnerId={roundResults.winnerId}
-                  results={roundResults.results}
-                  currentUserId={playerId}
-                  participants={room.participants}
-                  onReadyForNextRound={handleReadyForNextRound}
-                />
+              <div className="space-y-6 p-4">
+                <div className="text-center">
+                  <RoundResults
+                    correctAnswer={roundResults.correctAnswer}
+                    acceptedAnswers={roundResults.acceptedAnswers}
+                    winnerId={roundResults.winnerId}
+                    results={roundResults.results}
+                    currentUserId={playerId}
+                    participants={room.participants}
+                    onReadyForNextRound={handleReadyForNextRound}
+                    leaderboard={roundResults.leaderboard || room.leaderboard}
+                  />
+                </div>
+                {/* T054: Show updated leaderboard in results */}
+                {(roundResults.leaderboard || room.leaderboard) && (
+                  <Leaderboard
+                    title="Updated Leaderboard"
+                    leaderboard={(roundResults.leaderboard || room.leaderboard)!}
+                  />
+                )}
               </div>
             )}
           </>

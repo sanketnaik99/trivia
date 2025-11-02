@@ -1,5 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import { roomService } from '../services/room.service';
+import { gameService } from '../services/game.service';
 import { roomStore } from '../store/room.store';
 import { normalizeRoomCode } from '../utils/room-code.util';
 import { logger } from '../utils/logger.util';
@@ -40,10 +41,8 @@ export function handleJoin(io: Server, socket: Socket, payload: { playerId: stri
       currentRound: room.currentRound
         ? { startTime: room.currentRound.startTime, duration: room.currentRound.duration, answeredCount: room.currentRound.participantAnswers.filter(a => a.answerText !== null).length }
         : null,
-      leaderboard: participants
-        .map((p) => ({ participantId: p.id, participantName: p.name, score: p.score, roundsWon: p.roundsWon }))
-        .sort((a, b) => b.score - a.score)
-        .map((p, i) => ({ ...p, ranking: i + 1 })),
+      // T050: Include leaderboard using shared calculator with proper tie-breakers
+      leaderboard: gameService.calculateLeaderboard(room),
     });
   } catch (err: any) {
     const code = err?.message || 'INTERNAL_ERROR';

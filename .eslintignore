@@ -1,0 +1,31 @@
+# Node/TypeScript build artifacts
+node_modules/
+dist/
+build/
+coverage/
+
+# Next.js
+.next/
+out/
+
+# Turborepo
+.turbo/
+
+# Env files
+.env*
+
+# Logs
+*.log
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Cloudflare Workers legacy
+.wrangler/
+workers/dist/
+workers/node_modules/
+workers/.wrangler/
