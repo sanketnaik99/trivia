@@ -33,8 +33,9 @@ class GameService {
   }
 
   handleReady(io: Server, socket: Socket, payload: { isReady: boolean }) {
-    const roomCode = (socket.data as any)?.roomCode as string | undefined;
-    const playerId = (socket.data as any)?.playerId as string | undefined;
+  const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
     logger.info('READY event received', { roomCode, playerId, isReady: payload.isReady, socketId: socket.id });
     if (!roomCode || !playerId) {
       return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
@@ -96,8 +97,10 @@ class GameService {
   }
 
   handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
-    const roomCode = (socket.data as any)?.roomCode as string | undefined;
-    const playerId = (socket.data as any)?.playerId as string | undefined;
+    const start = Date.now();
+  const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
     if (!roomCode || !playerId) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
     const room = roomStore.getRoom(roomCode);
     if (!room || !room.currentRound || !room.currentQuestion || room.gameState !== 'active') {
@@ -111,7 +114,11 @@ class GameService {
     const isCorrect = this.normalize(answerText) === this.normalize(room.currentQuestion.correctAnswer)
       || (room.currentQuestion.acceptedAnswers || []).some(a => this.normalize(a) === this.normalize(answerText));
 
-    room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
+  room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
+
+  // T082: Log answer processing time
+  const dur = Date.now() - start;
+  logger.info('Processed ANSWER', { roomCode, playerId, isCorrect, ts, ms: dur });
 
     socket.emit('ANSWER_SUBMITTED', { answerText, timestamp: ts });
     const answeredCount = room.currentRound.participantAnswers.length;
@@ -191,7 +198,7 @@ class GameService {
       p.isReady = false;
     }
     
-    // Broadcast updated room state with reset ready flags
+  // Broadcast updated room state with reset ready flags
     const participants = Array.from(room.participants.values());
     // T050: Include leaderboard in ROOM_STATE
     io.to(roomCode).emit('ROOM_STATE', {
@@ -201,6 +208,15 @@ class GameService {
       currentQuestion: null,
       currentRound: null,
       leaderboard,
+    });
+
+    // T082: Log round duration and stats
+    const roundDuration = (round.endTime || Date.now()) - (round.startTime || Date.now());
+    logger.info('Round ended', {
+      roomCode,
+      winnerId,
+      answers: round.participantAnswers.length,
+      durationMs: roundDuration,
     });
   }
 

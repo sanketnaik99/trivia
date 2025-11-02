@@ -10,7 +10,7 @@ export function createApp() {
   app.use(express.json());
   app.use(
     cors({
-      origin: (origin: any, cb: (err: any, allow?: boolean) => void) => {
+      origin: (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {
         // allow requests with no origin (e.g., curl)
         if (!origin) return cb(null, true);
         if (config.allowedOrigins.includes(origin)) return cb(null, true);

@@ -1,6 +1,6 @@
-# Trivia Room System
+# Trivia Room System (Express + Socket.IO)
 
-A real-time multiplayer trivia game built with Next.js 16 and Cloudflare Workers. Create or join rooms, answer questions, and compete with friends!
+A real-time multiplayer trivia game built with Next.js 16 (App Router) and an Express + Socket.IO backend. Create or join rooms, answer questions, and compete with friends!
 
 ## 🎯 Features
 
@@ -22,46 +22,28 @@ A real-time multiplayer trivia game built with Next.js 16 and Cloudflare Workers
 - **shadcn/ui** - Accessible component library
 
 ### Backend
-- **Cloudflare Workers** - Serverless edge computing
-- **Durable Objects** - Stateful WebSocket coordination
-- **WebSocket API** - Real-time bidirectional communication
+- **Express 4.x** - HTTP API server
+- **Socket.IO 4.x** - Real-time bidirectional communication
+- **In-memory store** - Room/participant state with cleanup timers
 
-## 📁 Project Structure
+## 📁 Monorepo Structure
 
 ```
 trivia/
-├── app/                          # Next.js App Router
-│   ├── api/                      # HTTP API endpoints
-│   │   └── room/
-│   │       ├── create/           # POST /api/room/create
-│   │       └── [code]/
-│   │           ├── route.ts      # GET /api/room/[code]
-│   │           └── join/         # POST /api/room/[code]/join
-│   ├── components/               # React components
-│   │   ├── create-room-form.tsx
-│   │   ├── join-room-form.tsx
-│   │   ├── room-lobby.tsx
-│   │   ├── game-question.tsx
-│   │   ├── game-timer.tsx
-│   │   ├── round-results.tsx
-│   │   └── ...
-│   ├── lib/                      # Utilities and types
-│   │   ├── types.ts              # TypeScript definitions
-│   │   ├── questions.ts          # Trivia questions data
-│   │   ├── websocket.ts          # WebSocket client
-│   │   └── room-state.ts         # State management
-│   ├── room/[code]/              # Dynamic room pages
-│   │   └── page.tsx
-│   ├── layout.tsx                # Root layout
-│   ├── page.tsx                  # Home page
-│   └── globals.css               # Global styles
-├── workers/                      # Cloudflare Workers
-│   ├── room-durable-object.ts    # Durable Object implementation
-│   ├── types.ts                  # WebSocket protocol types
-│   ├── questions.json            # Questions data
-│   └── wrangler.toml             # Cloudflare configuration
-├── components/ui/                # shadcn/ui components
-└── specs/                        # Design documents
+├── apps/
+│   ├── backend/                  # Express + Socket.IO backend
+│   │   ├── src/
+│   │   │   ├── routes/           # REST endpoints (room, health)
+│   │   │   ├── socket/           # Socket.IO handlers
+│   │   │   ├── services/         # Game and room services
+│   │   │   └── utils/            # Logger, helpers
+│   │   └── package.json
+│   └── frontend/                 # Next.js app (App Router)
+│       ├── app/                  # Pages and components
+│       └── package.json
+├── specs/                        # Design docs and plans
+├── turbo.json                    # Turborepo tasks
+└── package.json                  # Root workspace scripts
 
 ```
 
@@ -70,8 +52,7 @@ trivia/
 ### Prerequisites
 
 - Node.js 18+ (recommended: 20+)
-- npm, yarn, or pnpm
-- Wrangler CLI (for Cloudflare Workers)
+- npm (workspaces enabled)
 
 ### Installation
 
@@ -81,38 +62,26 @@ trivia/
    cd trivia
    ```
 
-2. **Install dependencies**
+2. **Install dependencies (workspace)**
    ```bash
-   # Install Next.js dependencies
+   # from repo root
    npm install
-
-   # Install Cloudflare Workers dependencies
-   cd workers
-   npm install
-   cd ..
    ```
 
-3. **Set up environment variables**
+3. **Set up environment variables (frontend)**
    
-   Create a `.env.local` file in the root directory:
+   Create `apps/frontend/.env.local`:
    ```env
-   NEXT_PUBLIC_WS_URL=ws://localhost:8787
-   NEXT_PUBLIC_API_URL=http://localhost:8787
+   NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+   NEXT_PUBLIC_API_URL=http://localhost:3001
    ```
 
 ### Development
 
-1. **Start the Cloudflare Workers dev server**
-   ```bash
-   cd workers
-   npm run dev
-   # Workers running on http://localhost:8787
-   ```
-
-2. **In a new terminal, start the Next.js dev server**
+1. **Start both backend and frontend (root)**
    ```bash
    npm run dev
-   # Next.js running on http://localhost:3000
+   # Starts: backend on http://localhost:3001 and frontend on http://localhost:3000
    ```
 
 3. **Open your browser**
@@ -151,50 +120,36 @@ trivia/
 
 ### Environment Variables
 
+Frontend (`apps/frontend/.env.local`):
+
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NEXT_PUBLIC_WS_URL` | WebSocket server URL | `ws://localhost:8787` |
-| `NEXT_PUBLIC_API_URL` | HTTP API base URL | `http://localhost:8787` |
+| `NEXT_PUBLIC_SOCKET_URL` | Socket.IO server URL | `http://localhost:3001` |
+| `NEXT_PUBLIC_API_URL` | HTTP API base URL | `http://localhost:3001` |
 
-### Cloudflare Workers (wrangler.toml)
-
-```toml
-name = "trivia-workers"
-main = "room-durable-object.ts"
-compatibility_date = "2024-01-01"
-
-[[durable_objects.bindings]]
-name = "ROOM"
-class_name = "RoomDurableObject"
-```
-
-## 📝 API Documentation
+## 📝 API Documentation (Express)
 
 ### HTTP Endpoints
 
 #### Create Room
 ```http
 POST /api/room/create
-Content-Type: application/json
-
+Response 201:
 {
-  "name": "Alice"
-}
-
-Response:
-{
-  "roomCode": "ABC123",
-  "playerId": "uuid-here"
+   "code": "ABC123",
+   "url": "http://localhost:3000/room/ABC123"
 }
 ```
 
 #### Validate Room
 ```http
-GET /api/room/ABC123
-
-Response:
+GET /api/room/ABC123/validate
+Response 200:
 {
-  "exists": true
+   "exists": true,
+   "canJoin": true,
+   "participantCount": 1,
+   "gameState": "lobby"
 }
 ```
 
@@ -215,7 +170,7 @@ Response:
 
 ### WebSocket Protocol
 
-**Connect**: `ws://localhost:8787?room=ABC123`
+**Connect (handled by client)**: Socket.IO connects to `NEXT_PUBLIC_SOCKET_URL`
 
 **Client Messages**:
 - `JOIN`: Join room with player info
@@ -242,15 +197,15 @@ npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 
-# Cloudflare Workers
-cd workers
-npm run dev          # Start Workers dev server
-npm run deploy       # Deploy to Cloudflare
+# Backend (Express)
+cd apps/backend
+npm run dev          # Start dev server on :3001
+npm run build        # Type-check and emit build (if configured)
 ```
 
 ## 🌐 Deployment
 
-### Deploy Next.js to Vercel
+### Deploy Next.js to Vercel (Frontend)
 
 1. Push your code to GitHub
 2. Import the repository to Vercel
@@ -259,25 +214,13 @@ npm run deploy       # Deploy to Cloudflare
    - `NEXT_PUBLIC_API_URL` → Your Workers URL (https://...)
 4. Deploy!
 
-### Deploy Workers to Cloudflare
+### Deploy Express Backend (Examples)
 
-1. Install Wrangler CLI:
-   ```bash
-   npm install -g wrangler
-   ```
+Host the backend on your preferred Node host (Render, Railway, Fly.io, AWS, etc.). Expose port 3001 and set CORS to allow your frontend origin.
 
-2. Login to Cloudflare:
-   ```bash
-   wrangler login
-   ```
-
-3. Deploy:
-   ```bash
-   cd workers
-   npm run deploy
-   ```
-
-4. Note your Workers URL and update Next.js environment variables
+Environment variables (backend):
+- `PORT` (default: 3001)
+- `FRONTEND_BASE_URL` (used to build shareable links)
 
 ## 🎨 Customization
 
@@ -320,4 +263,4 @@ For issues or questions, please open an issue on GitHub.
 
 ---
 
-Built with ❤️ using Next.js and Cloudflare Workers
+Built with ❤️ using Next.js, Express, and Socket.IO

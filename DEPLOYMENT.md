@@ -1,97 +1,45 @@
-# Deployment Guide - Trivia Room System
+# Deployment Guide - Trivia Room System (Express + Socket.IO)
 
-Complete guide to deploying the Trivia Room System to production.
+Production deployment guide for the monorepo: Next.js frontend + Express/Socket.IO backend.
 
 ## Architecture Overview
 
-The application consists of two separate deployments:
+Two independent deployments:
 
-1. **Frontend (Next.js)** → Deploy to Vercel
-2. **Backend (Cloudflare Workers)** → Deploy to Cloudflare
+1. **Frontend (Next.js)** → deploy to Vercel (recommended)
+2. **Backend (Express + Socket.IO)** → deploy to your Node host (Render, Railway, Fly.io, AWS, etc.)
 
 ## 🔧 Prerequisites
 
-- Vercel account (free tier works)
-- Cloudflare account (Workers free tier: 100,000 requests/day)
+- Vercel account (for frontend)
+- A Node hosting provider (for backend)
 - GitHub repository with your code
 - Node.js 18+ installed locally
-- Wrangler CLI installed globally
-
-```bash
-npm install -g wrangler
-```
 
 ---
 
-## Part 1: Deploy Cloudflare Workers (Backend)
+## Part 1: Deploy Backend (Express + Socket.IO)
 
-### Step 1: Setup Cloudflare Account
+### Step 1: Choose a host
 
-1. Sign up at [Cloudflare](https://dash.cloudflare.com/sign-up)
-2. Navigate to "Workers & Pages"
-3. Click "Create Application" → "Create Worker"
+Pick a Node hosting provider (Render, Railway, Fly.io, AWS EC2/Lightsail, Azure App Service, etc.).
 
-### Step 2: Configure Wrangler
+### Step 2: Build and run
 
+Backend path: `apps/backend`
+
+Environment variables:
+- `PORT` (default: 3001)
+- `FRONTEND_BASE_URL` (used for generating shareable URLs)
+
+Start command:
 ```bash
-# Login to Cloudflare
-wrangler login
-
-# This will open a browser window to authenticate
+npm ci
+npm run build
+npm start
 ```
 
-### Step 3: Update wrangler.toml
-
-Edit `workers/wrangler.toml`:
-
-```toml
-name = "trivia-workers"  # Change to your preferred name
-main = "room-durable-object.ts"
-compatibility_date = "2024-01-01"
-
-# Durable Objects configuration
-[[durable_objects.bindings]]
-name = "ROOM"
-class_name = "RoomDurableObject"
-
-# Migrations for Durable Objects (required on first deploy)
-[[migrations]]
-tag = "v1"
-new_classes = ["RoomDurableObject"]
-```
-
-### Step 4: Deploy Workers
-
-```bash
-cd workers
-npm install
-npm run deploy
-```
-
-Expected output:
-```
-Uploaded trivia-workers (X.XX sec)
-Published trivia-workers (X.XX sec)
-  https://trivia-workers.<your-subdomain>.workers.dev
-```
-
-### Step 5: Note Your Workers URL
-
-Save the deployment URL - you'll need it for the Next.js deployment:
-- **WebSocket URL**: `wss://trivia-workers.<your-subdomain>.workers.dev`
-- **HTTP API URL**: `https://trivia-workers.<your-subdomain>.workers.dev`
-
-### Step 6: Test Workers Deployment
-
-```bash
-# Test room creation
-curl -X POST https://trivia-workers.<your-subdomain>.workers.dev/api/room/create \
-  -H "Content-Type: application/json" \
-  -d '{"name":"TestUser"}'
-
-# Should return:
-# {"roomCode":"XXXXXX","playerId":"uuid-here"}
-```
+Ensure CORS allows your frontend origin.
 
 ---
 
@@ -119,8 +67,8 @@ In the Vercel project settings, add these environment variables:
 
 | Variable | Value | Example |
 |----------|-------|---------|
-| `NEXT_PUBLIC_WS_URL` | Your Workers WebSocket URL | `wss://trivia-workers.example.workers.dev` |
-| `NEXT_PUBLIC_API_URL` | Your Workers HTTP URL | `https://trivia-workers.example.workers.dev` |
+| `NEXT_PUBLIC_SOCKET_URL` | Your backend Socket.IO URL | `https://api.example.com` |
+| `NEXT_PUBLIC_API_URL` | Your backend HTTP URL | `https://api.example.com` |
 
 **Important**: These must be set BEFORE the first deployment!
 
@@ -149,16 +97,13 @@ In the Vercel project settings, add these environment variables:
 3. Follow DNS configuration instructions
 4. Vercel will auto-provision SSL certificate
 
-### For Cloudflare Workers (Backend)
+### For Backend (Express)
 
-1. Add a Workers route in Cloudflare Dashboard
-2. Navigate to Workers → Routes
-3. Add route: `api.yourdomain.com/*` → Your Worker
-4. SSL is automatic with Cloudflare
+Point a subdomain like `api.yourdomain.com` to your backend host. Ensure SSL (HTTPS) is configured.
 
 Example with custom domains:
 ```env
-NEXT_PUBLIC_WS_URL=wss://api.yourdomain.com
+NEXT_PUBLIC_SOCKET_URL=https://api.yourdomain.com
 NEXT_PUBLIC_API_URL=https://api.yourdomain.com
 ```
 
@@ -166,57 +111,27 @@ NEXT_PUBLIC_API_URL=https://api.yourdomain.com
 
 ## Part 4: Environment-Specific Configuration
 
-### Development (.env.local)
+### Development (.env.local in apps/frontend)
 ```env
-NEXT_PUBLIC_WS_URL=ws://localhost:8787
-NEXT_PUBLIC_API_URL=http://localhost:8787
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
 ### Staging (.env.staging)
 ```env
-NEXT_PUBLIC_WS_URL=wss://trivia-workers-staging.workers.dev
-NEXT_PUBLIC_API_URL=https://trivia-workers-staging.workers.dev
+NEXT_PUBLIC_SOCKET_URL=https://api-staging.example.com
+NEXT_PUBLIC_API_URL=https://api-staging.example.com
 ```
 
 ### Production (.env.production)
 ```env
-NEXT_PUBLIC_WS_URL=wss://trivia-workers.workers.dev
-NEXT_PUBLIC_API_URL=https://trivia-workers.workers.dev
+NEXT_PUBLIC_SOCKET_URL=https://api.example.com
+NEXT_PUBLIC_API_URL=https://api.example.com
 ```
 
 ---
 
 ## Part 5: CI/CD Setup (Optional)
-
-### Automatic Workers Deployment
-
-Create `.github/workflows/deploy-workers.yml`:
-
-```yaml
-name: Deploy Workers
-
-on:
-  push:
-    branches: [main]
-    paths:
-      - 'workers/**'
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      - name: Install dependencies
-        run: cd workers && npm ci
-      - name: Deploy to Cloudflare
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          workingDirectory: workers
-```
 
 ### Automatic Vercel Deployment
 
@@ -230,18 +145,9 @@ No additional setup needed!
 
 ## Part 6: Monitoring & Debugging
 
-### Cloudflare Workers
+### Backend
 
-View logs in real-time:
-```bash
-cd workers
-wrangler tail
-```
-
-Or view in Cloudflare Dashboard:
-1. Workers & Pages
-2. Select your worker
-3. Click "Logs" tab
+View logs in your hosting provider, or run locally with `npm run dev` in `apps/backend`.
 
 ### Vercel
 
@@ -252,11 +158,11 @@ View logs in Vercel Dashboard:
 
 ### Common Issues
 
-**Issue**: WebSocket connection fails
-- **Solution**: Check CORS settings, verify WS URL uses `wss://` in production
+**Issue**: Socket.IO connection fails
+- **Solution**: Check CORS settings, verify `NEXT_PUBLIC_SOCKET_URL` is correct and uses `https://` in production
 
-**Issue**: "Module not found" in Workers
-- **Solution**: Ensure all imports use explicit file extensions in `room-durable-object.ts`
+**Issue**: 404 on /api/room/:code/validate
+- **Solution**: Confirm backend is deployed and `NEXT_PUBLIC_API_URL` is set to backend base URL
 
 **Issue**: Environment variables not working
 - **Solution**: Remember to rebuild after changing env vars (`npm run build`)
@@ -265,17 +171,12 @@ View logs in Vercel Dashboard:
 
 ## Part 7: Scaling Considerations
 
-### Cloudflare Workers Limits
+### Backend Host Limits
 
-**Free Tier**:
-- 100,000 requests/day
-- 10ms CPU time per request
-- 30 seconds per Durable Object instance
-
-**Paid Tier** ($5/month):
-- 10 million requests/month included
-- $0.50 per additional million
-- No CPU time limit
+Limits vary by provider (Render, Railway, Fly.io, AWS, etc.). Ensure:
+- WebSockets are supported and not proxied incorrectly
+- Instance has enough RAM/CPU for expected concurrent rooms
+- Idle timeouts are disabled for long-lived connections
 
 ### Vercel Limits
 
@@ -297,27 +198,16 @@ View logs in Vercel Dashboard:
 2. Find previous working deployment
 3. Click "..." → "Promote to Production"
 
-### Rollback Workers Deployment
-
-```bash
-cd workers
-git checkout <previous-commit>
-npm run deploy
-```
-
-Or use Cloudflare Dashboard:
-1. Workers & Pages → Your worker
-2. Click "Rollbacks" tab
-3. Select previous version
+<!-- Removed Workers rollback section (not applicable) -->
 
 ---
 
 ## Part 9: Health Checks
 
-### Workers Health Check
+### Backend Health Check
 
 ```bash
-curl https://trivia-workers.workers.dev/health
+curl https://api.yourdomain.com/api/health
 ```
 
 Expected response: `200 OK`
@@ -337,15 +227,13 @@ Expected response: `200 OK` with HTML
 1. **Never commit .env files** - Use `.gitignore`
 2. **Use HTTPS/WSS in production** - HTTP/WS only for local dev
 3. **Rotate API tokens regularly** - Update in CI/CD secrets
-4. **Enable Cloudflare WAF** - Protect against attacks
+4. **Enable a WAF** - Protect against attacks (at your CDN or load balancer)
 5. **Monitor logs for anomalies** - Set up alerts
 
 ---
 
 ## Quick Deployment Checklist
 
-- [ ] Workers deployed to Cloudflare
-- [ ] Workers URL saved
 - [ ] Environment variables set in Vercel
 - [ ] Frontend deployed to Vercel
 - [ ] Test: Create room works
@@ -360,17 +248,15 @@ Expected response: `200 OK` with HTML
 
 ## Support & Troubleshooting
 
-**Cloudflare Workers Support**:
-- [Workers Documentation](https://developers.cloudflare.com/workers/)
-- [Durable Objects Guide](https://developers.cloudflare.com/durable-objects/)
-- [Community Discord](https://discord.gg/cloudflaredev)
-
 **Vercel Support**:
 - [Vercel Documentation](https://vercel.com/docs)
 - [Next.js Deployment](https://nextjs.org/docs/deployment)
 - [Community Discord](https://vercel.com/discord)
 
+**Backend Hosting Support**:
+- Refer to your provider's docs (Render, Railway, Fly.io, AWS, Azure, GCP) for deployment and logging specifics
+
 ---
 
-**Last Updated**: 2025-10-31
+**Last Updated**: 2025-11-02
 **Version**: 1.0.0

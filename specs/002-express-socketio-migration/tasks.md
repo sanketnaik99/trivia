@@ -202,20 +202,20 @@ This project uses Turborepo monorepo structure:
 
 **Purpose**: Improvements that affect multiple user stories and final cleanup
 
-- [ ] T077 [P] Add error handling for server restart scenario (detect disconnection, show "Session lost" modal, redirect to homepage)
-- [ ] T078 [P] Update apps/frontend/app/error.tsx to handle room-related errors with user-friendly messages
-- [ ] T079 [P] Update apps/frontend/app/global-error.tsx for session-lost error handling
-- [ ] T080 Add rate limiting to apps/backend/src/routes/room.routes.ts to prevent room creation spam
-- [ ] T081 Add connection logging to apps/backend/src/socket/index.ts for debugging (log JOIN, READY, ANSWER, LEAVE events)
-- [ ] T082 Add performance monitoring logs to apps/backend/src/services/game.service.ts (log round duration, answer processing time)
-- [ ] T083 Update root README.md with Express backend setup instructions (link to quickstart.md)
-- [ ] T084 Update DEPLOYMENT.md with Express backend deployment instructions (port 3001, environment variables)
-- [ ] T085 Delete workers/ directory and Wrangler configuration files (wrangler.toml, worker-configuration.d.ts)
-- [ ] T086 Update apps/frontend/README.md to reference new Express backend instead of Cloudflare Workers
-- [ ] T087 Run quickstart.md validation procedures (create room, validate, join via Socket.IO, play game, test reconnection)
-- [ ] T088 Code cleanup: Remove unused imports, format with prettier, verify no TypeScript `any` types
-- [ ] T089 Verify all components responsive on mobile (320px+), tablet (768px+), desktop (1024px+)
-- [ ] T090 Verify clean code standards: clear function names, proper separation of concerns, TypeScript strict mode compliance
+ [X] T077 [P] Add error handling for server restart scenario (detect disconnection, show "Session lost" modal, redirect to homepage)
+ [X] T078 [P] Update apps/frontend/app/error.tsx to handle room-related errors with user-friendly messages
+ [X] T079 [P] Update apps/frontend/app/global-error.tsx for session-lost error handling
+ [X] T080 Add rate limiting to apps/backend/src/routes/room.routes.ts to prevent room creation spam
+ [X] T081 Add connection logging to apps/backend/src/socket/index.ts for debugging (log JOIN, READY, ANSWER, LEAVE events)
+ [X] T082 Add performance monitoring logs to apps/backend/src/services/game.service.ts (log round duration, answer processing time)
+ [X] T083 Update root README.md with Express backend setup instructions (link to quickstart.md)
+ [X] T084 Update DEPLOYMENT.md with Express backend deployment instructions (port 3001, environment variables)
+ [X] T085 Delete workers/ directory and Wrangler configuration files (wrangler.toml, worker-configuration.d.ts)
+ [X] T086 Update apps/frontend/README.md to reference new Express backend instead of Cloudflare Workers
+- [X] T087 Run quickstart.md validation procedures (create room, validate, join via Socket.IO, play game, test reconnection)
+- [X] T088 Code cleanup: Remove unused imports, format with prettier, verify no TypeScript `any` types
+- [X] T089 Verify all components responsive on mobile (320px+), tablet (768px+), desktop (1024px+)
+- [X] T090 Verify clean code standards: clear function names, proper separation of concerns, TypeScript strict mode compliance
 
 ---
 

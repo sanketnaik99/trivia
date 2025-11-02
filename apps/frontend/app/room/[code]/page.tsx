@@ -13,6 +13,7 @@ import { GameTimer } from '@/app/components/game-timer';
 import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
+import { SessionLostModal } from '@/app/components/session-lost-modal';
 import { API_CONFIG } from '@/app/lib/config';
 import dynamic from 'next/dynamic';
 
@@ -85,13 +86,17 @@ export default function RoomPage() {
   const [needsPlayerInfo, setNeedsPlayerInfo] = useState(false); // Track if user needs to enter name
   const [isJoining, setIsJoining] = useState(false);
   const [joinError, setJoinError] = useState<string | null>(null);
+  const [sessionLost, setSessionLost] = useState(false); // T077: Track permanent connection loss
   
   const wsRef = useRef<import('@/app/lib/websocket').SocketClient | null>(null);
   // Socket.IO handles reconnection internally; no manual timeout tracking needed
   const userInfoRef = useRef<{ userId: string; userName: string } | null>(null);
   const connectFnRef = useRef<(() => void) | null>(null);
 
-  const MAX_RECONNECT_ATTEMPTS = 5;
+  // T077: Handler to return home when session is lost
+  const handleReturnHome = useCallback(() => {
+    router.push('/');
+  }, [router]);
 
   // Set page title (T115)
   useEffect(() => {
@@ -243,6 +248,29 @@ export default function RoomPage() {
       client.on('ROUND_END', (payload: unknown) => handleMessage({ type: 'ROUND_END', payload } as ServerMessage));
       client.on('ERROR', (payload: unknown) => handleMessage({ type: 'ERROR', payload } as ServerMessage));
 
+      // T077: Handle disconnect and reconnection events
+      client.on('disconnect', () => {
+        console.log('[Frontend] Socket disconnected');
+        setConnectionStatus('reconnecting');
+      });
+
+      client.on('reconnect_attempt', (payload: unknown) => {
+        const attempt = (payload as { attempt: number })?.attempt || 0;
+        console.log('[Frontend] Reconnect attempt', attempt);
+        setReconnectAttempts(attempt);
+      });
+
+      client.on('reconnect_failed', () => {
+        console.error('[Frontend] Reconnection failed permanently');
+        setConnectionStatus('disconnected');
+        setSessionLost(true);
+      });
+
+      client.on('connection_error', () => {
+        console.error('[Frontend] Connection error');
+        setConnectionStatus('reconnecting');
+      });
+
       client.connect().then(() => {
         setConnectionStatus('connected');
         setReconnectAttempts(0);
@@ -330,7 +358,9 @@ export default function RoomPage() {
   }, [router]);
 
   // T061: Handle joining room when coming from shareable link
-  const handleJoinRoomFromLink = async (name: string, code: string) => {
+  const handleJoinRoomFromLink = async (name: string, _code: string) => {
+    // Mark parameter as intentionally unused
+    void _code;
     setIsJoining(true);
     setJoinError(null);
     
@@ -430,6 +460,7 @@ export default function RoomPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         {/* T062, T066: Responsive error display for invalid rooms */}
         <div className="w-full max-w-md mx-auto">
           <ErrorDisplay message={error} onRetry={() => router.push('/')} />
@@ -438,10 +469,13 @@ export default function RoomPage() {
     );
   }
 
+  // Note: SessionLostModal render handled below in each return path
+
   // T061: Show join form when accessing via shareable link without credentials
   if (needsPlayerInfo) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto space-y-4">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold mb-2">Join Room</h1>
@@ -468,6 +502,7 @@ export default function RoomPage() {
 
   return (
     <div className="min-h-screen bg-background p-4">
+      {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
       <div className="max-w-4xl mx-auto">
         {/* Connection Status Indicator (T111) */}
         <div className="mb-4 flex items-center justify-center">
@@ -480,7 +515,7 @@ export default function RoomPage() {
           {connectionStatus === 'reconnecting' && (
             <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-2">
               <span className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
-              Reconnecting... (Attempt {reconnectAttempts}/{MAX_RECONNECT_ATTEMPTS})
+              Reconnecting...{reconnectAttempts > 0 && ` (Attempt ${reconnectAttempts})`}
             </div>
           )}
           {connectionStatus === 'disconnected' && (

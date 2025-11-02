@@ -37,6 +37,24 @@ export class SocketClient {
           this.emit('disconnect', { reason });
         });
 
+        // T077: Add connection error handling
+        this.socket.on('connect_error', (error: Error) => {
+          console.error('[Socket.IO] connection error', error);
+          this.emit('connection_error', { error: error.message });
+        });
+
+        // T077: Add reconnection attempt tracking
+        this.socket.io.on('reconnect_attempt', (attempt: number) => {
+          console.log('[Socket.IO] reconnect attempt', attempt);
+          this.emit('reconnect_attempt', { attempt });
+        });
+
+        // T077: Add reconnection failure handling
+        this.socket.io.on('reconnect_failed', () => {
+          console.error('[Socket.IO] reconnection failed');
+          this.emit('reconnect_failed', {});
+        });
+
         this.socket.onAny((event: string, ...args: unknown[]) => {
           const payload = args.length > 0 ? args[0] : null;
           this.handleMessage({ type: event, payload });

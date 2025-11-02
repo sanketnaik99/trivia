@@ -5,6 +5,8 @@ import { roomStore } from '../store/room.store';
 import { normalizeRoomCode } from '../utils/room-code.util';
 import { logger } from '../utils/logger.util';
 
+type SocketData = { roomCode?: string; playerId?: string };
+
 export function handleJoin(io: Server, socket: Socket, payload: { playerId: string; playerName: string; roomCode: string }) {
   const roomCode = normalizeRoomCode(payload.roomCode);
   const room = roomStore.getRoom(roomCode);
@@ -28,10 +30,11 @@ export function handleJoin(io: Server, socket: Socket, payload: { playerId: stri
     }
     
     const participant = roomService.addParticipant(roomCode, payload.playerName);
-    socket.join(roomCode);
-    // track on socket
-    (socket.data as any).roomCode = roomCode;
-    (socket.data as any).playerId = participant.id;
+  socket.join(roomCode);
+  // track on socket (narrow data type)
+  const s = socket as Socket & { data: SocketData };
+  s.data.roomCode = roomCode;
+  s.data.playerId = participant.id;
 
     // Broadcast to others
     socket.to(roomCode).emit('PLAYER_JOINED', { participant: {
@@ -58,16 +61,17 @@ export function handleJoin(io: Server, socket: Socket, payload: { playerId: stri
       // T050: Include leaderboard using shared calculator with proper tie-breakers
       leaderboard: gameService.calculateLeaderboard(room),
     });
-  } catch (err: any) {
-    const code = err?.message || 'INTERNAL_ERROR';
+  } catch (err: unknown) {
+    const code = (err as Error)?.message || 'INTERNAL_ERROR';
     logger.error('JOIN failed', { roomCode, error: code });
     socket.emit('ERROR', { code, message: code.replaceAll('_', ' ').toLowerCase() });
   }
 }
 
 export function handleLeave(io: Server, socket: Socket) {
-  const roomCode = (socket.data as any)?.roomCode as string | undefined;
-  const playerId = (socket.data as any)?.playerId as string | undefined;
+  const s = socket as Socket & { data: SocketData };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
   if (!roomCode || !playerId) return;
   const room = roomStore.getRoom(roomCode);
   if (!room) return;
