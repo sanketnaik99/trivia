@@ -38,3 +38,25 @@
  GET /room/CKWCRH [32m200[39m in 37ms[2m (compile: 17ms, render: 20ms)[22m
  GET /room/CKWCRH [32m200[39m in 84ms[2m (compile: 15ms, render: 69ms)[22m
  GET /room/CKWCRH [32m200[39m in 48ms[2m (compile: 10ms, render: 38ms)[22m
+ [32m[1m✓[22m[39m Compiled in 27ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 57ms
+ GET /room/CKWCRH [32m200[39m in 167ms[2m (compile: 83ms, render: 85ms)[22m
+ GET / [32m200[39m in 133ms[2m (compile: 77ms, render: 57ms)[22m
+ GET /room/QUNUTH [32m200[39m in 25ms[2m (compile: 10ms, render: 14ms)[22m
+ GET /room/QUNUTH%20Join%20my%20trivia%20game!%20Room%20code:%20QUNUTH [32m200[39m in 43ms[2m (compile: 13ms, render: 31ms)[22m
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 39ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ GET /room/QUNUTH [32m200[39m in 173ms[2m (compile: 93ms, render: 80ms)[22m
+ GET /room/QUNUTH%20Join%20my%20trivia%20game!%20Room%20code:%20QUNUTH [32m200[39m in 39ms[2m (compile: 10ms, render: 29ms)[22m
+ GET /room/QUNUTH%20Join%20my%20trivia%20game!%20Room%20code:%20QUNUTH [32m200[39m in 45ms[2m (compile: 9ms, render: 35ms)[22m
+ [32m[1m✓[22m[39m Compiled in 69ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ GET /room/QUNUTH [32m200[39m in 184ms[2m (compile: 85ms, render: 99ms)[22m
+ GET /room/QUNUTH [32m200[39m in 43ms[2m (compile: 7ms, render: 36ms)[22m
+ GET /room/QUNUTH [32m200[39m in 46ms[2m (compile: 12ms, render: 33ms)[22m
+ GET /room/QUNUTH [32m200[39m in 50ms[2m (compile: 14ms, render: 37ms)[22m
+ GET /room/QUNUTH [32m200[39m in 43ms[2m (compile: 11ms, render: 32ms)[22m
+ GET /room/QUNUTH [32m200[39m in 45ms[2m (compile: 10ms, render: 34ms)[22m

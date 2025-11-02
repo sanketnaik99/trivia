@@ -180,19 +180,19 @@ This project uses Turborepo monorepo structure:
 
 ### Share Button Component for User Story 4
 
-- [ ] T067 [P] [US4] Create apps/frontend/app/components/share-button.tsx with "Share Link" button using shadcn/ui Button component
-- [ ] T068 [US4] Add clipboard API copy functionality to share-button.tsx (navigator.clipboard.writeText with shareable URL)
-- [ ] T069 [US4] Add native share API for mobile to share-button.tsx (navigator.share with URL, title, text if supported)
-- [ ] T070 [US4] Add success feedback toast/message to share-button.tsx ("Link copied!" for 2 seconds after successful copy)
-- [ ] T071 [US4] Add fallback display to share-button.tsx for browsers without clipboard/share API (show URL in read-only input)
-- [ ] T072 [US4] Add error handling to share-button.tsx for failed copy operations (show error message)
+- [X] T067 [P] [US4] Create apps/frontend/app/components/share-button.tsx with "Share Link" button using shadcn/ui Button component
+- [X] T068 [US4] Add clipboard API copy functionality to share-button.tsx (navigator.clipboard.writeText with shareable URL)
+- [X] T069 [US4] Add native share API for mobile to share-button.tsx (navigator.share with URL, title, text if supported)
+- [X] T070 [US4] Add success feedback toast/message to share-button.tsx ("Link copied!" for 2 seconds after successful copy)
+- [X] T071 [US4] Add fallback display to share-button.tsx for browsers without clipboard/share API (show URL in read-only input)
+- [X] T072 [US4] Add error handling to share-button.tsx for failed copy operations (show error message)
 
 ### Share Button Integration for User Story 4
 
-- [ ] T073 [US4] Add share-button component to apps/frontend/app/components/room-lobby.tsx below room code display
-- [ ] T074 [US4] Pass shareable URL prop from room-lobby to share-button (construct from FRONTEND_BASE_URL + room code)
-- [ ] T075 [US4] Add responsive styling to share-button for mobile (full width), tablet (auto width), desktop (auto width) using Tailwind
-- [ ] T076 [US4] Add accessibility attributes to share-button (aria-label, keyboard navigation support)
+- [X] T073 [US4] Add share-button component to apps/frontend/app/components/room-lobby.tsx below room code display
+- [X] T074 [US4] Pass shareable URL prop from room-lobby to share-button (construct from FRONTEND_BASE_URL + room code)
+- [X] T075 [US4] Add responsive styling to share-button for mobile (full width), tablet (auto width), desktop (auto width) using Tailwind
+- [X] T076 [US4] Add accessibility attributes to share-button (aria-label, keyboard navigation support)
 
 **Checkpoint**: All user stories should now be independently functional. Test complete flow: create room, share link, join via link, play game with scores, use share button.
 
