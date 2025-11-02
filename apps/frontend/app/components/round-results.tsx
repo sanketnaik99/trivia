@@ -4,6 +4,7 @@ import PlayerResultCard from './player-result-card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Participant } from '@/app/lib/types';
+import type { LeaderboardEntry } from './leaderboard';
 
 interface PlayerResult {
   participantId: string;
@@ -11,6 +12,8 @@ interface PlayerResult {
   answerText: string | null;
   timestamp: number | null;
   isCorrect: boolean;
+  scoreChange?: number;
+  newScore?: number;
 }
 
 interface RoundResultsProps {
@@ -21,6 +24,7 @@ interface RoundResultsProps {
   currentUserId: string;
   participants?: Participant[];
   onReadyForNextRound?: () => void;
+  leaderboard?: LeaderboardEntry[];
 }
 
 const RoundResults: React.FC<RoundResultsProps> = ({

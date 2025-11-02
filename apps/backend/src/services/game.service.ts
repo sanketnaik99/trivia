@@ -8,9 +8,34 @@ class GameService {
   private roundTimers: Map<string, NodeJS.Timeout> = new Map();
   private countdownTimers: Map<string, NodeJS.Timeout> = new Map();
 
+  // T048: Calculate leaderboard with tie-breaker by lastWinTimestamp (most recent wins rank higher)
+  calculateLeaderboard(room: Room) {
+    const participants = Array.from(room.participants.values());
+    return participants
+      .map((p) => ({
+        participantId: p.id,
+        participantName: p.name,
+        score: p.score,
+        roundsWon: p.roundsWon,
+        lastWinTimestamp: p.lastWinTimestamp ?? 0,
+      }))
+      .sort((a, b) => {
+        if (a.score !== b.score) return b.score - a.score; // primary: score desc
+        return (b.lastWinTimestamp || 0) - (a.lastWinTimestamp || 0); // tie-breaker: most recent win first
+      })
+      .map((p, i) => ({
+        participantId: p.participantId,
+        participantName: p.participantName,
+        score: p.score,
+        roundsWon: p.roundsWon,
+        ranking: i + 1,
+      }));
+  }
+
   handleReady(io: Server, socket: Socket, payload: { isReady: boolean }) {
-    const roomCode = (socket.data as any)?.roomCode as string | undefined;
-    const playerId = (socket.data as any)?.playerId as string | undefined;
+  const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
     logger.info('READY event received', { roomCode, playerId, isReady: payload.isReady, socketId: socket.id });
     if (!roomCode || !playerId) {
       return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
@@ -72,8 +97,10 @@ class GameService {
   }
 
   handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
-    const roomCode = (socket.data as any)?.roomCode as string | undefined;
-    const playerId = (socket.data as any)?.playerId as string | undefined;
+    const start = Date.now();
+  const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
     if (!roomCode || !playerId) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
     const room = roomStore.getRoom(roomCode);
     if (!room || !room.currentRound || !room.currentQuestion || room.gameState !== 'active') {
@@ -87,7 +114,11 @@ class GameService {
     const isCorrect = this.normalize(answerText) === this.normalize(room.currentQuestion.correctAnswer)
       || (room.currentQuestion.acceptedAnswers || []).some(a => this.normalize(a) === this.normalize(answerText));
 
-    room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
+  room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
+
+  // T082: Log answer processing time
+  const dur = Date.now() - start;
+  logger.info('Processed ANSWER', { roomCode, playerId, isCorrect, ts, ms: dur });
 
     socket.emit('ANSWER_SUBMITTED', { answerText, timestamp: ts });
     const answeredCount = room.currentRound.participantAnswers.length;
@@ -120,6 +151,7 @@ class GameService {
     if (winnerId) {
       const p = room.participants.get(winnerId);
       if (p) {
+        // T047: increment winner's score and roundsWon, set lastWinTimestamp
         p.score += 1;
         p.roundsWon += 1;
         p.lastWinTimestamp = Date.now();
@@ -142,15 +174,14 @@ class GameService {
       };
     });
 
-    const leaderboard = Array.from(room.participants.values())
-      .map((p) => ({ participantId: p.id, participantName: p.name, score: p.score, roundsWon: p.roundsWon }))
-      .sort((a, b) => b.score - a.score || (b as any).lastWinTimestamp - (a as any).lastWinTimestamp)
-      .map((p, i) => ({ ...p, ranking: i + 1 }));
+    // T048: Use calculateLeaderboard for consistent sorting and fields
+    const leaderboard = this.calculateLeaderboard(room);
 
     io.to(roomCode).emit('ROUND_END', {
       correctAnswer: room.currentQuestion.correctAnswer,
       acceptedAnswers: room.currentQuestion.acceptedAnswers || [],
       winnerId,
+      // T051: Include winnerName and winnerScore for convenience
       winnerName: winnerId ? room.participants.get(winnerId)?.name || null : null,
       winnerScore: winnerId ? room.participants.get(winnerId)?.score || null : null,
       results,
@@ -167,8 +198,9 @@ class GameService {
       p.isReady = false;
     }
     
-    // Broadcast updated room state with reset ready flags
+  // Broadcast updated room state with reset ready flags
     const participants = Array.from(room.participants.values());
+    // T050: Include leaderboard in ROOM_STATE
     io.to(roomCode).emit('ROOM_STATE', {
       roomCode,
       gameState: room.gameState,
@@ -176,6 +208,15 @@ class GameService {
       currentQuestion: null,
       currentRound: null,
       leaderboard,
+    });
+
+    // T082: Log round duration and stats
+    const roundDuration = (round.endTime || Date.now()) - (round.startTime || Date.now());
+    logger.info('Round ended', {
+      roomCode,
+      winnerId,
+      answers: round.participantAnswers.length,
+      durationMs: roundDuration,
     });
   }
 

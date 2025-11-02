@@ -4,13 +4,17 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { SocketClient } from '@/app/lib/websocket';
 import { Participant } from '@/app/lib/types';
+import { Leaderboard, type LeaderboardEntry } from '@/app/components/leaderboard';
 import { RoomLobby } from '@/app/components/room-lobby';
+import { JoinRoomForm } from '@/app/components/join-room-form';
 import { GameCountdown } from '@/app/components/game-countdown';
 import { GameQuestion } from '@/app/components/game-question';
 import { GameTimer } from '@/app/components/game-timer';
 import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
+import { SessionLostModal } from '@/app/components/session-lost-modal';
+import { API_CONFIG } from '@/app/lib/config';
 import dynamic from 'next/dynamic';
 
 const RoundResults = dynamic(() => import('@/app/components/round-results'), { ssr: false });
@@ -34,13 +38,19 @@ interface ResultEntry {
   answerText: string | null;
   timestamp: number | null;
   isCorrect: boolean;
+  // T055: Score fields from backend
+  scoreChange?: number;
+  newScore?: number;
 }
 
 interface RoundEndPayload {
   correctAnswer: string;
   acceptedAnswers: string[];
   winnerId: string | null;
+  winnerName?: string | null;
+  winnerScore?: number | null;
   results: ResultEntry[];
+  leaderboard?: LeaderboardEntry[];
 }
 
 interface CurrentRound {
@@ -55,6 +65,8 @@ interface RoomState {
   participants: Participant[];
   currentQuestion: { id: string; text: string } | null;
   currentRound: CurrentRound | null;
+  // T050: Include leaderboard in ROOM_STATE
+  leaderboard?: LeaderboardEntry[];
 }
 
 export default function RoomPage() {
@@ -71,13 +83,20 @@ export default function RoomPage() {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
+  const [needsPlayerInfo, setNeedsPlayerInfo] = useState(false); // Track if user needs to enter name
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinError, setJoinError] = useState<string | null>(null);
+  const [sessionLost, setSessionLost] = useState(false); // T077: Track permanent connection loss
   
   const wsRef = useRef<import('@/app/lib/websocket').SocketClient | null>(null);
   // Socket.IO handles reconnection internally; no manual timeout tracking needed
   const userInfoRef = useRef<{ userId: string; userName: string } | null>(null);
   const connectFnRef = useRef<(() => void) | null>(null);
 
-  const MAX_RECONNECT_ATTEMPTS = 5;
+  // T077: Handler to return home when session is lost
+  const handleReturnHome = useCallback(() => {
+    router.push('/');
+  }, [router]);
 
   // Set page title (T115)
   useEffect(() => {
@@ -229,6 +248,29 @@ export default function RoomPage() {
       client.on('ROUND_END', (payload: unknown) => handleMessage({ type: 'ROUND_END', payload } as ServerMessage));
       client.on('ERROR', (payload: unknown) => handleMessage({ type: 'ERROR', payload } as ServerMessage));
 
+      // T077: Handle disconnect and reconnection events
+      client.on('disconnect', () => {
+        console.log('[Frontend] Socket disconnected');
+        setConnectionStatus('reconnecting');
+      });
+
+      client.on('reconnect_attempt', (payload: unknown) => {
+        const attempt = (payload as { attempt: number })?.attempt || 0;
+        console.log('[Frontend] Reconnect attempt', attempt);
+        setReconnectAttempts(attempt);
+      });
+
+      client.on('reconnect_failed', () => {
+        console.error('[Frontend] Reconnection failed permanently');
+        setConnectionStatus('disconnected');
+        setSessionLost(true);
+      });
+
+      client.on('connection_error', () => {
+        console.error('[Frontend] Connection error');
+        setConnectionStatus('reconnecting');
+      });
+
       client.connect().then(() => {
         setConnectionStatus('connected');
         setReconnectAttempts(0);
@@ -315,22 +357,96 @@ export default function RoomPage() {
     router.push('/');
   }, [router]);
 
-  useEffect(() => {
-    // Get player info from sessionStorage
-    const storedPlayerId = sessionStorage.getItem('playerId');
-    const storedPlayerName = sessionStorage.getItem('playerName');
-
-    if (!storedPlayerId || !storedPlayerName) {
-      router.push('/');
-      return;
+  // T061: Handle joining room when coming from shareable link
+  const handleJoinRoomFromLink = async (name: string, _code: string) => {
+    // Mark parameter as intentionally unused
+    void _code;
+    setIsJoining(true);
+    setJoinError(null);
+    
+    try {
+      // Generate and store player info
+      const playerId = crypto.randomUUID();
+      sessionStorage.setItem('playerId', playerId);
+      sessionStorage.setItem('playerName', name);
+      
+      // Update state
+      setPlayerId(playerId);
+      userInfoRef.current = { userId: playerId, userName: name };
+      setNeedsPlayerInfo(false);
+      
+      // Connect to WebSocket
+      connectWebSocket();
+    } catch (err) {
+      console.error('Error joining room:', err);
+      setJoinError(err instanceof Error ? err.message : 'Failed to join room');
+    } finally {
+      setIsJoining(false);
     }
+  };
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlayerId(storedPlayerId);
-    userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
+  useEffect(() => {
+    // T060: Validate room before joining
+    const validateRoom = async () => {
+      try {
+        const apiBase = API_CONFIG.baseUrl.replace(/\/$/, '');
+        const response = await fetch(`${apiBase}/api/room/${roomCode}/validate`);
+        
+        if (response.status === 404) {
+          setError('Room not found. Please check the room code.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        if (!response.ok) {
+          setError('Unable to validate room. Please try again.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        const validation = await response.json();
+        
+        // T062: Handle different validation states
+        if (!validation.exists) {
+          setError('Room not found. Please check the room code.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        if (!validation.canJoin) {
+          if (validation.gameState === 'active') {
+            setError('Game is already in progress. Please wait for the next round.');
+          } else {
+            setError('Unable to join room. It may be full or unavailable.');
+          }
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        // Room is valid, proceed to get player info and connect
+        const storedPlayerId = sessionStorage.getItem('playerId');
+        const storedPlayerName = sessionStorage.getItem('playerName');
 
-    // Connect to WebSocket
-    connectWebSocket();
+        if (!storedPlayerId || !storedPlayerName) {
+          // T061: Show join form for shareable link access
+          setNeedsPlayerInfo(true);
+          setConnectionStatus('disconnected');
+          return;
+        }
+
+        setPlayerId(storedPlayerId);
+        userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
+
+        // Connect to WebSocket
+        connectWebSocket();
+      } catch (err) {
+        console.error('Error validating room:', err);
+        setError('Unable to connect to room. Please try again.');
+        setConnectionStatus('disconnected');
+      }
+    };
+    
+    validateRoom();
 
     return () => {
       // Cleanup on unmount
@@ -344,7 +460,34 @@ export default function RoomPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+        {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
+        {/* T062, T066: Responsive error display for invalid rooms */}
+        <div className="w-full max-w-md mx-auto">
+          <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+        </div>
+      </div>
+    );
+  }
+
+  // Note: SessionLostModal render handled below in each return path
+
+  // T061: Show join form when accessing via shareable link without credentials
+  if (needsPlayerInfo) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
+        <div className="w-full max-w-md mx-auto space-y-4">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold mb-2">Join Room</h1>
+            <p className="text-muted-foreground">Enter your name to join room <span className="font-mono font-semibold">{roomCode}</span></p>
+          </div>
+          <JoinRoomForm
+            onJoinRoom={handleJoinRoomFromLink}
+            isLoading={isJoining}
+            error={joinError}
+            prefilledRoomCode={roomCode}
+          />
+        </div>
       </div>
     );
   }
@@ -359,6 +502,7 @@ export default function RoomPage() {
 
   return (
     <div className="min-h-screen bg-background p-4">
+      {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
       <div className="max-w-4xl mx-auto">
         {/* Connection Status Indicator (T111) */}
         <div className="mb-4 flex items-center justify-center">
@@ -371,7 +515,7 @@ export default function RoomPage() {
           {connectionStatus === 'reconnecting' && (
             <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-2">
               <span className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
-              Reconnecting... (Attempt {reconnectAttempts}/{MAX_RECONNECT_ATTEMPTS})
+              Reconnecting...{reconnectAttempts > 0 && ` (Attempt ${reconnectAttempts})`}
             </div>
           )}
           {connectionStatus === 'disconnected' && (
@@ -387,13 +531,19 @@ export default function RoomPage() {
         ) : (
           <>
             {room.gameState === 'lobby' && (
-              <RoomLobby
-                roomCode={roomCode}
-                participants={room.participants}
-                currentUserId={playerId}
-                onReadyToggle={handleReadyToggle}
-                onLeaveRoom={handleLeaveRoom}
-              />
+              <div className="space-y-6">
+                <RoomLobby
+                  roomCode={roomCode}
+                  participants={room.participants}
+                  currentUserId={playerId}
+                  onReadyToggle={handleReadyToggle}
+                  onLeaveRoom={handleLeaveRoom}
+                />
+                {/* T054: Show leaderboard in lobby */}
+                {room.leaderboard && room.leaderboard.length > 0 && (
+                  <Leaderboard title="Leaderboard" leaderboard={room.leaderboard} />
+                )}
+              </div>
             )}
 
             {room.gameState === 'active' && room.currentQuestion && room.currentRound && (
@@ -421,16 +571,26 @@ export default function RoomPage() {
             )}
 
             {room.gameState === 'results' && roundResults && (
-              <div className="text-center p-4">
-                <RoundResults
-                  correctAnswer={roundResults.correctAnswer}
-                  acceptedAnswers={roundResults.acceptedAnswers}
-                  winnerId={roundResults.winnerId}
-                  results={roundResults.results}
-                  currentUserId={playerId}
-                  participants={room.participants}
-                  onReadyForNextRound={handleReadyForNextRound}
-                />
+              <div className="space-y-6 p-4">
+                <div className="text-center">
+                  <RoundResults
+                    correctAnswer={roundResults.correctAnswer}
+                    acceptedAnswers={roundResults.acceptedAnswers}
+                    winnerId={roundResults.winnerId}
+                    results={roundResults.results}
+                    currentUserId={playerId}
+                    participants={room.participants}
+                    onReadyForNextRound={handleReadyForNextRound}
+                    leaderboard={roundResults.leaderboard || room.leaderboard}
+                  />
+                </div>
+                {/* T054: Show updated leaderboard in results */}
+                {(roundResults.leaderboard || room.leaderboard) && (
+                  <Leaderboard
+                    title="Updated Leaderboard"
+                    leaderboard={(roundResults.leaderboard || room.leaderboard)!}
+                  />
+                )}
               </div>
             )}
           </>

@@ -6,6 +6,8 @@ interface PlayerResult {
   answerText: string | null;
   timestamp: number | null;
   isCorrect: boolean;
+  scoreChange?: number;
+  newScore?: number;
 }
 
 interface PlayerResultCardProps {
@@ -21,6 +23,14 @@ const PlayerResultCard: React.FC<PlayerResultCardProps> = ({ result, highlight }
       }`}
     >
       <div className="font-bold text-lg mb-1">{result.participantName}</div>
+      {typeof result.scoreChange === 'number' && (
+        <div className={`text-sm font-medium mb-2 ${result.scoreChange > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+          {result.scoreChange > 0 ? `+${result.scoreChange} point` : '+0 points'}
+          {typeof result.newScore === 'number' && (
+            <span className="ml-2 text-xs text-muted-foreground">(Total: {result.newScore})</span>
+          )}
+        </div>
+      )}
       <div className={`mb-2 ${result.isCorrect ? 'text-green-600' : 'text-red-500'}`}>{
         result.answerText !== null ? (
           result.isCorrect ? 'Correct' : 'Incorrect'

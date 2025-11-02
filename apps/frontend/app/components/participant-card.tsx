@@ -22,7 +22,15 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex-1 min-w-0">
-            <p className="font-medium truncate">{participant.name}</p>
+            <p className="font-medium truncate flex items-center gap-2">
+              <span className="truncate">{participant.name}</span>
+              {/* T052: Show score next to name */}
+              {typeof participant.score === 'number' && (
+                <Badge variant="secondary" className="shrink-0">
+                  {participant.score} pt{participant.score === 1 ? '' : 's'}
+                </Badge>
+              )}
+            </p>
             {isCurrentUser && (
               <Badge variant="secondary" className="mt-1 animate-in fade-in duration-300">
                 You

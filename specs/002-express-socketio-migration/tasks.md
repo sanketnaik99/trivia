@@ -125,19 +125,19 @@ This project uses Turborepo monorepo structure:
 
 ### Score Tracking Backend for User Story 2
 
-- [ ] T047 [P] [US2] Update apps/backend/src/services/game.service.ts endRound method to increment winner's score by 1, increment roundsWon, set lastWinTimestamp
-- [ ] T048 [P] [US2] Add calculateLeaderboard method to game.service.ts (sort by score descending, tie-break by lastWinTimestamp descending, assign rankings)
-- [ ] T049 [US2] Update apps/backend/src/socket/room.handler.ts handleJoin to initialize new participants with score=0, roundsWon=0, lastWinTimestamp=null
-- [ ] T050 [US2] Update apps/backend/src/services/game.service.ts to include leaderboard in ROOM_STATE payload (call calculateLeaderboard)
-- [ ] T051 [US2] Update apps/backend/src/services/game.service.ts endRound to include leaderboard, winnerScore, scoreChange per participant in ROUND_END payload
+- [X] T047 [P] [US2] Update apps/backend/src/services/game.service.ts endRound method to increment winner's score by 1, increment roundsWon, set lastWinTimestamp
+- [X] T048 [P] [US2] Add calculateLeaderboard method to game.service.ts (sort by score descending, tie-break by lastWinTimestamp descending, assign rankings)
+- [X] T049 [US2] Update apps/backend/src/socket/room.handler.ts handleJoin to initialize new participants with score=0, roundsWon=0, lastWinTimestamp=null
+- [X] T050 [US2] Update apps/backend/src/services/game.service.ts to include leaderboard in ROOM_STATE payload (call calculateLeaderboard)
+- [X] T051 [US2] Update apps/backend/src/services/game.service.ts endRound to include leaderboard, winnerScore, scoreChange per participant in ROUND_END payload
 
 ### Score Display Frontend for User Story 2
 
-- [ ] T052 [P] [US2] Update apps/frontend/app/components/participant-card.tsx to display participant score next to name
-- [ ] T053 [P] [US2] Create apps/frontend/app/components/leaderboard.tsx component with sorted list of participants (rank, name, score, rounds won) using shadcn/ui Card
-- [ ] T054 [US2] Update apps/frontend/app/room/[code]/page.tsx to display leaderboard component in lobby and results states
-- [ ] T055 [US2] Update apps/frontend/app/components/round-results.tsx to show score changes (+1 for winner, 0 for others) and updated leaderboard
-- [ ] T056 [US2] Add responsive styling to leaderboard component for mobile (320px+), tablet (768px+), desktop (1024px+) using Tailwind
+- [X] T052 [P] [US2] Update apps/frontend/app/components/participant-card.tsx to display participant score next to name
+- [X] T053 [P] [US2] Create apps/frontend/app/components/leaderboard.tsx component with sorted list of participants (rank, name, score, rounds won) using shadcn/ui Card
+- [X] T054 [US2] Update apps/frontend/app/room/[code]/page.tsx to display leaderboard component in lobby and results states
+- [X] T055 [US2] Update apps/frontend/app/components/round-results.tsx to show score changes (+1 for winner, 0 for others) and updated leaderboard
+- [X] T056 [US2] Add responsive styling to leaderboard component for mobile (320px+), tablet (768px+), desktop (1024px+) using Tailwind
 
 **Checkpoint**: At this point, User Story 2 should be independently functional. Test by playing multiple rounds and verifying scores accumulate correctly, leaderboard updates, and tie-breaking works.
 
@@ -151,22 +151,22 @@ This project uses Turborepo monorepo structure:
 
 ### Backend Validation Endpoint for User Story 3
 
-- [ ] T057 [US3] Create apps/backend/src/routes/room.routes.ts GET /:code/validate endpoint (call room.service.validateRoomCode, return exists, canJoin, participantCount, gameState)
-- [ ] T058 [US3] Add error handling to /:code/validate for invalid codes (return 404 with exists:false if room not found)
+- [X] T057 [US3] Create apps/backend/src/routes/room.routes.ts GET /:code/validate endpoint (call room.service.validateRoomCode, return exists, canJoin, participantCount, gameState)
+- [X] T058 [US3] Add error handling to /:code/validate for invalid codes (return 404 with exists:false if room not found)
 
 ### Frontend Dynamic Route for User Story 3
 
-- [ ] T059 [US3] Update apps/frontend/app/room/[code]/page.tsx to extract room code from URL params using Next.js dynamic route
-- [ ] T060 [US3] Add room validation call to apps/frontend/app/room/[code]/page.tsx on mount (fetch /api/room/:code/validate)
-- [ ] T061 [US3] Update apps/frontend/app/components/join-room-form.tsx to accept pre-filled room code prop and make field read-only if provided
-- [ ] T062 [US3] Add error state to apps/frontend/app/room/[code]/page.tsx for invalid room codes (show "Room not found", "Room full", or "Game in progress" message)
-- [ ] T063 [US3] Update apps/frontend/app/components/room-code-display.tsx to show shareable URL format (FRONTEND_BASE_URL/room/CODE)
+- [X] T059 [US3] Update apps/frontend/app/room/[code]/page.tsx to extract room code from URL params using Next.js dynamic route
+- [X] T060 [US3] Add room validation call to apps/frontend/app/room/[code]/page.tsx on mount (fetch /api/room/:code/validate)
+- [X] T061 [US3] Update apps/frontend/app/components/join-room-form.tsx to accept pre-filled room code prop and make field read-only if provided
+- [X] T062 [US3] Add error state to apps/frontend/app/room/[code]/page.tsx for invalid room codes (show "Room not found", "Room full", or "Game in progress" message)
+- [X] T063 [US3] Update apps/frontend/app/components/room-code-display.tsx to show shareable URL format (FRONTEND_BASE_URL/room/CODE)
 
 ### Frontend URL Handling for User Story 3
 
-- [ ] T064 [US3] Update apps/frontend/app/api/room/[code]/route.ts to proxy validation requests to Express backend
-- [ ] T065 [US3] Add case-insensitive room code handling to backend room.store.ts (normalize to uppercase on lookup)
-- [ ] T066 [US3] Add responsive design for error messages on mobile, tablet, desktop using Tailwind utilities
+- [X] T064 [US3] Update apps/frontend/app/api/room/[code]/route.ts to proxy validation requests to Express backend
+- [X] T065 [US3] Add case-insensitive room code handling to backend room.store.ts (normalize to uppercase on lookup)
+- [X] T066 [US3] Add responsive design for error messages on mobile, tablet, desktop using Tailwind utilities
 
 **Checkpoint**: At this point, User Story 3 should be independently functional. Test by creating room, copying shareable URL, opening in new tab, and joining without typing code. Test invalid URLs.
 
@@ -180,19 +180,19 @@ This project uses Turborepo monorepo structure:
 
 ### Share Button Component for User Story 4
 
-- [ ] T067 [P] [US4] Create apps/frontend/app/components/share-button.tsx with "Share Link" button using shadcn/ui Button component
-- [ ] T068 [US4] Add clipboard API copy functionality to share-button.tsx (navigator.clipboard.writeText with shareable URL)
-- [ ] T069 [US4] Add native share API for mobile to share-button.tsx (navigator.share with URL, title, text if supported)
-- [ ] T070 [US4] Add success feedback toast/message to share-button.tsx ("Link copied!" for 2 seconds after successful copy)
-- [ ] T071 [US4] Add fallback display to share-button.tsx for browsers without clipboard/share API (show URL in read-only input)
-- [ ] T072 [US4] Add error handling to share-button.tsx for failed copy operations (show error message)
+- [X] T067 [P] [US4] Create apps/frontend/app/components/share-button.tsx with "Share Link" button using shadcn/ui Button component
+- [X] T068 [US4] Add clipboard API copy functionality to share-button.tsx (navigator.clipboard.writeText with shareable URL)
+- [X] T069 [US4] Add native share API for mobile to share-button.tsx (navigator.share with URL, title, text if supported)
+- [X] T070 [US4] Add success feedback toast/message to share-button.tsx ("Link copied!" for 2 seconds after successful copy)
+- [X] T071 [US4] Add fallback display to share-button.tsx for browsers without clipboard/share API (show URL in read-only input)
+- [X] T072 [US4] Add error handling to share-button.tsx for failed copy operations (show error message)
 
 ### Share Button Integration for User Story 4
 
-- [ ] T073 [US4] Add share-button component to apps/frontend/app/components/room-lobby.tsx below room code display
-- [ ] T074 [US4] Pass shareable URL prop from room-lobby to share-button (construct from FRONTEND_BASE_URL + room code)
-- [ ] T075 [US4] Add responsive styling to share-button for mobile (full width), tablet (auto width), desktop (auto width) using Tailwind
-- [ ] T076 [US4] Add accessibility attributes to share-button (aria-label, keyboard navigation support)
+- [X] T073 [US4] Add share-button component to apps/frontend/app/components/room-lobby.tsx below room code display
+- [X] T074 [US4] Pass shareable URL prop from room-lobby to share-button (construct from FRONTEND_BASE_URL + room code)
+- [X] T075 [US4] Add responsive styling to share-button for mobile (full width), tablet (auto width), desktop (auto width) using Tailwind
+- [X] T076 [US4] Add accessibility attributes to share-button (aria-label, keyboard navigation support)
 
 **Checkpoint**: All user stories should now be independently functional. Test complete flow: create room, share link, join via link, play game with scores, use share button.
 
@@ -202,20 +202,20 @@ This project uses Turborepo monorepo structure:
 
 **Purpose**: Improvements that affect multiple user stories and final cleanup
 
-- [ ] T077 [P] Add error handling for server restart scenario (detect disconnection, show "Session lost" modal, redirect to homepage)
-- [ ] T078 [P] Update apps/frontend/app/error.tsx to handle room-related errors with user-friendly messages
-- [ ] T079 [P] Update apps/frontend/app/global-error.tsx for session-lost error handling
-- [ ] T080 Add rate limiting to apps/backend/src/routes/room.routes.ts to prevent room creation spam
-- [ ] T081 Add connection logging to apps/backend/src/socket/index.ts for debugging (log JOIN, READY, ANSWER, LEAVE events)
-- [ ] T082 Add performance monitoring logs to apps/backend/src/services/game.service.ts (log round duration, answer processing time)
-- [ ] T083 Update root README.md with Express backend setup instructions (link to quickstart.md)
-- [ ] T084 Update DEPLOYMENT.md with Express backend deployment instructions (port 3001, environment variables)
-- [ ] T085 Delete workers/ directory and Wrangler configuration files (wrangler.toml, worker-configuration.d.ts)
-- [ ] T086 Update apps/frontend/README.md to reference new Express backend instead of Cloudflare Workers
-- [ ] T087 Run quickstart.md validation procedures (create room, validate, join via Socket.IO, play game, test reconnection)
-- [ ] T088 Code cleanup: Remove unused imports, format with prettier, verify no TypeScript `any` types
-- [ ] T089 Verify all components responsive on mobile (320px+), tablet (768px+), desktop (1024px+)
-- [ ] T090 Verify clean code standards: clear function names, proper separation of concerns, TypeScript strict mode compliance
+ [X] T077 [P] Add error handling for server restart scenario (detect disconnection, show "Session lost" modal, redirect to homepage)
+ [X] T078 [P] Update apps/frontend/app/error.tsx to handle room-related errors with user-friendly messages
+ [X] T079 [P] Update apps/frontend/app/global-error.tsx for session-lost error handling
+ [X] T080 Add rate limiting to apps/backend/src/routes/room.routes.ts to prevent room creation spam
+ [X] T081 Add connection logging to apps/backend/src/socket/index.ts for debugging (log JOIN, READY, ANSWER, LEAVE events)
+ [X] T082 Add performance monitoring logs to apps/backend/src/services/game.service.ts (log round duration, answer processing time)
+ [X] T083 Update root README.md with Express backend setup instructions (link to quickstart.md)
+ [X] T084 Update DEPLOYMENT.md with Express backend deployment instructions (port 3001, environment variables)
+ [X] T085 Delete workers/ directory and Wrangler configuration files (wrangler.toml, worker-configuration.d.ts)
+ [X] T086 Update apps/frontend/README.md to reference new Express backend instead of Cloudflare Workers
+- [X] T087 Run quickstart.md validation procedures (create room, validate, join via Socket.IO, play game, test reconnection)
+- [X] T088 Code cleanup: Remove unused imports, format with prettier, verify no TypeScript `any` types
+- [X] T089 Verify all components responsive on mobile (320px+), tablet (768px+), desktop (1024px+)
+- [X] T090 Verify clean code standards: clear function names, proper separation of concerns, TypeScript strict mode compliance
 
 ---
 

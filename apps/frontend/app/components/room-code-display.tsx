@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { ShareButton } from '@/app/components/share-button';
 
 interface RoomCodeDisplayProps {
   roomCode: string;
@@ -10,6 +11,11 @@ interface RoomCodeDisplayProps {
 
 export function RoomCodeDisplay({ roomCode }: RoomCodeDisplayProps) {
   const [copied, setCopied] = useState(false);
+  
+  // T063: Construct shareable URL
+  const shareableUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}/room/${roomCode}`
+    : `/room/${roomCode}`;
 
   const handleCopy = async () => {
     try {
@@ -39,8 +45,16 @@ export function RoomCodeDisplay({ roomCode }: RoomCodeDisplayProps) {
           >
             {copied ? 'Copied!' : 'Copy Code'}
           </Button>
-          <p className="text-xs text-muted-foreground">
-            Share this code with friends to join the game
+          {/* T063: Display shareable URL with share button */}
+          <div className="mt-4 space-y-2">
+            <p className="text-xs text-muted-foreground">Share this link:</p>
+            <div className="p-2 bg-muted/50 rounded text-xs font-mono break-all">
+              {shareableUrl}
+            </div>
+            <ShareButton shareableUrl={shareableUrl} roomCode={roomCode} />
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Share this code or URL with friends to join the game
           </p>
         </div>
       </CardContent>
