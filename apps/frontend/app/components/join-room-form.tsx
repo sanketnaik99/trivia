@@ -9,11 +9,12 @@ interface JoinRoomFormProps {
   onJoinRoom: (name: string, roomCode: string) => Promise<void>;
   isLoading?: boolean;
   error?: string | null;
+  prefilledRoomCode?: string; // T061: Support pre-filled room code from URL
 }
 
-export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomFormProps) {
+export function JoinRoomForm({ onJoinRoom, isLoading = false, error, prefilledRoomCode }: JoinRoomFormProps) {
   const [name, setName] = useState('');
-  const [roomCode, setRoomCode] = useState('');
+  const [roomCode, setRoomCode] = useState(prefilledRoomCode?.toUpperCase() || '');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +65,8 @@ export function JoinRoomForm({ onJoinRoom, isLoading = false, error }: JoinRoomF
               onChange={handleRoomCodeChange}
               maxLength={6}
               required
-              disabled={isLoading}
+              disabled={isLoading || !!prefilledRoomCode}
+              readOnly={!!prefilledRoomCode}
               className="w-full font-mono text-lg tracking-wider"
               aria-describedby={error ? "join-error" : undefined}
               aria-invalid={roomCode.length > 0 && roomCode.length !== 6}

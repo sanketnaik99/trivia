@@ -19,6 +19,19 @@ export function registerRoomRoutes(app: express.Express) {
     }
   });
 
+  // T057: GET /api/room/:code/validate → { exists, canJoin, participantCount, gameState }
+  // T058: Return 404 with exists:false if room not found
+  router.get('/:code/validate', (req: express.Request, res: express.Response) => {
+    const code = req.params.code.toUpperCase();
+    const validation = roomService.validateRoomCode(code);
+    
+    if (!validation.exists) {
+      return res.status(404).json({ exists: false });
+    }
+    
+    return res.status(200).json(validation);
+  });
+
   app.use('/api/room', router);
 }
 

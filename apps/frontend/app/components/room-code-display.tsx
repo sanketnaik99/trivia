@@ -10,6 +10,11 @@ interface RoomCodeDisplayProps {
 
 export function RoomCodeDisplay({ roomCode }: RoomCodeDisplayProps) {
   const [copied, setCopied] = useState(false);
+  
+  // T063: Construct shareable URL
+  const shareableUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}/room/${roomCode}`
+    : `/room/${roomCode}`;
 
   const handleCopy = async () => {
     try {
@@ -39,8 +44,12 @@ export function RoomCodeDisplay({ roomCode }: RoomCodeDisplayProps) {
           >
             {copied ? 'Copied!' : 'Copy Code'}
           </Button>
+          {/* T063: Display shareable URL */}
+          <div className="mt-3 p-2 bg-muted/50 rounded text-xs font-mono break-all">
+            {shareableUrl}
+          </div>
           <p className="text-xs text-muted-foreground">
-            Share this code with friends to join the game
+            Share this code or URL with friends to join the game
           </p>
         </div>
       </CardContent>

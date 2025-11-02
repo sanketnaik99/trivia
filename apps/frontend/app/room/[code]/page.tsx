@@ -6,12 +6,14 @@ import { SocketClient } from '@/app/lib/websocket';
 import { Participant } from '@/app/lib/types';
 import { Leaderboard, type LeaderboardEntry } from '@/app/components/leaderboard';
 import { RoomLobby } from '@/app/components/room-lobby';
+import { JoinRoomForm } from '@/app/components/join-room-form';
 import { GameCountdown } from '@/app/components/game-countdown';
 import { GameQuestion } from '@/app/components/game-question';
 import { GameTimer } from '@/app/components/game-timer';
 import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
+import { API_CONFIG } from '@/app/lib/config';
 import dynamic from 'next/dynamic';
 
 const RoundResults = dynamic(() => import('@/app/components/round-results'), { ssr: false });
@@ -80,6 +82,9 @@ export default function RoomPage() {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
+  const [needsPlayerInfo, setNeedsPlayerInfo] = useState(false); // Track if user needs to enter name
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinError, setJoinError] = useState<string | null>(null);
   
   const wsRef = useRef<import('@/app/lib/websocket').SocketClient | null>(null);
   // Socket.IO handles reconnection internally; no manual timeout tracking needed
@@ -324,22 +329,94 @@ export default function RoomPage() {
     router.push('/');
   }, [router]);
 
-  useEffect(() => {
-    // Get player info from sessionStorage
-    const storedPlayerId = sessionStorage.getItem('playerId');
-    const storedPlayerName = sessionStorage.getItem('playerName');
-
-    if (!storedPlayerId || !storedPlayerName) {
-      router.push('/');
-      return;
+  // T061: Handle joining room when coming from shareable link
+  const handleJoinRoomFromLink = async (name: string, code: string) => {
+    setIsJoining(true);
+    setJoinError(null);
+    
+    try {
+      // Generate and store player info
+      const playerId = crypto.randomUUID();
+      sessionStorage.setItem('playerId', playerId);
+      sessionStorage.setItem('playerName', name);
+      
+      // Update state
+      setPlayerId(playerId);
+      userInfoRef.current = { userId: playerId, userName: name };
+      setNeedsPlayerInfo(false);
+      
+      // Connect to WebSocket
+      connectWebSocket();
+    } catch (err) {
+      console.error('Error joining room:', err);
+      setJoinError(err instanceof Error ? err.message : 'Failed to join room');
+    } finally {
+      setIsJoining(false);
     }
+  };
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlayerId(storedPlayerId);
-    userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
+  useEffect(() => {
+    // T060: Validate room before joining
+    const validateRoom = async () => {
+      try {
+        const apiBase = API_CONFIG.baseUrl.replace(/\/$/, '');
+        const response = await fetch(`${apiBase}/api/room/${roomCode}/validate`);
+        
+        if (response.status === 404) {
+          setError('Room not found. Please check the room code.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        if (!response.ok) {
+          setError('Unable to validate room. Please try again.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        const validation = await response.json();
+        
+        // T062: Handle different validation states
+        if (!validation.exists) {
+          setError('Room not found. Please check the room code.');
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        if (!validation.canJoin) {
+          if (validation.gameState === 'active') {
+            setError('Game is already in progress. Please wait for the next round.');
+          } else {
+            setError('Unable to join room. It may be full or unavailable.');
+          }
+          setConnectionStatus('disconnected');
+          return;
+        }
+        
+        // Room is valid, proceed to get player info and connect
+        const storedPlayerId = sessionStorage.getItem('playerId');
+        const storedPlayerName = sessionStorage.getItem('playerName');
 
-    // Connect to WebSocket
-    connectWebSocket();
+        if (!storedPlayerId || !storedPlayerName) {
+          // T061: Show join form for shareable link access
+          setNeedsPlayerInfo(true);
+          setConnectionStatus('disconnected');
+          return;
+        }
+
+        setPlayerId(storedPlayerId);
+        userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
+
+        // Connect to WebSocket
+        connectWebSocket();
+      } catch (err) {
+        console.error('Error validating room:', err);
+        setError('Unable to connect to room. Please try again.');
+        setConnectionStatus('disconnected');
+      }
+    };
+    
+    validateRoom();
 
     return () => {
       // Cleanup on unmount
@@ -353,7 +430,30 @@ export default function RoomPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+        {/* T062, T066: Responsive error display for invalid rooms */}
+        <div className="w-full max-w-md mx-auto">
+          <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+        </div>
+      </div>
+    );
+  }
+
+  // T061: Show join form when accessing via shareable link without credentials
+  if (needsPlayerInfo) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="w-full max-w-md mx-auto space-y-4">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold mb-2">Join Room</h1>
+            <p className="text-muted-foreground">Enter your name to join room <span className="font-mono font-semibold">{roomCode}</span></p>
+          </div>
+          <JoinRoomForm
+            onJoinRoom={handleJoinRoomFromLink}
+            isLoading={isJoining}
+            error={joinError}
+            prefilledRoomCode={roomCode}
+          />
+        </div>
       </div>
     );
   }

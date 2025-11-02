@@ -151,22 +151,22 @@ This project uses Turborepo monorepo structure:
 
 ### Backend Validation Endpoint for User Story 3
 
-- [ ] T057 [US3] Create apps/backend/src/routes/room.routes.ts GET /:code/validate endpoint (call room.service.validateRoomCode, return exists, canJoin, participantCount, gameState)
-- [ ] T058 [US3] Add error handling to /:code/validate for invalid codes (return 404 with exists:false if room not found)
+- [X] T057 [US3] Create apps/backend/src/routes/room.routes.ts GET /:code/validate endpoint (call room.service.validateRoomCode, return exists, canJoin, participantCount, gameState)
+- [X] T058 [US3] Add error handling to /:code/validate for invalid codes (return 404 with exists:false if room not found)
 
 ### Frontend Dynamic Route for User Story 3
 
-- [ ] T059 [US3] Update apps/frontend/app/room/[code]/page.tsx to extract room code from URL params using Next.js dynamic route
-- [ ] T060 [US3] Add room validation call to apps/frontend/app/room/[code]/page.tsx on mount (fetch /api/room/:code/validate)
-- [ ] T061 [US3] Update apps/frontend/app/components/join-room-form.tsx to accept pre-filled room code prop and make field read-only if provided
-- [ ] T062 [US3] Add error state to apps/frontend/app/room/[code]/page.tsx for invalid room codes (show "Room not found", "Room full", or "Game in progress" message)
-- [ ] T063 [US3] Update apps/frontend/app/components/room-code-display.tsx to show shareable URL format (FRONTEND_BASE_URL/room/CODE)
+- [X] T059 [US3] Update apps/frontend/app/room/[code]/page.tsx to extract room code from URL params using Next.js dynamic route
+- [X] T060 [US3] Add room validation call to apps/frontend/app/room/[code]/page.tsx on mount (fetch /api/room/:code/validate)
+- [X] T061 [US3] Update apps/frontend/app/components/join-room-form.tsx to accept pre-filled room code prop and make field read-only if provided
+- [X] T062 [US3] Add error state to apps/frontend/app/room/[code]/page.tsx for invalid room codes (show "Room not found", "Room full", or "Game in progress" message)
+- [X] T063 [US3] Update apps/frontend/app/components/room-code-display.tsx to show shareable URL format (FRONTEND_BASE_URL/room/CODE)
 
 ### Frontend URL Handling for User Story 3
 
-- [ ] T064 [US3] Update apps/frontend/app/api/room/[code]/route.ts to proxy validation requests to Express backend
-- [ ] T065 [US3] Add case-insensitive room code handling to backend room.store.ts (normalize to uppercase on lookup)
-- [ ] T066 [US3] Add responsive design for error messages on mobile, tablet, desktop using Tailwind utilities
+- [X] T064 [US3] Update apps/frontend/app/api/room/[code]/route.ts to proxy validation requests to Express backend
+- [X] T065 [US3] Add case-insensitive room code handling to backend room.store.ts (normalize to uppercase on lookup)
+- [X] T066 [US3] Add responsive design for error messages on mobile, tablet, desktop using Tailwind utilities
 
 **Checkpoint**: At this point, User Story 3 should be independently functional. Test by creating room, copying shareable URL, opening in new tab, and joining without typing code. Test invalid URLs.
 

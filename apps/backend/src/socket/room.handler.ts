@@ -13,6 +13,20 @@ export function handleJoin(io: Server, socket: Socket, payload: { playerId: stri
     return;
   }
   try {
+    // Check if participant with same name already exists and remove stale connection
+    // This handles rapid reconnections or browser refreshes
+    const existingByName = Array.from(room.participants.values()).find(
+      p => p.name.toLowerCase() === payload.playerName.trim().toLowerCase()
+    );
+    if (existingByName) {
+      logger.info('Removing stale participant before rejoin', { 
+        roomCode, 
+        participantId: existingByName.id,
+        name: existingByName.name 
+      });
+      roomService.removeParticipant(roomCode, existingByName.id);
+    }
+    
     const participant = roomService.addParticipant(roomCode, payload.playerName);
     socket.join(roomCode);
     // track on socket
