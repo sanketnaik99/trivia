@@ -9,6 +9,9 @@ export interface Participant {
   name: string;
   isReady: boolean;
   connectionStatus: ConnectionStatus;
+  score?: number;
+  roundsWon?: number;
+  lastWinTimestamp?: number | null;
 }
 
 export interface Question {

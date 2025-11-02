@@ -43,7 +43,10 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
           
           <div className="mb-4 space-y-2">
             <Button
-              onClick={onReadyToggle}
+              onClick={() => {
+                console.log('[RoomLobby] Ready button clicked, calling onReadyToggle');
+                onReadyToggle?.();
+              }}
               variant={isReady ? 'outline' : 'default'}
               className="w-full min-h-11 text-lg"
               size="lg"

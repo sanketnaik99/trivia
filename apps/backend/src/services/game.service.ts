@@ -1,0 +1,187 @@
+import { Server, Socket } from 'socket.io';
+import { roomStore } from '../store/room.store';
+import { Question, Room } from '../types/room.types';
+import { questionService } from './question.service';
+import { logger } from '../utils/logger.util';
+
+class GameService {
+  private roundTimers: Map<string, NodeJS.Timeout> = new Map();
+  private countdownTimers: Map<string, NodeJS.Timeout> = new Map();
+
+  handleReady(io: Server, socket: Socket, payload: { isReady: boolean }) {
+    const roomCode = (socket.data as any)?.roomCode as string | undefined;
+    const playerId = (socket.data as any)?.playerId as string | undefined;
+    logger.info('READY event received', { roomCode, playerId, isReady: payload.isReady, socketId: socket.id });
+    if (!roomCode || !playerId) {
+      return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+    }
+    const room = roomStore.getRoom(roomCode);
+    if (!room) return socket.emit('ERROR', { code: 'ROOM_NOT_FOUND', message: 'Room not found' });
+    if (room.gameState !== 'lobby' && room.gameState !== 'results') {
+      return socket.emit('ERROR', { code: 'INVALID_STATE', message: 'Invalid state' });
+    }
+    const p = room.participants.get(playerId);
+    if (!p) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+    p.isReady = !!payload.isReady;
+    io.to(roomCode).emit('PLAYER_READY', { playerId, isReady: p.isReady });
+
+    const participants = Array.from(room.participants.values());
+    const allReady = participants.length >= 2 && participants.every((pp) => pp.isReady);
+    if (allReady) {
+      // start 15s countdown then game start
+      if (this.countdownTimers.has(roomCode)) return; // already counting down
+      const t = setTimeout(() => {
+        this.countdownTimers.delete(roomCode);
+        try {
+          this.startGame(io, roomCode);
+        } catch (e) {
+          logger.error('Failed to start game', { roomCode, error: (e as Error).message });
+        }
+      }, 15000);
+      this.countdownTimers.set(roomCode, t);
+    }
+  }
+
+  startGame(io: Server, roomCode: string) {
+    const room = roomStore.getRoom(roomCode);
+    if (!room) throw new Error('ROOM_NOT_FOUND');
+    const q = questionService.getRandomUnusedQuestionForRoom(room);
+    if (!q) throw new Error('NO_QUESTIONS');
+    room.currentQuestion = q;
+    room.currentRound = {
+      questionId: q.id,
+      startTime: Date.now(),
+      duration: 180000,
+      participantAnswers: [],
+      winnerId: null,
+      endTime: null,
+    };
+    room.gameState = 'active';
+    // reset ready flags
+    for (const p of room.participants.values()) p.isReady = false;
+
+    io.to(roomCode).emit('GAME_START', {
+      question: { id: q.id, text: q.text },
+      startTime: room.currentRound.startTime,
+      duration: room.currentRound.duration,
+    });
+
+    // auto-end timer
+    const timer = setTimeout(() => this.endRound(io, roomCode), room.currentRound.duration);
+    this.roundTimers.set(roomCode, timer);
+  }
+
+  handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
+    const roomCode = (socket.data as any)?.roomCode as string | undefined;
+    const playerId = (socket.data as any)?.playerId as string | undefined;
+    if (!roomCode || !playerId) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+    const room = roomStore.getRoom(roomCode);
+    if (!room || !room.currentRound || !room.currentQuestion || room.gameState !== 'active') {
+      return socket.emit('ERROR', { code: 'INVALID_STATE', message: 'Invalid state' });
+    }
+    const already = room.currentRound.participantAnswers.find((a) => a.participantId === playerId);
+    if (already) return socket.emit('ERROR', { code: 'ALREADY_ANSWERED', message: 'Already answered' });
+
+    const ts = Math.max(0, Math.min(180000, Number(payload.timestamp || 0)));
+    const answerText = (payload.answerText || '').toString();
+    const isCorrect = this.normalize(answerText) === this.normalize(room.currentQuestion.correctAnswer)
+      || (room.currentQuestion.acceptedAnswers || []).some(a => this.normalize(a) === this.normalize(answerText));
+
+    room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
+
+    socket.emit('ANSWER_SUBMITTED', { answerText, timestamp: ts });
+    const answeredCount = room.currentRound.participantAnswers.length;
+    const totalCount = room.participants.size;
+    io.to(roomCode).emit('ANSWER_COUNT_UPDATE', { answeredCount, totalCount });
+
+    if (answeredCount >= totalCount) {
+      this.endRound(io, roomCode);
+    }
+  }
+
+  endRound(io: Server, roomCode: string) {
+    const room = roomStore.getRoom(roomCode);
+    if (!room || !room.currentRound || !room.currentQuestion) return;
+    const round = room.currentRound;
+    round.endTime = Date.now();
+    clearTimeout(this.roundTimers.get(roomCode) as NodeJS.Timeout);
+    this.roundTimers.delete(roomCode);
+
+    // Winner = fastest correct
+    let winnerId: string | null = null;
+    let bestTs = Number.MAX_SAFE_INTEGER;
+    for (const a of round.participantAnswers) {
+      if (a.isCorrect && a.timestamp !== null && a.timestamp < bestTs) {
+        bestTs = a.timestamp;
+        winnerId = a.participantId;
+      }
+    }
+    round.winnerId = winnerId;
+    if (winnerId) {
+      const p = room.participants.get(winnerId);
+      if (p) {
+        p.score += 1;
+        p.roundsWon += 1;
+        p.lastWinTimestamp = Date.now();
+      }
+    }
+
+    // Build results
+    const results = round.participantAnswers.map((a) => {
+      const p = room.participants.get(a.participantId)!;
+      const scoreChange = a.participantId === winnerId ? 1 : 0;
+      const newScore = p.score;
+      return {
+        participantId: a.participantId,
+        participantName: p.name,
+        answerText: a.answerText,
+        timestamp: a.timestamp,
+        isCorrect: a.isCorrect,
+        scoreChange,
+        newScore,
+      };
+    });
+
+    const leaderboard = Array.from(room.participants.values())
+      .map((p) => ({ participantId: p.id, participantName: p.name, score: p.score, roundsWon: p.roundsWon }))
+      .sort((a, b) => b.score - a.score || (b as any).lastWinTimestamp - (a as any).lastWinTimestamp)
+      .map((p, i) => ({ ...p, ranking: i + 1 }));
+
+    io.to(roomCode).emit('ROUND_END', {
+      correctAnswer: room.currentQuestion.correctAnswer,
+      acceptedAnswers: room.currentQuestion.acceptedAnswers || [],
+      winnerId,
+      winnerName: winnerId ? room.participants.get(winnerId)?.name || null : null,
+      winnerScore: winnerId ? room.participants.get(winnerId)?.score || null : null,
+      results,
+      leaderboard,
+    });
+
+    // Reset for next round
+    room.currentQuestion = null;
+    room.currentRound = null;
+    room.gameState = 'results';
+    
+    // Reset all isReady flags when transitioning to results
+    for (const p of room.participants.values()) {
+      p.isReady = false;
+    }
+    
+    // Broadcast updated room state with reset ready flags
+    const participants = Array.from(room.participants.values());
+    io.to(roomCode).emit('ROOM_STATE', {
+      roomCode,
+      gameState: room.gameState,
+      participants,
+      currentQuestion: null,
+      currentRound: null,
+      leaderboard,
+    });
+  }
+
+  private normalize(s: string) {
+    return (s || '').toString().trim().toLowerCase();
+  }
+}
+
+export const gameService = new GameService();

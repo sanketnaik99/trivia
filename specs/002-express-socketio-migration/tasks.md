@@ -67,51 +67,51 @@ This project uses Turborepo monorepo structure:
 
 ### HTTP Endpoints for User Story 1
 
-- [ ] T020 [P] [US1] Create apps/backend/src/routes/room.routes.ts with POST /create endpoint (generate code, check limit, create room, return code + shareable URL)
-- [ ] T021 [P] [US1] Create apps/backend/src/routes/health.routes.ts with GET /health endpoint (return status, uptime, timestamp, room count)
-- [ ] T022 [US1] Create apps/backend/src/routes/index.ts to register all route modules with Express app
+- [X] T020 [P] [US1] Create apps/backend/src/routes/room.routes.ts with POST /create endpoint (generate code, check limit, create room, return code + shareable URL)
+- [X] T021 [P] [US1] Create apps/backend/src/routes/health.routes.ts with GET /health endpoint (return status, uptime, timestamp, room count)
+- [X] T022 [US1] Create apps/backend/src/routes/index.ts to register all route modules with Express app
 
 ### Room Service for User Story 1
 
-- [ ] T023 [US1] Create apps/backend/src/services/room.service.ts with createRoom method (generate unique code, validate limit, initialize room state)
-- [ ] T024 [US1] Add validateRoomCode method to room.service.ts (check exists, check joinable, return participant count and game state)
-- [ ] T025 [US1] Add addParticipant method to room.service.ts (validate name unique, check room not full, create participant with ID, add to room)
-- [ ] T026 [US1] Add removeParticipant method to room.service.ts (remove from participants Map, schedule cleanup if empty)
-- [ ] T027 [US1] Add updateLastActivity method to room.service.ts (update timestamp, cancel existing cleanup timer)
+- [X] T023 [US1] Create apps/backend/src/services/room.service.ts with createRoom method (generate unique code, validate limit, initialize room state)
+- [X] T024 [US1] Add validateRoomCode method to room.service.ts (check exists, check joinable, return participant count and game state)
+- [X] T025 [US1] Add addParticipant method to room.service.ts (validate name unique, check room not full, create participant with ID, add to room)
+- [X] T026 [US1] Add removeParticipant method to room.service.ts (remove from participants Map, schedule cleanup if empty)
+- [X] T027 [US1] Add updateLastActivity method to room.service.ts (update timestamp, cancel existing cleanup timer)
 
 ### Socket.IO JOIN/LEAVE Handlers for User Story 1
 
-- [ ] T028 [US1] Create apps/backend/src/socket/room.handler.ts with handleJoin function (validate room exists, add participant, join Socket.IO room, cancel cleanup, broadcast PLAYER_JOINED, send ROOM_STATE)
-- [ ] T029 [US1] Add handleLeave function to socket/room.handler.ts (remove participant, broadcast PLAYER_LEFT, disconnect socket, schedule cleanup if empty)
-- [ ] T030 [US1] Add handleDisconnect function to socket/room.handler.ts (mark participant disconnected, start 30-second reconnection timer, broadcast updated ROOM_STATE)
+- [X] T028 [US1] Create apps/backend/src/socket/room.handler.ts with handleJoin function (validate room exists, add participant, join Socket.IO room, cancel cleanup, broadcast PLAYER_JOINED, send ROOM_STATE)
+- [X] T029 [US1] Add handleLeave function to socket/room.handler.ts (remove participant, broadcast PLAYER_LEFT, disconnect socket, schedule cleanup if empty)
+- [X] T030 [US1] Add handleDisconnect function to socket/room.handler.ts (mark participant disconnected, start 30-second reconnection timer, broadcast updated ROOM_STATE)
 
 ### Game Service for User Story 1
 
-- [ ] T031 [US1] Create apps/backend/src/services/game.service.ts with startGame method (select random question, create round, transition to 'active', broadcast GAME_START with question and timer)
-- [ ] T032 [US1] Add handleReady method to game.service.ts (toggle participant ready state, broadcast PLAYER_READY, check if all ready, start 15-second countdown if all ready)
-- [ ] T033 [US1] Add handleAnswer method to game.service.ts (validate game active, check not already answered, check answer correctness, store answer with timestamp, broadcast ANSWER_SUBMITTED, broadcast ANSWER_COUNT_UPDATE, end round if all answered)
-- [ ] T034 [US1] Add endRound method to game.service.ts (determine winner as fastest correct, transition to 'results', broadcast ROUND_END with correct answer and winner)
-- [ ] T035 [US1] Add startRoundTimer method to game.service.ts (setTimeout for 180 seconds, auto-end round when timer expires)
+- [X] T031 [US1] Create apps/backend/src/services/game.service.ts with startGame method (select random question, create round, transition to 'active', broadcast GAME_START with question and timer)
+- [X] T032 [US1] Add handleReady method to game.service.ts (toggle participant ready state, broadcast PLAYER_READY, check if all ready, start 15-second countdown if all ready)
+- [X] T033 [US1] Add handleAnswer method to game.service.ts (validate game active, check not already answered, check answer correctness, store answer with timestamp, broadcast ANSWER_SUBMITTED, broadcast ANSWER_COUNT_UPDATE, end round if all answered)
+- [X] T034 [US1] Add endRound method to game.service.ts (determine winner as fastest correct, transition to 'results', broadcast ROUND_END with correct answer and winner)
+- [X] T035 [US1] Add startRoundTimer method to game.service.ts (setTimeout for 180 seconds, auto-end round when timer expires)
 
 ### Socket.IO READY/ANSWER Handlers for User Story 1
 
-- [ ] T036 [US1] Create apps/backend/src/socket/game.handler.ts with handleReady function (validate participant in room, call game.service.handleReady)
-- [ ] T037 [US1] Add handleAnswer function to socket/game.handler.ts (validate participant in room, call game.service.handleAnswer)
+- [X] T036 [US1] Create apps/backend/src/socket/game.handler.ts with handleReady function (validate participant in room, call game.service.handleReady)
+- [X] T037 [US1] Add handleAnswer function to socket/game.handler.ts (validate participant in room, call game.service.handleAnswer)
 
 ### Socket.IO Integration for User Story 1
 
-- [ ] T038 [US1] Update apps/backend/src/socket/index.ts to register JOIN, LEAVE, READY, ANSWER event handlers with Socket.IO connection event
-- [ ] T039 [US1] Implement disconnect handler in socket/index.ts to call room.handler.handleDisconnect
-- [ ] T040 [US1] Add connection logging to socket/index.ts (log client ID, timestamp on connect/disconnect)
+- [X] T038 [US1] Update apps/backend/src/socket/index.ts to register JOIN, LEAVE, READY, ANSWER event handlers with Socket.IO connection event
+- [X] T039 [US1] Implement disconnect handler in socket/index.ts to call room.handler.handleDisconnect
+- [X] T040 [US1] Add connection logging to socket/index.ts (log client ID, timestamp on connect/disconnect)
 
 ### Frontend Migration for User Story 1
 
-- [ ] T041 [US1] Install socket.io-client in apps/frontend/
-- [ ] T042 [US1] Create apps/frontend/lib/config.ts with API_CONFIG object (baseUrl, socketUrl from env vars)
-- [ ] T043 [US1] Update apps/frontend/lib/websocket.ts to use Socket.IO client instead of native WebSocket (replace WebSocket with io(), update event handlers)
-- [ ] T044 [US1] Update apps/frontend/lib/types.ts to add score, roundsWon fields to Participant interface
-- [ ] T045 [US1] Update apps/frontend/app/api/room/create/route.ts to call Express backend POST /api/room/create instead of Cloudflare Workers
-- [ ] T046 [US1] Create apps/frontend/.env.local.example with NEXT_PUBLIC_API_URL and NEXT_PUBLIC_SOCKET_URL
+- [X] T041 [US1] Install socket.io-client in apps/frontend/
+- [X] T042 [US1] Create apps/frontend/lib/config.ts with API_CONFIG object (baseUrl, socketUrl from env vars)
+- [X] T043 [US1] Update apps/frontend/lib/websocket.ts to use Socket.IO client instead of native WebSocket (replace WebSocket with io(), update event handlers)
+- [X] T044 [US1] Update apps/frontend/lib/types.ts to add score, roundsWon fields to Participant interface
+ - [X] T045 [US1] Remove frontend API routes; frontend now calls Express backend POST /api/room/create directly (no local proxy)
+- [X] T046 [US1] Create apps/frontend/.env.local.example with NEXT_PUBLIC_API_URL and NEXT_PUBLIC_SOCKET_URL
 
 **Checkpoint**: At this point, User Story 1 should be fully functional. Test by creating room, joining with 2 players, playing through multiple rounds, testing disconnection/reconnection.
 

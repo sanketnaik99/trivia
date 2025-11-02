@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from './config/env';
 import { logger } from './utils/logger.util';
+import { registerRoutes } from './routes';
 
 export function createApp() {
   const app = express();
@@ -19,14 +20,13 @@ export function createApp() {
     })
   );
 
-  app.get('/health', (req: express.Request, res: express.Response) => {
-    res.json({ status: 'healthy', timestamp: Date.now(), uptime: process.uptime(), rooms: { count: 0, max: config.maxRooms } });
-  });
-
-  // placeholder for route registration (routes/index.ts will mount later)
+  // placeholder root
   app.get('/', (req: express.Request, res: express.Response) => {
     res.json({ ok: true });
   });
+
+  // Register feature routes
+  registerRoutes(app);
 
   logger.info('Express app created', { env: config.nodeEnv });
 

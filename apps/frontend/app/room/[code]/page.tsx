@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { SocketClient } from '@/app/lib/websocket';
 import { Participant } from '@/app/lib/types';
 import { RoomLobby } from '@/app/components/room-lobby';
 import { GameCountdown } from '@/app/components/game-countdown';
@@ -71,13 +72,12 @@ export default function RoomPage() {
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
   
-  const wsRef = useRef<WebSocket | null>(null);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const wsRef = useRef<import('@/app/lib/websocket').SocketClient | null>(null);
+  // Socket.IO handles reconnection internally; no manual timeout tracking needed
   const userInfoRef = useRef<{ userId: string; userName: string } | null>(null);
   const connectFnRef = useRef<(() => void) | null>(null);
 
   const MAX_RECONNECT_ATTEMPTS = 5;
-  const RECONNECT_DELAY = 2000;
 
   // Set page title (T115)
   useEffect(() => {
@@ -88,6 +88,21 @@ export default function RoomPage() {
     switch (message.type) {
       case 'ROOM_STATE':
         setRoom(message.payload);
+        // Update playerId to match the server's participant ID
+        // Find the participant that matches our userName
+        if (userInfoRef.current) {
+          const participant = message.payload.participants.find(
+            (p) => p.name === userInfoRef.current?.userName
+          );
+          if (participant) {
+            console.log('[Frontend] Updating playerId from ROOM_STATE', { 
+              participantId: participant.id,
+              userName: userInfoRef.current.userName 
+            });
+            setPlayerId(participant.id);
+            sessionStorage.setItem('playerId', participant.id);
+          }
+        }
         break;
       
       case 'PLAYER_JOINED':
@@ -200,67 +215,36 @@ export default function RoomPage() {
     if (!userInfoRef.current) return;
     
     const { userId, userName } = userInfoRef.current;
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8787';
-    const websocketUrl = `${wsUrl}?room=${roomCode}`;
-
     try {
-      const ws = new WebSocket(websocketUrl);
-      wsRef.current = ws;
+      const client = new SocketClient();
+      wsRef.current = client;
 
-      ws.onopen = () => {
-        console.log('WebSocket connected');
+      client.on('ROOM_STATE', (payload: unknown) => handleMessage({ type: 'ROOM_STATE', payload } as ServerMessage));
+      client.on('PLAYER_JOINED', (payload: unknown) => handleMessage({ type: 'PLAYER_JOINED', payload } as ServerMessage));
+      client.on('PLAYER_LEFT', (payload: unknown) => handleMessage({ type: 'PLAYER_LEFT', payload } as ServerMessage));
+      client.on('PLAYER_READY', (payload: unknown) => handleMessage({ type: 'PLAYER_READY', payload } as ServerMessage));
+      client.on('GAME_START', (payload: unknown) => handleMessage({ type: 'GAME_START', payload } as ServerMessage));
+      client.on('ANSWER_SUBMITTED', (payload: unknown) => handleMessage({ type: 'ANSWER_SUBMITTED', payload } as ServerMessage));
+      client.on('ANSWER_COUNT_UPDATE', (payload: unknown) => handleMessage({ type: 'ANSWER_COUNT_UPDATE', payload } as ServerMessage));
+      client.on('ROUND_END', (payload: unknown) => handleMessage({ type: 'ROUND_END', payload } as ServerMessage));
+      client.on('ERROR', (payload: unknown) => handleMessage({ type: 'ERROR', payload } as ServerMessage));
+
+      client.connect().then(() => {
         setConnectionStatus('connected');
         setReconnectAttempts(0);
-
-        // Send JOIN message
-        ws.send(JSON.stringify({
-          type: 'JOIN',
-          payload: {
-            playerId: userId,
-            playerName: userName,
-          },
-        }));
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const message = JSON.parse(event.data) as ServerMessage;
-          handleMessage(message);
-        } catch (err) {
-          console.error('Failed to parse WebSocket message:', err);
-        }
-      };
-
-      ws.onerror = (event) => {
-        console.error('WebSocket error:', event);
+        // Send JOIN event
+        client.send('JOIN', { playerId: userId, playerName: userName, roomCode });
+      }).catch((err: unknown) => {
+        console.error('Socket.IO connect error:', err);
         setConnectionStatus('disconnected');
-      };
+      });
 
-      ws.onclose = () => {
-        console.log('WebSocket closed');
-        setConnectionStatus('disconnected');
-        
-        // Attempt reconnection if not at max attempts
-        setReconnectAttempts((prev) => {
-          const newAttempts = prev + 1;
-          if (newAttempts <= MAX_RECONNECT_ATTEMPTS) {
-            setConnectionStatus('reconnecting');
-            reconnectTimeoutRef.current = setTimeout(() => {
-              console.log(`Reconnecting... Attempt ${newAttempts}`);
-              connectFnRef.current?.();
-            }, RECONNECT_DELAY * newAttempts);
-          } else {
-            setError('Connection lost. Please refresh the page to reconnect.');
-          }
-          return newAttempts;
-        });
-      };
     } catch (err) {
-      console.error('Failed to create WebSocket:', err);
+      console.error('Failed to create Socket.IO client:', err);
       setError('Failed to connect to room');
       setConnectionStatus('disconnected');
     }
-  }, [roomCode, handleMessage, MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY]);
+  }, [roomCode, handleMessage]);
 
   // Store connectWebSocket in ref for use in callbacks
   useEffect(() => {
@@ -268,61 +252,60 @@ export default function RoomPage() {
   }, [connectWebSocket]);
 
   const handleReadyToggle = useCallback(() => {
-    if (!wsRef.current || !room) return;
+    console.log('[Frontend] handleReadyToggle called', { 
+      hasWsRef: !!wsRef.current, 
+      hasRoom: !!room,
+      playerId,
+      roomParticipants: room?.participants.length 
+    });
+    
+    if (!wsRef.current || !room) {
+      console.log('[Frontend] Early return: missing wsRef or room');
+      return;
+    }
 
     const currentUser = room.participants.find((p) => p.id === playerId);
-    if (!currentUser) return;
+    if (!currentUser) {
+      console.log('[Frontend] Early return: currentUser not found', { playerId, participants: room.participants.map(p => p.id) });
+      return;
+    }
 
-    // Send READY message to toggle ready state
-    wsRef.current.send(JSON.stringify({
-      type: 'READY',
-      payload: {
-        isReady: !currentUser.isReady,
-      },
-    }));
+    console.log('[Frontend] Ready button clicked', { 
+      playerId, 
+      currentReady: currentUser.isReady, 
+      newReady: !currentUser.isReady,
+      isConnected: wsRef.current.isConnected()
+    });
+
+    // Emit READY
+    wsRef.current.send('READY', { isReady: !currentUser.isReady });
   }, [room, playerId]);
 
   const handleSubmitAnswer = useCallback((answer: string) => {
-    if (!wsRef.current || !gameStartTime) return;
+  if (!wsRef.current || !gameStartTime) return;
 
     // Calculate timestamp from round start (T075)
     const timestamp = Date.now() - gameStartTime;
 
-    // Send ANSWER message
-    wsRef.current.send(JSON.stringify({
-      type: 'ANSWER',
-      payload: {
-        answerText: answer,
-        timestamp,
-      },
-    }));
+    // Emit ANSWER
+    wsRef.current.send('ANSWER', { answerText: answer, timestamp });
   }, [gameStartTime]);
 
   // T103: Handle ready up from results state
   const handleReadyForNextRound = useCallback(() => {
-    if (!wsRef.current || !room) return;
+  if (!wsRef.current || !room) return;
 
-    // Send READY message to transition back to lobby and start next round
-    wsRef.current.send(JSON.stringify({
-      type: 'READY',
-      payload: {
-        isReady: true,
-      },
-    }));
+    // Emit READY to begin next round
+    wsRef.current.send('READY', { isReady: true });
   }, [room]);
 
   // T104 & T106: Handle leave room action
   const handleLeaveRoom = useCallback(() => {
     if (!wsRef.current) return;
 
-    // Send LEAVE message
-    wsRef.current.send(JSON.stringify({
-      type: 'LEAVE',
-      payload: {},
-    }));
-
-    // Close WebSocket
-    wsRef.current.close();
+    // Emit LEAVE and disconnect
+    wsRef.current.send('LEAVE', {});
+    wsRef.current.disconnect();
 
     // Clear session storage
     sessionStorage.removeItem('playerId');
@@ -352,11 +335,9 @@ export default function RoomPage() {
     return () => {
       // Cleanup on unmount
       if (wsRef.current) {
-        wsRef.current.close();
+        wsRef.current.disconnect();
       }
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
+      // No manual reconnect timers to clear with Socket.IO
     };
   }, [roomCode, router, connectWebSocket]);
 
