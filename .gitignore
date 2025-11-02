@@ -47,3 +47,11 @@ workers/.wrangler/
 workers/dist/
 
 .turbo
+
+# IDEs/editors
+.vscode/
+.idea/
+
+# temp/editor swap
+*.tmp
+*.swp

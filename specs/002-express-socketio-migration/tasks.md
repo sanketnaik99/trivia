@@ -26,16 +26,16 @@ This project uses Turborepo monorepo structure:
 
 **Purpose**: Initialize Express backend workspace and configure monorepo
 
-- [ ] T001 Create backend workspace directory structure at apps/backend/
-- [ ] T002 Create apps/backend/package.json with Express, Socket.IO, cors, uuid dependencies
-- [ ] T003 Create apps/backend/tsconfig.json with strict mode and path aliases (@/*)
-- [ ] T004 Create apps/backend/.env.example with PORT, ALLOWED_ORIGINS, FRONTEND_BASE_URL, MAX_ROOMS, ROOM_CLEANUP_TIMEOUT, RECONNECT_TIMEOUT
-- [ ] T005 Copy workers/questions.json to apps/backend/src/config/questions.json
-- [ ] T006 Update root turbo.json to add backend dev task with port 3001
-- [ ] T007 [P] Create apps/backend/src/types/room.types.ts with Room, Participant, Round, ParticipantAnswer interfaces per data-model.md
-- [ ] T008 [P] Create apps/backend/src/types/message.types.ts with Socket.IO client and server event interfaces per socketio-events.md
-- [ ] T009 [P] Create apps/backend/src/types/game.types.ts with Question, GameState, ConnectionStatus types
-- [ ] T010 Create apps/backend/src/config/env.ts to load and validate environment variables with typed config object
+ - [X] T001 Create backend workspace directory structure at apps/backend/
+ - [X] T002 Create apps/backend/package.json with Express, Socket.IO, cors, uuid dependencies
+ - [X] T003 Create apps/backend/tsconfig.json with strict mode and path aliases (@/*)
+ - [X] T004 Create apps/backend/.env.example with PORT, ALLOWED_ORIGINS, FRONTEND_BASE_URL, MAX_ROOMS, ROOM_CLEANUP_TIMEOUT, RECONNECT_TIMEOUT
+ - [X] T005 Copy workers/questions.json to apps/backend/src/config/questions.json
+ - [X] T006 Update root turbo.json to add backend dev task with port 3001
+ - [X] T007 [P] Create apps/backend/src/types/room.types.ts with Room, Participant, Round, ParticipantAnswer interfaces per data-model.md
+ - [X] T008 [P] Create apps/backend/src/types/message.types.ts with Socket.IO client and server event interfaces per socketio-events.md
+ - [X] T009 [P] Create apps/backend/src/types/game.types.ts with Question, GameState, ConnectionStatus types
+ - [X] T010 Create apps/backend/src/config/env.ts to load and validate environment variables with typed config object
 
 ---
 
@@ -45,15 +45,15 @@ This project uses Turborepo monorepo structure:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T011 Create apps/backend/src/utils/logger.util.ts with structured JSON logging (info, error, warn methods)
-- [ ] T012 Create apps/backend/src/utils/room-code.util.ts to generate 6-char alphanumeric codes (exclude 0/O/I/1/L)
-- [ ] T013 Create apps/backend/src/utils/answer-check.util.ts to normalize and validate answers against correct/accepted answers
-- [ ] T014 Create apps/backend/src/store/room.store.ts with Map-based storage, cleanup timers, and room lifecycle methods (createRoom, getRoom, deleteRoom, scheduleCleanup, cancelCleanup, getRoomCount)
-- [ ] T015 Create apps/backend/src/services/question.service.ts to load questions from config, select random unused questions, track used IDs
-- [ ] T016 Create apps/backend/src/app.ts to configure Express app with CORS middleware, JSON body parser, error handling
-- [ ] T017 Create apps/backend/src/server.ts to create HTTP server, attach Socket.IO, configure Socket.IO with CORS
-- [ ] T018 Create apps/backend/src/socket/broadcast.util.ts with helper functions for broadcasting to rooms (toRoom, toSocket, toAllExcept)
-- [ ] T019 Create apps/backend/src/index.ts as server entry point to load env, start HTTP server, initialize Socket.IO connection handler
+ - [X] T011 Create apps/backend/src/utils/logger.util.ts with structured JSON logging (info, error, warn methods)
+ - [X] T012 Create apps/backend/src/utils/room-code.util.ts to generate 6-char alphanumeric codes (exclude 0/O/I/1/L)
+ - [X] T013 Create apps/backend/src/utils/answer-check.util.ts to normalize and validate answers against correct/accepted answers
+ - [X] T014 Create apps/backend/src/store/room.store.ts with Map-based storage, cleanup timers, and room lifecycle methods (createRoom, getRoom, deleteRoom, scheduleCleanup, cancelCleanup, getRoomCount)
+ - [X] T015 Create apps/backend/src/services/question.service.ts to load questions from config, select random unused questions, track used IDs
+ - [X] T016 Create apps/backend/src/app.ts to configure Express app with CORS middleware, JSON body parser, error handling
+ - [X] T017 Create apps/backend/src/server.ts to create HTTP server, attach Socket.IO, configure Socket.IO with CORS
+ - [X] T018 Create apps/backend/src/socket/broadcast.util.ts with helper functions for broadcasting to rooms (toRoom, toSocket, toAllExcept)
+ - [X] T019 Create apps/backend/src/index.ts as server entry point to load env, start HTTP server, initialize Socket.IO connection handler
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

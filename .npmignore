@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.env*
+.DS_Store
+.vscode/
+.idea/
+*.tgz
+
+# Keep package.json and README
+!package.json
+!README.md
