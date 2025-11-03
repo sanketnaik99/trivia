@@ -45,25 +45,25 @@
 
 ### Database Schema & Migrations
 
-- [ ] T009 Copy complete Prisma schema from data-model.md to apps/backend/prisma/schema.prisma (models: User, Group, Membership, GroupInvite, GroupLeaderboardEntry, Room with extensions)
-- [ ] T010 Run Prisma migration: npx prisma migrate dev --name init (creates migrations/ and applies to database)
-- [ ] T011 Generate Prisma Client: npx prisma generate (creates @prisma/client types)
-- [ ] T012 Verify schema in Prisma Studio: npx prisma studio (opens at localhost:5555)
+- [X] T009 Copy complete Prisma schema from data-model.md to apps/backend/prisma/schema.prisma (models: User, Group, Membership, GroupInvite, GroupLeaderboardEntry, Room with extensions)
+- [X] T010 Run Prisma migration: npx prisma migrate dev --name init (creates migrations/ and applies to database)
+- [X] T011 Generate Prisma Client: npx prisma generate (creates @prisma/client types)
+- [X] T012 Verify schema in Prisma Studio: npx prisma studio (opens at localhost:5555)
 
 ### Backend Infrastructure
 
-- [ ] T013 Create apps/backend/src/config/prisma.ts with PrismaClient singleton instance and connection logging
-- [ ] T014 [P] Create apps/backend/src/middleware/auth.middleware.ts with requireAuth function using @clerk/clerk-sdk-node to verify session tokens
-- [ ] T015 [P] Create apps/backend/src/types/express.d.ts to extend Express Request with userId property
-- [ ] T016 [P] Create apps/backend/src/utils/error-handler.util.ts with standardized error response format per http-api.md
-- [ ] T017 Update apps/backend/src/app.ts to register new route groups (webhooks, groups, invites) with CORS configuration for frontend origin
+- [X] T013 Create apps/backend/src/config/prisma.ts with PrismaClient singleton instance and connection logging
+- [X] T014 [P] Create apps/backend/src/middleware/auth.middleware.ts with requireAuth function using @clerk/clerk-sdk-node to verify session tokens
+- [X] T015 [P] Create apps/backend/src/types/express.d.ts to extend Express Request with userId property
+- [X] T016 [P] Create apps/backend/src/utils/error-handler.util.ts with standardized error response format per http-api.md
+- [X] T017 Update apps/backend/src/app.ts to register new route groups (webhooks, groups, invites) with CORS configuration for frontend origin
 
 ### Frontend Infrastructure
 
-- [ ] T018 Wrap Next.js app in ClerkProvider in apps/frontend/app/layout.tsx
-- [ ] T019 Create apps/frontend/middleware.ts with Clerk authMiddleware to protect authenticated routes (publicRoutes: ['/'])
-- [ ] T020 [P] Create apps/frontend/app/lib/api-client.ts with fetch wrapper that automatically adds Clerk session token to Authorization header
-- [ ] T021 [P] Create apps/frontend/app/lib/types.ts with TypeScript interfaces for Group, Membership, Invite, LeaderboardEntry (matching Prisma schema)
+- [X] T018 Wrap Next.js app in ClerkProvider in apps/frontend/app/layout.tsx
+- [X] T019 Create apps/frontend/middleware.ts with Clerk authMiddleware to protect authenticated routes (publicRoutes: ['/'])
+- [X] T020 [P] Create apps/frontend/app/lib/api-client.ts with fetch wrapper that automatically adds Clerk session token to Authorization header
+- [X] T021 [P] Create apps/frontend/app/lib/types.ts with TypeScript interfaces for Group, Membership, Invite, LeaderboardEntry (matching Prisma schema)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
