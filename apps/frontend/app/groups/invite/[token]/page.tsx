@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useApiClient } from '@/app/lib/api-client';
 import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
 import { useAuth } from '@clerk/nextjs';
+import { useAcceptInvite } from '@/app/lib/api/queries/invites';
 import { Users, CheckCircle, XCircle, Clock } from 'lucide-react';
 
 interface InviteInfo {
@@ -43,11 +44,11 @@ export default function InvitePage() {
   const router = useRouter();
   const [inviteInfo, setInviteInfo] = useState<InviteInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAccepting, setIsAccepting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const api = useApiClient();
   const { isSignedIn, isLoaded } = useAuth();
+  const acceptInviteMutation = useAcceptInvite();
 
   const token = params.token as string;
 
@@ -84,28 +85,21 @@ export default function InvitePage() {
     loadInviteInfo();
   }, [isLoaded, isSignedIn, token, router, loadInviteInfo]);
 
-  const handleAcceptInvite = async () => {
+  const handleAcceptInvite = () => {
     if (!inviteInfo) return;
 
-    setIsAccepting(true);
-    setError(null);
-
-    try {
-      const response = await api.post(`/groups/invite/${token}/accept`, {}) as ApiResponse<BackendApiResponse<AcceptInviteResponse>>;
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-
-      setSuccess(true);
-      // Redirect to group page after a short delay
-      setTimeout(() => {
-        router.push(`/groups/${inviteInfo.group.id}`);
-      }, 2000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to accept invite');
-    } finally {
-      setIsAccepting(false);
-    }
+    acceptInviteMutation.mutate(token, {
+      onSuccess: () => {
+        setSuccess(true);
+        // Redirect to group page after a short delay
+        setTimeout(() => {
+          router.push(`/groups/${inviteInfo.group.id}`);
+        }, 2000);
+      },
+      onError: (err) => {
+        setError(err instanceof Error ? err.message : 'Failed to accept invite');
+      },
+    });
   };
 
   if (!isLoaded || !isSignedIn) {
@@ -246,9 +240,9 @@ export default function InvitePage() {
             <Button
               className="flex-1"
               onClick={handleAcceptInvite}
-              disabled={isExpired || isMember || isAccepting}
+              disabled={isExpired || isMember || acceptInviteMutation.isPending}
             >
-              {isAccepting ? 'Joining...' : 'Accept Invite'}
+              {acceptInviteMutation.isPending ? 'Joining...' : 'Accept Invite'}
             </Button>
           </div>
         </CardContent>

@@ -1,42 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CreateGroupForm } from '../components/create-group-form';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, GroupsListResponse, GroupWithRole, BackendApiResponse } from '@/app/lib/types';
+import { useGroups } from '@/app/lib/api/queries/groups';
 import { useAuth } from '@clerk/nextjs';
 
 export default function GroupsPage() {
-  const [groups, setGroups] = useState<GroupWithRole[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const api = useApiClient();
+  const { data: groupsResponse, isLoading } = useGroups();
   const { isSignedIn } = useAuth();
 
-  useEffect(() => {
-    if (isSignedIn) {
-      const loadGroups = async () => {
-        try {
-          const response = await api.get('/groups') as ApiResponse<BackendApiResponse<GroupsListResponse>>;
-          if (response.error) {
-            console.error('Failed to load groups:', response.error);
-            return;
-          }
-          // API client wraps backend response, so access the nested data
-          const backendData = response.data as BackendApiResponse<GroupsListResponse>;
-          setGroups(backendData?.data?.groups || []);
-        } catch (error) {
-          console.error('Error loading groups:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      loadGroups();
-    }
-  }, [isSignedIn, api]); // api is stable due to useMemo, so this won't cause infinite loops
+  const groups = groupsResponse?.groups || [];
 
   if (!isSignedIn) {
     return (

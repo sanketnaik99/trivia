@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+'use client';
+
 import Image from 'next/image';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Crown, UserMinus, UserPlus, LogOut } from 'lucide-react';
-import { useApiClient } from '@/app/lib/api-client';
+import { useRemoveMember, usePromoteMember, useLeaveGroup } from '@/app/lib/api/queries/memberships';
 
 interface Membership {
   id: string;
@@ -29,46 +30,34 @@ interface MemberListProps {
   members: Membership[];
   currentUserRole: 'ADMIN' | 'MEMBER';
   currentUserId: string;
-  onMemberUpdate: () => void;
 }
 
-export function MemberList({ groupId, members, currentUserRole, currentUserId, onMemberUpdate }: MemberListProps) {
-  const [isLoading, setIsLoading] = useState<string | null>(null);
-  const api = useApiClient();
+export function MemberList({ groupId, members, currentUserRole, currentUserId }: MemberListProps) {
+  const removeMemberMutation = useRemoveMember();
+  const promoteMemberMutation = usePromoteMember();
+  const leaveGroupMutation = useLeaveGroup();
 
   const handleRemoveMember = async (userId: string) => {
-    setIsLoading(`remove-${userId}`);
     try {
-      await api.delete(`/groups/${groupId}/members/${userId}/remove`);
-      onMemberUpdate();
+      await removeMemberMutation.mutateAsync({ groupId, userId });
     } catch (error) {
       console.error('Failed to remove member:', error);
-    } finally {
-      setIsLoading(null);
     }
   };
 
   const handlePromoteMember = async (userId: string) => {
-    setIsLoading(`promote-${userId}`);
     try {
-      await api.post(`/groups/${groupId}/members/${userId}/promote`, {});
-      onMemberUpdate();
+      await promoteMemberMutation.mutateAsync({ groupId, userId });
     } catch (error) {
       console.error('Failed to promote member:', error);
-    } finally {
-      setIsLoading(null);
     }
   };
 
   const handleLeaveGroup = async () => {
-    setIsLoading('leave');
     try {
-      await api.post(`/groups/${groupId}/leave`, {});
-      onMemberUpdate();
+      await leaveGroupMutation.mutateAsync(groupId);
     } catch (error) {
       console.error('Failed to leave group:', error);
-    } finally {
-      setIsLoading(null);
     }
   };
 
@@ -107,7 +96,7 @@ export function MemberList({ groupId, members, currentUserRole, currentUserId, o
                   </AvatarFallback>
                 </Avatar>
                 <span className="font-medium">
-                  {member.user?.displayName || 'Unknown User'}
+                  {member.user?.displayName || member.userId || 'Unknown User'}
                   {isCurrentUser(member.userId) && (
                     <span className="text-sm text-muted-foreground ml-1">(You)</span>
                   )}
@@ -138,7 +127,7 @@ export function MemberList({ groupId, members, currentUserRole, currentUserId, o
                           <Button
                             variant="outline"
                             size="sm"
-                            disabled={isLoading === `promote-${member.userId}`}
+                            disabled={promoteMemberMutation.isPending}
                           >
                             <UserPlus className="w-4 h-4" />
                           </Button>
@@ -168,7 +157,7 @@ export function MemberList({ groupId, members, currentUserRole, currentUserId, o
                         <Button
                           variant="outline"
                           size="sm"
-                          disabled={isLoading === `remove-${member.userId}`}
+                          disabled={removeMemberMutation.isPending}
                         >
                           <UserMinus className="w-4 h-4" />
                         </Button>
@@ -201,7 +190,7 @@ export function MemberList({ groupId, members, currentUserRole, currentUserId, o
                       <Button
                         variant="outline"
                         size="sm"
-                        disabled={isLoading === 'leave'}
+                        disabled={leaveGroupMutation.isPending}
                       >
                         <LogOut className="w-4 h-4" />
                       </Button>

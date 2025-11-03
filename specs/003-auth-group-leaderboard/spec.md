@@ -113,8 +113,21 @@ Acceptance Scenarios:
 - Multiple admins are allowed; an admin may leave only if at least one other admin remains or after delegating admin rights to another member.
 - Invitations are provided via both link and code formats; both respect expiration and revocation.
 
+## Clarifications
 
- 
- 
+### Session 2025-11-02
+
+- Q: Should we migrate frontend API calls to @tanstack/react-query before implementing User Stories 3 & 4? → A: Yes, this is a high-priority blocking task. All existing API calls (groups, memberships, invites) must be migrated to React Query to establish proper data fetching patterns before adding more API-dependent features. This provides better caching, automatic refetching, loading states, and reduces boilerplate. Additionally, we will use axios instead of native fetch for better request/response interceptors and error handling. All API responses will be fully typed with TypeScript interfaces to ensure type safety throughout the application.
+
+**Impact on Implementation**:
+- Added new Phase 4.5 (React Query Migration) as a blocking prerequisite for User Stories 3 & 4
+- This is purely an infrastructure refactoring with zero functional changes
+- All existing features (auth, groups, invites) must continue to work identically
+- Establishes consistent patterns for data fetching, mutations, caching, and optimistic updates
+- Axios will replace native fetch for cleaner interceptor-based authentication and error handling
+- Complete TypeScript typing for all API requests/responses with dedicated schema files (group.schema.ts, membership.schema.ts, invite.schema.ts)
+- Eliminates any 'any' types in the API layer, providing full IntelliSense support and compile-time safety
+- Timeline extended by ~1 week to accommodate migration work
+- 51 new tasks added to tasks.md covering setup, typed schemas, query hooks, component migrations, and testing
 
 ### Measurable Outcomes

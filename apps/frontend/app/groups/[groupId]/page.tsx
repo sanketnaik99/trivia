@@ -1,12 +1,10 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, Group, Membership, BackendApiResponse } from '@/app/lib/types';
+import { useGroupDetail } from '@/app/lib/api/queries/groups';
 import { useAuth } from '@clerk/nextjs';
 import { Users, Calendar } from 'lucide-react';
 import { MemberList } from '@/app/components/member-list';
@@ -14,54 +12,12 @@ import { GenerateInviteModal } from '@/app/components/generate-invite-modal';
 import { InviteList } from '@/app/components/invite-list';
 import { ManageGroupModal } from '@/app/components/manage-group-modal';
 
-interface GroupDetailResponse {
-  group: Group;
-  membership: Membership;
-  members: Membership[];
-}
-
 export default function GroupDetailPage() {
   const params = useParams();
-  const [group, setGroup] = useState<Group | null>(null);
-  const [membership, setMembership] = useState<Membership | null>(null);
-  const [members, setMembers] = useState<Membership[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const api = useApiClient();
-  const { isSignedIn } = useAuth();
+  const { data: groupDetail, isLoading, error } = useGroupDetail(params.groupId as string);
+  const { isSignedIn, userId } = useAuth();
 
   const groupId = params.groupId as string;
-
-  const loadGroup = useCallback(async () => {
-    try {
-      const response = await api.get(`/groups/${groupId}`) as ApiResponse<BackendApiResponse<GroupDetailResponse>>;
-      if (response.error) {
-        if (response.error.code === 'NOT_FOUND') {
-          setError('Group not found');
-        } else {
-          setError(response.error.message);
-        }
-        return;
-      }
-
-      if (response.data?.data) {
-        setGroup(response.data.data.group);
-        setMembership(response.data.data.membership);
-        setMembers(response.data.data.members);
-      }
-    } catch (error) {
-      console.error('Error loading group:', error);
-      setError('Failed to load group');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [api, groupId]);
-
-  useEffect(() => {
-    if (isSignedIn && groupId) {
-      loadGroup();
-    }
-  }, [isSignedIn, groupId, loadGroup]);
 
   if (!isSignedIn) {
     return (
@@ -94,7 +50,7 @@ export default function GroupDetailPage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Error</CardTitle>
-            <CardDescription>{error}</CardDescription>
+            <CardDescription>{error.message || 'Failed to load group'}</CardDescription>
           </CardHeader>
           <CardContent>
             <Link href="/groups">
@@ -106,7 +62,7 @@ export default function GroupDetailPage() {
     );
   }
 
-  if (!group || !membership) {
+  if (!groupDetail) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -126,7 +82,16 @@ export default function GroupDetailPage() {
     );
   }
 
-  const isAdmin = membership.role === 'ADMIN';
+  const groupDetailData = groupDetail;
+  const group = groupDetailData;
+  const members = groupDetailData?.members || [];
+  const userRole = groupDetailData?.userRole || 'MEMBER';
+  const isAdmin = userRole === 'ADMIN';
+
+  // Since React Query handles invalidation automatically, we don't need callback functions
+  const handleGroupUpdate = () => {}; // No-op, React Query will refetch
+  const handleMemberUpdate = () => {}; // No-op, React Query will refetch
+  const handleInviteUpdate = () => {}; // No-op, React Query will refetch
 
   return (
     <div className="min-h-screen bg-background p-4">
@@ -149,8 +114,6 @@ export default function GroupDetailPage() {
               <ManageGroupModal
                 groupId={groupId}
                 currentName={group.name}
-                onGroupUpdated={loadGroup}
-                onGroupDeleted={() => window.location.href = '/groups'}
               />
             )}
           </div>
@@ -212,17 +175,27 @@ export default function GroupDetailPage() {
             {/* Members */}
             <MemberList
               groupId={groupId}
-              members={members}
-              currentUserRole={membership.role}
-              currentUserId={membership.userId}
-              onMemberUpdate={loadGroup}
+              members={members.map(member => ({
+                id: `${member.userId}-${groupId}`, // Generate a composite ID
+                userId: member.userId,
+                groupId,
+                role: member.role,
+                status: 'ACTIVE' as const,
+                joinedAt: new Date(member.joinedAt),
+                user: {
+                  id: member.userId,
+                  displayName: member.user.displayName,
+                  avatarUrl: member.user.avatarUrl,
+                },
+              }))}
+              currentUserRole={userRole}
+              currentUserId={userId || ''}
             />
 
             {/* Active Invites - Only show to admins */}
             {isAdmin && (
               <InviteList
                 groupId={groupId}
-                onInviteRevoked={loadGroup}
               />
             )}
 
@@ -241,7 +214,6 @@ export default function GroupDetailPage() {
                 {isAdmin && (
                   <GenerateInviteModal
                     groupId={groupId}
-                    onInviteGenerated={loadGroup}
                   />
                 )}
               </CardContent>

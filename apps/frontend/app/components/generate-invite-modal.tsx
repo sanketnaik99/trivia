@@ -8,12 +8,10 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Copy, Check, ExternalLink, Share2 } from 'lucide-react';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
+import { useGenerateInvite } from '@/app/lib/api/queries/invites';
 
 interface GenerateInviteModalProps {
   groupId: string;
-  onInviteGenerated: () => void;
 }
 
 interface GenerateInviteResponse {
@@ -26,37 +24,27 @@ interface GenerateInviteResponse {
   inviteCode: string;
 }
 
-export function GenerateInviteModal({ groupId, onInviteGenerated }: GenerateInviteModalProps) {
+export function GenerateInviteModal({ groupId }: GenerateInviteModalProps) {
   const [open, setOpen] = useState(false);
   const [expiresInDays, setExpiresInDays] = useState('7');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [inviteResult, setInviteResult] = useState<GenerateInviteResponse | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
-  const api = useApiClient();
 
-  const handleGenerateInvite = async () => {
-    setIsLoading(true);
-    setError(null);
+  const generateInviteMutation = useGenerateInvite();
 
-    try {
-      const response = await api.post(`/groups/${groupId}/invites`, {
-        expiresInDays: parseInt(expiresInDays),
-      }) as ApiResponse<BackendApiResponse<GenerateInviteResponse>>;
-
-      if (response.error) {
-        throw new Error(response.error.message);
+  const handleGenerateInvite = () => {
+    generateInviteMutation.mutate(
+      {
+        groupId,
+        data: { expiresInDays: parseInt(expiresInDays) },
+      },
+      {
+        onSuccess: (data) => {
+          setInviteResult(data);
+        },
       }
-
-      const backendData = response.data as BackendApiResponse<GenerateInviteResponse>;
-      setInviteResult(backendData.data!);
-      onInviteGenerated();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate invite');
-    } finally {
-      setIsLoading(false);
-    }
+    );
   };
 
   const copyToClipboard = async (text: string, type: 'link' | 'code') => {
@@ -94,7 +82,6 @@ export function GenerateInviteModal({ groupId, onInviteGenerated }: GenerateInvi
 
   const resetModal = () => {
     setInviteResult(null);
-    setError(null);
     setCopiedLink(false);
     setCopiedCode(false);
   };
@@ -140,9 +127,13 @@ export function GenerateInviteModal({ groupId, onInviteGenerated }: GenerateInvi
               </Select>
             </div>
 
-            {error && (
+            {generateInviteMutation.error && (
               <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
+                <AlertDescription>
+                  {generateInviteMutation.error instanceof Error
+                    ? generateInviteMutation.error.message
+                    : 'Failed to generate invite'}
+                </AlertDescription>
               </Alert>
             )}
 
@@ -150,8 +141,8 @@ export function GenerateInviteModal({ groupId, onInviteGenerated }: GenerateInvi
               <Button variant="outline" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={handleGenerateInvite} disabled={isLoading}>
-                {isLoading ? 'Generating...' : 'Generate Invite'}
+              <Button onClick={handleGenerateInvite} disabled={generateInviteMutation.isPending}>
+                {generateInviteMutation.isPending ? 'Generating...' : 'Generate Invite'}
               </Button>
             </DialogFooter>
           </div>

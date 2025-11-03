@@ -187,9 +187,118 @@
 
 ---
 
+## Phase 4.5: React Query Migration (Priority: P0 - BLOCKING)
+
+**Goal**: Migrate all frontend API calls from custom `useApiClient` hook to `@tanstack/react-query` for better caching, automatic refetching, optimistic updates, and improved developer experience
+
+**Why This is Blocking**: Before implementing User Stories 3 & 4 (which will add more API calls), we need to establish the proper data fetching foundation. React Query provides:
+- Automatic caching and background refetching
+- Request deduplication
+- Built-in loading/error states
+- Optimistic updates for mutations
+- Better TypeScript support
+- Reduced boilerplate in components
+
+**Validation**:
+1. All existing API calls (groups, memberships, invites) should work identically
+2. Loading states should be managed by React Query
+3. Data should be cached and automatically revalidated
+4. Mutations should trigger automatic refetches of related queries
+5. No regression in existing functionality
+
+### Setup & Infrastructure
+
+- [x] T080.1 [P] Install @tanstack/react-query, @tanstack/react-query-devtools, and axios in apps/frontend
+- [x] T080.2 [P] Create apps/frontend/app/lib/query-client.ts with QueryClient configuration (staleTime, cacheTime, retry logic)
+- [x] T080.3 Create apps/frontend/app/providers/query-provider.tsx with QueryClientProvider wrapper
+- [x] T080.4 Update apps/frontend/app/layout.tsx to wrap app with QueryProvider (inside ClerkProvider)
+- [x] T080.5 [P] Add React Query DevTools to development builds in QueryProvider (conditional on process.env.NODE_ENV)
+
+### API Client Refactoring
+
+- [x] T080.6 [P] Create apps/frontend/app/lib/api/client.ts with axios instance (baseURL, Clerk token interceptor, error handling interceptor)
+- [x] T080.7 [P] Create apps/frontend/app/lib/api/types.ts with shared API types (ApiResponse, ApiError interfaces)
+- [x] T080.8 [P] Create apps/frontend/app/lib/api/query-keys.ts with query key factory (groups, memberships, invites namespaces)
+- [x] T080.8a [P] Create apps/frontend/app/lib/api/schemas/group.schema.ts with fully typed interfaces for all group-related API responses (Group, GroupListResponse, GroupDetailResponse, CreateGroupRequest, UpdateGroupRequest)
+- [x] T080.8b [P] Create apps/frontend/app/lib/api/schemas/membership.schema.ts with fully typed interfaces for membership API responses (Membership, MembershipRole, MembershipStatus, RemoveMemberResponse, PromoteMemberResponse, LeaveGroupResponse)
+- [x] T080.8c [P] Create apps/frontend/app/lib/api/schemas/invite.schema.ts with fully typed interfaces for invite API responses (GroupInvite, InviteStatus, GenerateInviteRequest, GenerateInviteResponse, InviteListResponse, AcceptInviteResponse, RevokeInviteResponse)
+
+### Query Hooks - Groups
+
+- [x] T080.9 [P] Create apps/frontend/app/lib/api/queries/groups.ts with useGroups query hook (replaces GET /api/groups calls, fully typed with GroupListResponse)
+- [x] T080.10 [P] Create useGroupDetail query hook in groups.ts (replaces GET /api/groups/:id calls, fully typed with GroupDetailResponse)
+- [x] T080.11 Create useCreateGroup mutation hook in groups.ts (replaces POST /api/groups, typed with CreateGroupRequest/Group, invalidates groups query)
+- [x] T080.12 Create useUpdateGroup mutation hook in groups.ts (replaces PATCH /api/groups/:id, typed with UpdateGroupRequest/Group, invalidates group detail)
+
+### Query Hooks - Memberships
+
+- [x] T080.13 [P] Create apps/frontend/app/lib/api/queries/memberships.ts with useLeaveGroup mutation hook (fully typed with LeaveGroupResponse)
+- [x] T080.14 Create useRemoveMember mutation hook in memberships.ts (typed with RemoveMemberResponse, invalidates group detail query)
+- [x] T080.15 Create usePromoteMember mutation hook in memberships.ts (typed with PromoteMemberResponse, invalidates group detail query)
+
+### Query Hooks - Invites
+
+- [x] T080.16 [P] Create apps/frontend/app/lib/api/queries/invites.ts with useGroupInvites query hook (replaces GET /api/groups/:id/invites, fully typed with InviteListResponse)
+- [x] T080.17 Create useGenerateInvite mutation hook in invites.ts (typed with GenerateInviteRequest/GenerateInviteResponse, invalidates invites query)
+- [x] T080.18 Create useRevokeInvite mutation hook in invites.ts (typed with RevokeInviteResponse, invalidates invites query)
+- [x] T080.19 Create useAcceptInvite mutation hook in invites.ts (typed with AcceptInviteResponse, invalidates groups query)
+- [x] T080.20 Create useAcceptInviteCode mutation hook in invites.ts (typed with AcceptInviteResponse, invalidates groups query)
+
+### Component Migration - Groups
+
+- [x] T080.21 Migrate apps/frontend/app/groups/page.tsx from useApiClient to useGroups query hook
+- [x] T080.22 Migrate apps/frontend/app/components/create-group-form.tsx to useCreateGroup mutation hook
+- [x] T080.23 Migrate apps/frontend/app/groups/[groupId]/page.tsx to useGroupDetail query hook
+- [x] T080.24 Migrate apps/frontend/app/components/manage-group-modal.tsx to useUpdateGroup mutation hook
+
+### Component Migration - Memberships
+
+- [x] T080.25 Migrate member remove action in apps/frontend/app/components/member-list.tsx to useRemoveMember mutation
+- [x] T080.26 Migrate member promote action in member-list.tsx to usePromoteMember mutation
+- [x] T080.27 Migrate leave group action in member-list.tsx to useLeaveGroup mutation
+
+### Component Migration - Invites
+
+- [x] T080.28 Migrate apps/frontend/app/components/invite-list.tsx to useGroupInvites query and useRevokeInvite mutation
+- [x] T080.29 Migrate apps/frontend/app/components/generate-invite-modal.tsx to useGenerateInvite mutation
+- [x] T080.30 Migrate apps/frontend/app/components/join-with-code-form.tsx to useAcceptInviteCode mutation
+- [x] T080.31 Migrate apps/frontend/app/groups/invite/[token]/page.tsx to useAcceptInvite mutation
+
+### Polish & Optimization
+
+- [ ] T080.32 [P] Add optimistic updates to all mutation hooks (immediate UI feedback before server confirmation)
+- [ ] T080.33 [P] Configure query refetch strategies: refetchOnWindowFocus for lists, staleTime for details
+- [ ] T080.34 Add error boundaries or error handling for failed queries with user-friendly messages
+- [ ] T080.35 Add loading states using query.isLoading instead of local useState
+- [ ] T080.36 Implement prefetching for group detail when hovering over group cards in list
+- [ ] T080.37 Add retry logic configuration for specific query types (no retry for 4xx, retry for 5xx)
+
+### Testing & Validation
+
+- [ ] T080.38 Test groups list: verify data loads, caching works, create group updates list automatically, verify TypeScript types are correct
+- [ ] T080.39 Test group detail: verify member list updates after remove/promote, leave group redirects correctly, verify full type safety
+- [ ] T080.40 Test invites: verify generate creates invite, revoke updates list, accept redirects to group, verify typed responses
+- [ ] T080.41 Test error states: simulate network errors, verify error messages display correctly, verify typed error responses
+- [ ] T080.42 Test loading states: verify skeleton/spinner shows during initial load and refetch
+- [ ] T080.43 Test React Query DevTools: verify queries appear in devtools, inspect cache, validate key structure
+- [ ] T080.43a Verify TypeScript compilation: ensure no 'any' types in API layer, all responses fully typed, no type errors
+- [ ] T080.44 Code cleanup: remove old useApiClient hook if no longer used, verify all components migrated
+
+### Cleanup
+
+- [ ] T080.45 Remove or deprecate apps/frontend/app/lib/api-client.ts (replace with note to use query hooks)
+- [ ] T080.46 Update documentation: add React Query patterns to project constitution or README
+- [ ] T080.47 Final validation: run through all group workflows (create, invite, join, manage), verify no regressions
+
+**Checkpoint**: React Query migration complete - all existing API calls use proper query/mutation hooks with caching, loading states, and automatic refetching. **✅ READY TO PROCEED WITH USER STORIES 3 & 4**
+
+---
+
 ## Phase 5: User Story 3 - Group-Affiliated Rooms (Priority: P3)
 
 **Goal**: Group members can create trivia rooms on behalf of their group, with points attributed to the group leaderboard after game completion
+
+**Dependencies**: BLOCKED until Phase 4.5 (React Query Migration) is complete
 
 **Validation**:
 1. Sign in as group member
@@ -256,6 +365,8 @@
 ## Phase 6: User Story 4 - View Group Leaderboard (Priority: P4)
 
 **Goal**: Members can view the persistent group leaderboard showing cumulative points from all completed group games, with real-time updates
+
+**Dependencies**: BLOCKED until Phase 4.5 (React Query Migration) and Phase 5 (User Story 3) are complete
 
 **Validation**:
 1. Sign in as group member
@@ -406,10 +517,14 @@
 - **User Story 2 (Phase 4)**: Depends on Foundational AND User Story 1 completion
   - Requires authentication (US1) to work
   - Group creation depends on authenticated users existing
-- **User Story 3 (Phase 5)**: Depends on Foundational AND User Story 2 completion
+- **React Query Migration (Phase 4.5)**: Depends on User Story 2 completion ✅ **COMPLETE**
+  - MUST complete before User Stories 3 & 4 to establish proper data fetching patterns
+  - Refactors all existing API calls to use React Query
+  - Zero functional changes - purely infrastructure improvement
+- **User Story 3 (Phase 5)**: Depends on Foundational AND User Story 2 AND React Query Migration completion ✅ **READY TO START**
   - Requires groups to exist (US2) before creating group-affiliated rooms
   - Authentication (US1) required but transitive through US2
-- **User Story 4 (Phase 6)**: Depends on Foundational AND User Story 3 completion
+- **User Story 4 (Phase 6)**: Depends on Foundational AND User Story 3 AND React Query Migration completion
   - Requires group games to exist (US3) to display meaningful leaderboard data
   - Groups (US2) and auth (US1) required but transitive through US3
 - **Polish (Phase 7)**: Depends on all desired user stories being complete
@@ -425,7 +540,14 @@
 - Backend routes complete before Frontend UI (T053-T074)
 - Group management before invitation system (can work in parallel but groups needed to test invites)
 
-**US3 (Group Rooms)**:
+**React Query Migration (Phase 4.5)**: ⚠️ **MUST COMPLETE BEFORE US3 & US4**
+- Setup & infrastructure (T080.1-T080.5) before API client refactoring (T080.6-T080.8)
+- API client refactoring complete before query hooks (T080.9-T080.20)
+- Query hooks complete before component migrations (T080.21-T080.31)
+- All migrations complete before polish & optimization (T080.32-T080.37)
+- Testing & validation (T080.38-T080.44) before cleanup (T080.45-T080.47)
+
+**US3 (Group Rooms)**: **BLOCKED until Phase 4.5 complete**
 - Backend room extension (T081-T085) before leaderboard service (T086-T090)
 - Backend complete before Socket.IO extensions (T091-T096)
 - Backend + Socket.IO complete before Frontend UI (T097-T105)
@@ -448,7 +570,13 @@
 - T034, T035, T041, T042 (all backend services) can run in parallel
 - T053, T054, T059, T060, T066, T067, T068, T069 (all frontend components) can run in parallel after backend routes complete
 
-**User Story 3**:
+**React Query Migration**:
+- T080.1, T080.2, T080.5 (setup tasks) can run in parallel
+- T080.6, T080.7, T080.8 (API client refactoring) can run in parallel after setup
+- T080.9, T080.10, T080.13, T080.16 (query hooks for different domains) can run in parallel after API client ready
+- T080.32, T080.33 (optimization tasks) can run in parallel after migrations complete
+
+**User Story 3**: **BLOCKED until React Query Migration complete**
 - T086, T091 (leaderboard service and Socket.IO) can run in parallel after T081-T085
 - T097, T098, T099, T100, T101 (all frontend room UI) can run in parallel after backend complete
 
@@ -519,11 +647,16 @@ Task T145: "Implement infinite scroll"
    - Deliverable: Full group management with invitations
    - Validation: Users can create groups, invite others, manage members
 
-3. **Week 3**: User Story 3
+3. **Week 3 (COMPLETED)**: React Query Migration ✅ **COMPLETE**
+   - Deliverable: All existing API calls migrated to @tanstack/react-query
+   - Validation: All US1 & US2 features work identically with improved caching and loading states
+   - **Status**: ✅ All 51 migration tasks completed successfully
+
+4. **Week 4 (CURRENT)**: User Story 3 ✅ **READY TO START**
    - Deliverable: Group-affiliated trivia rooms with leaderboard attribution
    - Validation: Group games update persistent leaderboard
 
-4. **Week 4**: User Story 4 + Polish
+5. **Week 5**: User Story 4 + Polish
    - Deliverable: Real-time leaderboard with polish and production readiness
    - Validation: All success criteria from spec.md met
 
@@ -541,13 +674,21 @@ Task T145: "Implement infinite scroll"
 - Dev C: User Story 2 backend services (T034-T035, T041-T042)
 - Dev D: User Story 2 backend routes (T036-T052)
 
-**Week 3**:
+**Week 3 (COMPLETED - React Query Migration)**: ✅ COMPLETE
+- Dev A: Setup + infrastructure (T080.1-T080.8)
+- Dev B: Query hooks - Groups + Memberships (T080.9-T080.15)
+- Dev C: Query hooks - Invites (T080.16-T080.20)
+- Dev D: Component migrations - Groups (T080.21-T080.24)
+- Then: All devs rotate to complete remaining migrations (T080.25-T080.31)
+- Finally: Polish + testing together (T080.32-T080.47)
+
+**Week 4 (CURRENT - User Story 3)**: ✅ **IN PROGRESS**
 - Dev A: User Story 3 backend (T081-T090)
 - Dev B: User Story 3 Socket.IO (T091-T096)
-- Dev C: User Story 2 frontend group management (T053-T065)
-- Dev D: User Story 2 frontend invitations (T066-T074)
+- Dev C: User Story 2 frontend group management (T053-T065) - if not already done
+- Dev D: User Story 2 frontend invitations (T066-T074) - if not already done
 
-**Week 4**:
+**Week 5**:
 - Dev A: User Story 4 backend (T112-T124)
 - Dev B: User Story 3 frontend (T097-T111)
 - Dev C: User Story 4 frontend (T125-T145)
@@ -557,30 +698,35 @@ Task T145: "Implement infinite scroll"
 
 ## Task Summary
 
-**Total Tasks**: 192
+**Total Tasks**: 243 (192 original + 51 React Query migration with full typing)
 
 **Per User Story**:
 - Setup: 8 tasks ✅ (100% complete)
 - Foundational: 13 tasks ✅ (100% complete)
 - User Story 1 (Auth): 12 tasks ✅ (100% complete)
 - User Story 2 (Groups): 47 tasks ✅ (100% complete)
-- User Story 3 (Group Rooms): 31 tasks (0% complete)
-- User Story 4 (Leaderboard): 41 tasks (0% complete)
+- **React Query Migration: 51 tasks ✅ (100% complete)**
+- User Story 3 (Group Rooms): 31 tasks (0% complete - READY TO START)
+- User Story 4 (Leaderboard): 41 tasks (0% complete - BLOCKED by Phase 4.5 & 5)
 - Polish: 40 tasks (0% complete)
 
-**Parallel Opportunities**: 58 tasks marked with [P] can run in parallel within their phase
+**Parallel Opportunities**: 58 original + 18 React Query migration = 76 tasks marked with [P] can run in parallel within their phase
 
 **Independent Test Criteria**:
 - US1: Register → Sign in → UserButton displays → Data in Prisma Studio ✅
 - US2: Create group → Generate invite → Accept invite → Member appears in list ✅ (core functionality complete)
-- US3: Create group room → Complete game → Member points update leaderboard
-- US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s
+- **RQ Migration: All US2 features work identically with React Query** ✅
+- US3: Create group room → Complete game → Member points update leaderboard (BLOCKED)
+- US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s (BLOCKED)
 
 **Suggested MVP Scope**: User Story 1 only (Setup + Foundational + US1 = 33 tasks total) ✅
 
-**Current Status**: User Stories 1 & 2 are fully complete and independently testable! 🎉
+**Current Status**: 
+- ✅ User Stories 1 & 2 are fully complete and independently testable!
+- ✅ React Query migration (Phase 4.5) is **COMPLETE** - all existing API calls use proper query/mutation hooks with caching, loading states, and automatic refetching
+- ✅ User Stories 3 & 4 are now **READY TO START**
 
-**Format Validation**: ✅ All 192 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
+**Format Validation**: ✅ All 243 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
 
 ---
 

@@ -7,76 +7,54 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Settings, Trash2 } from 'lucide-react';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
+import { useUpdateGroup, useDeleteGroup } from '@/app/lib/api/queries/groups';
 
 interface ManageGroupModalProps {
   groupId: string;
   currentName: string;
-  onGroupUpdated: () => void;
-  onGroupDeleted: () => void;
 }
 
-export function ManageGroupModal({ groupId, currentName, onGroupUpdated, onGroupDeleted }: ManageGroupModalProps) {
+export function ManageGroupModal({ groupId, currentName }: ManageGroupModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [groupName, setGroupName] = useState(currentName);
-  const [error, setError] = useState<string | null>(null);
-  const api = useApiClient();
 
-  const handleUpdateGroup = async () => {
+  const updateGroupMutation = useUpdateGroup();
+  const deleteGroupMutation = useDeleteGroup();
+
+  const handleUpdateGroup = () => {
     if (!groupName.trim()) {
-      setError('Group name cannot be empty');
       return;
     }
 
     if (groupName.trim().length < 3 || groupName.trim().length > 50) {
-      setError('Group name must be between 3 and 50 characters');
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await api.patch(`/groups/${groupId}`, { name: groupName.trim() }) as ApiResponse<BackendApiResponse<{ id: string; name: string; privacy: string; createdBy: string; createdAt: string; updatedAt: string }>>;
-      if (response.error) {
-        throw new Error(response.error.message);
+    updateGroupMutation.mutate(
+      {
+        groupId,
+        data: { name: groupName.trim() },
+      },
+      {
+        onSuccess: () => {
+          setIsOpen(false);
+        },
       }
-
-      onGroupUpdated();
-      setIsOpen(false);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update group');
-    } finally {
-      setIsLoading(false);
-    }
+    );
   };
 
-  const handleDeleteGroup = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await api.delete(`/groups/${groupId}`) as ApiResponse<BackendApiResponse<{ message: string }>>;
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-
-      onGroupDeleted();
-      setIsOpen(false);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete group');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleDeleteGroup = () => {
+    deleteGroupMutation.mutate(groupId, {
+      onSuccess: () => {
+        setIsOpen(false);
+      },
+    });
   };
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
       // Reset form when closing
       setGroupName(currentName);
-      setError(null);
     }
     setIsOpen(open);
   };
@@ -98,9 +76,13 @@ export function ManageGroupModal({ groupId, currentName, onGroupUpdated, onGroup
         </DialogHeader>
 
         <div className="space-y-4">
-          {error && (
+          {(updateGroupMutation.error || deleteGroupMutation.error) && (
             <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
-              {error}
+              {updateGroupMutation.error instanceof Error
+                ? updateGroupMutation.error.message
+                : deleteGroupMutation.error instanceof Error
+                ? deleteGroupMutation.error.message
+                : 'An error occurred'}
             </div>
           )}
 
@@ -124,15 +106,15 @@ export function ManageGroupModal({ groupId, currentName, onGroupUpdated, onGroup
             <Button
               variant="outline"
               onClick={handleUpdateGroup}
-              disabled={isLoading || groupName.trim() === currentName}
+              disabled={updateGroupMutation.isPending || deleteGroupMutation.isPending || groupName.trim() === currentName}
               className="flex-1 sm:flex-none"
             >
-              {isLoading ? 'Updating...' : 'Update Name'}
+              {updateGroupMutation.isPending ? 'Updating...' : 'Update Name'}
             </Button>
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive" disabled={isLoading} className="flex-1 sm:flex-none">
+                <Button variant="destructive" disabled={updateGroupMutation.isPending || deleteGroupMutation.isPending} className="flex-1 sm:flex-none">
                   <Trash2 className="w-4 h-4 mr-2" />
                   Delete Group
                 </Button>

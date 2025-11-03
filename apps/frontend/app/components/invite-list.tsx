@@ -1,75 +1,30 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Copy, Check, Trash2, ExternalLink } from 'lucide-react';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
-
-interface Invite {
-  id: string;
-  token: string;
-  expiresAt: string;
-  createdAt: string;
-  status: string;
-  creator: {
-    id: string;
-    displayName: string;
-  };
-}
+import { useGroupInvites, useRevokeInvite } from '@/app/lib/api/queries/invites';
 
 interface InviteListProps {
   groupId: string;
-  onInviteRevoked: () => void;
 }
 
-export function InviteList({ groupId, onInviteRevoked }: InviteListProps) {
-  const [invites, setInvites] = useState<Invite[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [revokingId, setRevokingId] = useState<string | null>(null);
+export function InviteList({ groupId }: InviteListProps) {
+  const { data: invitesResponse, isLoading, error } = useGroupInvites(groupId);
+  const revokeInviteMutation = useRevokeInvite();
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
-  const api = useApiClient();
 
-  const loadInvites = useCallback(async () => {
-    try {
-      setError(null);
-      const response = await api.get(`/groups/${groupId}/invites?status=ACTIVE`) as ApiResponse<BackendApiResponse<Invite[]>>;
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-
-      const backendData = response.data as BackendApiResponse<Invite[]>;
-      setInvites(backendData.data || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load invites');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [api, groupId]);
-
-  useEffect(() => {
-    loadInvites();
-  }, [loadInvites]);
+  const invites = invitesResponse?.invites || [];
 
   const handleRevokeInvite = async (inviteId: string) => {
-    setRevokingId(inviteId);
     try {
-      const response = await api.delete(`/groups/${groupId}/invites/${inviteId}`) as ApiResponse<BackendApiResponse<null>>;
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-
-      setInvites(prev => prev.filter(invite => invite.id !== inviteId));
-      onInviteRevoked();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to revoke invite');
-    } finally {
-      setRevokingId(null);
+      await revokeInviteMutation.mutateAsync({groupId, inviteId});
+    } catch (error) {
+      console.error('Failed to revoke invite:', error);
     }
   };
 
@@ -139,7 +94,7 @@ export function InviteList({ groupId, onInviteRevoked }: InviteListProps) {
       <CardContent>
         {error && (
           <Alert variant="destructive" className="mb-4">
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription>{error.message || 'Failed to load invites'}</AlertDescription>
           </Alert>
         )}
 
@@ -165,7 +120,7 @@ export function InviteList({ groupId, onInviteRevoked }: InviteListProps) {
                         </Badge>
                       )}
                       <span className="text-sm text-muted-foreground">
-                        Created by {invite.creator.displayName}
+                        Created by {invite.creator?.displayName || 'Unknown'}
                       </span>
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -177,7 +132,7 @@ export function InviteList({ groupId, onInviteRevoked }: InviteListProps) {
                       <Button
                         variant="outline"
                         size="sm"
-                        disabled={revokingId === invite.id}
+                        disabled={revokeInviteMutation.isPending}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

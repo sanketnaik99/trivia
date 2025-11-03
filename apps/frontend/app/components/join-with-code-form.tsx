@@ -7,8 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
+import { useAcceptInviteCode } from '@/app/lib/api/queries/invites';
 import { Users, ArrowRight, AlertCircle } from 'lucide-react';
 
 interface JoinWithCodeFormProps {
@@ -28,66 +27,40 @@ interface AcceptCodeResponse {
 
 export function JoinWithCodeForm({ onSuccess }: JoinWithCodeFormProps) {
   const [code, setCode] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<AcceptCodeResponse | null>(null);
   const router = useRouter();
-  const api = useApiClient();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const acceptInviteCodeMutation = useAcceptInviteCode();
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!code.trim()) {
-      setError('Please enter an invite code');
       return;
     }
 
     if (code.length !== 6) {
-      setError('Invite code must be 6 characters long');
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await api.post('/invites/accept-code', {
-        code: code.toUpperCase(),
-      }) as ApiResponse<BackendApiResponse<AcceptCodeResponse>>;
-
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-
-      const backendData = response.data as BackendApiResponse<AcceptCodeResponse>;
-      setSuccess(backendData.data!);
-
-      // Call onSuccess callback if provided
-      if (onSuccess) {
-        onSuccess();
-      }
-
-      // Redirect to group page after a short delay
-      setTimeout(() => {
-        router.push(`/groups/${backendData.data!.group.id}`);
-      }, 2000);
-
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to join group');
-    } finally {
-      setIsLoading(false);
-    }
+    acceptInviteCodeMutation.mutate(code.toUpperCase(), {
+      onSuccess: (data) => {
+        setSuccess(data);
+        if (onSuccess) {
+          onSuccess();
+        }
+        // Redirect to group page after a short delay
+        setTimeout(() => {
+          router.push(`/groups/${data.group.id}`);
+        }, 2000);
+      },
+    });
   };
 
   const handleCodeChange = (value: string) => {
     // Only allow alphanumeric characters and convert to uppercase
     const cleanValue = value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
     setCode(cleanValue);
-
-    // Clear error when user starts typing
-    if (error) {
-      setError(null);
-    }
   };
 
   if (success) {
@@ -148,20 +121,24 @@ export function JoinWithCodeForm({ onSuccess }: JoinWithCodeFormProps) {
             </p>
           </div>
 
-          {error && (
+          {acceptInviteCodeMutation.error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription>
+                {acceptInviteCodeMutation.error instanceof Error
+                  ? acceptInviteCodeMutation.error.message
+                  : 'Failed to join group'}
+              </AlertDescription>
             </Alert>
           )}
 
           <Button
             type="submit"
             className="w-full"
-            disabled={isLoading || code.length !== 6}
+            disabled={acceptInviteCodeMutation.isPending || code.length !== 6}
           >
-            {isLoading ? 'Joining...' : 'Join Group'}
-            {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
+            {acceptInviteCodeMutation.isPending ? 'Joining...' : 'Join Group'}
+            {!acceptInviteCodeMutation.isPending && <ArrowRight className="w-4 h-4 ml-2" />}
           </Button>
         </form>
       </CardContent>

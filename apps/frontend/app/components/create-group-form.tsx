@@ -4,41 +4,28 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, CreateGroupResponse } from '@/app/lib/types';
+import { useCreateGroup } from '@/app/lib/api/queries/groups';
 import { useRouter } from 'next/navigation';
 
 export function CreateGroupForm() {
   const [name, setName] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const api = useApiClient();
+  const createGroupMutation = useCreateGroup();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    setIsLoading(true);
-    setError('');
-
     try {
-      const response = await api.post('/groups', { name: name.trim() });
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-      // Backend returns { success: true, data: { group, membership } }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const backendData = (response.data as any)?.data;
-      if (backendData?.group?.id) {
-        router.push(`/groups/${backendData.group.id}`);
+      const result = await createGroupMutation.mutateAsync({ name: name.trim() });
+      if (result.group?.id) {
+        router.push(`/groups/${result.group.id}`);
       } else {
         throw new Error('Invalid response: missing group ID');
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create group');
-    } finally {
-      setIsLoading(false);
+      // Error handling is done by React Query
+      console.error('Failed to create group:', err);
     }
   };
 
@@ -68,14 +55,18 @@ export function CreateGroupForm() {
             />
           </div>
 
-          {error && (
+          {createGroupMutation.error && (
             <div className="text-sm text-red-600 bg-red-50 p-2 rounded">
-              {error}
+              {createGroupMutation.error.message || 'Failed to create group'}
             </div>
           )}
 
-          <Button type="submit" className="w-full" disabled={isLoading || !name.trim()}>
-            {isLoading ? 'Creating...' : 'Create Group'}
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={createGroupMutation.isPending || !name.trim()}
+          >
+            {createGroupMutation.isPending ? 'Creating...' : 'Create Group'}
           </Button>
         </form>
       </CardContent>
