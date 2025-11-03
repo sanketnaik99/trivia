@@ -81,7 +81,7 @@ export default function Home() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <main className="w-full max-w-4xl">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">Trivia Room</h1>
+          <h1 className="text-4xl font-bold mb-2">Trivia</h1>
           <p className="text-muted-foreground">Create or join a room to start playing!</p>
         </div>
         

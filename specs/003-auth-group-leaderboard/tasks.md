@@ -82,21 +82,21 @@
 
 ### Backend: Clerk Webhook Integration
 
-- [ ] T022 [US1] Create apps/backend/src/routes/webhook.routes.ts with POST /api/webhooks/clerk endpoint
-- [ ] T023 [US1] Implement Svix signature verification in webhook handler using svix library and CLERK_WEBHOOK_SECRET
-- [ ] T024 [US1] Handle user.created event: upsert User with id, email, displayName, avatarUrl from Clerk data
-- [ ] T025 [US1] Handle user.updated event: update User displayName and avatarUrl
-- [ ] T026 [US1] Handle user.deleted event: soft delete or hard delete User (decide based on data retention policy)
-- [ ] T027 [US1] Register webhook routes in apps/backend/src/routes/index.ts
-- [ ] T028 [US1] Test webhook with ngrok tunnel per quickstart.md section 2.2 and Clerk dashboard configuration
+- [X] T022 [US1] Create apps/backend/src/routes/webhook.routes.ts with POST /api/webhooks/clerk endpoint
+- [X] T023 [US1] Implement Svix signature verification in webhook handler using svix library and CLERK_WEBHOOK_SECRET
+- [X] T024 [US1] Handle user.created event: upsert User with id, email, displayName, avatarUrl from Clerk data
+- [X] T025 [US1] Handle user.updated event: update User displayName and avatarUrl
+- [X] T026 [US1] Handle user.deleted event: soft delete or hard delete User (decide based on data retention policy)
+- [X] T027 [US1] Register webhook routes in apps/backend/src/routes/index.ts
+- [X] T028 [US1] Test webhook with ngrok tunnel per quickstart.md section 2.2 and Clerk dashboard configuration
 
 ### Frontend: Authentication UI
 
-- [ ] T029 [P] [US1] Create apps/frontend/app/components/auth-buttons.tsx with SignInButton, SignUpButton, UserButton from @clerk/nextjs
-- [ ] T030 [P] [US1] Add AuthButtons component to main navigation in apps/frontend/app/layout.tsx or homepage
-- [ ] T031 [US1] Verify Clerk sign-in/sign-up modals open correctly with responsive design on mobile/tablet/desktop
-- [ ] T032 [US1] Test authentication flow: register → verify email → sign in → UserButton displays avatar
-- [ ] T033 [US1] Verify user data syncs to database by checking Prisma Studio after registration
+- [X] T029 [P] [US1] Create apps/frontend/app/components/auth-buttons.tsx with SignInButton, SignUpButton, UserButton from @clerk/nextjs
+- [X] T030 [P] [US1] Add AuthButtons component to main navigation in apps/frontend/app/layout.tsx or homepage
+- [X] T031 [US1] Verify Clerk sign-in/sign-up modals open correctly with responsive design on mobile/tablet/desktop
+- [X] T032 [US1] Test authentication flow: register → verify email → sign in → UserButton displays avatar
+- [X] T033 [US1] Verify user data syncs to database by checking Prisma Studio after registration
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can register, sign in, and their data persists in the database
 

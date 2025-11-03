@@ -15,7 +15,11 @@
    - Environments: .env.local
 
  [32m[1m✓[22m[39m Starting...
- [32m[1m✓[22m[39m Ready in 420ms
- GET / [32m200[39m in 1034ms[2m (compile: 931ms, render: 103ms)[22m
- GET /room/D8R5TA [32m200[39m in 494ms[2m (compile: 478ms, render: 17ms)[22m
- GET /room/D8R5TA [32m200[39m in 70ms[2m (compile: 16ms, render: 54ms)[22m
+ [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ [32m[1m✓[22m[39m Ready in 536ms
+ GET / [32m200[39m in 1699ms[2m (compile: 1577ms, proxy.ts: 11ms, render: 111ms)[22m
+ POST / [32m200[39m in 16ms[2m (compile: 1971µs, proxy.ts: 7ms, render: 7ms)[22m
+ GET / [32m200[39m in 66ms[2m (compile: 33ms, proxy.ts: 6ms, render: 27ms)[22m
+ [32m[1m✓[22m[39m Compiled in 35ms
+ GET / [32m200[39m in 120ms[2m (compile: 55ms, proxy.ts: 16ms, render: 50ms)[22m
+ POST / [32m200[39m in 12ms[2m (compile: 1914µs, proxy.ts: 6ms, render: 4ms)[22m
