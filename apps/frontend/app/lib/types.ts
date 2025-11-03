@@ -145,3 +145,40 @@ export interface LeaderboardResponse {
     totalGamesPlayed: number;
   };
 }
+
+// API Response wrappers
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+}
+
+export interface CreateGroupResponse {
+  group: Group;
+  membership: Membership;
+}
+
+export interface GroupsListResponse {
+  groups: GroupWithRole[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+// Backend API response structure (wrapped in success/data)
+export interface BackendApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+}

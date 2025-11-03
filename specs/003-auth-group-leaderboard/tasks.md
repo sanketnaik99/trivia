@@ -117,71 +117,71 @@
 
 ### Backend: Group Management API
 
-- [ ] T034 [P] [US2] Create apps/backend/src/services/group.service.ts with createGroup, getUserGroups, getGroupDetail, updateGroup functions using Prisma
-- [ ] T035 [P] [US2] Create apps/backend/src/services/membership.service.ts with addMember, removeMember, updateRole, checkAdminPermission functions
-- [ ] T036 [US2] Create apps/backend/src/routes/group.routes.ts with POST /api/groups endpoint (requireAuth, validate name 3-50 chars, create Group + Membership with ADMIN role)
-- [ ] T037 [US2] Add GET /api/groups endpoint in group.routes.ts (requireAuth, return user's groups with role and memberCount, paginated)
-- [ ] T038 [US2] Add GET /api/groups/:groupId endpoint in group.routes.ts (requireAuth, verify membership, return group detail with members list)
-- [ ] T039 [US2] Add PATCH /api/groups/:groupId endpoint in group.routes.ts (requireAuth, verify admin role, validate and update group name)
-- [ ] T040 [US2] Register group routes in apps/backend/src/routes/index.ts
+- [x] T034 [P] [US2] Create apps/backend/src/services/group.service.ts with createGroup, getUserGroups, getGroupDetail, updateGroup functions using Prisma
+- [x] T035 [P] [US2] Create apps/backend/src/services/membership.service.ts with addMember, removeMember, updateRole, checkAdminPermission functions
+- [x] T036 [US2] Create apps/backend/src/routes/group.routes.ts with POST /api/groups endpoint (requireAuth, validate name 3-50 chars, create Group + Membership with ADMIN role)
+- [x] T037 [US2] Add GET /api/groups endpoint in group.routes.ts (requireAuth, return user's groups with role and memberCount, paginated)
+- [x] T038 [US2] Add GET /api/groups/:groupId endpoint in group.routes.ts (requireAuth, verify membership, return group detail with members list)
+- [x] T039 [US2] Add PATCH /api/groups/:groupId endpoint in group.routes.ts (requireAuth, verify admin role, validate and update group name)
+- [x] T040 [US2] Register group routes in apps/backend/src/routes/index.ts
 
 ### Backend: Invitation System API
 
-- [ ] T041 [P] [US2] Create apps/backend/src/services/invite.service.ts with generateInvite, validateInvite, acceptInvite, revokeInvite, getGroupInvites functions
-- [ ] T042 [P] [US2] Create apps/backend/src/utils/invite-code.util.ts to generate 6-character alphanumeric codes and map to/from tokens
-- [ ] T043 [US2] Create apps/backend/src/routes/invite.routes.ts with POST /api/groups/:groupId/invites endpoint (requireAuth, verify admin, rate limit 10/hour, generate token + code)
-- [ ] T044 [US2] Add GET /api/groups/:groupId/invites endpoint in invite.routes.ts (requireAuth, verify admin, return active/used/revoked invites)
-- [ ] T045 [US2] Add POST /api/invites/:inviteId/revoke endpoint in invite.routes.ts (requireAuth, verify admin, update status to REVOKED)
-- [ ] T046 [US2] Add POST /api/invites/:token/accept endpoint in invite.routes.ts (requireAuth, validate invite not expired/used/revoked, create Membership, mark invite as USED)
-- [ ] T047 [US2] Add POST /api/invites/accept-code endpoint in invite.routes.ts (requireAuth, lookup by code, validate, accept same as token endpoint)
-- [ ] T048 [US2] Register invite routes in apps/backend/src/routes/index.ts
+- [x] T041 [P] [US2] Create apps/backend/src/services/invite.service.ts with generateInvite, validateInvite, acceptInvite, revokeInvite, getGroupInvites functions
+- [x] T042 [P] [US2] Create apps/backend/src/utils/invite-code.util.ts to generate 6-character alphanumeric codes and map to/from tokens
+- [x] T043 [US2] Create apps/backend/src/routes/invite.routes.ts with POST /api/groups/:groupId/invites endpoint (requireAuth, verify admin, rate limit 10/hour, generate token + code)
+- [x] T044 [US2] Add GET /api/groups/:groupId/invites endpoint in invite.routes.ts (requireAuth, verify admin, return active/used/revoked invites)
+- [x] T045 [US2] Add POST /api/invites/:inviteId/revoke endpoint in invite.routes.ts (requireAuth, verify admin, update status to REVOKED)
+- [x] T046 [US2] Add POST /api/invites/:token/accept endpoint in invite.routes.ts (requireAuth, validate invite not expired/used/revoked, create Membership, mark invite as USED)
+- [x] T047 [US2] Add POST /api/invites/accept-code endpoint in invite.routes.ts (requireAuth, lookup by code, validate, accept same as token endpoint)
+- [x] T048 [US2] Register invite routes in apps/backend/src/routes/index.ts
 
 ### Backend: Membership Management API
 
-- [ ] T049 [US2] Create apps/backend/src/routes/membership.routes.ts with POST /api/groups/:groupId/leave endpoint (requireAuth, verify not last admin, update status to LEFT)
-- [ ] T050 [US2] Add POST /api/groups/:groupId/members/:userId/remove endpoint in membership.routes.ts (requireAuth, verify admin, prevent removing other admins, update status to REMOVED)
-- [ ] T051 [US2] Add POST /api/groups/:groupId/members/:userId/promote endpoint in membership.routes.ts (requireAuth, verify admin, update role to ADMIN)
-- [ ] T052 [US2] Register membership routes in apps/backend/src/routes/index.ts
+- [x] T049 [US2] Create apps/backend/src/routes/membership.routes.ts with POST /api/groups/:groupId/leave endpoint (requireAuth, verify not last admin, update status to LEFT)
+- [x] T050 [US2] Add POST /api/groups/:groupId/members/:userId/remove endpoint in membership.routes.ts (requireAuth, verify admin, prevent removing other admins, update status to REMOVED)
+- [x] T051 [US2] Add POST /api/groups/:groupId/members/:userId/promote endpoint in membership.routes.ts (requireAuth, verify admin, update role to ADMIN)
+- [x] T052 [US2] Register membership routes in apps/backend/src/routes/index.ts
 
 ### Frontend: Group Management UI
 
-- [ ] T053 [P] [US2] Create apps/frontend/app/groups/page.tsx with groups list view (fetch GET /api/groups, display cards with name, memberCount, role badge)
-- [ ] T054 [P] [US2] Create apps/frontend/app/components/create-group-form.tsx with shadcn/ui Input and Button (validate name 3-50 chars, call POST /api/groups)
-- [ ] T055 [US2] Add create group button/modal to groups list page using CreateGroupForm component
-- [ ] T056 [US2] Implement responsive grid layout for groups list (1 column mobile, 2 tablet, 3 desktop) using Tailwind
-- [ ] T057 [US2] Add empty state to groups list page with "Create your first group" message and call-to-action
-- [ ] T058 [US2] Add loading states during group creation and list fetch using shadcn/ui Skeleton components
+- [x] T053 [P] [US2] Create apps/frontend/app/groups/page.tsx with groups list view (fetch GET /api/groups, display cards with name, memberCount, role badge)
+- [x] T054 [P] [US2] Create apps/frontend/app/components/create-group-form.tsx with shadcn/ui Input and Button (validate name 3-50 chars, call POST /api/groups)
+- [x] T055 [US2] Add create group button/modal to groups list page using CreateGroupForm component
+- [x] T056 [US2] Implement responsive grid layout for groups list (1 column mobile, 2 tablet, 3 desktop) using Tailwind
+- [x] T057 [US2] Add empty state to groups list page with "Create your first group" message and call-to-action
+- [x] T058 [US2] Add loading states during group creation and list fetch using shadcn/ui Skeleton components
 
 ### Frontend: Group Detail & Member Management UI
 
-- [ ] T059 [P] [US2] Create apps/frontend/app/groups/[id]/page.tsx with group detail view (fetch GET /api/groups/:id, display name, members list, admin controls conditionally)
-- [ ] T060 [P] [US2] Create apps/frontend/app/components/member-list.tsx to display members with avatars, names, role badges (Admin/Member)
-- [ ] T061 [US2] Add admin-only controls in group detail page: generate invite button, remove member button, promote to admin button (show only if user has ADMIN role)
-- [ ] T062 [US2] Implement member remove action with confirmation dialog using shadcn/ui AlertDialog
-- [ ] T063 [US2] Implement promote to admin action with confirmation dialog
-- [ ] T064 [US2] Implement leave group action with confirmation dialog (prevent if last admin with error message)
-- [ ] T065 [US2] Add responsive layout for group detail page (stack on mobile, sidebar on desktop)
+- [x] T059 [P] [US2] Create apps/frontend/app/groups/[id]/page.tsx with group detail view (fetch GET /api/groups/:id, display name, members list, admin controls conditionally)
+- [x] T060 [P] [US2] Create apps/frontend/app/components/member-list.tsx to display members with avatars, names, role badges (Admin/Member)
+- [x] T061 [US2] Add admin-only controls in group detail page: generate invite button, remove member button, promote to admin button (show only if user has ADMIN role)
+- [x] T062 [US2] Implement member remove action with confirmation dialog using shadcn/ui AlertDialog
+- [x] T063 [US2] Implement promote to admin action with confirmation dialog
+- [x] T064 [US2] Implement leave group action with confirmation dialog (prevent if last admin with error message)
+- [x] T065 [US2] Add responsive layout for group detail page (stack on mobile, sidebar on desktop)
 
 ### Frontend: Invitation UI
 
-- [ ] T066 [P] [US2] Create apps/frontend/app/components/generate-invite-modal.tsx with expiry selector (1-30 days) and display both link and code after generation
-- [ ] T067 [P] [US2] Create apps/frontend/app/components/invite-list.tsx to display active invites with status, created date, revoke button for admins
-- [ ] T068 [P] [US2] Create apps/frontend/app/invite/[token]/page.tsx to accept invite from link (extract token, call POST /api/invites/:token/accept, redirect to group page)
-- [ ] T069 [P] [US2] Create apps/frontend/app/components/join-with-code-form.tsx with Input for 6-char code and submit to POST /api/invites/accept-code
-- [ ] T070 [US2] Add copy-to-clipboard button for invite link and code using navigator.clipboard API with success toast
-- [ ] T071 [US2] Add share button for invite link using Web Share API (fallback to copy) for mobile-friendly sharing
-- [ ] T072 [US2] Implement invite expiry warning in UI (show "Expires in X days" badge, highlight if <24 hours)
-- [ ] T073 [US2] Add revoke invite action with confirmation dialog and optimistic UI update
-- [ ] T074 [US2] Handle invite errors: expired, revoked, already member, invalid code with user-friendly error messages
+- [x] T066 [P] [US2] Create apps/frontend/app/components/generate-invite-modal.tsx with expiry selector (1-30 days) and display both link and code after generation
+- [x] T067 [P] [US2] Create apps/frontend/app/components/invite-list.tsx to display active invites with status, created date, revoke button for admins
+- [x] T068 [P] [US2] Create apps/frontend/app/invite/[token]/page.tsx to accept invite from link (extract token, call POST /api/invites/:token/accept, redirect to group page)
+- [x] T069 [P] [US2] Create apps/frontend/app/components/join-with-code-form.tsx with Input for 6-char code and submit to POST /api/invites/accept-code
+- [x] T070 [US2] Add copy-to-clipboard button for invite link and code using navigator.clipboard API with success toast
+- [x] T071 [US2] Add share button for invite link using Web Share API (fallback to copy) for mobile-friendly sharing
+- [x] T072 [US2] Implement invite expiry warning in UI (show "Expires in X days" badge, highlight if <24 hours)
+- [x] T073 [US2] Add revoke invite action with confirmation dialog and optimistic UI update
+- [x] T074 [US2] Handle invite errors: expired, revoked, already member, invalid code with user-friendly error messages
 
 ### Integration & Polish
 
-- [ ] T075 [US2] Add group navigation link to main navigation/sidebar (visible only to authenticated users)
-- [ ] T076 [US2] Test complete group creation → invite generation → acceptance flow per validation criteria
-- [ ] T077 [US2] Test multiple admin scenario: promote member, verify both admins can invite/remove, prevent last admin from leaving
-- [ ] T078 [US2] Test invite expiry: generate 1-day invite, manually update expiresAt in DB to past date, verify rejection
-- [ ] T079 [US2] Verify responsive design on mobile (320px), tablet (768px), desktop (1024px+) for all group pages
-- [ ] T080 [US2] Code cleanup: remove any task comments, ensure clean code standards per constitution
+- [x] T075 [US2] Add group navigation link to main navigation/sidebar (visible only to authenticated users)
+- [x] T076 [US2] Test complete group creation → invite generation → acceptance flow per validation criteria
+- [x] T077 [US2] Test multiple admin scenario: promote member, verify both admins can invite/remove, prevent last admin from leaving
+- [x] T078 [US2] Test invite expiry: generate 1-day invite, manually update expiresAt in DB to past date, verify rejection
+- [x] T079 [US2] Verify responsive design on mobile (320px), tablet (768px), desktop (1024px+) for all group pages
+- [x] T080 [US2] Code cleanup: remove any task comments, ensure clean code standards per constitution
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - users can authenticate and fully manage groups with invites
 
@@ -511,11 +511,11 @@ Task T145: "Implement infinite scroll"
 
 ### Recommended Incremental Delivery
 
-1. **Week 1**: Setup + Foundational + User Story 1
+1. **Week 1**: Setup + Foundational + User Story 1 ✅
    - Deliverable: Working authentication with user persistence
    - Validation: Users can register, sign in, data syncs to database
 
-2. **Week 2**: User Story 2
+2. **Week 2**: User Story 2 ✅
    - Deliverable: Full group management with invitations
    - Validation: Users can create groups, invite others, manage members
 
@@ -535,7 +535,7 @@ Task T145: "Implement infinite scroll"
 - Dev B: T018-T021 (Frontend infrastructure)
 - Dev C+D: Documentation and environment setup
 
-**Week 2** (After Foundational complete):
+**Week 2** (After Foundational complete): ✅ COMPLETE
 - Dev A: User Story 1 backend (T022-T028)
 - Dev B: User Story 1 frontend (T029-T033)
 - Dev C: User Story 2 backend services (T034-T035, T041-T042)
@@ -560,23 +560,25 @@ Task T145: "Implement infinite scroll"
 **Total Tasks**: 192
 
 **Per User Story**:
-- Setup: 8 tasks
-- Foundational: 13 tasks (CRITICAL BLOCKER)
-- User Story 1 (Auth): 12 tasks
-- User Story 2 (Groups): 47 tasks (largest - includes groups, invites, memberships)
-- User Story 3 (Group Rooms): 31 tasks
-- User Story 4 (Leaderboard): 41 tasks
-- Polish: 40 tasks
+- Setup: 8 tasks ✅ (100% complete)
+- Foundational: 13 tasks ✅ (100% complete)
+- User Story 1 (Auth): 12 tasks ✅ (100% complete)
+- User Story 2 (Groups): 47 tasks ✅ (100% complete)
+- User Story 3 (Group Rooms): 31 tasks (0% complete)
+- User Story 4 (Leaderboard): 41 tasks (0% complete)
+- Polish: 40 tasks (0% complete)
 
 **Parallel Opportunities**: 58 tasks marked with [P] can run in parallel within their phase
 
 **Independent Test Criteria**:
-- US1: Register → Sign in → UserButton displays → Data in Prisma Studio
-- US2: Create group → Generate invite → Accept invite → Member appears in list
+- US1: Register → Sign in → UserButton displays → Data in Prisma Studio ✅
+- US2: Create group → Generate invite → Accept invite → Member appears in list ✅ (core functionality complete)
 - US3: Create group room → Complete game → Member points update leaderboard
 - US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s
 
-**Suggested MVP Scope**: User Story 1 only (Setup + Foundational + US1 = 33 tasks total)
+**Suggested MVP Scope**: User Story 1 only (Setup + Foundational + US1 = 33 tasks total) ✅
+
+**Current Status**: User Stories 1 & 2 are fully complete and independently testable! 🎉
 
 **Format Validation**: ✅ All 192 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
 

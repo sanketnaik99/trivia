@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs';
 import { AuthButtons } from './components/auth-buttons';
+import { Navigation } from "./components/navigation";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,7 +35,10 @@ export default function RootLayout({
         >
           <header className="border-b">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-              <h1 className="text-xl font-bold">Trivia</h1>
+              <div className="flex items-center gap-6">
+                <Link href="/" className="text-xl font-bold">Trivia</Link>
+                <Navigation />
+              </div>
               <AuthButtons />
             </div>
           </header>

@@ -60,3 +60,9 @@ export function handleError(err: Error, req: Request, res: Response, next: NextF
   // Default error response
   res.status(500).json(createErrorResponse('INTERNAL_ERROR', 'An unexpected error occurred'));
 }
+
+export function asyncHandler(fn: Function) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}

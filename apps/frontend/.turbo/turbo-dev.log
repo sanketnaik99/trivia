@@ -16,10 +16,1330 @@
 
  [32m[1m✓[22m[39m Starting...
  [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
- [32m[1m✓[22m[39m Ready in 536ms
- GET / [32m200[39m in 1699ms[2m (compile: 1577ms, proxy.ts: 11ms, render: 111ms)[22m
- POST / [32m200[39m in 16ms[2m (compile: 1971µs, proxy.ts: 7ms, render: 7ms)[22m
- GET / [32m200[39m in 66ms[2m (compile: 33ms, proxy.ts: 6ms, render: 27ms)[22m
+ [32m[1m✓[22m[39m Ready in 602ms
+ GET /groups [32m200[39m in 1817ms[2m (compile: 1259ms, proxy.ts: 427ms, render: 131ms)[22m
+ POST /groups [32m200[39m in 87ms[2m (compile: 23ms, proxy.ts: 13ms, render: 51ms)[22m
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [31m[1m⨯[22m[39m ./apps/frontend/app/components/create-group-form.tsx:7:1
+[1m[31mModule not found[39m[22m: Can't resolve [32m'@/lib/api-client'[39m
+[0m [90m  5 |[39m [36mimport[39m { [33mInput[39m } [36mfrom[39m [32m'@/components/ui/input'[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { useApiClient } [36mfrom[39m [32m'@/lib/api-client'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mApiResponse[39m[33m,[39m [33mCreateGroupResponse[39m } [36mfrom[39m [32m'@/lib/types'[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Import map: aliased to relative './lib/api-client' inside of [project]/apps/frontend
+
+
+Import traces:
+  Client Component Browser:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Client Component Browser]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./apps/frontend/app/components/create-group-form.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Client Component SSR]
+    ./apps/frontend/app/groups/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [32m[1m✓[22m[39m Compiled in 30ms
+ GET /groups [32m200[39m in 90ms[2m (compile: 46ms, proxy.ts: 18ms, render: 26ms)[22m
+ [32m[1m✓[22m[39m Compiled in 32ms
+ GET /groups [32m200[39m in 529ms[2m (compile: 73ms, proxy.ts: 355ms, render: 100ms)[22m
+ POST /groups [32m200[39m in 99ms[2m (compile: 17ms, proxy.ts: 48ms, render: 34ms)[22m
+ GET /groups/cmhinaf8h0005va768q8jx2be [33m404[39m in 336ms[2m (compile: 311ms, proxy.ts: 16ms, render: 9ms)[22m
+ GET /groups/cmhinaf8h0005va768q8jx2be [33m404[39m in 28ms[2m (compile: 3ms, proxy.ts: 5ms, render: 20ms)[22m
+ POST /groups/cmhinaf8h0005va768q8jx2be [33m404[39m in 16ms[2m (compile: 4ms, proxy.ts: 8ms, render: 5ms)[22m
+ GET /groups [32m200[39m in 35ms[2m (compile: 7ms, proxy.ts: 14ms, render: 14ms)[22m
+ GET /groups [32m200[39m in 57ms[2m (compile: 6ms, proxy.ts: 15ms, render: 37ms)[22m
+ POST /groups [32m200[39m in 12ms[2m (compile: 1681µs, proxy.ts: 5ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 26ms
+ [32m[1m✓[22m[39m Compiled in 48ms
+ GET /groups [32m200[39m in 576ms[2m (compile: 87ms, proxy.ts: 448ms, render: 40ms)[22m
+ GET /groups [32m200[39m in 21ms[2m (compile: 2ms, proxy.ts: 6ms, render: 13ms)[22m
+ GET /groups [32m200[39m in 21ms[2m (compile: 1979µs, proxy.ts: 6ms, render: 14ms)[22m
+ GET /groups [32m200[39m in 19ms[2m (compile: 1680µs, proxy.ts: 5ms, render: 12ms)[22m
+ GET /groups [32m200[39m in 18ms[2m (compile: 1999µs, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 19ms[2m (compile: 2ms, proxy.ts: 6ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 16ms[2m (compile: 1686µs, proxy.ts: 5ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 17ms[2m (compile: 1702µs, proxy.ts: 5ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 16ms[2m (compile: 2ms, proxy.ts: 5ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 17ms[2m (compile: 1753µs, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 20ms[2m (compile: 1909µs, proxy.ts: 5ms, render: 14ms)[22m
+ GET /groups [32m200[39m in 15ms[2m (compile: 1840µs, proxy.ts: 5ms, render: 8ms)[22m
+ [32m[1m✓[22m[39m Compiled in 38ms
+ [32m[1m✓[22m[39m Compiled in 39ms
+ [32m[1m✓[22m[39m Compiled in 38ms
+ [32m[1m✓[22m[39m Compiled in 50ms
+ [32m[1m✓[22m[39m Compiled in 77ms
+ [32m[1m✓[22m[39m Compiled in 45ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 44ms
+ GET /groups [32m200[39m in 721ms[2m (compile: 93ms, proxy.ts: 587ms, render: 41ms)[22m
+ GET /groups [32m200[39m in 30ms[2m (compile: 2ms, proxy.ts: 5ms, render: 23ms)[22m
+ GET /groups [32m200[39m in 19ms[2m (compile: 3ms, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 16ms[2m (compile: 1380µs, proxy.ts: 5ms, render: 9ms)[22m
+ GET /groups [32m200[39m in 19ms[2m (compile: 1870µs, proxy.ts: 5ms, render: 12ms)[22m
+ GET /groups [32m200[39m in 20ms[2m (compile: 1953µs, proxy.ts: 8ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 19ms[2m (compile: 2ms, proxy.ts: 5ms, render: 12ms)[22m
+ GET /groups [32m200[39m in 17ms[2m (compile: 1544µs, proxy.ts: 5ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 18ms[2m (compile: 2ms, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 20ms[2m (compile: 4ms, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 15ms[2m (compile: 1812µs, proxy.ts: 5ms, render: 9ms)[22m
+ GET /groups [32m200[39m in 18ms[2m (compile: 1662µs, proxy.ts: 5ms, render: 11ms)[22m
+ GET /groups [32m200[39m in 15ms[2m (compile: 1912µs, proxy.ts: 5ms, render: 8ms)[22m
+ GET /groups [32m200[39m in 15ms[2m (compile: 1621µs, proxy.ts: 5ms, render: 9ms)[22m
+ GET /groups [32m200[39m in 144ms[2m (compile: 8ms, proxy.ts: 19ms, render: 117ms)[22m
+ POST /groups [32m200[39m in 15ms[2m (compile: 2ms, proxy.ts: 7ms, render: 5ms)[22m
+ [31m[1m⨯[22m[39m ./apps/frontend/app/groups/[groupId]/page.tsx:1:20
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:2:10
+Ecmascript file had an error
+[0m [90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m[0m
+
+You're importing a component that needs `useParams`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:1:10
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+Error [ModuleBuildError]: ./apps/frontend/app/groups/[groupId]/page.tsx:1:20
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:2:10
+Ecmascript file had an error
+[0m [90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m[0m
+
+You're importing a component that needs `useParams`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:1:10
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+    at <unknown> (ModuleBuildError: ./apps/frontend/app/groups/[groupId]/page.tsx:1:20)
+    at <unknown> (./apps/frontend/app/groups/[groupId]/page.tsx:2:10)
+    at <unknown> (./apps/frontend/app/groups/[groupId]/page.tsx:1:10)
+Error: Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:
+  - react:      18.3.1
+  - react-dom:  19.2.0
+Learn more: https://react.dev/warnings/version-mismatch
+    at [3mignore-listed frames[23m
+ [31m[1m⨯[22m[39m ./apps/frontend/app/groups/[groupId]/page.tsx:1:20
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:2:10
+Ecmascript file had an error
+[0m [90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m[0m
+
+You're importing a component that needs `useParams`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:1:10
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+Error [ModuleBuildError]: ./apps/frontend/app/groups/[groupId]/page.tsx:1:20
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:2:10
+Ecmascript file had an error
+[0m [90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { [33mCard[39m[33m,[39m [33mCardContent[39m[33m,[39m [33mCardDescription[39m[33m,[39m [33mCardHeader[39m[33m,[39m [33mCardTitle[39m } [36mfrom[39m [32m'@/components/ui/card'[39m[33m;[39m[0m
+
+You're importing a component that needs `useParams`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+
+./apps/frontend/app/groups/[groupId]/page.tsx:1:10
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { useState[33m,[39m useEffect[33m,[39m useCallback } [36mfrom[39m [32m'react'[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { useParams } [36mfrom[39m [32m'next/navigation'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m'next/link'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m'@/components/ui/button'[39m[33m;[39m[0m
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+
+    at <unknown> (ModuleBuildError: ./apps/frontend/app/groups/[groupId]/page.tsx:1:20)
+    at <unknown> (./apps/frontend/app/groups/[groupId]/page.tsx:2:10)
+    at <unknown> (./apps/frontend/app/groups/[groupId]/page.tsx:1:10)
+Error: Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:
+  - react:      18.3.1
+  - react-dom:  19.2.0
+Learn more: https://react.dev/warnings/version-mismatch
+    at [3mignore-listed frames[23m
+ GET /groups [32m200[39m in 81ms[2m (compile: 12ms, proxy.ts: 21ms, render: 48ms)[22m
+ POST /groups [32m200[39m in 11ms[2m (compile: 1566µs, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups [32m200[39m in 28ms[2m (compile: 4ms, proxy.ts: 9ms, render: 15ms)[22m
+ [32m[1m✓[22m[39m Compiled in 49ms
+ GET /groups/cmhinaf8h0005va768q8jx2be [32m200[39m in 514ms[2m (compile: 471ms, proxy.ts: 15ms, render: 28ms)[22m
+ GET /groups [32m200[39m in 39ms[2m (compile: 6ms, proxy.ts: 17ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 43ms[2m (compile: 12ms, proxy.ts: 18ms, render: 13ms)[22m
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ [32m[1m✓[22m[39m Compiled in 47ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 37ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 488ms[2m (compile: 96ms, proxy.ts: 350ms, render: 41ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 36ms[2m (compile: 8ms, proxy.ts: 6ms, render: 22ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 19ms[2m (compile: 3ms, proxy.ts: 6ms, render: 10ms)[22m
+ [32m[1m✓[22m[39m Compiled in 45ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 121ms[2m (compile: 69ms, proxy.ts: 9ms, render: 44ms)[22m
+ [32m[1m✓[22m[39m Compiled in 10ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 159ms[2m (compile: 25ms, proxy.ts: 11ms, render: 123ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 16ms[2m (compile: 4ms, proxy.ts: 6ms, render: 7ms)[22m
+ GET /groups [32m200[39m in 147ms[2m (compile: 103ms, proxy.ts: 15ms, render: 29ms)[22m
+ GET /groups/cmhinaf8h0005va768q8jx2be [32m200[39m in 41ms[2m (compile: 13ms, proxy.ts: 14ms, render: 14ms)[22m
+ [32m[1m✓[22m[39m Compiled in 30ms
+ GET /groups [32m200[39m in 39ms[2m (compile: 8ms, proxy.ts: 18ms, render: 14ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 130ms[2m (compile: 90ms, proxy.ts: 14ms, render: 26ms)[22m
+ GET /groups [32m200[39m in 35ms[2m (compile: 4ms, proxy.ts: 13ms, render: 18ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 40ms[2m (compile: 13ms, proxy.ts: 14ms, render: 13ms)[22m
+ [32m[1m✓[22m[39m Compiled in 37ms
+ [32m[1m✓[22m[39m Compiled in 26ms
+ [32m[1m✓[22m[39m Compiled in 24ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ GET /groups [32m200[39m in 43ms[2m (compile: 7ms, proxy.ts: 20ms, render: 15ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 144ms[2m (compile: 106ms, proxy.ts: 13ms, render: 25ms)[22m
+ [32m[1m✓[22m[39m Compiled in 89ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 655ms[2m (compile: 96ms, proxy.ts: 398ms, render: 161ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 640ms[2m (compile: 131ms, proxy.ts: 391ms, render: 118ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 17ms[2m (compile: 5ms, proxy.ts: 7ms, render: 5ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 184ms[2m (compile: 100ms, proxy.ts: 6ms, render: 78ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 200ms[2m (compile: 63ms, proxy.ts: 7ms, render: 130ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 50ms[2m (compile: 4ms, proxy.ts: 15ms, render: 30ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 15ms[2m (compile: 4ms, proxy.ts: 6ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 25ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ GET /groups [32m200[39m in 142ms[2m (compile: 99ms, proxy.ts: 18ms, render: 26ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 122ms[2m (compile: 83ms, proxy.ts: 15ms, render: 24ms)[22m
+ [32m[1m✓[22m[39m Compiled in 29ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 29ms
  [32m[1m✓[22m[39m Compiled in 35ms
- GET / [32m200[39m in 120ms[2m (compile: 55ms, proxy.ts: 16ms, render: 50ms)[22m
- POST / [32m200[39m in 12ms[2m (compile: 1914µs, proxy.ts: 6ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 214ms[2m (compile: 71ms, proxy.ts: 19ms, render: 124ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 16ms[2m (compile: 6ms, proxy.ts: 6ms, render: 4ms)[22m
+ [32m[1m✓[22m[39m Compiled in 49ms
+ [32m[1m✓[22m[39m Compiled in 35ms
+ [32m[1m✓[22m[39m Compiled in 57ms
+ [32m[1m✓[22m[39m Compiled in 42ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 434ms[2m (compile: 69ms, proxy.ts: 332ms, render: 33ms)[22m
+ [32m[1m✓[22m[39m Compiled in 53ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 110ms[2m (compile: 67ms, proxy.ts: 5ms, render: 39ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 119ms[2m (compile: 7ms, proxy.ts: 10ms, render: 102ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 52ms[2m (compile: 9ms, proxy.ts: 8ms, render: 36ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 334ms[2m (compile: 19ms, proxy.ts: 269ms, render: 45ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 5ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 47ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 125ms[2m (compile: 65ms, proxy.ts: 7ms, render: 53ms)[22m
+ [33m[1m⚠[22m[39m Found a change in next.config.ts. Restarting the server to apply the changes...
+ [33m[1m⚠[22m[39m Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/sanketnaik99/Coding/React/trivia/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/sanketnaik99/Coding/React/trivia/apps/frontend/package-lock.json
+
+   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.69:3000
+   - Environments: .env.local
+
+ [32m[1m✓[22m[39m Starting...
+ [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ [32m[1m✓[22m[39m Ready in 637ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 2.1s[2m (compile: 1642ms, proxy.ts: 344ms, render: 146ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 42ms[2m (compile: 8ms, proxy.ts: 23ms, render: 11ms)[22m
