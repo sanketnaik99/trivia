@@ -91,7 +91,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:17-alpine
     container_name: trivia-postgres
     environment:
       POSTGRES_USER: trivia_user
