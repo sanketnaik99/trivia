@@ -26,14 +26,14 @@
 
 **Purpose**: Project initialization, dependency installation, and environment configuration
 
-- [ ] T001 Install backend dependencies in apps/backend: @prisma/client, prisma, @clerk/clerk-sdk-node, svix (webhook validation)
-- [ ] T002 Install frontend dependencies in apps/frontend: @clerk/nextjs
-- [ ] T003 [P] Create apps/backend/.env with DATABASE_URL, CLERK_SECRET_KEY, CLERK_WEBHOOK_SECRET, PORT=3001
-- [ ] T004 [P] Create apps/frontend/.env.local with NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY, NEXT_PUBLIC_API_URL=http://localhost:3001
-- [ ] T005 [P] Add .env and .env.local to .gitignore if not already present
-- [ ] T006 Setup local PostgreSQL via Docker Compose per quickstart.md (create docker-compose.yml in project root with postgres:17-alpine)
+- [X] T001 Install backend dependencies in apps/backend: @prisma/client, prisma, @clerk/clerk-sdk-node, svix (webhook validation)
+- [X] T002 Install frontend dependencies in apps/frontend: @clerk/nextjs
+- [X] T003 [P] Create apps/backend/.env with DATABASE_URL, CLERK_SECRET_KEY, CLERK_WEBHOOK_SECRET, PORT=3001
+- [X] T004 [P] Create apps/frontend/.env.local with NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY, NEXT_PUBLIC_API_URL=http://localhost:3001
+- [X] T005 [P] Add .env and .env.local to .gitignore if not already present
+- [X] T006 Setup local PostgreSQL via Docker Compose per quickstart.md (create docker-compose.yml in project root with postgres:17-alpine)
 - [ ] T007 Start Docker postgres container and verify connection with psql
-- [ ] T008 Initialize Prisma in apps/backend: npx prisma init (creates prisma/ directory)
+- [X] T008 Initialize Prisma in apps/backend: npx prisma init (creates prisma/ directory)
 
 ---
 
