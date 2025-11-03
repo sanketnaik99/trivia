@@ -35,7 +35,7 @@ Acceptance Scenarios:
 
 1. Given a group member, When they create a trivia room with the group selected, Then the room is marked as group-affiliated.
 2. Given a completed game in a group-affiliated room, When group members earn points, Then those points are added to each member's cumulative group total and visible on the group leaderboard.
-3. Given non-members participating in a group room, When the game completes, Then their points do not affect the group leaderboard but still count within the room's local results. [NEEDS CLARIFICATION: Should non-member participants' points be excluded entirely or attributed if they later join the group within a grace period?]
+3. Given non-members participating in a group room, When the game completes, Then their points do not affect the group leaderboard and remain only in the room's local results.
 
 Independent Test: Can a member open the group page and see accurate totals that reflect recent games, with basic sorting and pagination for larger groups?
 
@@ -48,7 +48,7 @@ Acceptance Scenarios:
 
 - User participates in a group room while signed out: prompt to sign in; if they continue as guest, their points only affect the room-local results, not group persistence.
 - A user belongs to multiple groups: When creating a room, they must explicitly choose one group; points accrue to that selected group only.
-- Admin leaves the group: transfer or require at least one remaining admin; block leaving if no other admin exists. [NEEDS CLARIFICATION: Allow multiple admins vs single-owner model?]
+- Admin leaves the group: multiple admins are allowed; an admin may leave only if at least one other admin remains, or after delegating admin rights to another member.
 - Invite link/code expires or is revoked: joining fails with a clear message; admin can regenerate a new invite.
 - Display name changes: leaderboard shows latest display name while keeping the same underlying identity to avoid duplicate entries.
 
@@ -62,7 +62,7 @@ Acceptance Scenarios:
 - FR-004: The system MUST allow group admins to remove members and allow members to leave the group.
 - FR-005: The system MUST allow authenticated group members to create trivia rooms on behalf of a selected group.
 - FR-006: The system MUST attribute points earned by participating group members in a group-affiliated room to their cumulative totals on that group's leaderboard.
-- FR-007: The system MUST ensure that non-members' points in a group room do not affect the group leaderboard; their points remain visible in the room's local results only. [See User Story 3 note]
+- FR-007: The system MUST ensure that non-members' points in a group room do not affect the group leaderboard; their points remain visible in the room's local results only.
 - FR-008: The system MUST provide a group leaderboard view listing members and their cumulative points, sortable by total points.
 - FR-009: The system MUST update group leaderboard totals promptly after a game completes (near real-time or on completion refresh).
 - FR-010: The system MUST handle invitation lifecycle: create, share, expire/revoke, and prevent reuse after acceptance or expiration.
@@ -72,6 +72,7 @@ Acceptance Scenarios:
 - FR-014: The system SHOULD allow a user to belong to multiple groups; when starting a room, the user MUST choose one group.
 - FR-015: The system MUST prevent double-counting the same game's points on the group leaderboard.
 - FR-016: The system MUST retain leaderboard data across sessions and app restarts.
+ - FR-017: The system MUST support invitations in both link and code formats, honoring expiration and revocation.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -106,11 +107,11 @@ Acceptance Scenarios:
 - Cross-group tournaments or leaderboards.
 - Detailed analytics dashboards beyond basic leaderboard views.
 
-### Open Questions (max 3)
+### Decisions
 
-1. Points attribution for non-members in group rooms: exclude entirely, or allow retroactive attribution if they join shortly after? [NEEDS CLARIFICATION]
-2. Group admin model: multiple admins vs single-owner with transferable ownership? [NEEDS CLARIFICATION]
-3. Invite format: link-only, code-only, or both? Default assumed both - confirm? [NEEDS CLARIFICATION]
+- Non-member points in group rooms are excluded from group leaderboard totals; there is no retroactive attribution if they join later.
+- Multiple admins are allowed; an admin may leave only if at least one other admin remains or after delegating admin rights to another member.
+- Invitations are provided via both link and code formats; both respect expiration and revocation.
 
 
  

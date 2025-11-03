@@ -13,7 +13,7 @@ Feature: ../spec.md
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,7 +31,7 @@ Feature: ../spec.md
 
 ## Notes
 
-- Remaining clarifications (3):
-  - Q1: Points attribution for non-members in group rooms
-  - Q2: Group admin model (single owner vs multiple admins)
-  - Q3: Invite format (link, code, or both)
+Clarifications resolved via Decisions in spec:
+- Non-member points excluded from group leaderboard; no retroactive attribution after joining.
+- Multiple-admin model; admins can leave only if another admin remains or after delegating.
+- Invitations supported via both link and code; both respect expiration and revocation.
