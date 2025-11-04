@@ -1,12 +1,11 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { SocketClient } from '@/app/lib/websocket';
 import { Participant } from '@/app/lib/types';
 import { Leaderboard, type LeaderboardEntry } from '@/app/components/leaderboard';
 import { RoomLobby } from '@/app/components/room-lobby';
-import { JoinRoomForm } from '@/app/components/join-room-form';
 import { GameCountdown } from '@/app/components/game-countdown';
 import { GameQuestion } from '@/app/components/game-question';
 import { GameTimer } from '@/app/components/game-timer';
@@ -17,6 +16,7 @@ import { SessionLostModal } from '@/app/components/session-lost-modal';
 import dynamic from 'next/dynamic';
 import { apiClient } from '@/app/lib/api/client';
 import { useQuery } from '@tanstack/react-query';
+import { useUser, useAuth } from '@clerk/nextjs';
 
 const RoundResults = dynamic(() => import('@/app/components/round-results'), { ssr: false });
 
@@ -66,15 +66,20 @@ interface RoomState {
   currentQuestion: { id: string; text: string } | null;
   currentRound: CurrentRound | null;
   leaderboard?: LeaderboardEntry[];
+  groupId: string;
+  groupName: string;
 }
 
-export default function RoomPage() {
+export default function GroupRoomPage() {
   const params = useParams();
   const router = useRouter();
+  const { user, isSignedIn, isLoaded: isUserLoaded } = useUser();
+  const { getToken } = useAuth();
+  const groupId = (params.groupId as string);
   const roomCode = (params.code as string).toUpperCase();
 
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatusType>('connecting');
-  const [error, setError] = useState<string | null>(null);
+  const [runtimeError, setRuntimeError] = useState<string | null>(null);
   const [room, setRoom] = useState<RoomState | null>(null);
   const [playerId, setPlayerId] = useState<string>('');
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
@@ -82,50 +87,48 @@ export default function RoomPage() {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
-  const [needsPlayerInfo, setNeedsPlayerInfo] = useState(false);
-  const [isJoining, setIsJoining] = useState(false);
-  const [joinError, setJoinError] = useState<string | null>(null);
-  const [hasAttemptedConnection, setHasAttemptedConnection] = useState(false);
   const [sessionLost, setSessionLost] = useState(false);
 
   const wsRef = useRef<import('@/app/lib/websocket').SocketClient | null>(null);
   const userInfoRef = useRef<{ userId: string; userName: string } | null>(null);
   const connectFnRef = useRef<(() => void) | null>(null);
 
+  // Handler to return home when session is lost
   const handleReturnHome = useCallback(() => {
     router.push('/');
   }, [router]);
 
+  // Set page title
   useEffect(() => {
-    document.title = `Room ${roomCode} | Trivia Room`;
+    document.title = `Group Room ${roomCode} | Trivia Room`;
   }, [roomCode]);
 
   const handleMessage = useCallback((message: ServerMessage) => {
     switch (message.type) {
       case 'ROOM_STATE':
-        console.log('[Room] Received ROOM_STATE', {
+        console.log('[GroupRoom] Received ROOM_STATE', {
           roomCode: message.payload.roomCode,
           gameState: message.payload.gameState,
-          participantCount: message.payload.participants.length
+          participantCount: message.payload.participants.length,
+          participants: message.payload.participants.map(p => ({ id: p.id, userId: p.userId, name: p.name }))
         });
         setRoom(message.payload);
-        // For anonymous rooms, find participant by name match since backend generates new ID
-        if (userInfoRef.current) {
+        // For group rooms, find participant by userId match
+        if (userInfoRef.current && message.payload.participants) {
           const participant = message.payload.participants.find(
-            (p) => p.name === userInfoRef.current?.userName
+            (p) => p.userId === userInfoRef.current?.userId
           );
           if (participant) {
-            console.log('[Room] Setting playerId from ROOM_STATE', {
+            console.log('[GroupRoom] Setting playerId from ROOM_STATE', {
               participantId: participant.id,
-              participantName: participant.name,
-              userName: userInfoRef.current.userName
+              userId: userInfoRef.current.userId,
+              participantName: participant.name
             });
             setPlayerId(participant.id);
-            sessionStorage.setItem('playerId', participant.id);
           } else {
-            console.warn('[Room] Could not find participant in ROOM_STATE by name', {
-              userName: userInfoRef.current.userName,
-              participants: message.payload.participants.map(p => ({ id: p.id, name: p.name }))
+            console.warn('[GroupRoom] Could not find participant in ROOM_STATE', {
+              userId: userInfoRef.current.userId,
+              participants: message.payload.participants.map(p => ({ id: p.id, userId: p.userId, name: p.name }))
             });
           }
         }
@@ -162,6 +165,7 @@ export default function RoomPage() {
               : p
           );
 
+          // Check if all players are ready and trigger countdown
           const allReady = updatedParticipants.every((p) => p.isReady);
           const enoughPlayers = updatedParticipants.length >= 2;
 
@@ -227,18 +231,21 @@ export default function RoomPage() {
 
       case 'ERROR':
         console.error('Server error:', message.payload);
-        setError(message.payload.message);
+        setRuntimeError(message.payload.message);
         break;
     }
   }, []);
 
-  const connectWebSocket = useCallback(() => {
-    if (!userInfoRef.current) return;
-    if (wsRef.current && wsRef.current.isConnected()) return;
+  const connectWebSocket = useCallback(async () => {
+    if (!userInfoRef.current || !isSignedIn || !user) return;
 
     const { userId, userName } = userInfoRef.current;
     try {
-      const client = new SocketClient();
+      // Get auth token for group rooms
+      const token = await getToken();
+      const authOptions = { auth: { token } };
+
+      const client = new SocketClient({ options: authOptions });
       wsRef.current = client;
 
       client.on('ROOM_STATE', (payload: unknown) => handleMessage({ type: 'ROOM_STATE', payload } as ServerMessage));
@@ -252,29 +259,29 @@ export default function RoomPage() {
       client.on('ERROR', (payload: unknown) => handleMessage({ type: 'ERROR', payload } as ServerMessage));
 
       client.on('disconnect', () => {
-        console.log('[Room] Socket disconnected');
+        console.log('[GroupRoom] Socket disconnected');
         setConnectionStatus('reconnecting');
       });
 
       client.on('reconnect_attempt', (payload: unknown) => {
         const attempt = (payload as { attempt: number })?.attempt || 0;
-        console.log('[Room] Reconnect attempt', attempt);
+        console.log('[GroupRoom] Reconnect attempt', attempt);
         setReconnectAttempts(attempt);
       });
 
       client.on('reconnect_failed', () => {
-        console.error('[Room] Reconnection failed permanently');
+        console.error('[GroupRoom] Reconnection failed permanently');
         setConnectionStatus('disconnected');
         setSessionLost(true);
       });
 
       client.on('connection_error', () => {
-        console.error('[Room] Connection error');
+        console.error('[GroupRoom] Connection error');
         setConnectionStatus('reconnecting');
       });
 
       client.connect().then(() => {
-        console.log('[Room] WebSocket connected, sending JOIN', { userId, userName, roomCode });
+        console.log('[GroupRoom] WebSocket connected, sending JOIN', { userId, userName, roomCode });
         setConnectionStatus('connected');
         setReconnectAttempts(0);
         client.send('JOIN', { playerId: userId, playerName: userName, roomCode });
@@ -285,17 +292,18 @@ export default function RoomPage() {
 
     } catch (err) {
       console.error('Failed to create Socket.IO client:', err);
-      setError('Failed to connect to room');
+      setRuntimeError('Failed to connect to room');
       setConnectionStatus('disconnected');
     }
-  }, [roomCode, handleMessage]);
+  }, [roomCode, handleMessage, getToken, isSignedIn, user]);
 
+  // Store connectWebSocket in ref for use in callbacks
   useEffect(() => {
     connectFnRef.current = connectWebSocket;
   }, [connectWebSocket]);
 
   const handleReadyToggle = useCallback(() => {
-    console.log('[Room] handleReadyToggle called', {
+    console.log('[GroupRoom] handleReadyToggle called', {
       hasWsRef: !!wsRef.current,
       hasRoom: !!room,
       playerId,
@@ -303,17 +311,17 @@ export default function RoomPage() {
     });
 
     if (!wsRef.current || !room) {
-      console.log('[Room] Early return: missing wsRef or room');
+      console.log('[GroupRoom] Early return: missing wsRef or room');
       return;
     }
 
     const currentUser = room.participants.find((p) => p.id === playerId);
     if (!currentUser) {
-      console.log('[Room] Early return: currentUser not found', { playerId, participants: room.participants.map(p => p.id) });
+      console.log('[GroupRoom] Early return: currentUser not found', { playerId, participants: room.participants.map(p => p.id) });
       return;
     }
 
-    console.log('[Room] Ready button clicked', {
+    console.log('[GroupRoom] Ready button clicked', {
       playerId,
       currentReady: currentUser.isReady,
       newReady: !currentUser.isReady,
@@ -325,6 +333,7 @@ export default function RoomPage() {
 
   const handleSubmitAnswer = useCallback((answer: string) => {
     if (!wsRef.current || !gameStartTime) return;
+
     const timestamp = Date.now() - gameStartTime;
     wsRef.current.send('ANSWER', { answerText: answer, timestamp });
   }, [gameStartTime]);
@@ -338,38 +347,12 @@ export default function RoomPage() {
     if (!wsRef.current) return;
     wsRef.current.send('LEAVE', {});
     wsRef.current.disconnect();
-    sessionStorage.removeItem('playerId');
-    sessionStorage.removeItem('playerName');
     router.push('/');
   }, [router]);
 
-  const handleJoinRoomFromLink = async (name: string, _code: string) => {
-    void _code;
-    if (hasAttemptedConnection) return;
-
-    setIsJoining(true);
-    setJoinError(null);
-
-    try {
-      const playerId = crypto.randomUUID();
-      sessionStorage.setItem('playerId', playerId);
-      sessionStorage.setItem('playerName', name);
-
-      userInfoRef.current = { userId: playerId, userName: name };
-      setNeedsPlayerInfo(false);
-      setHasAttemptedConnection(true);
-
-      connectWebSocket();
-    } catch (err) {
-      console.error('Error joining room:', err);
-      setJoinError(err instanceof Error ? err.message : 'Failed to join room');
-    } finally {
-      setIsJoining(false);
-    }
-  };
-
+  // Validate room and check group membership
   const { data: validation, isLoading: isValidating, error: validationError } = useQuery({
-    queryKey: ['room-validate', roomCode],
+    queryKey: ['group-room-validate', roomCode, groupId],
     queryFn: async () => {
       const response = await apiClient.get(`/room/${roomCode}/validate`);
       return response.data;
@@ -378,87 +361,87 @@ export default function RoomPage() {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(() => {
-    if (isValidating) return;
-    if (hasAttemptedConnection) return;
+  // Check group membership
+  const { data: groupMembership, isLoading: isCheckingMembership } = useQuery({
+    queryKey: ['group-membership', groupId],
+    queryFn: async () => {
+      const response = await apiClient.get(`/groups/${groupId}/membership`);
+      return response.data;
+    },
+    enabled: !!groupId && isSignedIn,
+    retry: false,
+  });
+
+  // Determine error state and connection readiness
+  const { errorMessage, canConnect } = useMemo(() => {
+    if (!isUserLoaded) return { errorMessage: null, canConnect: false };
+
+    if (!isSignedIn || !user) {
+      return { errorMessage: 'Authentication required for group rooms', canConnect: false };
+    }
+
+    if (groupMembership && !groupMembership.isMember) {
+      return { errorMessage: 'You are not a member of this group', canConnect: false };
+    }
 
     if (validationError) {
-      setError('Unable to connect to room. Please try again.');
-      setConnectionStatus('disconnected');
-      return;
-    }
-    if (!validation) return;
-    if (!validation.exists) {
-      setError('Room not found. Please check the room code.');
-      setConnectionStatus('disconnected');
-      return;
-    }
-    if (!validation.canJoin) {
-      if (validation.gameState === 'active') {
-        setError('Game is already in progress. Please wait for the next round.');
-      } else {
-        setError('Unable to join room. It may be full or unavailable.');
-      }
-      setConnectionStatus('disconnected');
-      return;
+      return { errorMessage: 'Unable to connect to room. Please try again.', canConnect: false };
     }
 
-    // Check if we have stored session data
-    const storedPlayerId = sessionStorage.getItem('playerId');
-    const storedPlayerName = sessionStorage.getItem('playerName');
-
-    if (!storedPlayerId || !storedPlayerName) {
-      setNeedsPlayerInfo(true);
-      setConnectionStatus('disconnected');
-      return;
+    if (validation && !validation.exists) {
+      return { errorMessage: 'Room not found. Please check the room code.', canConnect: false };
     }
 
-    userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
-    setHasAttemptedConnection(true);
-  }, [isValidating, validation, validationError, hasAttemptedConnection]);
+    if (validation && !validation.canJoin) {
+      const msg = validation.gameState === 'active'
+        ? 'Game is already in progress. Please wait for the next round.'
+        : 'Unable to join room. It may be full or unavailable.';
+      return { errorMessage: msg, canConnect: false };
+    }
 
+    if (validation && validation.groupId !== groupId) {
+      return { errorMessage: 'This room does not belong to the specified group', canConnect: false };
+    }
+
+    const ready = isSignedIn && user && groupMembership?.isMember && validation?.exists && validation?.canJoin && validation?.groupId === groupId;
+    return { errorMessage: null, canConnect: ready };
+  }, [isUserLoaded, isSignedIn, user, groupMembership, validation, validationError, groupId]);
+
+  // Set up user info when ready to connect
   useEffect(() => {
-    if (!hasAttemptedConnection || !userInfoRef.current) return;
-    if (wsRef.current && wsRef.current.isConnected()) return;
+    if (canConnect && !userInfoRef.current) {
+      const playerName = user!.fullName || user!.firstName || user!.username || user!.primaryEmailAddress?.emailAddress?.split('@')[0] || 'Anonymous';
+      userInfoRef.current = { userId: user!.id, userName: playerName };
+    }
+  }, [canConnect, user]);
 
-    connectWebSocket();
-  }, [hasAttemptedConnection, connectWebSocket]);
+  // Connect websocket when user info is ready
+  useEffect(() => {
+    if (userInfoRef.current && !wsRef.current && canConnect && !errorMessage && connectFnRef.current) {
+      // Use a timeout to avoid calling during render
+      const timer = setTimeout(() => {
+        connectFnRef.current!();
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [canConnect, errorMessage]);
 
-  if (error) {
+  if (errorMessage || runtimeError) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto">
-          <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+          <ErrorDisplay message={errorMessage || runtimeError!} onRetry={() => router.push('/')} />
         </div>
       </div>
     );
   }
 
-  if (needsPlayerInfo) {
+  // Show loading while validating
+  if (!isUserLoaded || isValidating || isCheckingMembership || connectionStatus === 'connecting' || !room) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
-        <div className="w-full max-w-md mx-auto space-y-4">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold mb-2">Join Room</h1>
-            <p className="text-muted-foreground">Enter your name to join room <span className="font-mono font-semibold">{roomCode}</span></p>
-          </div>
-          <JoinRoomForm
-            onJoinRoom={handleJoinRoomFromLink}
-            isLoading={isJoining}
-            error={joinError}
-            prefilledRoomCode={roomCode}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  if (connectionStatus === 'connecting' || !room) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Loading message="Connecting to room..." />
+        <Loading message="Connecting to group room..." />
       </div>
     );
   }
@@ -467,11 +450,12 @@ export default function RoomPage() {
     <div className="min-h-screen bg-background p-4">
       {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
       <div className="max-w-4xl mx-auto">
+        {/* Connection Status Indicator */}
         <div className="mb-4 flex items-center justify-center">
           {connectionStatus === 'connected' && (
             <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm flex items-center gap-2">
               <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
-              Connected
+              Connected to {room.groupName}
             </div>
           )}
           {connectionStatus === 'reconnecting' && (
@@ -500,11 +484,11 @@ export default function RoomPage() {
                   currentUserId={playerId}
                   onReadyToggle={handleReadyToggle}
                   onLeaveRoom={handleLeaveRoom}
-                  groupId={undefined}
-                  groupName={undefined}
+                  groupId={room.groupId}
+                  groupName={room.groupName}
                 />
                 {room.leaderboard && room.leaderboard.length > 0 && (
-                  <Leaderboard title="Leaderboard" leaderboard={room.leaderboard} />
+                  <Leaderboard title="Group Leaderboard" leaderboard={room.leaderboard} />
                 )}
               </div>
             )}
@@ -543,12 +527,12 @@ export default function RoomPage() {
                       participants={room.participants}
                       onReadyForNextRound={handleReadyForNextRound}
                       leaderboard={roundResults.leaderboard || room.leaderboard}
-                      groupId={undefined}
+                      groupId={room.groupId}
                     />
                 </div>
                 {(roundResults.leaderboard || room.leaderboard) && (
                   <Leaderboard
-                    title="Updated Leaderboard"
+                    title="Updated Group Leaderboard"
                     leaderboard={(roundResults.leaderboard || room.leaderboard)!}
                   />
                 )}
