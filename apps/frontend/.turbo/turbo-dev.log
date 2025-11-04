@@ -340,3 +340,193 @@
  POST /room/KL8G4D [32m200[39m in 16ms[2m (compile: 5ms, proxy.ts: 6ms, render: 5ms)[22m
  GET / [32m200[39m in 39ms[2m (compile: 6ms, proxy.ts: 15ms, render: 18ms)[22m
  GET / [32m200[39m in 45ms[2m (compile: 6ms, proxy.ts: 17ms, render: 22ms)[22m
+ GET /groups [32m200[39m in 352ms[2m (compile: 5ms, proxy.ts: 327ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 54ms[2m (compile: 17ms, proxy.ts: 20ms, render: 17ms)[22m
+ [32m[1m✓[22m[39m Compiled in 40ms
+ GET / [32m200[39m in 136ms[2m (compile: 2ms, proxy.ts: 7ms, render: 126ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 140ms[2m (compile: 84ms, proxy.ts: 8ms, render: 48ms)[22m
+ GET / [32m200[39m in 40ms[2m (compile: 4ms, proxy.ts: 7ms, render: 29ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 56ms[2m (compile: 19ms, proxy.ts: 7ms, render: 29ms)[22m
+ GET / [32m200[39m in 40ms[2m (compile: 3ms, proxy.ts: 7ms, render: 29ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 58ms[2m (compile: 4ms, proxy.ts: 15ms, render: 39ms)[22m
+ GET / [32m200[39m in 56ms[2m (compile: 1957µs, proxy.ts: 16ms, render: 38ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 38ms[2m (compile: 5ms, proxy.ts: 17ms, render: 16ms)[22m
+ GET / [32m200[39m in 22ms[2m (compile: 1087µs, proxy.ts: 13ms, render: 8ms)[22m
+ GET / [32m200[39m in 26ms[2m (compile: 1575µs, proxy.ts: 5ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 27ms[2m (compile: 11ms, proxy.ts: 5ms, render: 10ms)[22m
+ GET / [32m200[39m in 24ms[2m (compile: 1734µs, proxy.ts: 6ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 23ms[2m (compile: 10ms, proxy.ts: 5ms, render: 8ms)[22m
+ GET / [32m200[39m in 24ms[2m (compile: 1460µs, proxy.ts: 8ms, render: 14ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 25ms[2m (compile: 9ms, proxy.ts: 8ms, render: 8ms)[22m
+ GET / [32m200[39m in 31ms[2m (compile: 2ms, proxy.ts: 9ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 30ms[2m (compile: 14ms, proxy.ts: 9ms, render: 8ms)[22m
+ GET / [32m200[39m in 30ms[2m (compile: 1938µs, proxy.ts: 5ms, render: 23ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 31ms[2m (compile: 11ms, proxy.ts: 5ms, render: 15ms)[22m
+ GET / [32m200[39m in 25ms[2m (compile: 1763µs, proxy.ts: 6ms, render: 17ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 25ms[2m (compile: 10ms, proxy.ts: 6ms, render: 9ms)[22m
+ GET / [32m200[39m in 29ms[2m (compile: 2ms, proxy.ts: 6ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 32ms[2m (compile: 14ms, proxy.ts: 6ms, render: 12ms)[22m
+ GET / [32m200[39m in 27ms[2m (compile: 2ms, proxy.ts: 4ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 27ms[2m (compile: 11ms, proxy.ts: 5ms, render: 12ms)[22m
+ GET / [32m200[39m in 28ms[2m (compile: 2ms, proxy.ts: 6ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 30ms[2m (compile: 11ms, proxy.ts: 7ms, render: 13ms)[22m
+ GET / [32m200[39m in 29ms[2m (compile: 3ms, proxy.ts: 5ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 31ms[2m (compile: 14ms, proxy.ts: 5ms, render: 12ms)[22m
+ GET / [32m200[39m in 30ms[2m (compile: 3ms, proxy.ts: 8ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 33ms[2m (compile: 12ms, proxy.ts: 7ms, render: 14ms)[22m
+ GET / [32m200[39m in 24ms[2m (compile: 3ms, proxy.ts: 5ms, render: 17ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 25ms[2m (compile: 11ms, proxy.ts: 5ms, render: 8ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 21ms[2m (compile: 5ms, proxy.ts: 4ms, render: 12ms)[22m
+ [32m[1m✓[22m[39m Compiled in 3ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 42ms
+ [32m[1m✓[22m[39m Compiled in 33ms
+ [32m[1m✓[22m[39m Compiled in 25ms
+ GET / [32m200[39m in 106ms[2m (compile: 3ms, proxy.ts: 10ms, render: 94ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 108ms[2m (compile: 70ms, proxy.ts: 10ms, render: 28ms)[22m
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 48ms
+ [32m[1m✓[22m[39m Compiled in 45ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ GET /groups [32m200[39m in 534ms[2m (compile: 99ms, proxy.ts: 410ms, render: 26ms)[22m
+ GET /room/7CPQ5X [32m200[39m in 203ms[2m (compile: 74ms, proxy.ts: 7ms, render: 122ms)[22m
+ POST /room/7CPQ5X [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/7CPQ5X [32m200[39m in 53ms[2m (compile: 12ms, proxy.ts: 9ms, render: 32ms)[22m
+ POST /room/7CPQ5X [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /groups [32m200[39m in 45ms[2m (compile: 9ms, proxy.ts: 19ms, render: 16ms)[22m
+ GET /groups [32m200[39m in 51ms[2m (compile: 9ms, proxy.ts: 21ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 126ms[2m (compile: 88ms, proxy.ts: 16ms, render: 23ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 565ms[2m (compile: 543ms, proxy.ts: 11ms, render: 10ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 35ms[2m (compile: 9ms, proxy.ts: 11ms, render: 15ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 176ms[2m (compile: 11ms, proxy.ts: 7ms, render: 158ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 12ms[2m (compile: 4ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups [32m200[39m in 87ms[2m (compile: 5ms, proxy.ts: 8ms, render: 74ms)[22m
+ POST /groups [32m200[39m in 14ms[2m (compile: 1477µs, proxy.ts: 5ms, render: 8ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 54ms[2m (compile: 16ms, proxy.ts: 12ms, render: 25ms)[22m
+ GET /room/CL94W8 [32m200[39m in 53ms[2m (compile: 9ms, proxy.ts: 6ms, render: 38ms)[22m
+ POST /room/CL94W8 [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 4ms, render: 7ms)[22m
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ GET /room/CL94W8 [32m200[39m in 64ms[2m (compile: 16ms, proxy.ts: 17ms, render: 31ms)[22m
+ POST /room/CL94W8 [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 3ms)[22m
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ GET /groups [32m200[39m in 45ms[2m (compile: 9ms, proxy.ts: 15ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 124ms[2m (compile: 93ms, proxy.ts: 10ms, render: 22ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/2P3Y52 [32m200[39m in 526ms[2m (compile: 506ms, proxy.ts: 8ms, render: 12ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/2P3Y52 [32m200[39m in 156ms[2m (compile: 11ms, proxy.ts: 11ms, render: 134ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/2P3Y52 [32m200[39m in 18ms[2m (compile: 5ms, proxy.ts: 8ms, render: 5ms)[22m
+ GET / [32m200[39m in 318ms[2m (compile: 5ms, proxy.ts: 295ms, render: 18ms)[22m
+ GET /groups [32m200[39m in 36ms[2m (compile: 6ms, proxy.ts: 11ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 40ms[2m (compile: 10ms, proxy.ts: 13ms, render: 17ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/GHW5TZ [32m200[39m in 36ms[2m (compile: 10ms, proxy.ts: 10ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/GHW5TZ [32m200[39m in 71ms[2m (compile: 13ms, proxy.ts: 14ms, render: 44ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/GHW5TZ [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET / [32m200[39m in 28ms[2m (compile: 4ms, proxy.ts: 8ms, render: 16ms)[22m
+ GET /groups [32m200[39m in 32ms[2m (compile: 5ms, proxy.ts: 9ms, render: 18ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 44ms[2m (compile: 14ms, proxy.ts: 10ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/2FCFT3 [32m200[39m in 47ms[2m (compile: 10ms, proxy.ts: 8ms, render: 29ms)[22m
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 39ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ GET / [32m200[39m in 40ms[2m (compile: 5ms, proxy.ts: 12ms, render: 23ms)[22m
+ GET /groups [32m200[39m in 35ms[2m (compile: 4ms, proxy.ts: 10ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 130ms[2m (compile: 88ms, proxy.ts: 16ms, render: 26ms)[22m
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 368ms[2m (compile: 88ms, proxy.ts: 140ms, render: 140ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 16ms[2m (compile: 5ms, proxy.ts: 6ms, render: 5ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/XLWUWE [32m200[39m in 43ms[2m (compile: 13ms, proxy.ts: 13ms, render: 17ms)[22m
+ [32m[1m✓[22m[39m Compiled in 33ms
+ GET /groups [32m200[39m in 56ms[2m (compile: 25ms, proxy.ts: 16ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 42ms[2m (compile: 17ms, proxy.ts: 9ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/TP3EQ4 [32m200[39m in 144ms[2m (compile: 105ms, proxy.ts: 8ms, render: 31ms)[22m
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ GET /groups [32m200[39m in 33ms[2m (compile: 5ms, proxy.ts: 10ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 41ms[2m (compile: 13ms, proxy.ts: 12ms, render: 15ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/32X9UG [32m200[39m in 140ms[2m (compile: 101ms, proxy.ts: 14ms, render: 26ms)[22m
+ [32m[1m✓[22m[39m Compiled in 33ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 35ms
+ GET / [32m200[39m in 179ms[2m (compile: 13ms, proxy.ts: 148ms, render: 18ms)[22m
+ GET /groups [32m200[39m in 36ms[2m (compile: 6ms, proxy.ts: 11ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 156ms[2m (compile: 110ms, proxy.ts: 15ms, render: 31ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/NL58HW [32m200[39m in 41ms[2m (compile: 11ms, proxy.ts: 18ms, render: 12ms)[22m
+ GET /room/NL58HW [32m200[39m in 60ms[2m (compile: 10ms, proxy.ts: 9ms, render: 41ms)[22m
+ POST /room/NL58HW [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/NL58HW [32m200[39m in 82ms[2m (compile: 14ms, proxy.ts: 15ms, render: 52ms)[22m
+ POST /room/NL58HW [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/NL58HW [32m200[39m in 211ms[2m (compile: 16ms, proxy.ts: 15ms, render: 179ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/NL58HW [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 4ms, render: 6ms)[22m
+ [32m[1m✓[22m[39m Compiled in 30ms
+ [32m[1m✓[22m[39m Compiled in 39ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ GET /groups [32m200[39m in 45ms[2m (compile: 9ms, proxy.ts: 16ms, render: 21ms)[22m
+ GET /groups [32m200[39m in 29ms[2m (compile: 3ms, proxy.ts: 9ms, render: 17ms)[22m
+ GET /groups [32m200[39m in 26ms[2m (compile: 4ms, proxy.ts: 9ms, render: 13ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 51ms[2m (compile: 16ms, proxy.ts: 16ms, render: 19ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 56ms[2m (compile: 18ms, proxy.ts: 13ms, render: 25ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 33ms[2m (compile: 11ms, proxy.ts: 8ms, render: 13ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 37ms[2m (compile: 12ms, proxy.ts: 9ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 22ms[2m (compile: 7ms, proxy.ts: 5ms, render: 10ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 142ms[2m (compile: 16ms, proxy.ts: 25ms, render: 102ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 14ms[2m (compile: 4ms, proxy.ts: 5ms, render: 5ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/287Y8B [32m200[39m in 110ms[2m (compile: 78ms, proxy.ts: 5ms, render: 26ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/287Y8B [32m200[39m in 200ms[2m (compile: 9ms, proxy.ts: 8ms, render: 184ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/287Y8B [32m200[39m in 19ms[2m (compile: 5ms, proxy.ts: 7ms, render: 7ms)[22m
+ GET /groups [32m200[39m in 595ms[2m (compile: 14ms, proxy.ts: 558ms, render: 23ms)[22m
+ GET /groups [32m200[39m in 48ms[2m (compile: 5ms, proxy.ts: 20ms, render: 22ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 48ms[2m (compile: 18ms, proxy.ts: 15ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/W98D6Y [32m200[39m in 43ms[2m (compile: 12ms, proxy.ts: 10ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/W98D6Y [32m200[39m in 78ms[2m (compile: 17ms, proxy.ts: 14ms, render: 47ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/W98D6Y [32m200[39m in 15ms[2m (compile: 5ms, proxy.ts: 5ms, render: 5ms)[22m
+ GET /groups [32m200[39m in 37ms[2m (compile: 6ms, proxy.ts: 15ms, render: 17ms)[22m
+ GET /groups [32m200[39m in 41ms[2m (compile: 6ms, proxy.ts: 14ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 52ms[2m (compile: 17ms, proxy.ts: 18ms, render: 18ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 46ms[2m (compile: 19ms, proxy.ts: 13ms, render: 14ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 29ms[2m (compile: 8ms, proxy.ts: 9ms, render: 12ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 49ms[2m (compile: 18ms, proxy.ts: 11ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 45ms[2m (compile: 16ms, proxy.ts: 16ms, render: 13ms)[22m
+ [32m[1m✓[22m[39m Compiled in 35ms
+ [32m[1m✓[22m[39m Compiled in 61ms
+ [32m[1m✓[22m[39m Compiled in 64ms
+ GET /groups [32m200[39m in 228ms[2m (compile: 80ms, proxy.ts: 9ms, render: 139ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 229ms[2m (compile: 175ms, proxy.ts: 7ms, render: 47ms)[22m
+ [32m[1m✓[22m[39m Compiled in 45ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 404ms[2m (compile: 58ms, proxy.ts: 297ms, render: 49ms)[22m
+ GET /groups [32m200[39m in 404ms[2m (compile: 4ms, proxy.ts: 388ms, render: 12ms)[22m
+ [32m[1m✓[22m[39m Compiled in 73ms
+ GET /groups [32m200[39m in 38ms[2m (compile: 6ms, proxy.ts: 13ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 85ms[2m (compile: 61ms, proxy.ts: 15ms, render: 9ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 48ms[2m (compile: 10ms, proxy.ts: 23ms, render: 14ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 172ms[2m (compile: 18ms, proxy.ts: 13ms, render: 141ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 17ms[2m (compile: 4ms, proxy.ts: 9ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 71ms[2m (compile: 10ms, proxy.ts: 13ms, render: 48ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 52ms[2m (compile: 10ms, proxy.ts: 7ms, render: 35ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 18ms[2m (compile: 4ms, proxy.ts: 10ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/G3D7JU [32m200[39m in 39ms[2m (compile: 13ms, proxy.ts: 12ms, render: 15ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/G3D7JU [32m200[39m in 73ms[2m (compile: 13ms, proxy.ts: 17ms, render: 43ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/G3D7JU [32m200[39m in 21ms[2m (compile: 6ms, proxy.ts: 8ms, render: 7ms)[22m
+ GET / [32m200[39m in 42ms[2m (compile: 10ms, proxy.ts: 14ms, render: 18ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/rooms/G3D7JU [32m200[39m in 79ms[2m (compile: 17ms, proxy.ts: 14ms, render: 48ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf/rooms/G3D7JU [32m200[39m in 16ms[2m (compile: 4ms, proxy.ts: 6ms, render: 6ms)[22m
+ GET /groups [32m200[39m in 47ms[2m (compile: 4ms, proxy.ts: 22ms, render: 20ms)[22m
+ GET /groups [32m200[39m in 23ms[2m (compile: 1739µs, proxy.ts: 8ms, render: 13ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 53ms[2m (compile: 19ms, proxy.ts: 18ms, render: 16ms)[22m
+ GET /groups [32m200[39m in 47ms[2m (compile: 5ms, proxy.ts: 22ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 44ms[2m (compile: 13ms, proxy.ts: 12ms, render: 20ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 96ms[2m (compile: 71ms, proxy.ts: 14ms, render: 12ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 34ms[2m (compile: 10ms, proxy.ts: 9ms, render: 15ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 336ms[2m (compile: 18ms, proxy.ts: 308ms, render: 10ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf/leaderboard [32m200[39m in 37ms[2m (compile: 13ms, proxy.ts: 8ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 33ms[2m (compile: 11ms, proxy.ts: 12ms, render: 9ms)[22m
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 42ms
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 30ms
+ [32m[1m✓[22m[39m Compiled in 30ms

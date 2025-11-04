@@ -1,22 +1,25 @@
 'use client';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useGroupDetail } from '@/app/lib/api/queries/groups';
-import { useAuth } from '@clerk/nextjs';
-import { Users, Calendar } from 'lucide-react';
+import { useAuth, useUser } from '@clerk/nextjs';
+import { Users } from 'lucide-react';
 import { MemberList } from '@/app/components/member-list';
 import { GenerateInviteModal } from '@/app/components/generate-invite-modal';
 import { InviteList } from '@/app/components/invite-list';
 import { ManageGroupModal } from '@/app/components/manage-group-modal';
 import { CreateGroupRoomForm } from '@/app/components/create-group-room-form';
+import { RecentActivity } from '@/app/components/recent-activity';
 
 export default function GroupDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { data: groupDetail, isLoading, error } = useGroupDetail(params.groupId as string);
   const { isSignedIn, userId } = useAuth();
+  const { user } = useUser();
 
   const groupId = params.groupId as string;
 
@@ -159,11 +162,7 @@ export default function GroupDetailPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  <Calendar className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>No recent activity yet</p>
-                  <p className="text-sm">Start playing to see your group&apos;s activity here!</p>
-                </div>
+                <RecentActivity groupId={groupId} />
               </CardContent>
             </Card>
           </div>
@@ -204,14 +203,21 @@ export default function GroupDetailPage() {
               </CardHeader>
               <CardContent className="space-y-2">
                 <CreateGroupRoomForm
-                  onRoomCreated={(roomCode) => {
-                    // Navigate to the created room
-                    window.location.href = `/room/${roomCode}`;
+                  onRoomCreated={(roomCode, selectedGroupId) => {
+                    // Store authenticated user info in sessionStorage for room page
+                    if (user) {
+                      sessionStorage.setItem('playerId', user.id);
+                      sessionStorage.setItem('playerName', user.firstName || user.username || 'Anonymous');
+                    }
+                    // Navigate to the group room using the selected group ID
+                    router.push(`/groups/${selectedGroupId}/rooms/${roomCode}`);
                   }}
                 />
-                <Button variant="outline" className="w-full" disabled>
-                  View Leaderboard
-                </Button>
+                <Link href={`/groups/${groupId}/leaderboard`}>
+                  <Button variant="outline" className="w-full mb-2">
+                    View Leaderboard
+                  </Button>
+                </Link>
                 {isAdmin && (
                   <GenerateInviteModal
                     groupId={groupId}

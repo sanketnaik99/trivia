@@ -23,14 +23,14 @@ export async function handleComplete(io: Server, socket: Socket, payload: { resu
   if (!room.groupId) return; // Only for group rooms
 
   try {
-    await leaderboardService.updateGroupLeaderboard(room.groupId, roomCode, payload.results);
+    const updateResult = await leaderboardService.updateGroupLeaderboard(room.groupId, roomCode, payload.results);
 
     // Broadcast leaderboard updated to group members
     io.to(`group:${room.groupId}`).emit('leaderboard:updated', {
       groupId: room.groupId,
-      roomCode,
       timestamp: Date.now(),
-      // TODO: Add updates array with userId, newTotal, pointsAdded, rank changes
+      updates: updateResult.updates,
+      topThree: updateResult.topThree,
     });
 
     logger.info('Leaderboard updated for completed game', { roomCode, groupId: room.groupId });

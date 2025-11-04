@@ -9,7 +9,9 @@ import type {
   CreateGroupRequest,
   CreateGroupResponse,
   UpdateGroupRequest,
-  Group
+  Group,
+  LeaderboardResponse,
+  GroupActivityResponse
 } from '../schemas/group.schema'
 import { useRouter } from 'next/navigation'
 
@@ -126,5 +128,52 @@ export function useDeleteGroup() {
       queryClient.invalidateQueries({ queryKey: queryKeys.groups })
       router.replace('/groups')
     },
+  })
+}
+
+// Query: Get group leaderboard
+export function useGroupLeaderboard(groupId: string, options?: { page?: number; limit?: number; sortBy?: 'totalPoints' | 'lastUpdated'; order?: 'asc' | 'desc' }) {
+  const { getToken } = useAuth()
+
+  const { page = 1, limit = 50, sortBy = 'totalPoints', order = 'desc' } = options || {}
+
+  return useQuery({
+    queryKey: [...queryKeys.leaderboard(groupId), { page, limit, sortBy, order }],
+    queryFn: async (): Promise<LeaderboardResponse> => {
+      const token = await getToken()
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+        sortBy,
+        order,
+      })
+      const response = await apiClient.get(`/groups/${groupId}/leaderboard?${params}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      return response.data.data
+    },
+    enabled: !!groupId && !!getToken,
+  })
+}
+
+// Query: Get group activity
+export function useGroupActivity(groupId: string, options?: { limit?: number }) {
+  const { getToken } = useAuth()
+
+  const { limit = 10 } = options || {}
+
+  return useQuery({
+    queryKey: [...queryKeys.groupDetail(groupId), 'activity', { limit }],
+    queryFn: async (): Promise<GroupActivityResponse> => {
+      const token = await getToken()
+      const params = new URLSearchParams({
+        limit: limit.toString(),
+      })
+      const response = await apiClient.get(`/groups/${groupId}/activity?${params}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      return response.data.data
+    },
+    enabled: !!groupId && !!getToken,
   })
 }

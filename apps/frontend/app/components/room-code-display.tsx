@@ -7,15 +7,20 @@ import { ShareButton } from '@/app/components/share-button';
 
 interface RoomCodeDisplayProps {
   roomCode: string;
+  groupId?: string;
 }
 
-export function RoomCodeDisplay({ roomCode }: RoomCodeDisplayProps) {
+export function RoomCodeDisplay({ roomCode, groupId }: RoomCodeDisplayProps) {
   const [copied, setCopied] = useState(false);
   
   // T063: Construct shareable URL
   const shareableUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/room/${roomCode}`
-    : `/room/${roomCode}`;
+    ? groupId 
+      ? `${window.location.origin}/groups/${groupId}/rooms/${roomCode}`
+      : `${window.location.origin}/room/${roomCode}`
+    : groupId 
+      ? `/groups/${groupId}/rooms/${roomCode}`
+      : `/room/${roomCode}`;
 
   const handleCopy = async () => {
     try {

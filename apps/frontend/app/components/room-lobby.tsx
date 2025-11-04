@@ -25,7 +25,7 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-4">
-      <RoomCodeDisplay roomCode={roomCode} />
+      <RoomCodeDisplay roomCode={roomCode} groupId={groupId} />
 
       {groupId && groupName && (
         <Card className="border-blue-200 bg-blue-50">

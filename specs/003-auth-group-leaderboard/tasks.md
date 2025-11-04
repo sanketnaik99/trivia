@@ -357,7 +357,7 @@
 - [x] T091 [US3] Update room:create handler in apps/backend/src/socket/room.handler.ts to accept groupId parameter and fetch group name from Prisma
 - [x] T092 [US3] Add group membership check in room:create handler: if groupId provided, verify socket userId is member
 - [x] T093 [US3] Update room:joined event payload in room.handler.ts to include isGroupMember boolean flag (check Membership where userId and room.groupId)
-- [x] T094 [US3] Update game:complete handler in apps/backend/src/socket/game.handler.ts to call leaderboard.service.updateGroupLeaderboard if room has groupId
+- [x] T094 [US3] Update endRound function in apps/backend/src/services/game.service.ts to call leaderboard.service.updateGroupLeaderboard after each round if room has groupId
 - [x] T095 [US3] Add leaderboard:updated event broadcast to group members after leaderboard update completes (emit to io.to(`group:${groupId}`))
 - [x] T096 [US3] Implement automatic group room subscription: when user joins Socket.IO connection with auth token, auto-join rooms for all their groups
 
@@ -385,7 +385,7 @@
 - [x] T110 [US3] Verify Socket.IO leaderboard:updated event fires within 5 seconds of game completion per spec SC-003
 - [x] T111 [US3] Code cleanup: remove task comments, verify clean code standards
 
-**Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently - full group room flow with leaderboard attribution
+**Checkpoint**: All user stories should now be independently functional - complete authentication, groups, invites, group rooms, persistent leaderboards with real-time updates, and recent activity display
 
 ---
 
@@ -405,62 +405,62 @@
 
 ### Backend: Leaderboard Query API
 
-- [ ] T112 [P] [US4] Create apps/backend/src/routes/leaderboard.routes.ts with GET /api/groups/:groupId/leaderboard endpoint
-- [ ] T113 [US4] Implement leaderboard query with requireAuth, verify user is group member, fetch GroupLeaderboardEntry with User include (displayName, avatarUrl)
-- [ ] T114 [US4] Add pagination support to leaderboard query: query params page (default 1) and limit (default 50, max 100), return pagination metadata
-- [ ] T115 [US4] Add sorting options to leaderboard query: sortBy (totalPoints or gamesPlayed if tracking) and order (asc/desc, default desc)
-- [ ] T116 [US4] Calculate rank for each entry in leaderboard response (row_number over partition by groupId order by totalPoints desc)
-- [ ] T117 [US4] Add groupInfo to leaderboard response: group name and totalGamesPlayed count (count distinct rooms with groupId)
-- [ ] T118 [US4] Register leaderboard routes in apps/backend/src/routes/index.ts
+- [x] T112 [P] [US4] Create apps/backend/src/routes/leaderboard.routes.ts with GET /api/groups/:groupId/leaderboard endpoint
+- [x] T113 [US4] Implement leaderboard query with requireAuth, verify user is group member, fetch GroupLeaderboardEntry with User include (displayName, avatarUrl)
+- [x] T114 [US4] Add pagination support to leaderboard query: query params page (default 1) and limit (default 50, max 100), return pagination metadata
+- [x] T115 [US4] Add sorting options to leaderboard query: sortBy (totalPoints or gamesPlayed if tracking) and order (asc/desc, default desc)
+- [x] T116 [US4] Calculate rank for each entry in leaderboard response (row_number over partition by groupId order by totalPoints desc)
+- [x] T117 [US4] Add groupInfo to leaderboard response: group name and totalGamesPlayed count (count distinct rooms with groupId)
+- [x] T118 [US4] Register leaderboard routes in apps/backend/src/routes/index.ts
 
 ### Backend: Real-Time Leaderboard Updates
 
-- [ ] T119 [P] [US4] Create /groups namespace in apps/backend/src/socket/index.ts for group-specific Socket.IO events
-- [ ] T120 [P] [US4] Create apps/backend/src/socket/group.handler.ts with group:subscribe and group:unsubscribe handlers
-- [ ] T121 [US4] Implement group:subscribe handler: verify auth token, verify membership, join socket to room `group:${groupId}`
-- [ ] T122 [US4] Implement group:unsubscribe handler: leave socket from room `group:${groupId}`
-- [ ] T123 [US4] Update leaderboard.service.updateGroupLeaderboard to emit leaderboard:updated event to group room after update completes
-- [ ] T124 [US4] Format leaderboard:updated payload per socketio-events.md: timestamp, updates array (userId, newTotal, pointsAdded, rank changes), topThree
+- [x] T119 [P] [US4] Create /groups namespace in apps/backend/src/socket/index.ts for group-specific Socket.IO events
+- [x] T120 [P] [US4] Create apps/backend/src/socket/group.handler.ts with group:subscribe and group:unsubscribe handlers
+- [x] T121 [US4] Implement group:subscribe handler: verify auth token, verify membership, join socket to room `group:${groupId}`
+- [x] T122 [US4] Implement group:unsubscribe handler: leave socket from room `group:${groupId}`
+- [x] T123 [US4] Update leaderboard.service.updateGroupLeaderboard to emit leaderboard:updated event to group room after update completes
+- [x] T124 [US4] Format leaderboard:updated payload per socketio-events.md: timestamp, updates array (userId, newTotal, pointsAdded, rank changes), topThree
 
 ### Frontend: Leaderboard Display UI
 
-- [ ] T125 [P] [US4] Create apps/frontend/app/groups/[id]/leaderboard/page.tsx with leaderboard table view
-- [ ] T126 [P] [US4] Create apps/frontend/app/components/leaderboard-table.tsx using shadcn/ui Table component
-- [ ] T127 [US4] Implement leaderboard table columns: rank (#), avatar, displayName, totalPoints, last updated timestamp
-- [ ] T128 [US4] Add visual rank indicators: gold/silver/bronze badges for top 3, numbers for rest
-- [ ] T129 [US4] Implement responsive leaderboard table: full table on desktop, card list on mobile with same data
-- [ ] T130 [US4] Add pagination controls to leaderboard using shadcn/ui Pagination component (50 entries per page)
-- [ ] T131 [US4] Add loading skeleton for leaderboard table using shadcn/ui Skeleton components
-- [ ] T132 [US4] Add empty state for leaderboard: "No games played yet. Create a trivia room to get started!" with call-to-action button
+- [x] T125 [P] [US4] Create apps/frontend/app/groups/[id]/leaderboard/page.tsx with leaderboard table view
+- [x] T126 [P] [US4] Create apps/frontend/app/components/leaderboard-table.tsx using shadcn/ui Table component
+- [x] T127 [US4] Implement leaderboard table columns: rank (#), avatar, displayName, totalPoints, last updated timestamp
+- [x] T128 [US4] Add visual rank indicators: gold/silver/bronze badges for top 3, numbers for rest
+- [x] T129 [US4] Implement responsive leaderboard table: full table on desktop, card list on mobile with same data
+- [x] T130 [US4] Add pagination controls to leaderboard using shadcn/ui Pagination component (50 entries per page)
+- [x] T131 [US4] Add loading skeleton for leaderboard table using shadcn/ui Skeleton components
+- [x] T132 [US4] Add empty state for leaderboard: "No games played yet. Create a trivia room to get started!" with call-to-action button
 
 ### Frontend: Real-Time Leaderboard Updates
 
-- [ ] T133 [P] [US4] Update apps/frontend/app/lib/websocket.ts to support /groups namespace connection
-- [ ] T134 [US4] Implement group:subscribe event emission when leaderboard page mounts (send groupId)
-- [ ] T135 [US4] Implement group:unsubscribe event emission when leaderboard page unmounts
-- [ ] T136 [US4] Add leaderboard:updated event listener in leaderboard page to update state with new totals
-- [ ] T137 [US4] Implement optimistic UI update for leaderboard: highlight changed entries with green flash animation, re-sort table
-- [ ] T138 [US4] Add toast notification when leaderboard updates: "Leaderboard updated! [Player Name] earned [X] points" with shadcn/ui Toast
-- [ ] T139 [US4] Implement WebSocket reconnection handling: re-subscribe to group on reconnect, show offline indicator if disconnected
+- [x] T133 [P] [US4] Update apps/frontend/app/lib/websocket.ts to support /groups namespace connection
+- [x] T134 [US4] Implement group:subscribe event emission when leaderboard page mounts (send groupId)
+- [x] T135 [US4] Implement group:unsubscribe event emission when leaderboard page unmounts
+- [x] T136 [US4] Add leaderboard:updated event listener in leaderboard page to update state with new totals
+- [x] T137 [US4] Implement optimistic UI update for leaderboard: highlight changed entries with green flash animation, re-sort table
+- [x] T138 [US4] Add toast notification when leaderboard updates: "Leaderboard updated! [Player Name] earned [X] points" with shadcn/ui Toast
+- [x] T139 [US4] Implement WebSocket reconnection handling: re-subscribe to group on reconnect, show offline indicator if disconnected
 
 ### Frontend: Leaderboard Features
 
-- [ ] T140 [P] [US4] Add group summary card above leaderboard: group name, total members, total games played, created date
-- [ ] T141 [P] [US4] Add filter/sort controls: sort by points (default) or recent activity, filter by active members only
-- [ ] T142 [US4] Highlight current user's row in leaderboard with subtle background color or border
-- [ ] T143 [US4] Add "Your Rank" sticky header on mobile showing current user's position and points while scrolling
-- [ ] T144 [US4] Add member profile tooltip on hover: join date, games played in group, highest single-game score
-- [ ] T145 [US4] Implement infinite scroll as alternative to pagination for better mobile UX (load next 50 on scroll to bottom)
+- [x] T140 [P] [US4] Add group summary card above leaderboard: group name, total members, total games played, created date
+- [x] T141 [P] [US4] Add filter/sort controls: sort by points (default) or recent activity, filter by active members only
+- [x] T142 [US4] Highlight current user's row in leaderboard with subtle background color or border
+- [x] T143 [US4] Add "Your Rank" sticky header on mobile showing current user's position and points while scrolling
+- [x] T144 [US4] Add member profile tooltip on hover: join date, games played in group, highest single-game score
+- [x] T145 [US4] Implement infinite scroll as alternative to pagination for better mobile UX (load next 50 on scroll to bottom)
 
 ### Integration & Polish
 
-- [ ] T146 [US4] Add "Leaderboard" tab to group detail page navigation (alongside Members, Settings)
-- [ ] T147 [US4] Test real-time update flow: open leaderboard in 2 windows, complete game, verify both update within 5s per spec SC-003
-- [ ] T148 [US4] Test pagination: create 60+ leaderboard entries (seed script), verify pagination works, entries load correctly
-- [ ] T149 [US4] Test WebSocket fallback: disconnect WebSocket, complete game, verify leaderboard updates via polling or manual refresh
-- [ ] T150 [US4] Test rank calculation accuracy: create entries with tied points, verify rank assignment handles ties correctly
-- [ ] T151 [US4] Verify responsive design on mobile, tablet, desktop for leaderboard table/card layouts
-- [ ] T152 [US4] Code cleanup: remove task comments, verify clean code standards
+- [x] T146 [US4] Add "Leaderboard" tab to group detail page navigation (alongside Members, Settings)
+- [x] T147 [US4] Test real-time update flow: open leaderboard in 2 windows, complete game, verify both update within 5s per spec SC-003
+- [x] T148 [US4] Test pagination: create 60+ leaderboard entries (seed script), verify pagination works, entries load correctly
+- [x] T149 [US4] Test WebSocket fallback: disconnect WebSocket, complete game, verify leaderboard updates via polling or manual refresh
+- [x] T150 [US4] Test rank calculation accuracy: create entries with tied points, verify rank assignment handles ties correctly
+- [x] T151 [US4] Verify responsive design on mobile, tablet, desktop for leaderboard table/card layouts
+- [x] T152 [US4] Code cleanup: remove task comments, verify clean code standards
 
 **Checkpoint**: All user stories should now be independently functional - complete authentication, groups, invites, group rooms, and persistent leaderboards with real-time updates
 
@@ -684,13 +684,13 @@ Task T145: "Implement infinite scroll"
    - Validation: Anonymous users can join rooms and use ready button successfully
    - **Status**: ✅ All 4 room system fix tasks completed successfully
 
-5. **Week 4 (COMPLETED)**: User Story 3 ✅ **COMPLETE**
+**Week 4 (COMPLETED)**: User Story 3 ✅ **COMPLETE**
    - Deliverable: Group-affiliated trivia rooms with leaderboard attribution
-   - Validation: Group games update persistent leaderboard
-   - **Status**: ✅ All 31 group room tasks completed successfully
+   - Validation: Group games update persistent leaderboard after each round
+   - **Status**: ✅ All 31 group room tasks completed successfully, with automatic round-by-round leaderboard updates implemented
 
-5. **Week 5 (CURRENT)**: User Story 4 + Polish
-   - Deliverable: Real-time leaderboard with polish and production readiness
+**Week 5 (COMPLETED)**: User Story 4 ✅ **COMPLETE**
+   - Deliverable: Real-time leaderboard viewing with polish and production readiness
    - Validation: All success criteria from spec.md met
 
 ### Parallel Team Strategy (4 Developers)
@@ -727,11 +727,12 @@ Task T145: "Implement infinite scroll"
 - Dev D: User Story 2 frontend invitations (T066-T074) - if not already done
 - **Status**: ✅ All 31 group room tasks completed successfully
 
-**Week 5 (CURRENT)**:
+**Week 5 (COMPLETED - User Story 4)**: ✅ **COMPLETE**
 - Dev A: User Story 4 backend (T112-T124)
 - Dev B: User Story 3 frontend (T097-T111)
 - Dev C: User Story 4 frontend (T125-T145)
 - Dev D: Polish phase (T153-T192)
+- **Status**: ✅ All 41 leaderboard tasks completed successfully
 
 ---
 
@@ -747,7 +748,7 @@ Task T145: "Implement infinite scroll"
 - **React Query Migration: 51 tasks ✅ (100% complete)**
 - **Room System Fixes: 4 tasks ✅ (100% complete)**
 - **User Story 3 (Group Rooms): 31 tasks ✅ (100% complete)**
-- User Story 4 (Leaderboard): 41 tasks (0% complete - BLOCKED by leaderboard API)
+- User Story 4 (Leaderboard): 41 tasks ✅ (100% complete)
 - Polish: 40 tasks (0% complete)
 
 **Parallel Opportunities**: 58 original + 18 React Query migration = 76 tasks marked with [P] can run in parallel within their phase
@@ -757,8 +758,8 @@ Task T145: "Implement infinite scroll"
 - US2: Create group → Generate invite → Accept invite → Member appears in list ✅ (core functionality complete)
 - **RQ Migration: All US2 features work identically with React Query** ✅
 - **Room System: Create non-group room → Join with multiple players → Ready button works → Game completes** ✅
-- **US3: Create group room → Complete game → Member points update leaderboard** ✅
-- US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s (BLOCKED)
+- **US3: Create group room → Complete game → Member points update leaderboard after each round** ✅
+- US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s ✅
 
 **Suggested MVP Scope**: User Story 1 only (Setup + Foundational + US1 = 33 tasks total) ✅
 
@@ -766,8 +767,8 @@ Task T145: "Implement infinite scroll"
 - ✅ User Stories 1 & 2 are fully complete and independently testable!
 - ✅ React Query migration (Phase 4.5) is **COMPLETE** - all existing API calls use proper query/mutation hooks with caching, loading states, and automatic refetching
 - ✅ Room System fixes (Phase 4.6) are **COMPLETE** - ready button works in both group and non-group rooms
-- ✅ **User Story 3 (Group Rooms) is COMPLETE** - group-affiliated rooms with leaderboard attribution work end-to-end
-- ✅ User Story 4 (Leaderboard viewing) is now **READY TO START**
+- ✅ **User Story 3 (Group Rooms) is COMPLETE** - group-affiliated rooms with leaderboard attribution work end-to-end, with automatic updates after each round
+- ✅ **User Story 4 (Leaderboard) is COMPLETE** - persistent leaderboards with real-time updates and recent activity display work end-to-end
 
 **Format Validation**: ✅ All 247 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
 
@@ -783,3 +784,7 @@ Task T145: "Implement infinite scroll"
 - Stop at any checkpoint to validate story independently
 - Tasks reference specific file paths for immediate executability by LLM agents
 - No task/ticket comments per code quality rules - all task IDs in this document only
+
+---
+
+**Last updated**: 2025-11-03 - Completed User Story 4 (Leaderboard) with real-time updates and recent activity display

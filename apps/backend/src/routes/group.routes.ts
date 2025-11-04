@@ -4,6 +4,7 @@ import { membershipService } from '../services/membership.service';
 import { inviteService } from '../services/invite.service';
 import { requireAuth } from '../middleware/auth.middleware';
 import { asyncHandler, AppError } from '../utils/error-handler.util';
+import prisma from '../config/prisma';
 
 const router = Router();
 
@@ -48,6 +49,23 @@ router.get('/:groupId', asyncHandler(async (req: Request, res: Response) => {
   res.json({
     success: true,
     data: group,
+  });
+}));
+
+// Check user's membership in group
+router.get('/:groupId/membership', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId } = req.params;
+  const userId = req.userId!;
+
+  const membership = await membershipService.getUserMembership(groupId, userId);
+
+  res.json({
+    success: true,
+    data: {
+      isMember: !!membership && membership.status === 'ACTIVE',
+      role: membership?.role || null,
+      status: membership?.status || null,
+    },
   });
 }));
 
@@ -182,6 +200,123 @@ router.delete('/:groupId/invites/:inviteId', asyncHandler(async (req: Request, r
   res.json({
     success: true,
     message: 'Invite revoked successfully',
+  });
+}));
+
+// Get group recent activity
+router.get('/:groupId/activity', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId } = req.params;
+  const { limit = '10' } = req.query;
+  const userId = req.userId!;
+
+  // Verify user is a member of the group
+  const membership = await membershipService.getUserMembership(groupId, userId);
+  if (!membership || membership.status !== 'ACTIVE') {
+    throw new AppError('FORBIDDEN', 'You must be a member of this group to view activity', 403);
+  }
+
+  const limitNum = Math.min(parseInt(limit as string, 10), 50); // Max 50 items
+
+  // Get recent leaderboard updates (last 30 days)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const leaderboardUpdates = await prisma.groupLeaderboardEntry.findMany({
+    where: {
+      groupId,
+      lastUpdated: {
+        gte: thirtyDaysAgo,
+      },
+    },
+    include: {
+      user: {
+        select: {
+          displayName: true,
+          avatarUrl: true,
+        },
+      },
+    },
+    orderBy: {
+      lastUpdated: 'desc',
+    },
+    take: limitNum,
+  });
+
+  // Get recent rooms created in this group (last 30 days)
+  const recentRooms = await prisma.room.findMany({
+    where: {
+      groupId,
+      createdAt: {
+        gte: thirtyDaysAgo,
+      },
+    },
+    include: {
+      creator: {
+        select: {
+          displayName: true,
+          avatarUrl: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: limitNum,
+  });
+
+  // Combine and sort activities
+  const activities: Array<{
+    id: string;
+    type: 'leaderboard_update' | 'room_created';
+    timestamp: Date;
+    user: {
+      displayName: string;
+      avatarUrl?: string;
+    };
+    data: Record<string, any>;
+  }> = [];
+
+  // Add leaderboard updates
+  leaderboardUpdates.forEach((update: any) => {
+    activities.push({
+      id: `leaderboard-${update.userId}-${update.lastUpdated.getTime()}`,
+      type: 'leaderboard_update',
+      timestamp: update.lastUpdated,
+      user: {
+        displayName: update.user.displayName,
+        avatarUrl: update.user.avatarUrl || undefined,
+      },
+      data: {
+        points: update.totalPoints,
+      },
+    });
+  });
+
+  // Add room creations
+  recentRooms.forEach((room: any) => {
+    activities.push({
+      id: `room-${room.id}`,
+      type: 'room_created',
+      timestamp: room.createdAt,
+      user: {
+        displayName: room.creator?.displayName || 'Unknown',
+        avatarUrl: room.creator?.avatarUrl || undefined,
+      },
+      data: {
+        roomCode: room.code,
+      },
+    });
+  });
+
+  // Sort by timestamp descending and limit
+  activities.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+  const limitedActivities = activities.slice(0, limitNum);
+
+  res.json({
+    success: true,
+    data: {
+      activities: limitedActivities,
+    },
   });
 }));
 

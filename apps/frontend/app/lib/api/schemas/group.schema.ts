@@ -113,3 +113,46 @@ export interface CreateGroupResponse {
 }
 
 export type GroupDetailResponse = GroupDetail
+
+export interface LeaderboardEntry {
+  rank: number
+  userId: string
+  displayName: string
+  avatarUrl?: string
+  totalPoints: number
+  gamesPlayed?: number
+  lastUpdated: string
+}
+
+export interface LeaderboardResponse {
+  leaderboard: LeaderboardEntry[]
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+  groupInfo: {
+    id: string
+    name: string
+    totalGamesPlayed: number
+  }
+}
+
+export interface GroupActivity {
+  id: string
+  type: 'leaderboard_update' | 'room_created'
+  timestamp: string
+  user: {
+    displayName: string
+    avatarUrl?: string
+  }
+  data: {
+    points?: number
+    roomCode?: string
+  }
+}
+
+export interface GroupActivityResponse {
+  activities: GroupActivity[]
+}

@@ -57,7 +57,13 @@ class RoomService {
     const room = roomStore.getRoom(code);
     if (!room) return { exists: false, canJoin: false, participantCount: 0, gameState: 'lobby' as const };
     const canJoin = room.gameState !== 'active';
-    return { exists: true, canJoin, participantCount: room.participants.size, gameState: room.gameState };
+    return { 
+      exists: true, 
+      canJoin, 
+      participantCount: room.participants.size, 
+      gameState: room.gameState,
+      groupId: room.groupId 
+    };
   }
 
   addParticipant(code: string, name: string, userId?: string | null): Participant {

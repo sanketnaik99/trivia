@@ -153,6 +153,14 @@ export class MembershipService {
     });
   }
 
+  async getUserMembership(groupId: string, userId: string) {
+    return await prisma.membership.findUnique({
+      where: {
+        userId_groupId: { userId, groupId },
+      },
+    });
+  }
+
   async checkAdminPermission(groupId: string, userId: string): Promise<boolean> {
     const membership = await prisma.membership.findUnique({
       where: {
@@ -161,6 +169,16 @@ export class MembershipService {
     });
 
     return membership?.role === 'ADMIN' && membership?.status === 'ACTIVE' || false;
+  }
+
+  async checkActiveMembership(groupId: string, userId: string): Promise<boolean> {
+    const membership = await prisma.membership.findUnique({
+      where: {
+        userId_groupId: { userId, groupId },
+      },
+    });
+
+    return membership?.status === 'ACTIVE' || false;
   }
 
   async getActiveMemberCount(groupId: string): Promise<number> {

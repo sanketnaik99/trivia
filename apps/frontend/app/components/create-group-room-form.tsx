@@ -9,7 +9,7 @@ import { Loader2 } from 'lucide-react';
 import SocketClient from '@/app/lib/websocket';
 
 interface CreateGroupRoomFormProps {
-  onRoomCreated?: (roomCode: string) => void;
+  onRoomCreated?: (roomCode: string, groupId: string) => void;
 }
 
 interface RoomCreatedData {
@@ -19,7 +19,7 @@ interface RoomCreatedData {
 
 export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps) {
   const { data: groupsResponse, isLoading } = useGroups();
-  const { getToken } = useAuth();
+  const { getToken, isSignedIn } = useAuth();
   const [selectedGroupId, setSelectedGroupId] = useState<string>('');
   const [isCreating, setIsCreating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -28,21 +28,34 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
   const userGroups = groupsResponse?.groups || [];
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !isSignedIn) return;
 
     // Initialize socket client when modal opens
     const initializeSocket = async () => {
       try {
+        console.log('Initializing socket, isSignedIn:', isSignedIn);
         const token = await getToken();
+        console.log('Token retrieved:', token ? `${token.substring(0, 20)}...` : 'null/undefined');
+        
+        if (!token) {
+          console.error('No auth token available for socket connection');
+          return;
+        }
+
         const client = new SocketClient({
           options: {
-            auth: { token }
+            auth: { token },
+            query: { token },
+            extraHeaders: {
+              Authorization: `Bearer ${token}`
+            }
           }
         });
         socketClientRef.current = client;
 
         // Connect to socket
         await client.connect();
+        console.log('Socket connected successfully');
 
         // Listen for room creation response
         client.on('ROOM_CREATED', (data: unknown) => {
@@ -51,11 +64,19 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
           if (roomData.code) {
             setIsCreating(false);
             setIsOpen(false);
-            onRoomCreated?.(roomData.code);
+            onRoomCreated?.(roomData.code, selectedGroupId);
           }
         });
+
+        // Also listen for ERROR events
+        client.on('ERROR', (error: unknown) => {
+          console.error('Socket error:', error);
+          setIsCreating(false);
+        });
+
       } catch (error) {
         console.error('Failed to initialize socket:', error);
+        setIsCreating(false);
       }
     };
 
@@ -67,7 +88,7 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
         socketClientRef.current = null;
       }
     };
-  }, [isOpen, onRoomCreated, getToken]);
+  }, [isOpen, onRoomCreated, getToken, isSignedIn, selectedGroupId]);
 
   const handleCreateRoom = async () => {
     if (!selectedGroupId || !socketClientRef.current) return;

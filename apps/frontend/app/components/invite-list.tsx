@@ -108,21 +108,21 @@ export function InviteList({ groupId }: InviteListProps) {
           <div className="space-y-4">
             {invites.map((invite) => (
               <div key={invite.id} className={`border rounded-lg p-4 ${getExpiryInfo(invite.expiresAt).urgent && !isExpired(invite.expiresAt) ? 'border-orange-200 bg-orange-50' : ''}`}>
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start justify-between flex-wrap mb-3">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <Badge variant={invite.status === 'ACTIVE' && !isExpired(invite.expiresAt) ? "secondary" : "destructive"}>
                         {isExpired(invite.expiresAt) ? "Expired" : invite.status === 'ACTIVE' ? "Active" : invite.status}
                       </Badge>
-                      {getExpiryInfo(invite.expiresAt).urgent && (
+                    </div>
+                    {getExpiryInfo(invite.expiresAt).urgent && (
                         <Badge variant="outline" className="text-orange-600 border-orange-600">
                           {getExpiryInfo(invite.expiresAt).text}
                         </Badge>
                       )}
-                      <span className="text-sm text-muted-foreground">
+                    <div className="text-sm text-muted-foreground">
                         Created by {invite.creator?.displayName || 'Unknown'}
-                      </span>
-                    </div>
+                      </div>
                     <div className="text-sm text-muted-foreground">
                       Expires: {new Date(invite.expiresAt).toLocaleDateString()}
                     </div>

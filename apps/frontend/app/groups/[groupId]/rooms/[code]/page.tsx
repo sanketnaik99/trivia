@@ -365,7 +365,10 @@ export default function GroupRoomPage() {
   const { data: groupMembership, isLoading: isCheckingMembership } = useQuery({
     queryKey: ['group-membership', groupId],
     queryFn: async () => {
-      const response = await apiClient.get(`/groups/${groupId}/membership`);
+      const token = await getToken();
+      const response = await apiClient.get(`/groups/${groupId}/membership`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       return response.data;
     },
     enabled: !!groupId && isSignedIn,
@@ -380,7 +383,7 @@ export default function GroupRoomPage() {
       return { errorMessage: 'Authentication required for group rooms', canConnect: false };
     }
 
-    if (groupMembership && !groupMembership.isMember) {
+    if (groupMembership && !groupMembership.data?.isMember) {
       return { errorMessage: 'You are not a member of this group', canConnect: false };
     }
 
@@ -403,7 +406,7 @@ export default function GroupRoomPage() {
       return { errorMessage: 'This room does not belong to the specified group', canConnect: false };
     }
 
-    const ready = isSignedIn && user && groupMembership?.isMember && validation?.exists && validation?.canJoin && validation?.groupId === groupId;
+    const ready = isSignedIn && user && groupMembership?.data?.isMember && validation?.exists && validation?.canJoin && validation?.groupId === groupId;
     return { errorMessage: null, canConnect: ready };
   }, [isUserLoaded, isSignedIn, user, groupMembership, validation, validationError, groupId]);
 
