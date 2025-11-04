@@ -89,9 +89,6 @@ export default function GroupDetailPage() {
   const isAdmin = userRole === 'ADMIN';
 
   // Since React Query handles invalidation automatically, we don't need callback functions
-  const handleGroupUpdate = () => {}; // No-op, React Query will refetch
-  const handleMemberUpdate = () => {}; // No-op, React Query will refetch
-  const handleInviteUpdate = () => {}; // No-op, React Query will refetch
 
   return (
     <div className="min-h-screen bg-background p-4">

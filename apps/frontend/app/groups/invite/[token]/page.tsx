@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { useApiClient } from '@/app/lib/api-client';
-import { ApiResponse, BackendApiResponse } from '@/app/lib/types';
+import { API_CONFIG } from '@/app/lib/config';
+import { BackendApiResponse } from '@/app/lib/types';
 import { useAuth } from '@clerk/nextjs';
 import { useAcceptInvite } from '@/app/lib/api/queries/invites';
 import { Users, CheckCircle, XCircle, Clock } from 'lucide-react';
@@ -32,12 +32,6 @@ interface InviteInfo {
   isExpired: boolean;
 }
 
-interface AcceptInviteResponse {
-  membership: {
-    id: string;
-    role: string;
-  };
-}
 
 export default function InvitePage() {
   const params = useParams();
@@ -46,32 +40,33 @@ export default function InvitePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const api = useApiClient();
   const { isSignedIn, isLoaded } = useAuth();
   const acceptInviteMutation = useAcceptInvite();
 
   const token = params.token as string;
 
+
   const loadInviteInfo = useCallback(async () => {
     try {
-      const response = await api.get(`/groups/invite/${token}`) as ApiResponse<BackendApiResponse<InviteInfo>>;
-      if (response.error) {
-        if (response.error.code === 'NOT_FOUND') {
+      const apiBase = API_CONFIG.baseUrl.replace(/\/$/, '');
+      const response = await fetch(`${apiBase}/api/groups/invite/${token}`);
+      const data = await response.json();
+      if (data?.error) {
+        if (data.error.code === 'NOT_FOUND') {
           setError('Invalid or expired invite link');
         } else {
-          setError(response.error.message);
+          setError(data.error.message);
         }
         return;
       }
-
-      const backendData = response.data as BackendApiResponse<InviteInfo>;
+      const backendData = data.data as BackendApiResponse<InviteInfo>;
       setInviteInfo(backendData.data!);
     } catch {
       setError('Failed to load invite information');
     } finally {
       setIsLoading(false);
     }
-  }, [api, token]);
+  }, [token]);
 
   useEffect(() => {
     if (!isLoaded) return;

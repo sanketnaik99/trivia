@@ -14,8 +14,9 @@ import { WaitingState } from '@/app/components/waiting-state';
 import { Loading } from '@/app/components/loading';
 import { ErrorDisplay } from '@/app/components/error-display';
 import { SessionLostModal } from '@/app/components/session-lost-modal';
-import { API_CONFIG } from '@/app/lib/config';
 import dynamic from 'next/dynamic';
+import { apiClient } from '@/app/lib/api/client';
+import { useQuery } from '@tanstack/react-query';
 
 const RoundResults = dynamic(() => import('@/app/components/round-results'), { ssr: false });
 
@@ -385,77 +386,51 @@ export default function RoomPage() {
     }
   };
 
+  // React Query: Validate room before joining
+  const { data: validation, isLoading: isValidating, error: validationError } = useQuery({
+    queryKey: ['room-validate', roomCode],
+    queryFn: async () => {
+      const response = await apiClient.get(`/api/room/${roomCode}/validate`);
+      return response.data;
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
   useEffect(() => {
-    // T060: Validate room before joining
-    const validateRoom = async () => {
-      try {
-        const apiBase = API_CONFIG.baseUrl.replace(/\/$/, '');
-        const response = await fetch(`${apiBase}/api/room/${roomCode}/validate`);
-        
-        if (response.status === 404) {
-          setError('Room not found. Please check the room code.');
-          setConnectionStatus('disconnected');
-          return;
-        }
-        
-        if (!response.ok) {
-          setError('Unable to validate room. Please try again.');
-          setConnectionStatus('disconnected');
-          return;
-        }
-        
-        const validation = await response.json();
-        
-        // T062: Handle different validation states
-        if (!validation.exists) {
-          setError('Room not found. Please check the room code.');
-          setConnectionStatus('disconnected');
-          return;
-        }
-        
-        if (!validation.canJoin) {
-          if (validation.gameState === 'active') {
-            setError('Game is already in progress. Please wait for the next round.');
-          } else {
-            setError('Unable to join room. It may be full or unavailable.');
-          }
-          setConnectionStatus('disconnected');
-          return;
-        }
-        
-        // Room is valid, proceed to get player info and connect
-        const storedPlayerId = sessionStorage.getItem('playerId');
-        const storedPlayerName = sessionStorage.getItem('playerName');
-
-        if (!storedPlayerId || !storedPlayerName) {
-          // T061: Show join form for shareable link access
-          setNeedsPlayerInfo(true);
-          setConnectionStatus('disconnected');
-          return;
-        }
-
-        setPlayerId(storedPlayerId);
-        userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
-
-        // Connect to WebSocket
-        connectWebSocket();
-      } catch (err) {
-        console.error('Error validating room:', err);
-        setError('Unable to connect to room. Please try again.');
-        setConnectionStatus('disconnected');
+    if (isValidating) return;
+    if (validationError) {
+      setError('Unable to connect to room. Please try again.');
+      setConnectionStatus('disconnected');
+      return;
+    }
+    if (!validation) return;
+    if (!validation.exists) {
+      setError('Room not found. Please check the room code.');
+      setConnectionStatus('disconnected');
+      return;
+    }
+    if (!validation.canJoin) {
+      if (validation.gameState === 'active') {
+        setError('Game is already in progress. Please wait for the next round.');
+      } else {
+        setError('Unable to join room. It may be full or unavailable.');
       }
-    };
-    
-    validateRoom();
-
-    return () => {
-      // Cleanup on unmount
-      if (wsRef.current) {
-        wsRef.current.disconnect();
-      }
-      // No manual reconnect timers to clear with Socket.IO
-    };
-  }, [roomCode, router, connectWebSocket]);
+      setConnectionStatus('disconnected');
+      return;
+    }
+    // Room is valid, proceed to get player info and connect
+    const storedPlayerId = sessionStorage.getItem('playerId');
+    const storedPlayerName = sessionStorage.getItem('playerName');
+    if (!storedPlayerId || !storedPlayerName) {
+      setNeedsPlayerInfo(true);
+      setConnectionStatus('disconnected');
+      return;
+    }
+    setPlayerId(storedPlayerId);
+    userInfoRef.current = { userId: storedPlayerId, userName: storedPlayerName };
+    connectWebSocket();
+  }, [isValidating, validation, validationError, connectWebSocket]);
 
   if (error) {
     return (
