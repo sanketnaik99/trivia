@@ -12,6 +12,8 @@ export interface Participant {
   score?: number;
   roundsWon?: number;
   lastWinTimestamp?: number | null;
+  isGroupMember?: boolean;
+  userId?: string | null;
 }
 
 export interface Question {

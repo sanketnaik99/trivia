@@ -4,11 +4,26 @@ import { generateRoomCode } from '../utils/room-code.util';
 import { config } from '../config/env';
 import { Participant, Room } from '../types/room.types';
 import { logger } from '../utils/logger.util';
+import prisma from '../config/prisma';
 
 class RoomService {
-  createRoom(): { code: string; room: Room } {
+  async createRoom(userId: string, groupId?: string | null): Promise<{ code: string; room: Room }> {
     if (roomStore.getRoomCount() >= config.maxRooms) {
       throw new Error('ROOM_LIMIT_REACHED');
+    }
+
+    // Validate group membership if groupId provided
+    if (groupId) {
+      const membership = await prisma.membership.findFirst({
+        where: {
+          userId,
+          groupId,
+          status: 'ACTIVE',
+        },
+      });
+      if (!membership) {
+        throw new Error('USER_NOT_GROUP_MEMBER');
+      }
     }
 
     // Ensure uniqueness (low collision probability; loop safeguard)
@@ -29,10 +44,12 @@ class RoomService {
       usedQuestionIds: [],
       createdAt: now,
       lastActivityAt: now,
+      groupId: groupId || null,
+      createdBy: userId,
     };
 
     roomStore.createRoom(code, room);
-    logger.info('Room created', { code });
+    logger.info('Room created', { code, groupId, userId });
     return { code, room };
   }
 
@@ -43,7 +60,7 @@ class RoomService {
     return { exists: true, canJoin, participantCount: room.participants.size, gameState: room.gameState };
   }
 
-  addParticipant(code: string, name: string): Participant {
+  addParticipant(code: string, name: string, userId?: string | null): Participant {
     const room = roomStore.getRoom(code);
     if (!room) throw new Error('ROOM_NOT_FOUND');
     if (room.gameState === 'active') throw new Error('GAME_IN_PROGRESS');
@@ -64,6 +81,7 @@ class RoomService {
       roundsWon: 0,
       lastWinTimestamp: null,
       joinedAt: Date.now(),
+      userId: userId || null,
     };
 
     room.participants.set(participant.id, participant);

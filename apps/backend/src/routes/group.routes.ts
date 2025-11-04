@@ -185,30 +185,4 @@ router.delete('/:groupId/invites/:inviteId', asyncHandler(async (req: Request, r
   });
 }));
 
-// Accept invite by token
-router.post('/invites/:token/accept', asyncHandler(async (req: Request, res: Response) => {
-  const { token } = req.params;
-  const userId = req.userId!;
-
-  const result = await inviteService.acceptInvite(token, userId);
-
-  res.json({
-    success: true,
-    data: result,
-  });
-}));
-
-// Accept invite by code
-router.post('/invites/code/:code/accept', asyncHandler(async (req: Request, res: Response) => {
-  const { code } = req.params;
-  const userId = req.userId!;
-
-  const result = await inviteService.acceptInviteByCode(code, userId);
-
-  res.json({
-    success: true,
-    data: result,
-  });
-}));
-
 export default router;

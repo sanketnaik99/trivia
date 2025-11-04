@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { API_CONFIG } from '@/app/lib/config';
 import { BackendApiResponse } from '@/app/lib/types';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, SignInButton } from '@clerk/nextjs';
 import { useAcceptInvite } from '@/app/lib/api/queries/invites';
 import { Users, CheckCircle, XCircle, Clock } from 'lucide-react';
 
@@ -49,7 +49,7 @@ export default function InvitePage() {
   const loadInviteInfo = useCallback(async () => {
     try {
       const apiBase = API_CONFIG.baseUrl.replace(/\/$/, '');
-      const response = await fetch(`${apiBase}/api/groups/invite/${token}`);
+      const response = await fetch(`${apiBase}/api/invites/${token}`);
       const data = await response.json();
       if (data?.error) {
         if (data.error.code === 'NOT_FOUND') {
@@ -59,7 +59,7 @@ export default function InvitePage() {
         }
         return;
       }
-      const backendData = data.data as BackendApiResponse<InviteInfo>;
+      const backendData = data as BackendApiResponse<InviteInfo>;
       setInviteInfo(backendData.data!);
     } catch {
       setError('Failed to load invite information');
@@ -72,13 +72,12 @@ export default function InvitePage() {
     if (!isLoaded) return;
 
     if (!isSignedIn) {
-      // Redirect to sign in with return URL
-      router.push(`/sign-in?redirect_url=${encodeURIComponent(window.location.pathname)}`);
+      // Don't redirect - we'll show sign-in prompt on the page
       return;
     }
 
     loadInviteInfo();
-  }, [isLoaded, isSignedIn, token, router, loadInviteInfo]);
+  }, [isLoaded, isSignedIn, token, loadInviteInfo]);
 
   const handleAcceptInvite = () => {
     if (!inviteInfo) return;
@@ -97,7 +96,18 @@ export default function InvitePage() {
     });
   };
 
-  if (!isLoaded || !isSignedIn) {
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="text-center">
+          <Clock className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -107,6 +117,11 @@ export default function InvitePage() {
               You need to sign in to accept this group invitation.
             </CardDescription>
           </CardHeader>
+          <CardContent>
+            <SignInButton mode="modal">
+              <Button className="w-full">Sign In to Accept Invite</Button>
+            </SignInButton>
+          </CardContent>
         </Card>
       </div>
     );
@@ -171,7 +186,14 @@ export default function InvitePage() {
   }
 
   if (!inviteInfo) {
-    return null;
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="text-center">
+          <Clock className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+          <p>Loading invite details...</p>
+        </div>
+      </div>
+    );
   }
 
   const { group, invite, isMember, isExpired } = inviteInfo;

@@ -46,7 +46,7 @@ export class InviteService {
 
     return {
       invite,
-      inviteLink: `${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/invite/${code}`,
+      inviteLink: `${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/groups/invite/${code}`,
       inviteCode: code,
     };
   }

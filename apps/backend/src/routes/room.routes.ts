@@ -1,6 +1,7 @@
 import express from 'express';
 import { roomService } from '../services/room.service';
 import { config } from '../config/env';
+import { requireAuth } from '../middleware/auth.middleware';
 
 export function registerRoomRoutes(app: express.Express) {
   const router = express.Router();
@@ -27,15 +28,36 @@ export function registerRoomRoutes(app: express.Express) {
   }
 
   // POST /api/room/create → { code, url }
-  router.post('/create', rateLimitCreate, (req: express.Request, res: express.Response) => {
+  router.post('/create', rateLimitCreate, async (req: express.Request, res: express.Response) => {
     try {
-      const { code } = roomService.createRoom();
+      const { groupId } = req.body as { groupId?: string };
+
+      let userId: string | undefined;
+      if (groupId) {
+        // Require auth for group rooms
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        if (!token) {
+          return res.status(401).json({ error: 'UNAUTHORIZED', message: 'Authentication required for group rooms' });
+        }
+        try {
+          const { clerkClient } = await import('@clerk/clerk-sdk-node');
+          const sessionClaims = await clerkClient.verifyToken(token);
+          userId = sessionClaims.sub;
+        } catch (err) {
+          return res.status(401).json({ error: 'UNAUTHORIZED', message: 'Invalid token' });
+        }
+      }
+
+      const { code } = await roomService.createRoom(userId || '', groupId);
       const url = `${config.frontendBaseUrl.replace(/\/$/, '')}/room/${code}`;
       return res.status(201).json({ code, url });
     } catch (err: unknown) {
       const e = err as Error;
       if (e?.message === 'ROOM_LIMIT_REACHED') {
         return res.status(429).json({ error: 'ROOM_LIMIT_REACHED' });
+      }
+      if (e?.message === 'USER_NOT_GROUP_MEMBER') {
+        return res.status(403).json({ error: 'USER_NOT_GROUP_MEMBER' });
       }
       return res.status(500).json({ error: 'INTERNAL_ERROR' });
     }

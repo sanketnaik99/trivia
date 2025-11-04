@@ -118,7 +118,7 @@ export function useAcceptInviteCode() {
   return useMutation({
     mutationFn: async (code: string): Promise<AcceptInviteResponse> => {
       const token = await getToken()
-      const response = await apiClient.post(`/invites/code/${code}/accept`, {}, {
+      const response = await apiClient.post(`/invites/accept-code`, { code }, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       })
       return response.data.data

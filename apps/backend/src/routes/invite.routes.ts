@@ -5,88 +5,34 @@ import { AppError } from '../utils/error-handler.util';
 
 const router = Router();
 
-// Rate limiting for invite generation (simple in-memory implementation)
-const inviteRateLimit = new Map<string, { count: number; resetTime: number }>();
-const MAX_INVITES_PER_HOUR = 10;
-const HOUR_MS = 60 * 60 * 1000;
-
-function checkRateLimit(userId: string): boolean {
-  const now = Date.now();
-  const userLimit = inviteRateLimit.get(userId);
-
-  if (!userLimit || now > userLimit.resetTime) {
-    inviteRateLimit.set(userId, { count: 1, resetTime: now + HOUR_MS });
-    return true;
-  }
-
-  if (userLimit.count >= MAX_INVITES_PER_HOUR) {
-    return false;
-  }
-
-  userLimit.count++;
-  return true;
-}
-
-// Generate invite for group
-router.post('/groups/:groupId/invites', requireAuth, async (req, res, next) => {
+// Get invite information by token (public route for invite page)
+router.get('/:token', async (req, res, next) => {
   try {
-    const { groupId } = req.params;
-    const { expiresInDays = 7 } = req.body;
-    const userId = req.userId!;
+    const { token } = req.params;
 
-    // Check rate limit
-    if (!checkRateLimit(userId)) {
-      throw new AppError('RATE_LIMITED', 'Too many invites generated. Please wait before creating more.', 429);
-    }
+    const invite = await inviteService.validateInvite(token);
 
-    const result = await inviteService.generateInvite({
-      groupId,
-      createdBy: userId,
-      expiresInDays,
-    });
-
+    // Return invite info with group details
     res.json({
       success: true,
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Get invites for group
-router.get('/groups/:groupId/invites', requireAuth, async (req, res, next) => {
-  try {
-    const { groupId } = req.params;
-    const { status } = req.query;
-    const userId = req.userId!;
-
-    const invites = await inviteService.getGroupInvites(
-      groupId,
-      userId,
-      status as 'ACTIVE' | 'USED' | 'REVOKED' | 'EXPIRED' | undefined
-    );
-
-    res.json({
-      success: true,
-      data: invites,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Revoke invite
-router.post('/invites/:inviteId/revoke', requireAuth, async (req, res, next) => {
-  try {
-    const { inviteId } = req.params;
-    const userId = req.userId!;
-
-    const invite = await inviteService.revokeInvite(inviteId, userId);
-
-    res.json({
-      success: true,
-      data: invite,
+      data: {
+        group: {
+          id: invite.group.id,
+          name: invite.group.name,
+          description: null, // Group doesn't have description field
+          privacy: invite.group.privacy,
+        },
+        invite: {
+          id: invite.id,
+          expiresAt: invite.expiresAt,
+          createdBy: {
+            firstName: invite.creator.displayName || '',
+            lastName: '',
+          },
+        },
+        isMember: false, // We'll check this on the frontend after auth
+        isExpired: false, // Already validated in validateInvite
+      },
     });
   } catch (error) {
     next(error);
@@ -94,7 +40,7 @@ router.post('/invites/:inviteId/revoke', requireAuth, async (req, res, next) => 
 });
 
 // Accept invite by token
-router.post('/invites/:token/accept', requireAuth, async (req, res, next) => {
+router.post('/:token/accept', requireAuth, async (req, res, next) => {
   try {
     const { token } = req.params;
     const userId = req.userId!;
@@ -111,7 +57,7 @@ router.post('/invites/:token/accept', requireAuth, async (req, res, next) => {
 });
 
 // Accept invite by code
-router.post('/invites/accept-code', requireAuth, async (req, res, next) => {
+router.post('/accept-code', requireAuth, async (req, res, next) => {
   try {
     const { code } = req.body;
     const userId = req.userId!;

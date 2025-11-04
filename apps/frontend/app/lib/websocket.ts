@@ -17,15 +17,21 @@ export class SocketClient {
   private socket: Socket | null = null;
   private handlers: Map<string, MessageHandler[]> = new Map();
   private url: string;
+  private options: Record<string, unknown>;
 
   constructor(config: SocketClientConfig = {}) {
     this.url = config.url || API_CONFIG.socketUrl;
+    this.options = config.options || {};
   }
 
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.socket = io(this.url, { transports: ['websocket'], autoConnect: true });
+        this.socket = io(this.url, { 
+          transports: ['websocket'], 
+          autoConnect: true,
+          ...this.options
+        });
 
         this.socket.on('connect', () => {
           console.log('[Socket.IO] connected', this.socket?.id);

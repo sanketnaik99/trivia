@@ -35,3 +35,217 @@
  [32m[1m✓[22m[39m Compiled in 36ms
  GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 246ms[2m (compile: 104ms, proxy.ts: 12ms, render: 130ms)[22m
  POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 21ms[2m (compile: 4ms, proxy.ts: 7ms, render: 9ms)[22m
+ [32m[1m✓[22m[39m Compiled in 53ms
+ [32m[1m✓[22m[39m Compiled in 47ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 581ms[2m (compile: 15ms, proxy.ts: 530ms, render: 36ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 17ms[2m (compile: 4ms, proxy.ts: 7ms, render: 6ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 79ms[2m (compile: 16ms, proxy.ts: 18ms, render: 45ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 16ms[2m (compile: 3ms, proxy.ts: 7ms, render: 6ms)[22m
+ GET /invite/428LBG [33m404[39m in 321ms[2m (compile: 291ms, proxy.ts: 8ms, render: 22ms)[22m
+ POST /invite/428LBG [33m404[39m in 14ms[2m (compile: 4ms, proxy.ts: 5ms, render: 5ms)[22m
+ GET /invite/428LBG [33m404[39m in 63ms[2m (compile: 14ms, proxy.ts: 11ms, render: 39ms)[22m
+ POST /invite/428LBG [33m404[39m in 10ms[2m (compile: 3ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 599ms[2m (compile: 558ms, proxy.ts: 10ms, render: 31ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 15ms[2m (compile: 4ms, proxy.ts: 7ms, render: 4ms)[22m
+ GET /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 17ms[2m (compile: 4ms, proxy.ts: 5ms, render: 9ms)[22m
+ GET /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 24ms[2m (compile: 2ms, proxy.ts: 4ms, render: 18ms)[22m
+ POST /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 12ms[2m (compile: 3ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 70ms[2m (compile: 12ms, proxy.ts: 11ms, render: 47ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 7ms, render: 3ms)[22m
+ GET /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 14ms[2m (compile: 3ms, proxy.ts: 4ms, render: 6ms)[22m
+ GET /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 26ms[2m (compile: 1996µs, proxy.ts: 3ms, render: 21ms)[22m
+ POST /sign-in?redirect_url=%2Fgroups%2Finvite%2F0LD448 [33m404[39m in 12ms[2m (compile: 3ms, proxy.ts: 6ms, render: 3ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 247ms[2m (compile: 106ms, proxy.ts: 13ms, render: 128ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 11ms[2m (compile: 2ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 60ms[2m (compile: 11ms, proxy.ts: 12ms, render: 36ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 4ms, render: 4ms)[22m
+ GET / [32m200[39m in 55ms[2m (compile: 5ms, proxy.ts: 12ms, render: 37ms)[22m
+ POST / [32m200[39m in 10ms[2m (compile: 1628µs, proxy.ts: 5ms, render: 3ms)[22m
+ GET /groups [32m200[39m in 49ms[2m (compile: 13ms, proxy.ts: 15ms, render: 20ms)[22m
+ GET /groups [32m200[39m in 45ms[2m (compile: 4ms, proxy.ts: 7ms, render: 34ms)[22m
+ POST /groups [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 63ms[2m (compile: 11ms, proxy.ts: 11ms, render: 42ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 21ms[2m (compile: 9ms, proxy.ts: 8ms, render: 4ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 50ms[2m (compile: 8ms, proxy.ts: 9ms, render: 33ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 9ms[2m (compile: 2ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 52ms[2m (compile: 8ms, proxy.ts: 9ms, render: 35ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 12ms[2m (compile: 2ms, proxy.ts: 6ms, render: 4ms)[22m
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ POST /groups/invite/0LD448 [32m200[39m in 180ms[2m (compile: 106ms, proxy.ts: 9ms, render: 65ms)[22m
+ GET / [32m200[39m in 13ms[2m (compile: 2ms, proxy.ts: 4ms, render: 7ms)[22m
+ GET / [32m200[39m in 31ms[2m (compile: 4ms, proxy.ts: 5ms, render: 23ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 160ms[2m (compile: 13ms, proxy.ts: 11ms, render: 137ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 16ms[2m (compile: 5ms, proxy.ts: 6ms, render: 5ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 47ms[2m (compile: 8ms, proxy.ts: 7ms, render: 32ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 10ms[2m (compile: 2ms, proxy.ts: 4ms, render: 3ms)[22m
+ [32m[1m✓[22m[39m Compiled in 35ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 23ms
+ POST /groups/invite/0LD448 [32m200[39m in 184ms[2m (compile: 106ms, proxy.ts: 17ms, render: 62ms)[22m
+ GET / [32m200[39m in 15ms[2m (compile: 2ms, proxy.ts: 4ms, render: 8ms)[22m
+ GET / [32m200[39m in 15ms[2m (compile: 1598µs, proxy.ts: 3ms, render: 10ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 153ms[2m (compile: 10ms, proxy.ts: 10ms, render: 133ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /groups/invite/0LD448 [32m200[39m in 45ms[2m (compile: 8ms, proxy.ts: 9ms, render: 27ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 3ms)[22m
+ [32m[1m✓[22m[39m Compiled in 27ms
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 23ms
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 46ms
+ GET /groups/invite/0LD448 [32m200[39m in 1192ms[2m (compile: 93ms, proxy.ts: 982ms, render: 117ms)[22m
+ POST /groups/invite/0LD448 [32m200[39m in 31ms[2m (compile: 14ms, proxy.ts: 5ms, render: 12ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 139ms[2m (compile: 94ms, proxy.ts: 15ms, render: 30ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 42ms[2m (compile: 9ms, proxy.ts: 16ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 168ms[2m (compile: 9ms, proxy.ts: 15ms, render: 144ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 15ms[2m (compile: 3ms, proxy.ts: 7ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 37ms
+ [32m[1m✓[22m[39m Compiled in 75ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 141ms[2m (compile: 85ms, proxy.ts: 7ms, render: 48ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 143ms[2m (compile: 119ms, proxy.ts: 7ms, render: 16ms)[22m
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ [32m[1m✓[22m[39m Compiled in 37ms
+ [32m[1m✓[22m[39m Compiled in 25ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 254ms[2m (compile: 89ms, proxy.ts: 15ms, render: 151ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 28ms[2m (compile: 9ms, proxy.ts: 12ms, render: 7ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 67ms[2m (compile: 16ms, proxy.ts: 16ms, render: 35ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 5ms, render: 5ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 43ms[2m (compile: 6ms, proxy.ts: 8ms, render: 30ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 17ms[2m (compile: 5ms, proxy.ts: 7ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 49ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ GET /room/6XAH4T [32m200[39m in 716ms[2m (compile: 519ms, proxy.ts: 158ms, render: 40ms)[22m
+ POST /room/6XAH4T [32m200[39m in 28ms[2m (compile: 6ms, proxy.ts: 10ms, render: 12ms)[22m
+ [32m[1m✓[22m[39m Compiled in 27ms
+ GET / [32m200[39m in 36ms[2m (compile: 4ms, proxy.ts: 14ms, render: 17ms)[22m
+ GET /groups [32m200[39m in 37ms[2m (compile: 6ms, proxy.ts: 15ms, render: 16ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 138ms[2m (compile: 103ms, proxy.ts: 9ms, render: 26ms)[22m
+ GET /room/WY4TH2 [32m200[39m in 235ms[2m (compile: 91ms, proxy.ts: 7ms, render: 137ms)[22m
+ POST /room/WY4TH2 [32m200[39m in 14ms[2m (compile: 5ms, proxy.ts: 5ms, render: 4ms)[22m
+ [32m[1m✓[22m[39m Compiled in 35ms
+ [32m[1m✓[22m[39m Compiled in 37ms
+ [32m[1m✓[22m[39m Compiled in 55ms
+ [32m[1m✓[22m[39m Compiled in 26ms
+ [32m[1m✓[22m[39m Compiled in 26ms
+ GET /groups [32m200[39m in 584ms[2m (compile: 10ms, proxy.ts: 557ms, render: 17ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 51ms[2m (compile: 19ms, proxy.ts: 17ms, render: 15ms)[22m
+ GET /room/RC588S [32m200[39m in 202ms[2m (compile: 80ms, proxy.ts: 11ms, render: 111ms)[22m
+ POST /room/RC588S [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /room/RC588S [32m200[39m in 54ms[2m (compile: 12ms, proxy.ts: 12ms, render: 30ms)[22m
+ POST /room/RC588S [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /room/RC588S [32m200[39m in 58ms[2m (compile: 7ms, proxy.ts: 9ms, render: 42ms)[22m
+ POST /room/RC588S [32m200[39m in 14ms[2m (compile: 4ms, proxy.ts: 4ms, render: 6ms)[22m
+ GET /room/RC588S [32m200[39m in 65ms[2m (compile: 12ms, proxy.ts: 11ms, render: 43ms)[22m
+ POST /room/RC588S [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 4ms, render: 4ms)[22m
+ GET /room/RC588S [32m200[39m in 67ms[2m (compile: 9ms, proxy.ts: 12ms, render: 46ms)[22m
+ POST /room/RC588S [32m200[39m in 15ms[2m (compile: 4ms, proxy.ts: 7ms, render: 5ms)[22m
+ GET /room/RC588S [32m200[39m in 50ms[2m (compile: 13ms, proxy.ts: 8ms, render: 29ms)[22m
+ POST /room/RC588S [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 6ms, render: 6ms)[22m
+ GET /room/RC588S [32m200[39m in 56ms[2m (compile: 17ms, proxy.ts: 9ms, render: 31ms)[22m
+ POST /room/RC588S [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 6ms, render: 3ms)[22m
+ GET /room/RC588S [32m200[39m in 49ms[2m (compile: 10ms, proxy.ts: 8ms, render: 31ms)[22m
+ POST /room/RC588S [32m200[39m in 12ms[2m (compile: 4ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/RC588S [32m200[39m in 67ms[2m (compile: 14ms, proxy.ts: 13ms, render: 40ms)[22m
+ POST /room/RC588S [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /room/RC588S [32m200[39m in 59ms[2m (compile: 10ms, proxy.ts: 14ms, render: 35ms)[22m
+ POST /room/RC588S [32m200[39m in 19ms[2m (compile: 5ms, proxy.ts: 5ms, render: 10ms)[22m
+ GET /room/RC588S [32m200[39m in 85ms[2m (compile: 15ms, proxy.ts: 19ms, render: 51ms)[22m
+ POST /room/RC588S [32m200[39m in 16ms[2m (compile: 5ms, proxy.ts: 4ms, render: 7ms)[22m
+ GET /room/RC588S [32m200[39m in 54ms[2m (compile: 9ms, proxy.ts: 9ms, render: 36ms)[22m
+ POST /room/RC588S [32m200[39m in 17ms[2m (compile: 5ms, proxy.ts: 7ms, render: 6ms)[22m
+ [32m[1m✓[22m[39m Compiled in 32ms
+ [32m[1m✓[22m[39m Compiled in 35ms
+ [32m[1m✓[22m[39m Compiled in 73ms
+ [32m[1m✓[22m[39m Compiled in 27ms
+ [32m[1m✓[22m[39m Compiled in 25ms
+ [32m[1m✓[22m[39m Compiled in 37ms
+ [32m[1m✓[22m[39m Compiled in 42ms
+ [32m[1m✓[22m[39m Compiled in 27ms
+ [32m[1m✓[22m[39m Compiled in 34ms
+ GET / [32m200[39m in 52ms[2m (compile: 9ms, proxy.ts: 21ms, render: 21ms)[22m
+ GET / [32m200[39m in 27ms[2m (compile: 3ms, proxy.ts: 9ms, render: 15ms)[22m
+ GET /groups [32m200[39m in 36ms[2m (compile: 5ms, proxy.ts: 14ms, render: 17ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 55ms[2m (compile: 19ms, proxy.ts: 11ms, render: 26ms)[22m
+ GET /room/TNTB8N [32m200[39m in 222ms[2m (compile: 88ms, proxy.ts: 7ms, render: 127ms)[22m
+ POST /room/TNTB8N [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 6ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 57ms[2m (compile: 20ms, proxy.ts: 12ms, render: 26ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 52ms[2m (compile: 11ms, proxy.ts: 9ms, render: 32ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 4ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 69ms[2m (compile: 13ms, proxy.ts: 11ms, render: 45ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 6ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 404ms[2m (compile: 10ms, proxy.ts: 348ms, render: 46ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 5ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 51ms[2m (compile: 9ms, proxy.ts: 8ms, render: 35ms)[22m
+ POST /room/TNTB8N [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 5ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 51ms[2m (compile: 13ms, proxy.ts: 11ms, render: 27ms)[22m
+ POST /room/TNTB8N [32m200[39m in 33ms[2m (compile: 5ms, proxy.ts: 6ms, render: 22ms)[22m
+ GET /room/TNTB8N [32m200[39m in 51ms[2m (compile: 9ms, proxy.ts: 10ms, render: 32ms)[22m
+ POST /room/TNTB8N [32m200[39m in 14ms[2m (compile: 4ms, proxy.ts: 4ms, render: 6ms)[22m
+ GET /room/TNTB8N [32m200[39m in 69ms[2m (compile: 16ms, proxy.ts: 8ms, render: 45ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 4ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 59ms[2m (compile: 9ms, proxy.ts: 9ms, render: 41ms)[22m
+ POST /room/TNTB8N [32m200[39m in 29ms[2m (compile: 8ms, proxy.ts: 10ms, render: 10ms)[22m
+ [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 40ms
+ [32m[1m✓[22m[39m Compiled in 43ms
+ [32m[1m✓[22m[39m Compiled in 29ms
+ GET /room/TNTB8N [32m200[39m in 227ms[2m (compile: 85ms, proxy.ts: 7ms, render: 134ms)[22m
+ POST /room/TNTB8N [32m200[39m in 18ms[2m (compile: 5ms, proxy.ts: 9ms, render: 5ms)[22m
+ GET /room/TNTB8N [32m200[39m in 63ms[2m (compile: 14ms, proxy.ts: 13ms, render: 36ms)[22m
+ POST /room/TNTB8N [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 4ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 66ms[2m (compile: 14ms, proxy.ts: 19ms, render: 33ms)[22m
+ POST /room/TNTB8N [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 6ms, render: 5ms)[22m
+ GET /room/TNTB8N [32m200[39m in 67ms[2m (compile: 14ms, proxy.ts: 15ms, render: 38ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 7ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 68ms[2m (compile: 14ms, proxy.ts: 11ms, render: 43ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 68ms[2m (compile: 13ms, proxy.ts: 13ms, render: 41ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 49ms[2m (compile: 6ms, proxy.ts: 8ms, render: 35ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 5ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 36ms[2m (compile: 8ms, proxy.ts: 6ms, render: 22ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 28ms[2m (compile: 2ms, proxy.ts: 4ms, render: 22ms)[22m
+ POST /room/TNTB8N [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 5ms, render: 5ms)[22m
+ GET /room/TNTB8N [32m200[39m in 27ms[2m (compile: 4ms, proxy.ts: 5ms, render: 18ms)[22m
+ POST /room/TNTB8N [32m200[39m in 12ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 36ms
+ GET /room/TNTB8N [32m200[39m in 311ms[2m (compile: 104ms, proxy.ts: 11ms, render: 197ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 40ms[2m (compile: 6ms, proxy.ts: 8ms, render: 26ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 4ms, proxy.ts: 4ms, render: 5ms)[22m
+ GET /room/TNTB8N [32m200[39m in 48ms[2m (compile: 7ms, proxy.ts: 12ms, render: 30ms)[22m
+ POST /room/TNTB8N [32m200[39m in 20ms[2m (compile: 4ms, proxy.ts: 5ms, render: 11ms)[22m
+ [32m[1m✓[22m[39m Compiled in 38ms
+ [32m[1m✓[22m[39m Compiled in 38ms
+ [32m[1m✓[22m[39m Compiled in 42ms
+ [32m[1m✓[22m[39m Compiled in 177ms
+ [33m[1m⚠[22m[39m Fast Refresh had to perform a full reload when ./node_modules/next/dist/shared/lib/router/utils/disable-smooth-scroll.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ [33m[1m⚠[22m[39m Fast Refresh had to perform a full reload when ./node_modules/next/dist/shared/lib/router/utils/disable-smooth-scroll.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ [32m[1m✓[22m[39m Compiled in 69ms
+ GET /room/TNTB8N [32m200[39m in 265ms[2m (compile: 82ms, proxy.ts: 19ms, render: 164ms)[22m
+ GET /room/TNTB8N [32m200[39m in 265ms[2m (compile: 112ms, proxy.ts: 20ms, render: 133ms)[22m
+ GET /room/TNTB8N [32m200[39m in 241ms[2m (compile: 4ms, proxy.ts: 114ms, render: 123ms)[22m
+ POST /room/TNTB8N [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 6ms, render: 6ms)[22m
+ [33m[1m⚠[22m[39m Fast Refresh had to perform a full reload when ./node_modules/next/dist/shared/lib/router/utils/disable-smooth-scroll.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ [32m[1m✓[22m[39m Compiled in 66ms
+ GET /room/TNTB8N [32m200[39m in 217ms[2m (compile: 67ms, proxy.ts: 7ms, render: 142ms)[22m
+ POST /room/TNTB8N [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 6ms, render: 6ms)[22m
+ [32m[1m✓[22m[39m Compiled in 30ms
+ GET /room/TNTB8N [32m200[39m in 216ms[2m (compile: 86ms, proxy.ts: 19ms, render: 111ms)[22m
+ POST /room/TNTB8N [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 4ms)[22m
+ GET /room/TNTB8N [32m200[39m in 60ms[2m (compile: 12ms, proxy.ts: 13ms, render: 34ms)[22m
+ POST /room/TNTB8N [32m200[39m in 10ms[2m (compile: 2ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /room/TNTB8N [32m200[39m in 51ms[2m (compile: 9ms, proxy.ts: 8ms, render: 34ms)[22m
+ POST /room/TNTB8N [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /groups [32m200[39m in 397ms[2m (compile: 6ms, proxy.ts: 370ms, render: 21ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 56ms[2m (compile: 15ms, proxy.ts: 15ms, render: 26ms)[22m
+ GET /groups [32m200[39m in 44ms[2m (compile: 6ms, proxy.ts: 21ms, render: 18ms)[22m

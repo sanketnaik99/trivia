@@ -55,6 +55,7 @@ model Group {
   invites      GroupInvite[]
   leaderboard  GroupLeaderboardEntry[]
   rooms        Room[]
+  processedGames ProcessedGame[]
 
   @@index([createdBy])
   @@map("groups")
@@ -149,23 +150,18 @@ model GroupLeaderboardEntry {
 }
 
 // ============================================================================
-// ROOM (EXTEND existing model)
+// PROCESSED GAME (for duplicate prevention)
 // ============================================================================
 
-model Room {
+model ProcessedGame {
   id        String   @id @default(cuid())
-  code      String   @unique
-  groupId   String?  // NEW: nullable FK to Group
-  createdBy String?  // NEW: nullable FK to User
-  // ... existing fields (status, participants, etc.)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  roomCode  String   @unique
+  groupId   String
+  processedAt DateTime @default(now())
 
   // Relations
-  group   Group? @relation(fields: [groupId], references: [id], onDelete: SetNull)
-  creator User?  @relation("CreatedRooms", fields: [createdBy], references: [id], onDelete: SetNull)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
   @@index([groupId])
-  @@index([createdBy])
-  @@map("rooms")
+  @@map("processed_games")
 }

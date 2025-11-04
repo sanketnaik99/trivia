@@ -7,7 +7,7 @@ import groupRoutes from './group.routes';
 import inviteRoutes from './invite.routes';
 import membershipRoutes from './membership.routes';
 // import leaderboardRoutes from './leaderboard.routes';
-// import internalRoutes from './internal.routes';
+import { registerInternalRoutes } from './internal.routes';
 
 export function registerRoutes(app: express.Express) {
   registerHealthRoutes(app);
@@ -20,7 +20,7 @@ export function registerRoutes(app: express.Express) {
   app.use('/api/groups', membershipRoutes); // Membership routes under groups
   // TODO: Uncomment when route handlers are implemented
   // app.use('/api/groups', leaderboardRoutes); // Leaderboard routes under groups
-  // app.use('/api/internal', internalRoutes);
+  registerInternalRoutes(app);
 }
 
 export default { registerRoutes };

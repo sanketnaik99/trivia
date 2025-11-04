@@ -11,6 +11,7 @@ import { MemberList } from '@/app/components/member-list';
 import { GenerateInviteModal } from '@/app/components/generate-invite-modal';
 import { InviteList } from '@/app/components/invite-list';
 import { ManageGroupModal } from '@/app/components/manage-group-modal';
+import { CreateGroupRoomForm } from '@/app/components/create-group-room-form';
 
 export default function GroupDetailPage() {
   const params = useParams();
@@ -202,9 +203,12 @@ export default function GroupDetailPage() {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button className="w-full" disabled>
-                  Start New Game
-                </Button>
+                <CreateGroupRoomForm
+                  onRoomCreated={(roomCode) => {
+                    // Navigate to the created room
+                    window.location.href = `/room/${roomCode}`;
+                  }}
+                />
                 <Button variant="outline" className="w-full" disabled>
                   View Leaderboard
                 </Button>
