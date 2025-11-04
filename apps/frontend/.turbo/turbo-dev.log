@@ -11,23 +11,27 @@
 
    [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
    - Local:        http://localhost:3000
-   - Network:      http://192.168.128.163:3000
+   - Network:      http://192.168.1.69:3000
    - Environments: .env.local
 
  [32m[1m✓[22m[39m Starting...
  [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
- [32m[1m✓[22m[39m Ready in 518ms
- GET / [32m200[39m in 1438ms[2m (compile: 1302ms, proxy.ts: 11ms, render: 125ms)[22m
- POST / [32m200[39m in 13ms[2m (compile: 1633µs, proxy.ts: 6ms, render: 6ms)[22m
- GET / [32m200[39m in 231ms[2m (compile: 5ms, proxy.ts: 192ms, render: 35ms)[22m
- POST / [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 7ms, render: 4ms)[22m
- GET /groups [32m200[39m in 465ms[2m (compile: 431ms, proxy.ts: 22ms, render: 11ms)[22m
- GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 720ms[2m (compile: 693ms, proxy.ts: 17ms, render: 10ms)[22m
- GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 121ms[2m (compile: 10ms, proxy.ts: 13ms, render: 97ms)[22m
- POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 7ms, render: 5ms)[22m
- GET /groups [32m200[39m in 33ms[2m (compile: 5ms, proxy.ts: 11ms, render: 16ms)[22m
- GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 49ms[2m (compile: 19ms, proxy.ts: 14ms, render: 16ms)[22m
- GET /groups [32m200[39m in 51ms[2m (compile: 9ms, proxy.ts: 17ms, render: 25ms)[22m
- GET / [32m200[39m in 38ms[2m (compile: 7ms, proxy.ts: 15ms, render: 16ms)[22m
-[?25h
-[1G[0K⠙[1G[0K
+ [32m[1m✓[22m[39m Ready in 886ms
+ GET / [32m200[39m in 1504ms[2m (compile: 1215ms, proxy.ts: 127ms, render: 162ms)[22m
+ POST / [32m200[39m in 17ms[2m (compile: 2ms, proxy.ts: 8ms, render: 7ms)[22m
+ GET /groups [32m200[39m in 412ms[2m (compile: 391ms, proxy.ts: 11ms, render: 10ms)[22m
+ GET /groups [32m200[39m in 84ms[2m (compile: 9ms, proxy.ts: 20ms, render: 56ms)[22m
+ POST /groups [32m200[39m in 14ms[2m (compile: 3ms, proxy.ts: 7ms, render: 4ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 721ms[2m (compile: 694ms, proxy.ts: 15ms, render: 12ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 124ms[2m (compile: 13ms, proxy.ts: 21ms, render: 91ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 15ms[2m (compile: 3ms, proxy.ts: 7ms, render: 5ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 69ms[2m (compile: 12ms, proxy.ts: 16ms, render: 41ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 18ms[2m (compile: 4ms, proxy.ts: 7ms, render: 7ms)[22m
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 62ms[2m (compile: 11ms, proxy.ts: 20ms, render: 30ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 13ms[2m (compile: 3ms, proxy.ts: 6ms, render: 3ms)[22m
+ [32m[1m✓[22m[39m Compiled in 42ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 243ms[2m (compile: 93ms, proxy.ts: 10ms, render: 140ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 14ms[2m (compile: 4ms, proxy.ts: 5ms, render: 5ms)[22m
+ [32m[1m✓[22m[39m Compiled in 36ms
+ GET /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 246ms[2m (compile: 104ms, proxy.ts: 12ms, render: 130ms)[22m
+ POST /groups/cmhin29o70001va76nbutc2lf [32m200[39m in 21ms[2m (compile: 4ms, proxy.ts: 7ms, render: 9ms)[22m

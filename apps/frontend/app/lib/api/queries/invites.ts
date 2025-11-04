@@ -17,14 +17,25 @@ export function useGroupInvites(groupId: string) {
   return useQuery({
     queryKey: queryKeys.invites(groupId),
     queryFn: async (): Promise<InviteListResponse> => {
-      const token = await getToken()
+      const token = await getToken();
       const response = await apiClient.get(`/groups/${groupId}/invites`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
-      })
-      return response.data.data
+      });
+      const raw = response.data.data;
+      // Accepts either: { invites: [...] } or just [...]
+  const filterRevoked = (arr: import('../schemas/invite.schema').GroupInvite[]) => arr.filter(invite => invite.status !== 'REVOKED');
+      if (Array.isArray(raw)) {
+        const filtered = filterRevoked(raw);
+        return { invites: filtered, pagination: { page: 1, limit: filtered.length, total: filtered.length, totalPages: 1 } };
+      }
+      if (raw && Array.isArray(raw.invites)) {
+        const filtered = filterRevoked(raw.invites);
+        return { ...raw, invites: filtered };
+      }
+      return raw;
     },
     enabled: !!groupId && !!getToken,
-  })
+  });
 }
 
 // Mutation: Generate invite
