@@ -294,7 +294,34 @@
 
 ---
 
-## Phase 5: User Story 3 - Group-Affiliated Rooms (Priority: P3)
+## Phase 4.6: Room System Fixes (Priority: P0 - COMPLETED)
+
+**Goal**: Fix critical issues in the room system that were blocking functionality, specifically the ready button not working in non-group rooms
+
+**Validation**:
+1. Create a non-group room (anonymous users)
+2. Join room with multiple players
+3. Verify ready button works and triggers countdown
+4. Complete game successfully
+
+### Room Route Separation
+
+- [x] T080.48 Separate room routes for group vs non-group rooms: create `/groups/[groupId]/rooms/[code]` for authenticated group rooms and keep `/room/[code]` for anonymous rooms
+- [x] T080.49 Create dedicated group room page at apps/frontend/app/groups/[groupId]/rooms/[code]/page.tsx with authentication, group membership validation, and proper websocket auth tokens
+- [x] T080.50 Simplify non-group room page at apps/frontend/app/room/[code]/page.tsx by removing Clerk authentication logic and handling only anonymous users
+
+### Ready Button Fix
+
+- [x] T080.51 Fix participant identification in ROOM_STATE for anonymous rooms: change from ID matching to name matching since backend generates new participant IDs
+- [x] T080.52 Update ROOM_STATE handling in apps/frontend/app/room/[code]/page.tsx to match participants by name instead of userId for anonymous rooms
+- [x] T080.53 Verify ready button functionality: test that handleReadyToggle correctly finds current user and sends READY event to backend
+- [x] T080.54 Test complete room flow: join room → ready button works → countdown starts → game completes successfully
+
+**Checkpoint**: Room system fixes complete - ready button works in both group and non-group rooms. **✅ FOUNDATIONAL ROOM FUNCTIONALITY NOW WORKS**
+
+---
+
+## Phase 5: User Story 3 - Group-Affiliated Rooms (Priority: P3 - COMPLETED)
 
 **Goal**: Group members can create trivia rooms on behalf of their group, with points attributed to the group leaderboard after game completion
 
@@ -311,52 +338,52 @@
 
 ### Backend: Room Extension for Groups
 
-- [ ] T081 [US3] Update apps/backend/src/types/room.types.ts to add groupId and createdBy fields to Room interface
-- [ ] T082 [US3] Extend createRoom function in apps/backend/src/services/room.service.ts to accept groupId parameter and validate user is group member
-- [ ] T083 [US3] Update POST /api/rooms endpoint in apps/backend/src/routes/room.routes.ts to accept groupId in request body (requireAuth if groupId provided)
-- [ ] T084 [US3] Add group membership validation in room creation: check Prisma Membership where userId and groupId and status = ACTIVE
-- [ ] T085 [US3] Update Room storage in apps/backend/src/store/room.store.ts to persist groupId and createdBy fields
+- [x] T081 [US3] Update apps/backend/src/types/room.types.ts to add groupId and createdBy fields to Room interface
+- [x] T082 [US3] Extend createRoom function in apps/backend/src/services/room.service.ts to accept groupId parameter and validate user is group member
+- [x] T083 [US3] Update POST /api/rooms endpoint in apps/backend/src/routes/room.routes.ts to accept groupId in request body (requireAuth if groupId provided)
+- [x] T084 [US3] Add group membership validation in room creation: check Prisma Membership where userId and groupId and status = ACTIVE
+- [x] T085 [US3] Update Room storage in apps/backend/src/store/room.store.ts to persist groupId and createdBy fields
 
 ### Backend: Leaderboard Update Service
 
-- [ ] T086 [P] [US3] Create apps/backend/src/services/leaderboard.service.ts with updateGroupLeaderboard function (accepts groupId, roomCode, results array)
-- [ ] T087 [US3] Implement leaderboard update logic in leaderboard.service: for each member result, upsert GroupLeaderboardEntry incrementing totalPoints, skip non-members
-- [ ] T088 [US3] Add duplicate game prevention in leaderboard update: check if room results already processed using Room + completedAt timestamp or separate ProcessedGame table
-- [ ] T089 [US3] Create apps/backend/src/routes/internal.routes.ts with POST /api/internal/leaderboard/update endpoint (service token auth, not Clerk)
-- [ ] T090 [US3] Register internal routes in apps/backend/src/routes/index.ts
+- [x] T086 [P] [US3] Create apps/backend/src/services/leaderboard.service.ts with updateGroupLeaderboard function (accepts groupId, roomCode, results array)
+- [x] T087 [US3] Implement leaderboard update logic in leaderboard.service: for each member result, upsert GroupLeaderboardEntry incrementing totalPoints, skip non-members
+- [x] T088 [US3] Add duplicate game prevention in leaderboard update: check if room results already processed using Room + completedAt timestamp or separate ProcessedGame table
+- [x] T089 [US3] Create apps/backend/src/routes/internal.routes.ts with POST /api/internal/leaderboard/update endpoint (service token auth, not Clerk)
+- [x] T090 [US3] Register internal routes in apps/backend/src/routes/index.ts
 
 ### Backend: Socket.IO Extensions for Groups
 
-- [ ] T091 [US3] Update room:create handler in apps/backend/src/socket/room.handler.ts to accept groupId parameter and fetch group name from Prisma
-- [ ] T092 [US3] Add group membership check in room:create handler: if groupId provided, verify socket userId is member
-- [ ] T093 [US3] Update room:joined event payload in room.handler.ts to include isGroupMember boolean flag (check Membership where userId and room.groupId)
-- [ ] T094 [US3] Update game:complete handler in apps/backend/src/socket/game.handler.ts to call leaderboard.service.updateGroupLeaderboard if room has groupId
-- [ ] T095 [US3] Add leaderboard:updated event broadcast to group members after leaderboard update completes (emit to io.to(`group:${groupId}`))
-- [ ] T096 [US3] Implement automatic group room subscription: when user joins Socket.IO connection with auth token, auto-join rooms for all their groups
+- [x] T091 [US3] Update room:create handler in apps/backend/src/socket/room.handler.ts to accept groupId parameter and fetch group name from Prisma
+- [x] T092 [US3] Add group membership check in room:create handler: if groupId provided, verify socket userId is member
+- [x] T093 [US3] Update room:joined event payload in room.handler.ts to include isGroupMember boolean flag (check Membership where userId and room.groupId)
+- [x] T094 [US3] Update game:complete handler in apps/backend/src/socket/game.handler.ts to call leaderboard.service.updateGroupLeaderboard if room has groupId
+- [x] T095 [US3] Add leaderboard:updated event broadcast to group members after leaderboard update completes (emit to io.to(`group:${groupId}`))
+- [x] T096 [US3] Implement automatic group room subscription: when user joins Socket.IO connection with auth token, auto-join rooms for all their groups
 
 ### Frontend: Group Room Creation UI
 
-- [ ] T097 [P] [US3] Add "Create Trivia Room" button to group detail page (apps/frontend/app/groups/[id]/page.tsx)
-- [ ] T098 [P] [US3] Create apps/frontend/app/components/create-group-room-form.tsx with group selector dropdown (if user in multiple groups) and room settings
-- [ ] T099 [US3] Update apps/frontend/app/lib/websocket.ts to send groupId parameter in room:create event
-- [ ] T100 [US3] Display group affiliation badge in room lobby (apps/frontend/app/room/[code]/page.tsx) showing group name and "Points count toward [Group Name] leaderboard"
-- [ ] T101 [US3] Show isGroupMember indicator next to participant names in room lobby (e.g., green checkmark for members, grey for guests)
+- [x] T097 [P] [US3] Add "Create Trivia Room" button to group detail page (apps/frontend/app/groups/[id]/page.tsx)
+- [x] T098 [P] [US3] Create apps/frontend/app/components/create-group-room-form.tsx with group selector dropdown (if user in multiple groups) and room settings
+- [x] T099 [US3] Update apps/frontend/app/lib/websocket.ts to send groupId parameter in room:create event
+- [x] T100 [US3] Display group affiliation badge in room lobby (apps/frontend/app/room/[code]/page.tsx) showing group name and "Points count toward [Group Name] leaderboard"
+- [x] T101 [US3] Show isGroupMember indicator next to participant names in room lobby (e.g., green checkmark for members, grey for guests)
 
 ### Frontend: Group Room Gameplay Experience
 
-- [ ] T102 [US3] Update apps/frontend/app/components/round-results.tsx to visually distinguish member points (highlighted/bold) from guest points (muted)
-- [ ] T103 [US3] Add tooltip or footnote in round results explaining "Only group member points count toward leaderboard"
-- [ ] T104 [US3] Update apps/frontend/app/components/winner-banner.tsx for group rooms to show top member (for group leaderboard) separately from overall winner
-- [ ] T105 [US3] Add "View Group Leaderboard" button in game completion screen that navigates to group leaderboard page
+- [x] T102 [US3] Update apps/frontend/app/components/round-results.tsx to visually distinguish member points (highlighted/bold) from guest points (muted)
+- [x] T103 [US3] Add tooltip or footnote in round results explaining "Only group member points count toward leaderboard"
+- [x] T104 [US3] Update apps/frontend/app/components/winner-banner.tsx for group rooms to show top member (for group leaderboard) separately from overall winner
+- [x] T105 [US3] Add "View Group Leaderboard" button in game completion screen that navigates to group leaderboard page
 
 ### Integration & Polish
 
-- [ ] T106 [US3] Test group room creation: create room with group, verify groupId stored, complete game, check leaderboard update in Prisma Studio
-- [ ] T107 [US3] Test member vs guest point attribution: member gets 100 points → leaderboard updates, guest gets 50 points → leaderboard unchanged
-- [ ] T108 [US3] Test duplicate game prevention: complete game, manually trigger leaderboard update again with same roomCode, verify points not double-counted
-- [ ] T109 [US3] Test room without group affiliation: create room without groupId, complete game, verify no leaderboard update attempt
-- [ ] T110 [US3] Verify Socket.IO leaderboard:updated event fires within 5 seconds of game completion per spec SC-003
-- [ ] T111 [US3] Code cleanup: remove task comments, verify clean code standards
+- [x] T106 [US3] Test group room creation: create room with group, verify groupId stored, complete game, check leaderboard update in Prisma Studio
+- [x] T107 [US3] Test member vs guest point attribution: member gets 100 points → leaderboard updates, guest gets 50 points → leaderboard unchanged
+- [x] T108 [US3] Test duplicate game prevention: complete game, manually trigger leaderboard update again with same roomCode, verify points not double-counted
+- [x] T109 [US3] Test room without group affiliation: create room without groupId, complete game, verify no leaderboard update attempt
+- [x] T110 [US3] Verify Socket.IO leaderboard:updated event fires within 5 seconds of game completion per spec SC-003
+- [x] T111 [US3] Code cleanup: remove task comments, verify clean code standards
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently - full group room flow with leaderboard attribution
 
@@ -521,7 +548,7 @@
   - MUST complete before User Stories 3 & 4 to establish proper data fetching patterns
   - Refactors all existing API calls to use React Query
   - Zero functional changes - purely infrastructure improvement
-- **User Story 3 (Phase 5)**: Depends on Foundational AND User Story 2 AND React Query Migration completion ✅ **READY TO START**
+- **User Story 3 (Phase 5)**: Depends on Foundational AND User Story 2 AND React Query Migration completion ✅ **COMPLETE**
   - Requires groups to exist (US2) before creating group-affiliated rooms
   - Authentication (US1) required but transitive through US2
 - **User Story 4 (Phase 6)**: Depends on Foundational AND User Story 3 AND React Query Migration completion
@@ -652,11 +679,17 @@ Task T145: "Implement infinite scroll"
    - Validation: All US1 & US2 features work identically with improved caching and loading states
    - **Status**: ✅ All 51 migration tasks completed successfully
 
-4. **Week 4 (CURRENT)**: User Story 3 ✅ **READY TO START**
+4. **Week 3.5 (COMPLETED)**: Room System Fixes ✅ **COMPLETE**
+   - Deliverable: Ready button works in non-group rooms, route separation complete
+   - Validation: Anonymous users can join rooms and use ready button successfully
+   - **Status**: ✅ All 4 room system fix tasks completed successfully
+
+5. **Week 4 (COMPLETED)**: User Story 3 ✅ **COMPLETE**
    - Deliverable: Group-affiliated trivia rooms with leaderboard attribution
    - Validation: Group games update persistent leaderboard
+   - **Status**: ✅ All 31 group room tasks completed successfully
 
-5. **Week 5**: User Story 4 + Polish
+5. **Week 5 (CURRENT)**: User Story 4 + Polish
    - Deliverable: Real-time leaderboard with polish and production readiness
    - Validation: All success criteria from spec.md met
 
@@ -682,13 +715,19 @@ Task T145: "Implement infinite scroll"
 - Then: All devs rotate to complete remaining migrations (T080.25-T080.31)
 - Finally: Polish + testing together (T080.32-T080.47)
 
-**Week 4 (CURRENT - User Story 3)**: ✅ **IN PROGRESS**
+**Week 3.5 (COMPLETED - Room System Fixes)**: ✅ COMPLETE
+- Dev A: Room route separation (T080.48-T080.50)
+- Dev B: Ready button fix (T080.51-T080.54)
+- Dev C+D: Testing and validation
+
+**Week 4 (COMPLETED - User Story 3)**: ✅ **COMPLETE**
 - Dev A: User Story 3 backend (T081-T090)
 - Dev B: User Story 3 Socket.IO (T091-T096)
 - Dev C: User Story 2 frontend group management (T053-T065) - if not already done
 - Dev D: User Story 2 frontend invitations (T066-T074) - if not already done
+- **Status**: ✅ All 31 group room tasks completed successfully
 
-**Week 5**:
+**Week 5 (CURRENT)**:
 - Dev A: User Story 4 backend (T112-T124)
 - Dev B: User Story 3 frontend (T097-T111)
 - Dev C: User Story 4 frontend (T125-T145)
@@ -698,7 +737,7 @@ Task T145: "Implement infinite scroll"
 
 ## Task Summary
 
-**Total Tasks**: 243 (192 original + 51 React Query migration with full typing)
+**Total Tasks**: 247 (192 original + 51 React Query migration + 4 Room System fixes)
 
 **Per User Story**:
 - Setup: 8 tasks ✅ (100% complete)
@@ -706,8 +745,9 @@ Task T145: "Implement infinite scroll"
 - User Story 1 (Auth): 12 tasks ✅ (100% complete)
 - User Story 2 (Groups): 47 tasks ✅ (100% complete)
 - **React Query Migration: 51 tasks ✅ (100% complete)**
-- User Story 3 (Group Rooms): 31 tasks (0% complete - READY TO START)
-- User Story 4 (Leaderboard): 41 tasks (0% complete - BLOCKED by Phase 4.5 & 5)
+- **Room System Fixes: 4 tasks ✅ (100% complete)**
+- **User Story 3 (Group Rooms): 31 tasks ✅ (100% complete)**
+- User Story 4 (Leaderboard): 41 tasks (0% complete - BLOCKED by leaderboard API)
 - Polish: 40 tasks (0% complete)
 
 **Parallel Opportunities**: 58 original + 18 React Query migration = 76 tasks marked with [P] can run in parallel within their phase
@@ -716,7 +756,8 @@ Task T145: "Implement infinite scroll"
 - US1: Register → Sign in → UserButton displays → Data in Prisma Studio ✅
 - US2: Create group → Generate invite → Accept invite → Member appears in list ✅ (core functionality complete)
 - **RQ Migration: All US2 features work identically with React Query** ✅
-- US3: Create group room → Complete game → Member points update leaderboard (BLOCKED)
+- **Room System: Create non-group room → Join with multiple players → Ready button works → Game completes** ✅
+- **US3: Create group room → Complete game → Member points update leaderboard** ✅
 - US4: View leaderboard → Complete game in separate window → Leaderboard updates within 5s (BLOCKED)
 
 **Suggested MVP Scope**: User Story 1 only (Setup + Foundational + US1 = 33 tasks total) ✅
@@ -724,9 +765,11 @@ Task T145: "Implement infinite scroll"
 **Current Status**: 
 - ✅ User Stories 1 & 2 are fully complete and independently testable!
 - ✅ React Query migration (Phase 4.5) is **COMPLETE** - all existing API calls use proper query/mutation hooks with caching, loading states, and automatic refetching
-- ✅ User Stories 3 & 4 are now **READY TO START**
+- ✅ Room System fixes (Phase 4.6) are **COMPLETE** - ready button works in both group and non-group rooms
+- ✅ **User Story 3 (Group Rooms) is COMPLETE** - group-affiliated rooms with leaderboard attribution work end-to-end
+- ✅ User Story 4 (Leaderboard viewing) is now **READY TO START**
 
-**Format Validation**: ✅ All 243 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
+**Format Validation**: ✅ All 247 tasks follow checklist format with checkbox, Task ID, optional [P] marker, [Story] label for US tasks, description with file path
 
 ---
 
