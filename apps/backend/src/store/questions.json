@@ -12,7 +12,8 @@
         "text": "The iconic sitcom 'Friends' ran for how many seasons?",
         "correctAnswer": "10",
         "acceptedAnswers": [
-            "10"
+            "10",
+            "ten"
         ]
     },
     {
@@ -28,7 +29,8 @@
         "text": "What iconic tagline was featured in the sci-fi show 'The X-Files'?",
         "correctAnswer": "The truth is out there",
         "acceptedAnswers": [
-            "The truth is out there"
+            "The truth is out there",
+            "Truth is out there"
         ]
     },
     {
@@ -36,7 +38,8 @@
         "text": "In the 1999 film 'The Matrix', what color pill does Neo take to learn the truth about reality?",
         "correctAnswer": "The red pill",
         "acceptedAnswers": [
-            "The red pill"
+            "The red pill",
+            "Red pill"
         ]
     },
     {
@@ -52,7 +55,10 @@
         "text": "In the thriller 'Se7en', what desperate question does Brad Pitt's character scream at the end of the film?",
         "correctAnswer": "What's in the box?",
         "acceptedAnswers": [
-            "What's in the box?"
+            "What's in the box?",
+            "what's in the box",
+            "whats in the box?",
+            "What\"s in the box?"
         ]
     },
     {
@@ -60,7 +66,8 @@
         "text": "The line 'There's no crying in baseball!' comes from what 1992 film starring Tom Hanks as a cynical manager of a women's baseball team?",
         "correctAnswer": "A League of Their Own",
         "acceptedAnswers": [
-            "A League of Their Own"
+            "A League of Their Own",
+            "League of Their Own"
         ]
     },
     {
@@ -84,7 +91,9 @@
         "text": "Who composed the iconic, sweeping score for the 1993 film 'Jurassic Park'?",
         "correctAnswer": "John Williams",
         "acceptedAnswers": [
-            "John Williams"
+            "John Williams",
+            "John",
+            "Williams"
         ]
     },
     {
@@ -92,7 +101,8 @@
         "text": "Nirvana's hit song 'Smells Like Teen Spirit' was unwittingly named after a brand of what product?",
         "correctAnswer": "Deodorant",
         "acceptedAnswers": [
-            "Deodorant"
+            "Deodorant",
+            "antiperspirant"
         ]
     },
     {
@@ -172,7 +182,15 @@
         "text": "The intense 1990s hip-hop rivalry between the East and West coasts was primarily focused on which two rappers?",
         "correctAnswer": "2Pac and The Notorious B.I.G.",
         "acceptedAnswers": [
-            "2Pac and The Notorious B.I.G."
+            "2Pac and The Notorious B.I.G.",
+            "Tupac",
+            "Biggie",
+            "Tupac Shakur",
+            "Biggie Smalls",
+            "Notorious B.I.G.",
+            "The Notorious BIG",
+            "The Notorious B.I.G.",
+            "2Pac and The Notorious B.I.G"
         ]
     },
     {
@@ -180,7 +198,10 @@
         "text": "What famous three-word phrase would you hear from your computer after connecting to the internet via America Online (AOL) in the 90s?",
         "correctAnswer": "You've got mail!",
         "acceptedAnswers": [
-            "You've got mail!"
+            "You've got mail!",
+            "you've got mail",
+            "Youve got mail!",
+            "You\"ve got mail!"
         ]
     },
     {
@@ -188,7 +209,10 @@
         "text": "What was the common name for the stock market bubble in the late 1990s, fueled by heavy investment in internet-based companies?",
         "correctAnswer": "The Dot-com bubble",
         "acceptedAnswers": [
-            "The Dot-com bubble"
+            "The Dot-com bubble",
+            "dotcom",
+            "dot com bubble",
+            "dot-com bubble"
         ]
     },
     {
@@ -220,7 +244,11 @@
         "text": "The widespread fear that computers would fail to handle the date change from 1999 to 2000 was known by what alphanumeric name?",
         "correctAnswer": "Y2K",
         "acceptedAnswers": [
-            "Y2K"
+            "Y2K",
+            "Y2K Bug",
+            "Year 2000",
+            "Y2K Problem",
+            "Year 2000 Problem"
         ]
     },
     {
@@ -252,7 +280,8 @@
         "text": "What was the first 'reality TV' show, which debuted on MTV in 1992 and featured a group of strangers living together?",
         "correctAnswer": "The Real World",
         "acceptedAnswers": [
-            "The Real World"
+            "The Real World",
+            "real world"
         ]
     },
     {
@@ -260,7 +289,9 @@
         "text": "What actor received a record-breaking $20 million for a single role in the 1996 film 'The Cable Guy'?",
         "correctAnswer": "Jim Carrey",
         "acceptedAnswers": [
-            "Jim Carrey"
+            "Jim Carrey",
+            "Jim",
+            "Carrey"
         ]
     },
     {
@@ -276,7 +307,8 @@
         "text": "In 1992, then-presidential candidate Bill Clinton played what musical instrument on 'The Arsenio Hall Show'?",
         "correctAnswer": "Saxophone",
         "acceptedAnswers": [
-            "Saxophone"
+            "Saxophone",
+            "sax"
         ]
     },
     {
@@ -292,7 +324,11 @@
         "text": "The 2004 documentary 'Super Size Me' chronicled 30 days of eating exclusively from which fast-food chain?",
         "correctAnswer": "McDonald's",
         "acceptedAnswers": [
-            "McDonald's"
+            "McDonald's",
+            "CD",
+            "mcdonalds",
+            "McDonald\"s",
+            "Compact Disc"
         ]
     },
     {
@@ -404,7 +440,9 @@
         "text": "What was the name of Apple's smallest iPod model, which was first released in 2005 and had no screen?",
         "correctAnswer": "iPod Shuffle",
         "acceptedAnswers": [
-            "iPod Shuffle"
+            "iPod Shuffle",
+            "IP",
+            "Internet Protocol"
         ]
     },
     {
@@ -412,7 +450,8 @@
         "text": "What reality TV show, which premiered in 2007, introduced the world to the Kardashian-Jenner family?",
         "correctAnswer": "Keeping Up With the Kardashians",
         "acceptedAnswers": [
-            "Keeping Up With the Kardashians"
+            "Keeping Up With the Kardashians",
+            "KUWTK"
         ]
     },
     {
@@ -452,7 +491,8 @@
         "text": "Rihanna's 2007 mega-hit 'Umbrella' famously features a guest verse from what rapper?",
         "correctAnswer": "Jay-Z",
         "acceptedAnswers": [
-            "Jay-Z"
+            "Jay-Z",
+            "Jay Z"
         ]
     },
     {
@@ -484,7 +524,9 @@
         "text": "The internet prank of inserting a link to Rick Astley's 'Never Gonna Give You Up' music video is known by what name?",
         "correctAnswer": "Rickrolling",
         "acceptedAnswers": [
-            "Rickrolling"
+            "Rickrolling",
+            "Rickroll",
+            "Rick roll"
         ]
     },
     {
@@ -492,7 +534,8 @@
         "text": "In 2015, a photo of what item of clothing went viral, sparking a massive online debate about whether its colors were blue and black or white and gold?",
         "correctAnswer": "A dress",
         "acceptedAnswers": [
-            "A dress"
+            "A dress",
+            "The dress"
         ]
     },
     {
@@ -684,7 +727,9 @@
         "text": "Who is credited with creating the C++ programming language?",
         "correctAnswer": "Bjarne Stroustrup",
         "acceptedAnswers": [
-            "Bjarne Stroustrup"
+            "Bjarne Stroustrup",
+            "Bjarne",
+            "Stroustrup"
         ]
     },
     {
@@ -700,7 +745,10 @@
         "text": "What does the acronym GUI, often pronounced 'gooey,' stand for in computing?",
         "correctAnswer": "Graphical User Interface",
         "acceptedAnswers": [
-            "Graphical User Interface"
+            "Graphical User Interface",
+            "rap",
+            "hip hop",
+            "hip-hop"
         ]
     },
     {
@@ -740,7 +788,8 @@
         "text": "What is the common term for a vulnerability in a system that allows a user to bypass security mechanisms?",
         "correctAnswer": "A back door",
         "acceptedAnswers": [
-            "A back door"
+            "A back door",
+            "Back Door"
         ]
     },
     {
@@ -748,7 +797,9 @@
         "text": "Who created Git, the widely used version control system?",
         "correctAnswer": "Linus Torvalds",
         "acceptedAnswers": [
-            "Linus Torvalds"
+            "Linus Torvalds",
+            "Linus",
+            "Torvalds"
         ]
     },
     {
@@ -780,7 +831,9 @@
         "text": "Who co-founded Apple Inc. along with Steve Jobs?",
         "correctAnswer": "Steve Wozniak",
         "acceptedAnswers": [
-            "Steve Wozniak"
+            "Steve Wozniak",
+            "Steve",
+            "Wozniak"
         ]
     },
     {
@@ -788,7 +841,9 @@
         "text": "Who is credited with inventing the World Wide Web?",
         "correctAnswer": "Tim Berners-Lee",
         "acceptedAnswers": [
-            "Tim Berners-Lee"
+            "Tim Berners-Lee",
+            "Tim",
+            "Berners-Lee"
         ]
     },
     {
@@ -812,7 +867,9 @@
         "text": "Who founded the online auction site eBay in 1995?",
         "correctAnswer": "Pierre Omidyar",
         "acceptedAnswers": [
-            "Pierre Omidyar"
+            "Pierre Omidyar",
+            "Pierre",
+            "Omidyar"
         ]
     },
     {
@@ -908,7 +965,8 @@
         "text": "What British sitcom is set in the IT department of the fictional Reynholm Industries?",
         "correctAnswer": "The IT Crowd",
         "acceptedAnswers": [
-            "The IT Crowd"
+            "The IT Crowd",
+            "It Crowd"
         ]
     },
     {
@@ -964,7 +1022,8 @@
         "text": "What is the name for a computer virus that is disguised as a legitimate program?",
         "correctAnswer": "A Trojan horse",
         "acceptedAnswers": [
-            "A Trojan horse"
+            "A Trojan horse",
+            "Trojan horse"
         ]
     },
     {
@@ -972,7 +1031,8 @@
         "text": "The daily puzzle game Wordle was acquired by what major newspaper in 2022?",
         "correctAnswer": "The New York Times",
         "acceptedAnswers": [
-            "The New York Times"
+            "The New York Times",
+            "new york times"
         ]
     },
     {
@@ -1004,7 +1064,9 @@
         "text": "In web development, what do HTML and CSS stand for?",
         "correctAnswer": "HyperText Markup Language and Cascading Style Sheets",
         "acceptedAnswers": [
-            "HyperText Markup Language and Cascading Style Sheets"
+            "HyperText Markup Language and Cascading Style Sheets",
+            "css",
+            "html"
         ]
     },
     {
@@ -1012,7 +1074,8 @@
         "text": "What does SQL, a language used to manage data in relational databases, stand for?",
         "correctAnswer": "Structured Query Language",
         "acceptedAnswers": [
-            "Structured Query Language"
+            "Structured Query Language",
+            "sql"
         ]
     },
     {
@@ -1036,7 +1099,8 @@
         "text": "What is the term for the human-readable version of a computer program, before it is compiled or interpreted?",
         "correctAnswer": "Source code",
         "acceptedAnswers": [
-            "Source code"
+            "Source code",
+            "sourcecode"
         ]
     },
     {
@@ -1044,7 +1108,8 @@
         "text": "What does the acronym 'IP' stand for in TCP/IP?",
         "correctAnswer": "Internet Protocol",
         "acceptedAnswers": [
-            "Internet Protocol"
+            "Internet Protocol",
+            "IP"
         ]
     },
     {
@@ -1052,7 +1117,8 @@
         "text": "In cryptography, what is the process of converting information or data into a code to prevent unauthorized access?",
         "correctAnswer": "Encryption",
         "acceptedAnswers": [
-            "Encryption"
+            "Encryption",
+            "encrypting"
         ]
     },
     {
@@ -1100,7 +1166,8 @@
         "text": "What is the name of the deepest point in the Earth's oceans?",
         "correctAnswer": "The Mariana Trench",
         "acceptedAnswers": [
-            "The Mariana Trench"
+            "The Mariana Trench",
+            "mariana trench"
         ]
     },
     {
@@ -1116,7 +1183,8 @@
         "text": "What is the name of the galaxy that contains our Solar System?",
         "correctAnswer": "The Milky Way",
         "acceptedAnswers": [
-            "The Milky Way"
+            "The Milky Way",
+            "milky way"
         ]
     },
     {
@@ -1220,7 +1288,10 @@
         "text": "The 1986 nuclear disaster at the Chernobyl Nuclear Power Plant occurred in which present-day country?",
         "correctAnswer": "Ukraine",
         "acceptedAnswers": [
-            "Ukraine"
+            "Ukraine",
+            "UK",
+            "United Kingdom",
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -1228,7 +1299,9 @@
         "text": "Who is credited with inventing the first commercially successful printing press around 1440?",
         "correctAnswer": "Johannes Gutenberg",
         "acceptedAnswers": [
-            "Johannes Gutenberg"
+            "Johannes Gutenberg",
+            "Johannes",
+            "Gutenberg"
         ]
     },
     {
@@ -1236,7 +1309,9 @@
         "text": "Who was the first person to walk on the moon?",
         "correctAnswer": "Neil Armstrong",
         "acceptedAnswers": [
-            "Neil Armstrong"
+            "Neil Armstrong",
+            "Neil",
+            "Armstrong"
         ]
     },
     {
@@ -1308,7 +1383,8 @@
         "text": "What is the longest river in the world?",
         "correctAnswer": "The Nile River",
         "acceptedAnswers": [
-            "The Nile River"
+            "The Nile River",
+            "Nile River"
         ]
     },
     {
@@ -1420,7 +1496,9 @@
         "text": "In automotive terms, what does the acronym 'LSD' stand for?",
         "correctAnswer": "Limited-Slip Differential",
         "acceptedAnswers": [
-            "Limited-Slip Differential"
+            "Limited-Slip Differential",
+            "IP",
+            "Internet Protocol"
         ]
     },
     {
@@ -1428,7 +1506,8 @@
         "text": "What does AMG, the high-performance subsidiary of Mercedes-Benz, stand for?",
         "correctAnswer": "Aufrecht, Melcher, Großaspach",
         "acceptedAnswers": [
-            "Aufrecht, Melcher, Großaspach"
+            "Aufrecht, Melcher, Großaspach",
+            "AUFRECHT, MELCHER, GROSSASPACH"
         ]
     },
     {
@@ -1484,6 +1563,7 @@
         "text": "On the show 'Friends', how many times did Ross Geller get divorced?",
         "correctAnswer": "Three",
         "acceptedAnswers": [
+            "Three",
             "3"
         ]
     },
@@ -1492,6 +1572,7 @@
         "text": "The 'Friends' theme song, 'I'll Be There for You' by The Rembrandts, was a radio hit but only reached what peak position on the Billboard Hot 100 chart?",
         "correctAnswer": "17",
         "acceptedAnswers": [
+            "17",
             "No. 17",
             "Number 17"
         ]
@@ -1501,7 +1582,7 @@
         "text": "The term 'shipping,' used to describe fan support for a romantic pairing of fictional characters, originated in the online fandom of what 90s sci-fi show?",
         "correctAnswer": "The X-Files",
         "acceptedAnswers": [
-            "X-Files"
+            "The X-Files"
         ]
     },
     {
@@ -1509,7 +1590,9 @@
         "text": "What iconic line does Kevin McCallister play on a gangster film to scare off the Wet Bandits in 'Home Alone'?",
         "correctAnswer": "Keep the change, ya filthy animal!",
         "acceptedAnswers": [
-            "Keep the change ya filthy animal"
+            "Keep the change, ya filthy animal!",
+            "Keep the change ya filthy animal",
+            "Keep the change, ya filthy animal"
         ]
     },
     {
@@ -1517,7 +1600,7 @@
         "text": "Despite his terrifying presence, Anthony Hopkins won a Best Actor Oscar for playing Hannibal Lecter in 'The Silence of the Lambs' with only about how many minutes of screen time?",
         "correctAnswer": "16 minutes",
         "acceptedAnswers": [
-            "16"
+            "16 minutes"
         ]
     },
     {
@@ -1525,6 +1608,7 @@
         "text": "What was the bestselling rock album of the 1990s, featuring hits like 'Ironic' and 'You Oughta Know'?",
         "correctAnswer": "Jagged Little Pill",
         "acceptedAnswers": [
+            "Jagged Little Pill",
             "Alanis Morissette's Jagged Little Pill"
         ]
     },
@@ -1533,6 +1617,7 @@
         "text": "How old was rapper The Notorious B.I.G. when he was murdered in 1997?",
         "correctAnswer": "24",
         "acceptedAnswers": [
+            "24",
             "24 years old"
         ]
     },
@@ -1541,6 +1626,7 @@
         "text": "What popular 90s toy was banned from National Security Agency (NSA) offices over fears it could be used for eavesdropping?",
         "correctAnswer": "Furby",
         "acceptedAnswers": [
+            "Furby",
             "Furbies"
         ]
     },
@@ -1549,7 +1635,7 @@
         "text": "What 1997 Nintendo 64 first-person shooter, based on a James Bond film, is widely considered one of the greatest video games of all time?",
         "correctAnswer": "GoldenEye 007",
         "acceptedAnswers": [
-            "GoldenEye",
+            "GoldenEye 007",
             "Golden Eye"
         ]
     },
@@ -1558,9 +1644,10 @@
         "text": "In the 90s, you had to get off the telephone if you wanted to do what?",
         "correctAnswer": "Access the internet",
         "acceptedAnswers": [
-            "Use the internet",
+            "Access the internet",
             "Go online",
-            "Use dial-up"
+            "Use dial-up",
+            "Use the internet"
         ]
     },
     {
@@ -1568,7 +1655,9 @@
         "text": "The dance move known as 'The Carlton' was popularized by Alfonso Ribeiro on what 90s sitcom?",
         "correctAnswer": "The Fresh Prince of Bel-Air",
         "acceptedAnswers": [
-            "Fresh Prince"
+            "The Fresh Prince of Bel-Air",
+            "Fresh Prince",
+            "Fresh Prince of Bel-Air"
         ]
     },
     {
@@ -1576,6 +1665,7 @@
         "text": "What footwear brand, known for its sheepskin boots, saw a massive surge in popularity in the early 2000s after being featured on Oprah's 'Favorite Things'?",
         "correctAnswer": "Ugg",
         "acceptedAnswers": [
+            "Ugg",
             "Uggs",
             "Ugg boots"
         ]
@@ -1585,6 +1675,7 @@
         "text": "What rapper, also known as Slim Shady, won an Academy Award for Best Original Song in 2003 for 'Lose Yourself'?",
         "correctAnswer": "Eminem",
         "acceptedAnswers": [
+            "Eminem",
             "Marshall Mathers"
         ]
     },
@@ -1593,7 +1684,7 @@
         "text": "In 2008, Heath Ledger posthumously won the Academy Award for Best Supporting Actor for his portrayal of which comic book villain?",
         "correctAnswer": "The Joker",
         "acceptedAnswers": [
-            "Joker"
+            "The Joker"
         ]
     },
     {
@@ -1601,6 +1692,7 @@
         "text": "The TV series 'Lost', which premiered in 2004, is about the survivors of a plane crash on what kind of mysterious landmass?",
         "correctAnswer": "An island",
         "acceptedAnswers": [
+            "An island",
             "A mysterious island"
         ]
     },
@@ -1609,6 +1701,7 @@
         "text": "The viral 'ALS Ice Bucket Challenge' of 2014 raised awareness and over $115 million for research into what disease, also known as Lou Gehrig's disease?",
         "correctAnswer": "ALS",
         "acceptedAnswers": [
+            "ALS",
             "Amyotrophic lateral sclerosis"
         ]
     },
@@ -1617,6 +1710,7 @@
         "text": "In modern internet slang, if someone is lying, they are said to be doing what?",
         "correctAnswer": "Capping",
         "acceptedAnswers": [
+            "Capping",
             "Cap"
         ]
     },
@@ -1625,6 +1719,7 @@
         "text": "If a Gen Z individual tells you to 'touch grass,' what are they suggesting you do?",
         "correctAnswer": "Get off the internet and go outside",
         "acceptedAnswers": [
+            "Get off the internet and go outside",
             "Go outside",
             "Get off the internet"
         ]
@@ -1634,6 +1729,7 @@
         "text": "The Netflix series 'Stranger Things' is set in what fictional town in Indiana?",
         "correctAnswer": "Hawkins",
         "acceptedAnswers": [
+            "Hawkins",
             "Hawkins, Indiana"
         ]
     },
@@ -1642,6 +1738,7 @@
         "text": "In the Marvel Cinematic Universe, what is the name of Thor's enchanted hammer?",
         "correctAnswer": "Mjölnir",
         "acceptedAnswers": [
+            "Mjölnir",
             "Mjolnir"
         ]
     },
@@ -1650,6 +1747,7 @@
         "text": "In 'Avengers: Infinity War,' how many Infinity Stones does Thanos need to collect to achieve his goal of wiping out half of all life?",
         "correctAnswer": "Six",
         "acceptedAnswers": [
+            "Six",
             "6"
         ]
     },
@@ -1658,6 +1756,7 @@
         "text": "What day is unofficially celebrated as 'Star Wars Day' due to a pun on a famous line from the movies?",
         "correctAnswer": "May 4th",
         "acceptedAnswers": [
+            "May 4th",
             "May 4",
             "May the 4th"
         ]
@@ -1667,6 +1766,7 @@
         "text": "What is the name of Han Solo's iconic spaceship in 'Star Wars'?",
         "correctAnswer": "The Millennium Falcon",
         "acceptedAnswers": [
+            "The Millennium Falcon",
             "Millennium Falcon"
         ]
     },
@@ -1675,6 +1775,7 @@
         "text": "The photo and video sharing app Instagram was launched in 2010 and was acquired two years later by what tech giant?",
         "correctAnswer": "Facebook",
         "acceptedAnswers": [
+            "Facebook",
             "Meta"
         ]
     },
@@ -1683,7 +1784,8 @@
         "text": "How many bits are in one byte?",
         "correctAnswer": "8",
         "acceptedAnswers": [
-            "Eight"
+            "8",
+            "eight"
         ]
     },
     {
@@ -1691,7 +1793,7 @@
         "text": "What is the official name for the 'prove you're not a robot' tests commonly found on websites?",
         "correctAnswer": "CAPTCHA",
         "acceptedAnswers": [
-            "Captcha"
+            "CAPTCHA"
         ]
     },
     {
@@ -1699,7 +1801,7 @@
         "text": "Bill Gates famously dropped out of what university to found Microsoft?",
         "correctAnswer": "Harvard University",
         "acceptedAnswers": [
-            "Harvard"
+            "Harvard University"
         ]
     },
     {
@@ -1707,6 +1809,7 @@
         "text": "The online retailer Amazon was originally incorporated under what magical-sounding name?",
         "correctAnswer": "Cadabra",
         "acceptedAnswers": [
+            "Cadabra",
             "Cadabra, Inc."
         ]
     },
@@ -1715,6 +1818,7 @@
         "text": "What was the first home video game console, released in 1972?",
         "correctAnswer": "The Magnavox Odyssey",
         "acceptedAnswers": [
+            "The Magnavox Odyssey",
             "Magnavox Odyssey"
         ]
     },
@@ -1723,7 +1827,9 @@
         "text": "In a classic logic puzzle, how do you measure exactly 45 minutes using only two ropes that each take one hour to burn completely from end to end?",
         "correctAnswer": "Light one rope at both ends and the other at one end. When the first rope burns out (30 mins), light the other end of the second rope.",
         "acceptedAnswers": [
-            "Light one rope at both ends and the other at one end simultaneously"
+            "Light one rope at both ends and the other at one end. When the first rope burns out (30 mins), light the other end of the second rope.",
+            "Light one rope at both ends and the other at one end simultaneously",
+            "light one rope at both ends and the other at one end. when the first rope burns out (30 mins), light the other end of the second rope"
         ]
     },
     {
@@ -1731,7 +1837,7 @@
         "text": "The file-sharing software Napster was named after creator Shawn Fanning's nickname, which was based on his what?",
         "correctAnswer": "Frizzy hair",
         "acceptedAnswers": [
-            "Hair"
+            "Frizzy hair"
         ]
     },
     {
@@ -1739,8 +1845,9 @@
         "text": "What is the common keyboard shortcut (using the Ctrl key on Windows) for the 'copy' function?",
         "correctAnswer": "Ctrl+C",
         "acceptedAnswers": [
-            "Control C",
-            "Ctrl C"
+            "Ctrl+C",
+            "Ctrl C",
+            "Control C"
         ]
     },
     {
@@ -1748,6 +1855,7 @@
         "text": "What is the term for a software development methodology where requirements and solutions evolve through the collaborative effort of self-organizing and cross-functional teams?",
         "correctAnswer": "Agile",
         "acceptedAnswers": [
+            "Agile",
             "Agile methodology"
         ]
     },
@@ -1756,6 +1864,7 @@
         "text": "What is the name of the world's first programmable, electronic, general-purpose digital computer, completed in 1945?",
         "correctAnswer": "ENIAC",
         "acceptedAnswers": [
+            "ENIAC",
             "Electronic Numerical Integrator and Computer"
         ]
     },
@@ -1764,7 +1873,11 @@
         "text": "What does the term 'open source' mean in relation to software?",
         "correctAnswer": "The source code is freely available for modification and redistribution",
         "acceptedAnswers": [
-            "Its source code is available to the public"
+            "The source code is freely available for modification and redistribution",
+            "sourcecode",
+            "source code",
+            "Its source code is available to the public",
+            "Source Code Is Freely Available For Modification And Redistribution"
         ]
     },
     {
@@ -1772,6 +1885,7 @@
         "text": "What is the name for the small block of fast memory located on the CPU that stores frequently used data?",
         "correctAnswer": "Cache",
         "acceptedAnswers": [
+            "Cache",
             "CPU cache"
         ]
     },
@@ -1780,6 +1894,7 @@
         "text": "What is the only metal that is liquid at room temperature?",
         "correctAnswer": "Mercury",
         "acceptedAnswers": [
+            "Mercury",
             "Hg"
         ]
     },
@@ -1788,7 +1903,7 @@
         "text": "At what temperature are the Celsius and Fahrenheit scales equal?",
         "correctAnswer": "-40 degrees",
         "acceptedAnswers": [
-            "-40"
+            "-40 degrees"
         ]
     },
     {
@@ -1796,6 +1911,7 @@
         "text": "Unlike mammals and reptiles, sharks have a skeleton made of cartilage, meaning they have how many bones?",
         "correctAnswer": "Zero",
         "acceptedAnswers": [
+            "Zero",
             "0",
             "None"
         ]
@@ -1805,6 +1921,7 @@
         "text": "What blood type is known as the 'universal donor'?",
         "correctAnswer": "O negative",
         "acceptedAnswers": [
+            "O negative",
             "O-"
         ]
     },
@@ -1813,8 +1930,9 @@
         "text": "Roughly how long does it take for light from the Sun to reach Earth?",
         "correctAnswer": "8 minutes",
         "acceptedAnswers": [
-            "8 minutes and 20 seconds",
-            "About 8 minutes"
+            "8 minutes",
+            "About 8 minutes",
+            "8 minutes and 20 seconds"
         ]
     },
     {
@@ -1822,6 +1940,7 @@
         "text": "A Geiger counter is used to measure what?",
         "correctAnswer": "Radiation",
         "acceptedAnswers": [
+            "Radiation",
             "Ionizing radiation"
         ]
     },
@@ -1830,8 +1949,9 @@
         "text": "The shortest war in recorded history, the Anglo-Zanzibar War of 1896, lasted for approximately how long?",
         "correctAnswer": "38 minutes",
         "acceptedAnswers": [
-            "About 40 minutes",
-            "38-45 minutes"
+            "38 minutes",
+            "38-45 minutes",
+            "About 40 minutes"
         ]
     },
     {
@@ -1839,7 +1959,11 @@
         "text": "The assassination of which Archduke is widely cited as the trigger for the start of World War I?",
         "correctAnswer": "Archduke Franz Ferdinand",
         "acceptedAnswers": [
-            "Franz Ferdinand"
+            "Archduke Franz Ferdinand",
+            "UK",
+            "United Kingdom",
+            "Franz Ferdinand",
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -1847,7 +1971,8 @@
         "text": "What is considered the largest contiguous land empire in history?",
         "correctAnswer": "The Mongol Empire",
         "acceptedAnswers": [
-            "Mongol Empire"
+            "The Mongol Empire",
+            "mongol empire"
         ]
     },
     {
@@ -1855,6 +1980,7 @@
         "text": "What was the name of the secret U.S. program to develop the atomic bomb during World War II?",
         "correctAnswer": "The Manhattan Project",
         "acceptedAnswers": [
+            "The Manhattan Project",
             "Manhattan Project"
         ]
     },
@@ -1863,7 +1989,7 @@
         "text": "The ancient Roman city of Pompeii was famously destroyed in 79 A.D. by the eruption of what volcano?",
         "correctAnswer": "Mount Vesuvius",
         "acceptedAnswers": [
-            "Vesuvius"
+            "Mount Vesuvius"
         ]
     },
     {
@@ -1871,7 +1997,9 @@
         "text": "What is the world's largest desert, covering most of a continent?",
         "correctAnswer": "The Antarctic Polar Desert",
         "acceptedAnswers": [
-            "Antarctica"
+            "The Antarctic Polar Desert",
+            "Antarctica",
+            "Antarctic Polar Desert"
         ]
     },
     {
@@ -1879,7 +2007,6 @@
         "text": "In 'The Lord of the Rings', what is the name of the hobbit who carries the One Ring?",
         "correctAnswer": "Frodo Baggins",
         "acceptedAnswers": [
-            "Frodo",
             "Frodo Baggins"
         ]
     },
@@ -1888,8 +2015,8 @@
         "text": "On the show 'Friends', how many times did Ross Geller get divorced?",
         "correctAnswer": "Three",
         "acceptedAnswers": [
-            "3",
-            "Three"
+            "Three",
+            "3"
         ]
     },
     {
@@ -1905,9 +2032,9 @@
         "text": "The 'Friends' theme song, 'I'll Be There for You' by The Rembrandts, was a radio hit but only reached what peak position on the Billboard Hot 100 chart?",
         "correctAnswer": "17",
         "acceptedAnswers": [
+            "17",
             "No. 17",
-            "Number 17",
-            "17"
+            "Number 17"
         ]
     },
     {
@@ -1916,7 +2043,7 @@
         "correctAnswer": "10",
         "acceptedAnswers": [
             "10",
-            "Ten"
+            "ten"
         ]
     },
     {
@@ -1932,7 +2059,8 @@
         "text": "What iconic tagline was featured in the sci-fi show 'The X-Files'?",
         "correctAnswer": "The truth is out there",
         "acceptedAnswers": [
-            "The truth is out there"
+            "The truth is out there",
+            "Truth is out there"
         ]
     },
     {
@@ -1940,7 +2068,6 @@
         "text": "The term 'shipping,' used to describe fan support for a romantic pairing of fictional characters, originated in the online fandom of what 90s sci-fi show?",
         "correctAnswer": "The X-Files",
         "acceptedAnswers": [
-            "X-Files",
             "The X-Files"
         ]
     },
@@ -1949,8 +2076,8 @@
         "text": "In the 1999 film 'The Matrix', what color pill does Neo take to learn the truth about reality?",
         "correctAnswer": "The red pill",
         "acceptedAnswers": [
-            "Red pill",
-            "Red"
+            "The red pill",
+            "Red pill"
         ]
     },
     {
@@ -1966,6 +2093,7 @@
         "text": "What iconic line does Kevin McCallister play on a gangster film to scare off the Wet Bandits in 'Home Alone'?",
         "correctAnswer": "Keep the change, ya filthy animal!",
         "acceptedAnswers": [
+            "Keep the change, ya filthy animal!",
             "Keep the change ya filthy animal",
             "Keep the change, ya filthy animal"
         ]
@@ -1975,8 +2103,11 @@
         "text": "In the thriller 'Se7en', what desperate question does Brad Pitt's character scream at the end of the film?",
         "correctAnswer": "What's in the box?",
         "acceptedAnswers": [
-            "What's in the box",
-            "Whats in the box"
+            "What's in the box?",
+            "Whats in the box",
+            "what's in the box",
+            "whats in the box?",
+            "What\"s in the box?"
         ]
     },
     {
@@ -1984,7 +2115,8 @@
         "text": "The line 'There's no crying in baseball!' comes from what 1992 film starring Tom Hanks as a cynical manager of a women's baseball team?",
         "correctAnswer": "A League of Their Own",
         "acceptedAnswers": [
-            "A League of Their Own"
+            "A League of Their Own",
+            "League of Their Own"
         ]
     },
     {
@@ -2008,7 +2140,9 @@
         "text": "Who composed the iconic, sweeping score for the 1993 film 'Jurassic Park'?",
         "correctAnswer": "John Williams",
         "acceptedAnswers": [
-            "John Williams"
+            "John Williams",
+            "John",
+            "Williams"
         ]
     },
     {
@@ -2016,7 +2150,6 @@
         "text": "Despite his terrifying presence, Anthony Hopkins won a Best Actor Oscar for playing Hannibal Lecter in 'The Silence of the Lambs' with only about how many minutes of screen time?",
         "correctAnswer": "16 minutes",
         "acceptedAnswers": [
-            "16",
             "16 minutes"
         ]
     },
@@ -2026,6 +2159,7 @@
         "correctAnswer": "Deodorant",
         "acceptedAnswers": [
             "Deodorant",
+            "antiperspirant",
             "Teen Spirit Deodorant"
         ]
     },
@@ -2050,8 +2184,8 @@
         "text": "What was the bestselling rock album of the 1990s, featuring hits like 'Ironic' and 'You Oughta Know'?",
         "correctAnswer": "Jagged Little Pill",
         "acceptedAnswers": [
-            "Alanis Morissette's Jagged Little Pill",
-            "Jagged Little Pill"
+            "Jagged Little Pill",
+            "Alanis Morissette's Jagged Little Pill"
         ]
     },
     {
@@ -2085,8 +2219,8 @@
         "text": "Before his successful solo career, Justin Timberlake was a member of which 90s boy band?",
         "correctAnswer": "*NSYNC",
         "acceptedAnswers": [
-            "NSYNC",
-            "*NSYNC"
+            "*NSYNC",
+            "NSYNC"
         ]
     },
     {
@@ -2120,8 +2254,16 @@
         "correctAnswer": "2Pac and The Notorious B.I.G.",
         "acceptedAnswers": [
             "2Pac and The Notorious B.I.G.",
+            "Tupac",
+            "Biggie",
+            "Tupac Shakur",
+            "Biggie Smalls",
+            "Biggie and Tupac",
+            "Notorious B.I.G.",
             "Tupac and Biggie",
-            "Biggie and Tupac"
+            "The Notorious BIG",
+            "The Notorious B.I.G.",
+            "2Pac and The Notorious B.I.G"
         ]
     },
     {
@@ -2129,8 +2271,8 @@
         "text": "How old was rapper The Notorious B.I.G. when he was murdered in 1997?",
         "correctAnswer": "24",
         "acceptedAnswers": [
-            "24 years old",
-            "24"
+            "24",
+            "24 years old"
         ]
     },
     {
@@ -2138,8 +2280,11 @@
         "text": "What famous three-word phrase would you hear from your computer after connecting to the internet via America Online (AOL) in the 90s?",
         "correctAnswer": "You've got mail!",
         "acceptedAnswers": [
-            "You've got mail",
-            "Youve got mail"
+            "You've got mail!",
+            "Youve got mail",
+            "you've got mail",
+            "Youve got mail!",
+            "You\"ve got mail!"
         ]
     },
     {
@@ -2147,8 +2292,10 @@
         "text": "What was the common name for the stock market bubble in the late 1990s, fueled by heavy investment in internet-based companies?",
         "correctAnswer": "The Dot-com bubble",
         "acceptedAnswers": [
-            "Dot-com bubble",
-            "Dot com bubble"
+            "The Dot-com bubble",
+            "dotcom",
+            "dot com bubble",
+            "dot-com bubble"
         ]
     },
     {
@@ -2181,8 +2328,8 @@
         "text": "What popular 90s toy was banned from National Security Agency (NSA) offices over fears it could be used for eavesdropping?",
         "correctAnswer": "Furby",
         "acceptedAnswers": [
-            "Furbies",
-            "Furby"
+            "Furby",
+            "Furbies"
         ]
     },
     {
@@ -2191,7 +2338,11 @@
         "correctAnswer": "Y2K",
         "acceptedAnswers": [
             "Y2K",
-            "The Y2K bug"
+            "Y2K Bug",
+            "Year 2000",
+            "The Y2K bug",
+            "Y2K Problem",
+            "Year 2000 Problem"
         ]
     },
     {
@@ -2207,9 +2358,8 @@
         "text": "What 1997 Nintendo 64 first-person shooter, based on a James Bond film, is widely considered one of the greatest video games of all time?",
         "correctAnswer": "GoldenEye 007",
         "acceptedAnswers": [
-            "GoldenEye",
-            "Golden Eye",
-            "GoldenEye 007"
+            "GoldenEye 007",
+            "Golden Eye"
         ]
     },
     {
@@ -2226,10 +2376,10 @@
         "text": "In the 90s, you had to get off the telephone if you wanted to do what?",
         "correctAnswer": "Access the internet",
         "acceptedAnswers": [
-            "Use the internet",
+            "Access the internet",
             "Go online",
             "Use dial-up",
-            "Access the internet"
+            "Use the internet"
         ]
     },
     {
@@ -2245,7 +2395,8 @@
         "text": "What was the first 'reality TV' show, which debuted on MTV in 1992 and featured a group of strangers living together?",
         "correctAnswer": "The Real World",
         "acceptedAnswers": [
-            "The Real World"
+            "The Real World",
+            "real world"
         ]
     },
     {
@@ -2253,7 +2404,9 @@
         "text": "What actor received a record-breaking $20 million for a single role in the 1996 film 'The Cable Guy'?",
         "correctAnswer": "Jim Carrey",
         "acceptedAnswers": [
-            "Jim Carrey"
+            "Jim Carrey",
+            "Jim",
+            "Carrey"
         ]
     },
     {
@@ -2270,6 +2423,7 @@
         "correctAnswer": "Saxophone",
         "acceptedAnswers": [
             "Saxophone",
+            "sax",
             "The saxophone"
         ]
     },
@@ -2278,7 +2432,6 @@
         "text": "What video game character's iconic red shoes were inspired by the cover of Michael Jackson's album 'Bad'?",
         "correctAnswer": "Sonic the Hedgehog",
         "acceptedAnswers": [
-            "Sonic",
             "Sonic the Hedgehog"
         ]
     },
@@ -2287,8 +2440,9 @@
         "text": "The dance move known as 'The Carlton' was popularized by Alfonso Ribeiro on what 90s sitcom?",
         "correctAnswer": "The Fresh Prince of Bel-Air",
         "acceptedAnswers": [
+            "The Fresh Prince of Bel-Air",
             "Fresh Prince",
-            "The Fresh Prince of Bel-Air"
+            "Fresh Prince of Bel-Air"
         ]
     },
     {
@@ -2296,8 +2450,11 @@
         "text": "The 2004 documentary 'Super Size Me' chronicled 30 days of eating exclusively from which fast-food chain?",
         "correctAnswer": "McDonald's",
         "acceptedAnswers": [
-            "McDonalds",
-            "McDonald's"
+            "McDonald's",
+            "CD",
+            "mcdonalds",
+            "McDonald\"s",
+            "Compact Disc"
         ]
     },
     {
@@ -2361,9 +2518,9 @@
         "text": "What footwear brand, known for its sheepskin boots, saw a massive surge in popularity in the early 2000s after being featured on Oprah's 'Favorite Things'?",
         "correctAnswer": "Ugg",
         "acceptedAnswers": [
+            "Ugg",
             "Uggs",
-            "Ugg boots",
-            "Ugg"
+            "Ugg boots"
         ]
     },
     {
@@ -2372,8 +2529,8 @@
         "correctAnswer": "Biting it",
         "acceptedAnswers": [
             "Biting it",
-            "Biting his finger",
-            "Bit him"
+            "Bit him",
+            "Biting his finger"
         ]
     },
     {
@@ -2381,8 +2538,7 @@
         "text": "What social media platform, which launched in 2003, was the most popular in the world from 2005 to 2008 and automatically assigned 'Tom' as everyone's first friend?",
         "correctAnswer": "MySpace",
         "acceptedAnswers": [
-            "MySpace",
-            "Myspace"
+            "MySpace"
         ]
     },
     {
@@ -2390,8 +2546,8 @@
         "text": "What rapper, also known as Slim Shady, won an Academy Award for Best Original Song in 2003 for 'Lose Yourself'?",
         "correctAnswer": "Eminem",
         "acceptedAnswers": [
-            "Marshall Mathers",
-            "Eminem"
+            "Eminem",
+            "Marshall Mathers"
         ]
     },
     {
@@ -2432,7 +2588,9 @@
         "correctAnswer": "iPod Shuffle",
         "acceptedAnswers": [
             "iPod Shuffle",
-            "The iPod Shuffle"
+            "IP",
+            "The iPod Shuffle",
+            "Internet Protocol"
         ]
     },
     {
@@ -2457,7 +2615,6 @@
         "text": "In 2008, Heath Ledger posthumously won the Academy Award for Best Supporting Actor for his portrayal of which comic book villain?",
         "correctAnswer": "The Joker",
         "acceptedAnswers": [
-            "Joker",
             "The Joker"
         ]
     },
@@ -2474,8 +2631,8 @@
         "text": "The TV series 'Lost', which premiered in 2004, is about the survivors of a plane crash on what kind of mysterious landmass?",
         "correctAnswer": "An island",
         "acceptedAnswers": [
-            "A mysterious island",
-            "An island"
+            "An island",
+            "A mysterious island"
         ]
     },
     {
@@ -2533,7 +2690,8 @@
         "correctAnswer": "Rickrolling",
         "acceptedAnswers": [
             "Rickrolling",
-            "Rickroll"
+            "Rickroll",
+            "Rick roll"
         ]
     },
     {
@@ -2541,9 +2699,9 @@
         "text": "The viral 'ALS Ice Bucket Challenge' of 2014 raised awareness and over $115 million for research into what disease, also known as Lou Gehrig's disease?",
         "correctAnswer": "ALS",
         "acceptedAnswers": [
-            "Amyotrophic lateral sclerosis",
             "ALS",
-            "Lou Gehrig's disease"
+            "Lou Gehrig's disease",
+            "Amyotrophic lateral sclerosis"
         ]
     },
     {
@@ -2551,8 +2709,8 @@
         "text": "In 2015, a photo of what item of clothing went viral, sparking a massive online debate about whether its colors were blue and black or white and gold?",
         "correctAnswer": "A dress",
         "acceptedAnswers": [
-            "The dress",
-            "A dress"
+            "A dress",
+            "The dress"
         ]
     },
     {
@@ -2584,8 +2742,8 @@
         "text": "In modern internet slang, if someone is lying, they are said to be doing what?",
         "correctAnswer": "Capping",
         "acceptedAnswers": [
-            "Cap",
             "Capping",
+            "Cap",
             "No cap"
         ]
     },
@@ -2618,9 +2776,10 @@
         "text": "If a Gen Z individual tells you to 'touch grass,' what are they suggesting you do?",
         "correctAnswer": "Get off the internet and go outside",
         "acceptedAnswers": [
+            "Get off the internet and go outside",
             "Go outside",
-            "Get off the internet",
-            "Get off the computer"
+            "Get off the computer",
+            "Get off the internet"
         ]
     },
     {
@@ -2628,8 +2787,8 @@
         "text": "The Netflix series 'Stranger Things' is set in what fictional town in Indiana?",
         "correctAnswer": "Hawkins",
         "acceptedAnswers": [
-            "Hawkins, Indiana",
-            "Hawkins"
+            "Hawkins",
+            "Hawkins, Indiana"
         ]
     },
     {
@@ -2637,8 +2796,8 @@
         "text": "In the Marvel Cinematic Universe, what is the name of Thor's enchanted hammer?",
         "correctAnswer": "Mjölnir",
         "acceptedAnswers": [
-            "Mjolnir",
-            "Mjölnir"
+            "Mjölnir",
+            "Mjolnir"
         ]
     },
     {
@@ -2654,8 +2813,8 @@
         "text": "In 'Avengers: Infinity War,' how many Infinity Stones does Thanos need to collect to achieve his goal of wiping out half of all life?",
         "correctAnswer": "Six",
         "acceptedAnswers": [
-            "6",
-            "Six"
+            "Six",
+            "6"
         ]
     },
     {
@@ -2663,9 +2822,9 @@
         "text": "What day is unofficially celebrated as 'Star Wars Day' due to a pun on a famous line from the movies?",
         "correctAnswer": "May 4th",
         "acceptedAnswers": [
+            "May 4th",
             "May 4",
-            "May the 4th",
-            "May 4th"
+            "May the 4th"
         ]
     },
     {
@@ -2673,8 +2832,8 @@
         "text": "What is the name of Han Solo's iconic spaceship in 'Star Wars'?",
         "correctAnswer": "The Millennium Falcon",
         "acceptedAnswers": [
-            "Millennium Falcon",
-            "The Millennium Falcon"
+            "The Millennium Falcon",
+            "Millennium Falcon"
         ]
     },
     {
@@ -2739,8 +2898,8 @@
         "text": "The photo and video sharing app Instagram was launched in 2010 and was acquired two years later by what tech giant?",
         "correctAnswer": "Facebook",
         "acceptedAnswers": [
-            "Meta",
-            "Facebook"
+            "Facebook",
+            "Meta"
         ]
     },
     {
@@ -2816,8 +2975,8 @@
         "correctAnswer": "Woman yelling at a cat",
         "acceptedAnswers": [
             "Woman yelling at a cat",
-            "Smudge the cat meme",
-            "The cat meme"
+            "The cat meme",
+            "Smudge the cat meme"
         ]
     },
     {
@@ -2849,8 +3008,9 @@
         "text": "What does 'Netflix and chill' mean in modern slang?",
         "correctAnswer": "To hook up or have a casual sexual encounter",
         "acceptedAnswers": [
-            "To hook up",
+            "To hook up or have a casual sexual encounter",
             "Sex",
+            "To hook up",
             "A booty call"
         ]
     },
@@ -2860,7 +3020,8 @@
         "correctAnswer": "Li'l Sebastian",
         "acceptedAnswers": [
             "Li'l Sebastian",
-            "Lil Sebastian"
+            "Lil Sebastian",
+            "Li\"l Sebastian"
         ]
     },
     {
@@ -2877,7 +3038,9 @@
         "correctAnswer": "Snapchat",
         "acceptedAnswers": [
             "Snapchat",
-            "Snap"
+            "PC",
+            "Snap",
+            "Personal Computer"
         ]
     },
     {
@@ -2903,7 +3066,8 @@
         "correctAnswer": "The Elder Wand, the Resurrection Stone, and the Cloak of Invisibility",
         "acceptedAnswers": [
             "The Elder Wand, the Resurrection Stone, and the Cloak of Invisibility",
-            "Wand, Stone, Cloak"
+            "Wand, Stone, Cloak",
+            "Elder Wand, the Resurrection Stone, and the Cloak of Invisibility"
         ]
     },
     {
@@ -2929,7 +3093,9 @@
         "text": "Who is the creator of the animated shows 'The Simpsons' and 'Futurama'?",
         "correctAnswer": "Matt Groening",
         "acceptedAnswers": [
-            "Matt Groening"
+            "Matt Groening",
+            "Matt",
+            "Groening"
         ]
     },
     {
@@ -2937,7 +3103,6 @@
         "text": "In 'South Park', what is the name of the one Jewish kid in the main group of four?",
         "correctAnswer": "Kyle Broflovski",
         "acceptedAnswers": [
-            "Kyle",
             "Kyle Broflovski"
         ]
     },
@@ -2946,8 +3111,9 @@
         "text": "What does the slang term 'simp' mean?",
         "correctAnswer": "Someone who is overly eager to please someone they are attracted to",
         "acceptedAnswers": [
-            "Someone who is overly desperate for affection",
-            "An overly attentive person"
+            "Someone who is overly eager to please someone they are attracted to",
+            "An overly attentive person",
+            "Someone who is overly desperate for affection"
         ]
     },
     {
@@ -2956,7 +3122,7 @@
         "correctAnswer": "The Brave Fighter of Sun Fighbird",
         "acceptedAnswers": [
             "The Brave Fighter of Sun Fighbird",
-            "Fighbird"
+            "brave fighter of sun fighbird"
         ]
     },
     {
@@ -2964,7 +3130,8 @@
         "text": "In 'SpongeBob SquarePants', what is the name of Mr. Krabs' restaurant?",
         "correctAnswer": "The Krusty Krab",
         "acceptedAnswers": [
-            "The Krusty Krab"
+            "The Krusty Krab",
+            "Krusty Krab"
         ]
     },
     {
@@ -2998,8 +3165,8 @@
         "correctAnswer": "Before anyone else",
         "acceptedAnswers": [
             "Before anyone else",
-            "A significant other",
-            "Babe"
+            "Babe",
+            "A significant other"
         ]
     },
     {
@@ -3039,7 +3206,8 @@
         "text": "What does 'FOMO' stand for?",
         "correctAnswer": "Fear of missing out",
         "acceptedAnswers": [
-            "Fear of missing out"
+            "Fear of missing out",
+            "fomo"
         ]
     },
     {
@@ -3047,7 +3215,9 @@
         "text": "What is the name of the fictional restaurant chain where Michael Scott's favorite dish is 'the awesome blossom'?",
         "correctAnswer": "Chili's",
         "acceptedAnswers": [
-            "Chili's"
+            "Chili's",
+            "Chilis",
+            "Chili\"s"
         ]
     },
     {
@@ -3055,7 +3225,10 @@
         "text": "In 'Parks and Recreation', what is the name of Ron Swanson's jazz-playing alter ego?",
         "correctAnswer": "Duke Silver",
         "acceptedAnswers": [
-            "Duke Silver"
+            "Duke Silver",
+            "UK",
+            "United Kingdom",
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -3063,8 +3236,8 @@
         "text": "What is the term for a story or video that is shared rapidly and widely on the internet?",
         "correctAnswer": "Viral",
         "acceptedAnswers": [
-            "Going viral",
-            "Viral"
+            "Viral",
+            "Going viral"
         ]
     },
     {
@@ -3080,8 +3253,10 @@
         "text": "What does the slang term 'glow up' mean?",
         "correctAnswer": "A significant positive transformation, usually in appearance",
         "acceptedAnswers": [
+            "A significant positive transformation, usually in appearance",
+            "A makeover",
             "A positive transformation",
-            "A makeover"
+            "significant positive transformation, usually in appearance"
         ]
     },
     {
@@ -3089,8 +3264,8 @@
         "text": "In 'Mean Girls', what is the name of the book where 'The Plastics' write rumors about other girls?",
         "correctAnswer": "The Burn Book",
         "acceptedAnswers": [
-            "Burn Book",
-            "The Burn Book"
+            "The Burn Book",
+            "burn book"
         ]
     },
     {
@@ -3098,8 +3273,8 @@
         "text": "What popular 90s cartoon featured three super-powered girls created from 'sugar, spice, and everything nice'?",
         "correctAnswer": "The Powerpuff Girls",
         "acceptedAnswers": [
-            "Powerpuff Girls",
-            "The Powerpuff Girls"
+            "The Powerpuff Girls",
+            "powerpuff girls"
         ]
     },
     {
@@ -3115,8 +3290,9 @@
         "text": "In the 'Toy Story' films, what phrase does Buzz Lightyear famously say?",
         "correctAnswer": "To infinity... and beyond!",
         "acceptedAnswers": [
+            "To infinity... and beyond!",
             "To infinity and beyond",
-            "To infinity... and beyond!"
+            "To infinity... and beyond"
         ]
     },
     {
@@ -3132,8 +3308,12 @@
         "text": "The meme 'One does not simply walk into...' is from what fantasy film?",
         "correctAnswer": "The Lord of the Rings: The Fellowship of the Ring",
         "acceptedAnswers": [
+            "The Lord of the Rings: The Fellowship of the Ring",
+            "IP",
+            "Internet Protocol",
             "Lord of the Rings",
-            "The Fellowship of the Ring"
+            "The Fellowship of the Ring",
+            "Lord of the Rings: The Fellowship of the Ring"
         ]
     },
     {
@@ -3166,7 +3346,9 @@
         "text": "Who is credited with creating the C++ programming language?",
         "correctAnswer": "Bjarne Stroustrup",
         "acceptedAnswers": [
-            "Bjarne Stroustrup"
+            "Bjarne Stroustrup",
+            "Bjarne",
+            "Stroustrup"
         ]
     },
     {
@@ -3182,7 +3364,10 @@
         "text": "What does the acronym GUI, often pronounced 'gooey,' stand for in computing?",
         "correctAnswer": "Graphical User Interface",
         "acceptedAnswers": [
-            "Graphical User Interface"
+            "Graphical User Interface",
+            "rap",
+            "hip hop",
+            "hip-hop"
         ]
     },
     {
@@ -3198,8 +3383,7 @@
         "text": "What type of malicious software replicates itself to spread to other computers, often using a computer network to do so?",
         "correctAnswer": "A worm",
         "acceptedAnswers": [
-            "A worm",
-            "Worm"
+            "A worm"
         ]
     },
     {
@@ -3215,8 +3399,8 @@
         "text": "How many bits are in one byte?",
         "correctAnswer": "8",
         "acceptedAnswers": [
-            "Eight",
-            "8"
+            "8",
+            "eight"
         ]
     },
     {
@@ -3233,7 +3417,8 @@
         "correctAnswer": "A back door",
         "acceptedAnswers": [
             "A back door",
-            "Backdoor"
+            "Backdoor",
+            "Back Door"
         ]
     },
     {
@@ -3241,7 +3426,6 @@
         "text": "What is the official name for the 'prove you're not a robot' tests commonly found on websites?",
         "correctAnswer": "CAPTCHA",
         "acceptedAnswers": [
-            "Captcha",
             "CAPTCHA"
         ]
     },
@@ -3251,7 +3435,8 @@
         "correctAnswer": "Linus Torvalds",
         "acceptedAnswers": [
             "Linus Torvalds",
-            "Linus"
+            "Linus",
+            "Torvalds"
         ]
     },
     {
@@ -3284,6 +3469,7 @@
         "correctAnswer": "Steve Wozniak",
         "acceptedAnswers": [
             "Steve Wozniak",
+            "Steve",
             "Wozniak"
         ]
     },
@@ -3292,7 +3478,7 @@
         "text": "Bill Gates famously dropped out of what university to found Microsoft?",
         "correctAnswer": "Harvard University",
         "acceptedAnswers": [
-            "Harvard"
+            "Harvard University"
         ]
     },
     {
@@ -3300,7 +3486,9 @@
         "text": "Who is credited with inventing the World Wide Web?",
         "correctAnswer": "Tim Berners-Lee",
         "acceptedAnswers": [
-            "Tim Berners-Lee"
+            "Tim Berners-Lee",
+            "Tim",
+            "Berners-Lee"
         ]
     },
     {
@@ -3316,8 +3504,8 @@
         "text": "The online retailer Amazon was originally incorporated under what magical-sounding name?",
         "correctAnswer": "Cadabra",
         "acceptedAnswers": [
-            "Cadabra, Inc.",
-            "Cadabra"
+            "Cadabra",
+            "Cadabra, Inc."
         ]
     },
     {
@@ -3333,7 +3521,9 @@
         "text": "Who founded the online auction site eBay in 1995?",
         "correctAnswer": "Pierre Omidyar",
         "acceptedAnswers": [
-            "Pierre Omidyar"
+            "Pierre Omidyar",
+            "Pierre",
+            "Omidyar"
         ]
     },
     {
@@ -3349,6 +3539,7 @@
         "text": "What was the first home video game console, released in 1972?",
         "correctAnswer": "The Magnavox Odyssey",
         "acceptedAnswers": [
+            "The Magnavox Odyssey",
             "Magnavox Odyssey"
         ]
     },
@@ -3357,7 +3548,6 @@
         "text": "What Nintendo home console, released in 2006, pioneered the use of motion controls in gaming?",
         "correctAnswer": "The Wii",
         "acceptedAnswers": [
-            "Wii",
             "The Wii"
         ]
     },
@@ -3366,8 +3556,7 @@
         "text": "What was the first microprocessor, released by Intel in 1971?",
         "correctAnswer": "Intel 4004",
         "acceptedAnswers": [
-            "Intel 4004",
-            "4004"
+            "Intel 4004"
         ]
     },
     {
@@ -3416,7 +3605,6 @@
         "text": "In the 'Harry Potter' series, who is revealed to be the Half-Blood Prince?",
         "correctAnswer": "Severus Snape",
         "acceptedAnswers": [
-            "Snape",
             "Severus Snape"
         ]
     },
@@ -3425,8 +3613,8 @@
         "text": "What is the full name of Frodo's loyal friend and companion in 'The Lord of the Rings'?",
         "correctAnswer": "Samwise Gamgee",
         "acceptedAnswers": [
-            "Sam",
-            "Samwise Gamgee"
+            "Samwise Gamgee",
+            "Sam"
         ]
     },
     {
@@ -3442,7 +3630,8 @@
         "text": "What British sitcom is set in the IT department of the fictional Reynholm Industries?",
         "correctAnswer": "The IT Crowd",
         "acceptedAnswers": [
-            "The IT Crowd"
+            "The IT Crowd",
+            "It Crowd"
         ]
     },
     {
@@ -3450,8 +3639,10 @@
         "text": "In a classic logic puzzle, how do you measure exactly 45 minutes using only two ropes that each take one hour to burn completely from end to end?",
         "correctAnswer": "Light one rope at both ends and the other at one end. When the first rope burns out (30 mins), light the other end of the second rope.",
         "acceptedAnswers": [
+            "Light one rope at both ends and the other at one end. When the first rope burns out (30 mins), light the other end of the second rope.",
             "Light one rope at both ends and the other at one end simultaneously",
-            "Light rope 1 at both ends and rope 2 at one end. Light rope 2's other end when rope 1 is gone."
+            "Light rope 1 at both ends and rope 2 at one end. Light rope 2's other end when rope 1 is gone.",
+            "light one rope at both ends and the other at one end. when the first rope burns out (30 mins), light the other end of the second rope"
         ]
     },
     {
@@ -3475,7 +3666,6 @@
         "text": "The file-sharing software Napster was named after creator Shawn Fanning's nickname, which was based on his what?",
         "correctAnswer": "Frizzy hair",
         "acceptedAnswers": [
-            "Hair",
             "Frizzy hair"
         ]
     },
@@ -3517,9 +3707,9 @@
         "text": "What is the common keyboard shortcut (using the Ctrl key on Windows) for the 'copy' function?",
         "correctAnswer": "Ctrl+C",
         "acceptedAnswers": [
-            "Control C",
+            "Ctrl+C",
             "Ctrl C",
-            "Ctrl+C"
+            "Control C"
         ]
     },
     {
@@ -3527,8 +3717,8 @@
         "text": "What is the name for a computer virus that is disguised as a legitimate program?",
         "correctAnswer": "A Trojan horse",
         "acceptedAnswers": [
-            "Trojan horse",
-            "Trojan"
+            "A Trojan horse",
+            "Trojan horse"
         ]
     },
     {
@@ -3537,7 +3727,8 @@
         "correctAnswer": "The New York Times",
         "acceptedAnswers": [
             "The New York Times",
-            "NYT"
+            "NYT",
+            "new york times"
         ]
     },
     {
@@ -3569,7 +3760,9 @@
         "text": "In web development, what do HTML and CSS stand for?",
         "correctAnswer": "HyperText Markup Language and Cascading Style Sheets",
         "acceptedAnswers": [
-            "HyperText Markup Language and Cascading Style Sheets"
+            "HyperText Markup Language and Cascading Style Sheets",
+            "css",
+            "html"
         ]
     },
     {
@@ -3577,7 +3770,8 @@
         "text": "What does SQL, a language used to manage data in relational databases, stand for?",
         "correctAnswer": "Structured Query Language",
         "acceptedAnswers": [
-            "Structured Query Language"
+            "Structured Query Language",
+            "sql"
         ]
     },
     {
@@ -3585,8 +3779,8 @@
         "text": "What is the term for a software development methodology where requirements and solutions evolve through the collaborative effort of self-organizing and cross-functional teams?",
         "correctAnswer": "Agile",
         "acceptedAnswers": [
-            "Agile methodology",
-            "Agile"
+            "Agile",
+            "Agile methodology"
         ]
     },
     {
@@ -3602,8 +3796,8 @@
         "text": "What is the name of the world's first programmable, electronic, general-purpose digital computer, completed in 1945?",
         "correctAnswer": "ENIAC",
         "acceptedAnswers": [
-            "Electronic Numerical Integrator and Computer",
-            "ENIAC"
+            "ENIAC",
+            "Electronic Numerical Integrator and Computer"
         ]
     },
     {
@@ -3611,8 +3805,12 @@
         "text": "What does the term 'open source' mean in relation to software?",
         "correctAnswer": "The source code is freely available for modification and redistribution",
         "acceptedAnswers": [
+            "The source code is freely available for modification and redistribution",
+            "sourcecode",
+            "source code",
+            "Source code is free",
             "Its source code is available to the public",
-            "Source code is free"
+            "Source Code Is Freely Available For Modification And Redistribution"
         ]
     },
     {
@@ -3628,7 +3826,8 @@
         "text": "What is the term for the human-readable version of a computer program, before it is compiled or interpreted?",
         "correctAnswer": "Source code",
         "acceptedAnswers": [
-            "Source code"
+            "Source code",
+            "sourcecode"
         ]
     },
     {
@@ -3636,7 +3835,8 @@
         "text": "What does the acronym 'IP' stand for in TCP/IP?",
         "correctAnswer": "Internet Protocol",
         "acceptedAnswers": [
-            "Internet Protocol"
+            "Internet Protocol",
+            "IP"
         ]
     },
     {
@@ -3644,7 +3844,8 @@
         "text": "In cryptography, what is the process of converting information or data into a code to prevent unauthorized access?",
         "correctAnswer": "Encryption",
         "acceptedAnswers": [
-            "Encryption"
+            "Encryption",
+            "encrypting"
         ]
     },
     {
@@ -3652,8 +3853,8 @@
         "text": "What is the name for the small block of fast memory located on the CPU that stores frequently used data?",
         "correctAnswer": "Cache",
         "acceptedAnswers": [
-            "CPU cache",
-            "Cache"
+            "Cache",
+            "CPU cache"
         ]
     },
     {
@@ -3669,8 +3870,8 @@
         "text": "What is the only metal that is liquid at room temperature?",
         "correctAnswer": "Mercury",
         "acceptedAnswers": [
-            "Hg",
-            "Mercury"
+            "Mercury",
+            "Hg"
         ]
     },
     {
@@ -3678,7 +3879,6 @@
         "text": "At what temperature are the Celsius and Fahrenheit scales equal?",
         "correctAnswer": "-40 degrees",
         "acceptedAnswers": [
-            "-40",
             "-40 degrees"
         ]
     },
@@ -3711,9 +3911,9 @@
         "text": "Unlike mammals and reptiles, sharks have a skeleton made of cartilage, meaning they have how many bones?",
         "correctAnswer": "Zero",
         "acceptedAnswers": [
+            "Zero",
             "0",
-            "None",
-            "Zero"
+            "None"
         ]
     },
     {
@@ -3721,7 +3921,6 @@
         "text": "What is the largest organ in the human body?",
         "correctAnswer": "The skin",
         "acceptedAnswers": [
-            "Skin",
             "The skin"
         ]
     },
@@ -3730,8 +3929,8 @@
         "text": "What is the name of the deepest point in the Earth's oceans?",
         "correctAnswer": "The Mariana Trench",
         "acceptedAnswers": [
-            "Mariana Trench",
-            "The Mariana Trench"
+            "The Mariana Trench",
+            "mariana trench"
         ]
     },
     {
@@ -3747,8 +3946,8 @@
         "text": "What blood type is known as the 'universal donor'?",
         "correctAnswer": "O negative",
         "acceptedAnswers": [
-            "O-",
-            "O negative"
+            "O negative",
+            "O-"
         ]
     },
     {
@@ -3756,9 +3955,9 @@
         "text": "Roughly how long does it take for light from the Sun to reach Earth?",
         "correctAnswer": "8 minutes",
         "acceptedAnswers": [
-            "8 minutes and 20 seconds",
+            "8 minutes",
             "About 8 minutes",
-            "8 minutes"
+            "8 minutes and 20 seconds"
         ]
     },
     {
@@ -3766,8 +3965,8 @@
         "text": "What is the name of the galaxy that contains our Solar System?",
         "correctAnswer": "The Milky Way",
         "acceptedAnswers": [
-            "Milky Way",
-            "The Milky Way"
+            "The Milky Way",
+            "milky way"
         ]
     },
     {
@@ -3839,8 +4038,8 @@
         "text": "A Geiger counter is used to measure what?",
         "correctAnswer": "Radiation",
         "acceptedAnswers": [
-            "Ionizing radiation",
-            "Radiation"
+            "Radiation",
+            "Ionizing radiation"
         ]
     },
     {
@@ -3889,8 +4088,9 @@
         "text": "Who developed the theory of general relativity?",
         "correctAnswer": "Albert Einstein",
         "acceptedAnswers": [
-            "Einstein",
-            "Albert Einstein"
+            "Albert Einstein",
+            "Albert",
+            "Einstein"
         ]
     },
     {
@@ -3906,8 +4106,9 @@
         "text": "What is the name of the theory that the universe began from a single point of extremely high density and temperature?",
         "correctAnswer": "The Big Bang Theory",
         "acceptedAnswers": [
+            "The Big Bang Theory",
             "Big Bang",
-            "The Big Bang Theory"
+            "big bang theory"
         ]
     },
     {
@@ -3916,7 +4117,7 @@
         "correctAnswer": "7",
         "acceptedAnswers": [
             "7",
-            "Seven"
+            "seven"
         ]
     },
     {
@@ -3932,8 +4133,8 @@
         "text": "What is the common name for the star 'Polaris'?",
         "correctAnswer": "The North Star",
         "acceptedAnswers": [
-            "North Star",
-            "The North Star"
+            "The North Star",
+            "North Star"
         ]
     },
     {
@@ -3941,7 +4142,7 @@
         "text": "What is the only mammal capable of true, sustained flight?",
         "correctAnswer": "The bat",
         "acceptedAnswers": [
-            "Bat",
+            "The bat",
             "Bats"
         ]
     },
@@ -3959,7 +4160,8 @@
         "correctAnswer": "Alexander Fleming",
         "acceptedAnswers": [
             "Alexander Fleming",
-            "Fleming"
+            "Fleming",
+            "Alexander"
         ]
     },
     {
@@ -3993,8 +4195,8 @@
         "text": "What is the name of the theoretical 'point of no return' at the edge of a black hole?",
         "correctAnswer": "The Event Horizon",
         "acceptedAnswers": [
-            "Event Horizon",
-            "The Event Horizon"
+            "The Event Horizon",
+            "event horizon"
         ]
     },
     {
@@ -4002,7 +4204,6 @@
         "text": "What is the human body's largest artery?",
         "correctAnswer": "The aorta",
         "acceptedAnswers": [
-            "Aorta",
             "The aorta"
         ]
     },
@@ -4011,8 +4212,8 @@
         "text": "What is the name of the scale used to measure the 'spiciness' or 'heat' of chili peppers?",
         "correctAnswer": "The Scoville scale",
         "acceptedAnswers": [
-            "Scoville scale",
-            "Scoville"
+            "The Scoville scale",
+            "Scoville scale"
         ]
     },
     {
@@ -4020,7 +4221,6 @@
         "text": "Which scientist proposed the three laws of motion?",
         "correctAnswer": "Isaac Newton",
         "acceptedAnswers": [
-            "Newton",
             "Isaac Newton"
         ]
     },
@@ -4037,7 +4237,6 @@
         "text": "What is the name of the space telescope launched in 1990, named after an American astronomer?",
         "correctAnswer": "Hubble Space Telescope",
         "acceptedAnswers": [
-            "Hubble",
             "Hubble Space Telescope"
         ]
     },
@@ -4106,7 +4305,6 @@
         "text": "What is the term for a group of lions?",
         "correctAnswer": "A pride",
         "acceptedAnswers": [
-            "Pride",
             "A pride"
         ]
     },
@@ -4123,8 +4321,8 @@
         "text": "What is the name of the large-scale ocean current that warms Western Europe?",
         "correctAnswer": "The Gulf Stream",
         "acceptedAnswers": [
-            "Gulf Stream",
-            "The Gulf Stream"
+            "The Gulf Stream",
+            "gulf stream"
         ]
     },
     {
@@ -4132,9 +4330,9 @@
         "text": "The shortest war in recorded history, the Anglo-Zanzibar War of 1896, lasted for approximately how long?",
         "correctAnswer": "38 minutes",
         "acceptedAnswers": [
-            "About 40 minutes",
+            "38 minutes",
             "38-45 minutes",
-            "38 minutes"
+            "About 40 minutes"
         ]
     },
     {
@@ -4142,8 +4340,11 @@
         "text": "The assassination of which Archduke is widely cited as the trigger for the start of World War I?",
         "correctAnswer": "Archduke Franz Ferdinand",
         "acceptedAnswers": [
+            "Archduke Franz Ferdinand",
+            "UK",
+            "United Kingdom",
             "Franz Ferdinand",
-            "Archduke Franz Ferdinand"
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -4159,7 +4360,10 @@
         "text": "The 1986 nuclear disaster at the Chernobyl Nuclear Power Plant occurred in which present-day country?",
         "correctAnswer": "Ukraine",
         "acceptedAnswers": [
-            "Ukraine"
+            "Ukraine",
+            "UK",
+            "United Kingdom",
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -4167,8 +4371,9 @@
         "text": "Who is credited with inventing the first commercially successful printing press around 1440?",
         "correctAnswer": "Johannes Gutenberg",
         "acceptedAnswers": [
-            "Gutenberg",
-            "Johannes Gutenberg"
+            "Johannes Gutenberg",
+            "Johannes",
+            "Gutenberg"
         ]
     },
     {
@@ -4176,8 +4381,8 @@
         "text": "What is considered the largest contiguous land empire in history?",
         "correctAnswer": "The Mongol Empire",
         "acceptedAnswers": [
-            "Mongol Empire",
-            "The Mongol Empire"
+            "The Mongol Empire",
+            "mongol empire"
         ]
     },
     {
@@ -4185,8 +4390,8 @@
         "text": "What was the name of the secret U.S. program to develop the atomic bomb during World War II?",
         "correctAnswer": "The Manhattan Project",
         "acceptedAnswers": [
-            "Manhattan Project",
-            "The Manhattan Project"
+            "The Manhattan Project",
+            "Manhattan Project"
         ]
     },
     {
@@ -4194,7 +4399,6 @@
         "text": "The ancient Roman city of Pompeii was famously destroyed in 79 A.D. by the eruption of what volcano?",
         "correctAnswer": "Mount Vesuvius",
         "acceptedAnswers": [
-            "Vesuvius",
             "Mount Vesuvius"
         ]
     },
@@ -4203,7 +4407,9 @@
         "text": "Who was the first person to walk on the moon?",
         "correctAnswer": "Neil Armstrong",
         "acceptedAnswers": [
-            "Neil Armstrong"
+            "Neil Armstrong",
+            "Neil",
+            "Armstrong"
         ]
     },
     {
@@ -4235,8 +4441,9 @@
         "text": "Who was the last pharaoh of Ancient Egypt?",
         "correctAnswer": "Cleopatra VII",
         "acceptedAnswers": [
-            "Cleopatra",
-            "Cleopatra VII"
+            "Cleopatra VII",
+            "VII",
+            "Cleopatra"
         ]
     },
     {
@@ -4244,7 +4451,6 @@
         "text": "What was the name of the ship that brought the Pilgrims to America in 1620?",
         "correctAnswer": "The Mayflower",
         "acceptedAnswers": [
-            "Mayflower",
             "The Mayflower"
         ]
     },
@@ -4261,8 +4467,9 @@
         "text": "Who was the British Prime Minister during World War II?",
         "correctAnswer": "Winston Churchill",
         "acceptedAnswers": [
-            "Churchill",
-            "Winston Churchill"
+            "Winston Churchill",
+            "Winston",
+            "Churchill"
         ]
     },
     {
@@ -4270,9 +4477,14 @@
         "text": "The 'Cold War' was a period of geopolitical tension between which two major world powers?",
         "correctAnswer": "The United States and the Soviet Union",
         "acceptedAnswers": [
+            "The United States and the Soviet Union",
+            "US",
+            "USA",
+            "U.S.",
+            "U.S.A.",
             "USA and USSR",
             "United States and Soviet Union",
-            "The United States and the Soviet Union"
+            "United States and the Soviet Union"
         ]
     },
     {
@@ -4289,7 +4501,6 @@
         "correctAnswer": "Great Britain",
         "acceptedAnswers": [
             "Great Britain",
-            "Britain",
             "The British Empire"
         ]
     },
@@ -4298,7 +4509,9 @@
         "text": "Who was the first woman to fly solo across the Atlantic Ocean?",
         "correctAnswer": "Amelia Earhart",
         "acceptedAnswers": [
-            "Amelia Earhart"
+            "Amelia Earhart",
+            "Amelia",
+            "Earhart"
         ]
     },
     {
@@ -4314,9 +4527,9 @@
         "text": "What ancient empire was ruled by Julius Caesar?",
         "correctAnswer": "The Roman Empire",
         "acceptedAnswers": [
+            "The Roman Empire",
             "Rome",
-            "Roman Empire",
-            "The Roman Empire"
+            "Roman Empire"
         ]
     },
     {
@@ -4348,7 +4561,6 @@
         "text": "What was the name of the first satellite launched into space by the Soviet Union in 1957?",
         "correctAnswer": "Sputnik 1",
         "acceptedAnswers": [
-            "Sputnik",
             "Sputnik 1"
         ]
     },
@@ -4357,8 +4569,9 @@
         "text": "Who was the 16th President of the United States, who led the country through the Civil War?",
         "correctAnswer": "Abraham Lincoln",
         "acceptedAnswers": [
-            "Lincoln",
-            "Abraham Lincoln"
+            "Abraham Lincoln",
+            "Abraham",
+            "Lincoln"
         ]
     },
     {
@@ -4366,8 +4579,9 @@
         "text": "The 'Black Death' pandemic in the 14th century was caused by what disease?",
         "correctAnswer": "The Bubonic Plague",
         "acceptedAnswers": [
-            "Bubonic Plague",
-            "The Plague"
+            "The Bubonic Plague",
+            "The Plague",
+            "bubonic plague"
         ]
     },
     {
@@ -4423,6 +4637,7 @@
         "text": "What is the world's largest desert, covering most of a continent?",
         "correctAnswer": "The Antarctic Polar Desert",
         "acceptedAnswers": [
+            "The Antarctic Polar Desert",
             "Antarctica",
             "Antarctic Polar Desert"
         ]
@@ -4456,6 +4671,7 @@
         "text": "What is the longest river in the world?",
         "correctAnswer": "The Nile River",
         "acceptedAnswers": [
+            "The Nile River",
             "The Nile",
             "Nile River"
         ]
@@ -4545,8 +4761,8 @@
         "text": "What is the name of the sea that separates Europe and Africa?",
         "correctAnswer": "The Mediterranean Sea",
         "acceptedAnswers": [
-            "Mediterranean Sea",
-            "The Mediterranean Sea"
+            "The Mediterranean Sea",
+            "Mediterranean Sea"
         ]
     },
     {
@@ -4562,8 +4778,8 @@
         "text": "What is the name of the desert that covers a large part of Northern Africa?",
         "correctAnswer": "The Sahara Desert",
         "acceptedAnswers": [
-            "Sahara",
-            "The Sahara Desert"
+            "The Sahara Desert",
+            "Sahara Desert"
         ]
     },
     {
@@ -4571,9 +4787,9 @@
         "text": "What is the largest (by population) city in the United States?",
         "correctAnswer": "New York City",
         "acceptedAnswers": [
-            "New York",
+            "New York City",
             "NYC",
-            "New York City"
+            "New York"
         ]
     },
     {
@@ -4581,8 +4797,7 @@
         "text": "What is the longest mountain range in the world?",
         "correctAnswer": "The Andes",
         "acceptedAnswers": [
-            "The Andes",
-            "Andes"
+            "The Andes"
         ]
     },
     {
@@ -4614,8 +4829,8 @@
         "text": "What is the only U.S. state capital that is not accessible by road?",
         "correctAnswer": "Juneau, Alaska",
         "acceptedAnswers": [
-            "Juneau",
-            "Juneau, Alaska"
+            "Juneau, Alaska",
+            "Juneau"
         ]
     },
     {
@@ -4623,8 +4838,8 @@
         "text": "What is the name of the strait that separates Spain from Morocco?",
         "correctAnswer": "The Strait of Gibraltar",
         "acceptedAnswers": [
-            "Strait of Gibraltar",
-            "The Strait of Gibraltar"
+            "The Strait of Gibraltar",
+            "Strait of Gibraltar"
         ]
     },
     {
@@ -4648,8 +4863,8 @@
         "text": "What is the name of the body of water that lies between Great Britain and France?",
         "correctAnswer": "The English Channel",
         "acceptedAnswers": [
-            "English Channel",
-            "The English Channel"
+            "The English Channel",
+            "english channel"
         ]
     },
     {
@@ -4665,7 +4880,13 @@
         "text": "Which two countries share the longest international border?",
         "correctAnswer": "The United States and Canada",
         "acceptedAnswers": [
+            "The United States and Canada",
+            "US",
+            "USA",
+            "U.S.",
+            "U.S.A.",
             "USA and Canada",
+            "united states and canada",
             "Canada and the United States"
         ]
     },
@@ -4690,7 +4911,6 @@
         "text": "What is the name of the fictional time-traveling car in the 'Back to the Future' film series?",
         "correctAnswer": "The DeLorean",
         "acceptedAnswers": [
-            "DeLorean",
             "The DeLorean"
         ]
     },
@@ -4707,8 +4927,8 @@
         "text": "What was the first car to be mass-produced on a moving assembly line?",
         "correctAnswer": "Ford Model T",
         "acceptedAnswers": [
-            "Model T",
-            "Ford Model T"
+            "Ford Model T",
+            "Model T"
         ]
     },
     {
@@ -4724,8 +4944,7 @@
         "text": "What is the best-selling car model of all time, with over 50 million units sold worldwide?",
         "correctAnswer": "Toyota Corolla",
         "acceptedAnswers": [
-            "Toyota Corolla",
-            "Corolla"
+            "Toyota Corolla"
         ]
     },
     {
@@ -4742,7 +4961,9 @@
         "text": "In automotive terms, what does the acronym 'LSD' stand for?",
         "correctAnswer": "Limited-Slip Differential",
         "acceptedAnswers": [
-            "Limited-Slip Differential"
+            "Limited-Slip Differential",
+            "IP",
+            "Internet Protocol"
         ]
     },
     {
@@ -4750,7 +4971,8 @@
         "text": "What does AMG, the high-performance subsidiary of Mercedes-Benz, stand for?",
         "correctAnswer": "Aufrecht, Melcher, Großaspach",
         "acceptedAnswers": [
-            "Aufrecht, Melcher, Großaspach"
+            "Aufrecht, Melcher, Großaspach",
+            "AUFRECHT, MELCHER, GROSSASPACH"
         ]
     },
     {
@@ -4791,8 +5013,7 @@
         "text": "The Volkswagen Beetle was originally commissioned in the 1930s by which German leader?",
         "correctAnswer": "Adolf Hitler",
         "acceptedAnswers": [
-            "Adolf Hitler",
-            "Hitler"
+            "Adolf Hitler"
         ]
     },
     {
@@ -4816,8 +5037,8 @@
         "text": "Porsche's most iconic and long-running sports car model is the...?",
         "correctAnswer": "911",
         "acceptedAnswers": [
-            "Porsche 911",
-            "911"
+            "911",
+            "Porsche 911"
         ]
     },
     {
@@ -4825,8 +5046,7 @@
         "text": "What is the name of the fictional talking Pontiac Firebird Trans Am in the 80s TV show 'Knight Rider'?",
         "correctAnswer": "KITT",
         "acceptedAnswers": [
-            "KITT",
-            "Kitt"
+            "KITT"
         ]
     },
     {
@@ -4925,8 +5145,8 @@
         "text": "What is the name of the orange 1969 Dodge Charger from the TV show 'The Dukes of Hazzard'?",
         "correctAnswer": "General Lee",
         "acceptedAnswers": [
-            "The General Lee",
-            "General Lee"
+            "General Lee",
+            "The General Lee"
         ]
     },
     {
@@ -4935,8 +5155,8 @@
         "correctAnswer": "React",
         "acceptedAnswers": [
             "React",
-            "React.js",
-            "ReactJS"
+            "ReactJS",
+            "React.js"
         ]
     },
     {
@@ -4944,7 +5164,9 @@
         "text": "What does 'DRY' stand for in software development principles?",
         "correctAnswer": "Don't Repeat Yourself",
         "acceptedAnswers": [
-            "Don't Repeat Yourself"
+            "Don't Repeat Yourself",
+            "Dont Repeat Yourself",
+            "Don\"t Repeat Yourself"
         ]
     },
     {
@@ -4960,8 +5182,7 @@
         "text": "In Git, what command is used to download a repository's history and changes from a remote source?",
         "correctAnswer": "git pull",
         "acceptedAnswers": [
-            "git pull",
-            "pull"
+            "git pull"
         ]
     },
     {
@@ -4970,7 +5191,9 @@
         "correctAnswer": "JavaScript",
         "acceptedAnswers": [
             "JavaScript",
-            "JS"
+            "IP",
+            "JS",
+            "Internet Protocol"
         ]
     },
     {
@@ -4986,7 +5209,9 @@
         "text": "What does 'JSON' stand for?",
         "correctAnswer": "JavaScript Object Notation",
         "acceptedAnswers": [
-            "JavaScript Object Notation"
+            "JavaScript Object Notation",
+            "IP",
+            "Internet Protocol"
         ]
     },
     {
@@ -5022,7 +5247,8 @@
         "correctAnswer": "Angular",
         "acceptedAnswers": [
             "Angular",
-            "AngularJS"
+            "AngularJS",
+            "Angular.js"
         ]
     },
     {
@@ -5039,7 +5265,7 @@
         "correctAnswer": "Kubernetes",
         "acceptedAnswers": [
             "Kubernetes",
-            "K8s"
+            "k8s"
         ]
     },
     {
@@ -5056,8 +5282,9 @@
         "text": "What popular code editor, developed by Microsoft, is free and open-source?",
         "correctAnswer": "Visual Studio Code",
         "acceptedAnswers": [
-            "VS Code",
-            "Visual Studio Code"
+            "Visual Studio Code",
+            "vscode",
+            "vs code"
         ]
     },
     {
@@ -5065,7 +5292,8 @@
         "text": "What does 'HTTP' stand for?",
         "correctAnswer": "Hypertext Transfer Protocol",
         "acceptedAnswers": [
-            "Hypertext Transfer Protocol"
+            "Hypertext Transfer Protocol",
+            "http"
         ]
     },
     {
@@ -5092,7 +5320,9 @@
         "correctAnswer": "TypeScript",
         "acceptedAnswers": [
             "TypeScript",
-            "TS"
+            "IP",
+            "TS",
+            "Internet Protocol"
         ]
     },
     {
@@ -5108,7 +5338,6 @@
         "text": "What is the common term for a developer who works on both the front-end (client-side) and back-end (server-side) of an application?",
         "correctAnswer": "Full-stack developer",
         "acceptedAnswers": [
-            "Full-stack",
             "Full-stack developer"
         ]
     },
@@ -5152,7 +5381,10 @@
         "text": "What does 'GUI' stand for?",
         "correctAnswer": "Graphical User Interface",
         "acceptedAnswers": [
-            "Graphical User Interface"
+            "Graphical User Interface",
+            "rap",
+            "hip hop",
+            "hip-hop"
         ]
     },
     {
@@ -5160,8 +5392,8 @@
         "text": "What is the name of the popular, progressive JavaScript framework created by Evan You?",
         "correctAnswer": "Vue.js",
         "acceptedAnswers": [
-            "Vue",
-            "Vue.js"
+            "Vue.js",
+            "Vue"
         ]
     },
     {
@@ -5177,7 +5409,9 @@
         "text": "What is the name of the law, named after Intel's co-founder, that states the number of transistors on a microchip doubles roughly every two years?",
         "correctAnswer": "Moore's Law",
         "acceptedAnswers": [
-            "Moore's Law"
+            "Moore's Law",
+            "Moores Law",
+            "Moore\"s Law"
         ]
     },
     {
@@ -5252,7 +5486,9 @@
         "text": "What is the name of the open-source relational database management system whose logo is a dolphin?",
         "correctAnswer": "MySQL",
         "acceptedAnswers": [
-            "MySQL"
+            "MySQL",
+            "SQL",
+            "Structured Query Language"
         ]
     },
     {
@@ -5261,7 +5497,9 @@
         "correctAnswer": "PostgreSQL",
         "acceptedAnswers": [
             "PostgreSQL",
-            "Postgres"
+            "SQL",
+            "Postgres",
+            "Structured Query Language"
         ]
     },
     {
@@ -5309,8 +5547,8 @@
         "text": "What is the term for a function that calls itself?",
         "correctAnswer": "Recursion",
         "acceptedAnswers": [
-            "Recursive function",
-            "Recursion"
+            "Recursion",
+            "Recursive function"
         ]
     },
     {
@@ -5327,10 +5565,10 @@
         "text": "What is the name of the character used to 'comment out' a single line in JavaScript, Python, and Java?",
         "correctAnswer": "Forward slash (//) or Hash (#)",
         "acceptedAnswers": [
-            "Forward slash",
-            "Hash",
+            "Forward slash (//) or Hash (#)",
+            "#",
             "//",
-            "#"
+            "Forward slash"
         ]
     },
     {
@@ -5338,9 +5576,11 @@
         "text": "What is the 'Big O Notation' used to describe?",
         "correctAnswer": "The time or space complexity of an algorithm",
         "acceptedAnswers": [
-            "Algorithm complexity",
+            "The time or space complexity of an algorithm",
+            "Big O",
             "Time complexity",
-            "Big O"
+            "Algorithm complexity",
+            "Time Or Space Complexity Of An Algorithm"
         ]
     },
     {
@@ -5348,8 +5588,8 @@
         "text": "What is the name of the JavaScript runtime environment that allows you to run JS on the server-side?",
         "correctAnswer": "Node.js",
         "acceptedAnswers": [
-            "Node",
-            "Node.js"
+            "Node.js",
+            "Node"
         ]
     },
     {
@@ -5357,8 +5597,10 @@
         "text": "What is the 'Genesis Block' in a blockchain?",
         "correctAnswer": "The first block in a blockchain",
         "acceptedAnswers": [
+            "The first block in a blockchain",
             "The first block",
-            "The Genesis Block"
+            "The Genesis Block",
+            "First Block In A Blockchain"
         ]
     },
     {
@@ -5398,6 +5640,7 @@
         "text": "In the 'Pokémon' series, what are the three original starter Pokémon from the Kanto region?",
         "correctAnswer": "Bulbasaur, Charmander, and Squirtle",
         "acceptedAnswers": [
+            "Bulbasaur, Charmander, and Squirtle",
             "Bulbasaur, Charmander, Squirtle"
         ]
     },
@@ -5524,8 +5767,8 @@
         "text": "What is the name of the 2011 game that became famous for its 'arrow in the knee' line?",
         "correctAnswer": "The Elder Scrolls V: Skyrim",
         "acceptedAnswers": [
-            "Skyrim",
-            "The Elder Scrolls V: Skyrim"
+            "The Elder Scrolls V: Skyrim",
+            "Elder Scrolls V: Skyrim"
         ]
     },
     {
@@ -5533,8 +5776,10 @@
         "text": "What is the name of the 2017 game that won 'Game of the Year' and features Link exploring a post-apocalyptic Hyrule?",
         "correctAnswer": "The Legend of Zelda: Breath of the Wild",
         "acceptedAnswers": [
+            "The Legend of Zelda: Breath of the Wild",
+            "BOTW",
             "Breath of the Wild",
-            "BOTW"
+            "Legend Of Zelda: Breath Of The Wild"
         ]
     },
     {
@@ -5560,7 +5805,10 @@
         "correctAnswer": "Hadouken",
         "acceptedAnswers": [
             "Hadouken",
-            "Hadoken"
+            "UK",
+            "Hadoken",
+            "United Kingdom",
+            "United Kingdom of Great Britain and Northern Ireland"
         ]
     },
     {
@@ -5568,7 +5816,8 @@
         "text": "What is the name of the 2013 game by Naughty Dog about a smuggler named Joel and a teenage girl named Ellie in a post-apocalyptic US?",
         "correctAnswer": "The Last of Us",
         "acceptedAnswers": [
-            "The Last of Us"
+            "The Last of Us",
+            "Last of Us"
         ]
     },
     {
@@ -5576,7 +5825,9 @@
         "text": "What does 'MMORPG' stand for?",
         "correctAnswer": "Massively Multiplayer Online Role-Playing Game",
         "acceptedAnswers": [
-            "Massively Multiplayer Online Role-Playing Game"
+            "Massively Multiplayer Online Role-Playing Game",
+            "IP",
+            "Internet Protocol"
         ]
     },
     {
@@ -5593,7 +5844,6 @@
         "text": "In 'The Witcher 3', what is the name of the protagonist, a monster hunter for hire?",
         "correctAnswer": "Geralt of Rivia",
         "acceptedAnswers": [
-            "Geralt",
             "Geralt of Rivia"
         ]
     },
@@ -5628,7 +5878,6 @@
         "text": "In 'Pokémon', what is the name of the main character, a young Pokémon trainer from Pallet Town?",
         "correctAnswer": "Ash Ketchum",
         "acceptedAnswers": [
-            "Ash",
             "Ash Ketchum"
         ]
     },
@@ -5645,8 +5894,9 @@
         "text": "What is the name of the video game series that is a crossover fighting game featuring Nintendo characters?",
         "correctAnswer": "Super Smash Bros.",
         "acceptedAnswers": [
-            "Super Smash Bros",
-            "Smash Bros"
+            "Super Smash Bros.",
+            "Smash Bros",
+            "super smash bros"
         ]
     },
     {
@@ -5671,8 +5921,9 @@
         "text": "In 'World of Warcraft', what are the two main warring factions?",
         "correctAnswer": "The Horde and The Alliance",
         "acceptedAnswers": [
+            "The Horde and The Alliance",
             "Horde and Alliance",
-            "The Horde and The Alliance"
+            "Horde And The Alliance"
         ]
     },
     {
@@ -5696,7 +5947,9 @@
         "text": "In 'League of Legends', what is the name of the main map that teams of five compete on?",
         "correctAnswer": "Summoner's Rift",
         "acceptedAnswers": [
-            "Summoner's Rift"
+            "Summoner's Rift",
+            "summoners rift",
+            "Summoner\"s Rift"
         ]
     },
     {
@@ -5713,8 +5966,9 @@
         "text": "What is the name of the 2004 game where you play as 'CJ' in the fictional state of 'San Andreas'?",
         "correctAnswer": "Grand Theft Auto: San Andreas",
         "acceptedAnswers": [
-            "GTA: San Andreas",
-            "San Andreas"
+            "Grand Theft Auto: San Andreas",
+            "San Andreas",
+            "GTA: San Andreas"
         ]
     },
     {
@@ -5731,8 +5985,8 @@
         "text": "What is the name of the 2018 game where you play as Kratos, the God of War, exploring Norse mythology with his son Atreus?",
         "correctAnswer": "God of War",
         "acceptedAnswers": [
-            "God of War (2018)",
-            "God of War"
+            "God of War",
+            "God of War (2018)"
         ]
     },
     {
@@ -5756,9 +6010,10 @@
         "text": "What is the name of the 2018 game where you play as Spider-Man in New York City, developed by Insomniac Games?",
         "correctAnswer": "Marvel's Spider-Man",
         "acceptedAnswers": [
-            "Spider-Man",
             "Marvel's Spider-Man",
-            "Spider-Man PS4"
+            "Spider-Man PS4",
+            "Marvels Spider-Man",
+            "Marvel\"s Spider-Man"
         ]
     },
     {
@@ -5766,8 +6021,10 @@
         "text": "What is the name of the 2017 game that is a 'battle royale' where 100 players fight to be the last one standing?",
         "correctAnswer": "PlayerUnknown's Battlegrounds",
         "acceptedAnswers": [
+            "PlayerUnknown's Battlegrounds",
             "PUBG",
-            "PlayerUnknown's Battlegrounds"
+            "PlayerUnknowns Battlegrounds",
+            "PlayerUnknown\"s Battlegrounds"
         ]
     },
     {
@@ -5783,7 +6040,6 @@
         "text": "What is the name of the video game console that is a hybrid, allowing for both handheld and TV play?",
         "correctAnswer": "Nintendo Switch",
         "acceptedAnswers": [
-            "Switch",
             "Nintendo Switch"
         ]
     },
@@ -5792,7 +6048,9 @@
         "text": "What artist, known for her 'Eras Tour', is one of the best-selling musicians of all time with albums like '1989' and 'Midnights'?",
         "correctAnswer": "Taylor Swift",
         "acceptedAnswers": [
-            "Taylor Swift"
+            "Taylor Swift",
+            "Swift",
+            "Taylor"
         ]
     },
     {
@@ -5868,7 +6126,9 @@
         "text": "What was the name of the girl group Beyoncé was in before her solo career?",
         "correctAnswer": "Destiny's Child",
         "acceptedAnswers": [
-            "Destiny's Child"
+            "Destiny's Child",
+            "Destinys Child",
+            "Destiny\"s Child"
         ]
     },
     {
@@ -5877,7 +6137,9 @@
         "correctAnswer": "Michael Jackson",
         "acceptedAnswers": [
             "Michael Jackson",
-            "MJ"
+            "MJ",
+            "Jackson",
+            "Michael"
         ]
     },
     {
@@ -5911,6 +6173,8 @@
         "correctAnswer": "The Weeknd",
         "acceptedAnswers": [
             "The Weeknd",
+            "The",
+            "weeknd",
             "Abel Tesfaye"
         ]
     },
@@ -5927,8 +6191,7 @@
         "text": "What pop star, known as the 'Princess of Pop', had the 1998 hit '...Baby One More Time'?",
         "correctAnswer": "Britney Spears",
         "acceptedAnswers": [
-            "Britney Spears",
-            "Britney"
+            "Britney Spears"
         ]
     },
     {
@@ -5936,9 +6199,10 @@
         "text": "What 2010s music genre, characterized by slow, chopped, and screwed hip-hop songs, was associated with vaporwave aesthetics?",
         "correctAnswer": "Lo-fi hip hop",
         "acceptedAnswers": [
-            "Lo-fi",
             "Lo-fi hip hop",
-            "Chillhop"
+            "IP",
+            "Chillhop",
+            "Internet Protocol"
         ]
     },
     {
@@ -5946,7 +6210,10 @@
         "text": "What 1999 song by Blink-182 contains the lyric, 'Nobody likes you when you're 23'?",
         "correctAnswer": "What's My Age Again?",
         "acceptedAnswers": [
-            "What's My Age Again?"
+            "What's My Age Again?",
+            "What's My Age Again",
+            "whats my age again?",
+            "What\"s My Age Again?"
         ]
     },
     {
@@ -5971,8 +6238,8 @@
         "text": "What is the name of the 2015 Broadway musical about Alexander Hamilton, which incorporates hip-hop, jazz, and R&B?",
         "correctAnswer": "Hamilton",
         "acceptedAnswers": [
-            "Hamilton: An American Musical",
-            "Hamilton"
+            "Hamilton",
+            "Hamilton: An American Musical"
         ]
     },
     {
@@ -6005,7 +6272,9 @@
         "text": "What artist, who passed away in 2016, was known as 'The Starman' and had hits like 'Heroes' and 'Let's Dance'?",
         "correctAnswer": "David Bowie",
         "acceptedAnswers": [
-            "David Bowie"
+            "David Bowie",
+            "Bowie",
+            "David"
         ]
     },
     {
@@ -6030,6 +6299,8 @@
         "correctAnswer": "Childish Gambino",
         "acceptedAnswers": [
             "Childish Gambino",
+            "Gambino",
+            "Childish",
             "Donald Glover"
         ]
     },
@@ -6054,7 +6325,9 @@
         "text": "What artist's 2014 album '1989' marked her full transition from country to pop music?",
         "correctAnswer": "Taylor Swift",
         "acceptedAnswers": [
-            "Taylor Swift"
+            "Taylor Swift",
+            "Swift",
+            "Taylor"
         ]
     },
     {
@@ -6062,8 +6335,8 @@
         "text": "What is the name of the 2007 song by Soulja Boy that started a massive dance craze?",
         "correctAnswer": "Crank That (Soulja Boy)",
         "acceptedAnswers": [
-            "Crank That",
-            "Crank That (Soulja Boy)"
+            "Crank That (Soulja Boy)",
+            "Crank That"
         ]
     },
     {
@@ -6071,7 +6344,9 @@
         "text": "What artist, who passed away in 2011, is known for her 'Back to Black' album and her distinct beehive hairdo?",
         "correctAnswer": "Amy Winehouse",
         "acceptedAnswers": [
-            "Amy Winehouse"
+            "Amy Winehouse",
+            "Amy",
+            "Winehouse"
         ]
     },
     {

@@ -55,7 +55,7 @@ class GameService {
     const participants = Array.from(room.participants.values());
     const allReady = participants.length >= 2 && participants.every((pp) => pp.isReady);
     if (allReady) {
-      // start 15s countdown then game start
+      // start 5s countdown then game start
       if (this.countdownTimers.has(roomCode)) return; // already counting down
       const t = setTimeout(() => {
         this.countdownTimers.delete(roomCode);
@@ -64,7 +64,7 @@ class GameService {
         } catch (e) {
           logger.error('Failed to start game', { roomCode, error: (e as Error).message });
         }
-      }, 15000);
+      }, 5000);
       this.countdownTimers.set(roomCode, t);
     }
   }

@@ -8,7 +8,7 @@ interface GameCountdownProps {
 }
 
 export function GameCountdown({ onComplete }: GameCountdownProps) {
-  const [count, setCount] = useState(15);
+  const [count, setCount] = useState(5);
 
   useEffect(() => {
     if (count === 0) {
