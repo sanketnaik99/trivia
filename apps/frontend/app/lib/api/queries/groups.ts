@@ -134,13 +134,19 @@ export function useDeleteGroup() {
 
 // Query: Get active rooms for group
 export function useGroupActiveRooms(groupId: string) {
+  const { getToken } = useAuth()
+
   return useQuery({
     queryKey: queryKeys.activeRooms(groupId),
     queryFn: async (): Promise<GroupActiveRoomsResponse> => {
-      const { data } = await apiClient.get(`/api/groups/${groupId}/rooms`);
-      return data.data;
-    }
-  });
+      const token = await getToken()
+      const response = await apiClient.get(`/groups/${groupId}/rooms`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      return response.data.data
+    },
+    enabled: !!groupId && !!getToken,
+  })
 }
 
 // Query: Get group leaderboard
