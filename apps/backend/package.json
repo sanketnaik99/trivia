@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
+    "postinstall": "npx prisma generate",
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts"
   },
