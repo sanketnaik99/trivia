@@ -58,6 +58,16 @@ export class RoomStore {
     this.cancelCleanup(normalizedCode);
     logger.info('RoomStore: updated last activity', { code: normalizedCode, lastActivityAt: ts });
   }
+
+  getRoomsForGroup(groupId: string): Room[] {
+    const rooms: Room[] = [];
+    for (const [_, room] of this.rooms) {
+      if (room.groupId === groupId) {
+        rooms.push(room);
+      }
+    }
+    return rooms;
+  }
 }
 
 export const roomStore = new RoomStore();

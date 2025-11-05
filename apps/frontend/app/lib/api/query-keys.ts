@@ -1,5 +1,7 @@
 // Query key factory for consistent cache keys
 export const queryKeys = {
+  // Active rooms
+  activeRooms: (groupId: string) => ['groups', groupId, 'rooms'] as const,
   // Groups
   groups: ['groups'] as const,
   groupDetail: (groupId: string) => ['groups', groupId] as const,

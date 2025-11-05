@@ -11,7 +11,8 @@ import type {
   UpdateGroupRequest,
   Group,
   LeaderboardResponse,
-  GroupActivityResponse
+  GroupActivityResponse,
+  GroupActiveRoomsResponse
 } from '../schemas/group.schema'
 import { useRouter } from 'next/navigation'
 
@@ -128,6 +129,23 @@ export function useDeleteGroup() {
       queryClient.invalidateQueries({ queryKey: queryKeys.groups })
       router.replace('/groups')
     },
+  })
+}
+
+// Query: Get active rooms for group
+export function useGroupActiveRooms(groupId: string) {
+  const { getToken } = useAuth()
+
+  return useQuery({
+    queryKey: queryKeys.activeRooms(groupId),
+    queryFn: async (): Promise<GroupActiveRoomsResponse> => {
+      const token = await getToken()
+      const response = await apiClient.get(`/groups/${groupId}/rooms`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      })
+      return response.data.data
+    },
+    enabled: !!groupId && !!getToken,
   })
 }
 

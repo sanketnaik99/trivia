@@ -156,3 +156,13 @@ export interface GroupActivity {
 export interface GroupActivityResponse {
   activities: GroupActivity[]
 }
+
+export interface GroupActiveRoom {
+  code: string
+  participantCount: number
+  gameState: string
+}
+
+export interface GroupActiveRoomsResponse {
+  rooms: GroupActiveRoom[]
+}
