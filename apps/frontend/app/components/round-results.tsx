@@ -25,6 +25,7 @@ interface RoundResultsProps {
   participants?: Participant[];
   onReadyForNextRound?: () => void;
   leaderboard?: LeaderboardEntry[];
+  groupId?: string;
 }
 
 const RoundResults: React.FC<RoundResultsProps> = ({
@@ -35,6 +36,7 @@ const RoundResults: React.FC<RoundResultsProps> = ({
   currentUserId,
   participants,
   onReadyForNextRound,
+  groupId,
 }) => {
   // Sort: correct first, then by timestamp (fastest), then incorrect
   const sortedResults = [...results].sort((a, b) => {
@@ -58,21 +60,31 @@ const RoundResults: React.FC<RoundResultsProps> = ({
 
   return (
     <div className="flex flex-col items-center w-full max-w-2xl mx-auto p-4">
-      <WinnerBanner winnerId={winnerId} results={results} />
+      <WinnerBanner winnerId={winnerId} results={results} participants={participants} />
       <div className="text-lg font-semibold mt-4 mb-2 text-center">
         Correct Answer: <span className="text-green-600">{correctAnswer}</span>
         {acceptedAnswers.length > 1 && (
           <span className="text-gray-500 text-sm ml-2">(Also accepted: {acceptedAnswers.filter(a => a !== correctAnswer).join(', ')})</span>
         )}
       </div>
+      {participants?.some(p => p.isGroupMember === false) && (
+        <div className="text-center text-sm text-muted-foreground mb-4">
+          Note: Only group member points count toward the leaderboard.
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-4">
-        {sortedResults.map(result => (
-          <PlayerResultCard
-            key={result.participantId}
-            result={result}
-            highlight={result.participantId === currentUserId}
-          />
-        ))}
+        {sortedResults.map(result => {
+          const participant = participants?.find(p => p.id === result.participantId);
+          const isGroupMember = participant?.isGroupMember;
+          return (
+            <PlayerResultCard
+              key={result.participantId}
+              result={result}
+              highlight={result.participantId === currentUserId}
+              isGroupMember={isGroupMember}
+            />
+          );
+        })}
       </div>
       
       {/* T100: Ready for Next Round button with status */}
@@ -93,22 +105,32 @@ const RoundResults: React.FC<RoundResultsProps> = ({
             </div>
           )}
           
-          <Button
-            onClick={onReadyForNextRound}
-            variant={isCurrentUserReady ? 'outline' : 'default'}
-            className="w-full sm:w-auto sm:min-w-[200px] mx-auto block"
-            size="lg"
-            disabled={allReady}
-          >
-            {isCurrentUserReady ? (
-              <>
-                <Badge variant="secondary" className="mr-2">✓</Badge>
-                Waiting for Others...
-              </>
-            ) : (
-              'Ready for Next Round'
+          <div className="flex gap-2 justify-center">
+            {groupId && (
+              <Button
+                onClick={() => window.location.href = `/groups/${groupId}/leaderboard`}
+                variant="outline"
+                size="lg"
+              >
+                View Group Leaderboard
+              </Button>
             )}
-          </Button>
+            <Button
+              onClick={onReadyForNextRound}
+              variant={isCurrentUserReady ? 'outline' : 'default'}
+              size="lg"
+              disabled={allReady}
+            >
+              {isCurrentUserReady ? (
+                <>
+                  <Badge variant="secondary" className="mr-2">✓</Badge>
+                  Waiting for Others...
+                </>
+              ) : (
+                'Ready for Next Round'
+              )}
+            </Button>
+          </div>
         </div>
       )}
       
