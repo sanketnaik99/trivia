@@ -11,7 +11,8 @@ import type {
   UpdateGroupRequest,
   Group,
   LeaderboardResponse,
-  GroupActivityResponse
+  GroupActivityResponse,
+  GroupActiveRoomsResponse
 } from '../schemas/group.schema'
 import { useRouter } from 'next/navigation'
 
@@ -129,6 +130,17 @@ export function useDeleteGroup() {
       router.replace('/groups')
     },
   })
+}
+
+// Query: Get active rooms for group
+export function useGroupActiveRooms(groupId: string) {
+  return useQuery({
+    queryKey: queryKeys.activeRooms(groupId),
+    queryFn: async (): Promise<GroupActiveRoomsResponse> => {
+      const { data } = await apiClient.get(`/api/groups/${groupId}/rooms`);
+      return data.data;
+    }
+  });
 }
 
 // Query: Get group leaderboard

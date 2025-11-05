@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { groupService } from '../services/group.service';
 import { membershipService } from '../services/membership.service';
 import { inviteService } from '../services/invite.service';
+import { roomService } from '../services/room.service';
 import { requireAuth } from '../middleware/auth.middleware';
 import { asyncHandler, AppError } from '../utils/error-handler.util';
 import prisma from '../config/prisma';
@@ -317,6 +318,27 @@ router.get('/:groupId/activity', asyncHandler(async (req: Request, res: Response
     data: {
       activities: limitedActivities,
     },
+  });
+}));
+
+// Get active rooms for a group
+router.get('/:groupId/rooms', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId } = req.params;
+  const userId = req.userId!;
+
+  // Verify user is a member of the group
+  const membership = await membershipService.getUserMembership(groupId, userId);
+  if (!membership || membership.status !== 'ACTIVE') {
+    throw new AppError('FORBIDDEN', 'You must be a member of this group to view active rooms', 403);
+  }
+
+  const rooms = roomService.getActiveRoomsForGroup(groupId);
+
+  res.json({
+    success: true,
+    data: {
+      rooms
+    }
   });
 }));
 

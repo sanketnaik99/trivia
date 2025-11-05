@@ -13,6 +13,7 @@ import { InviteList } from '@/app/components/invite-list';
 import { ManageGroupModal } from '@/app/components/manage-group-modal';
 import { CreateGroupRoomForm } from '@/app/components/create-group-room-form';
 import { RecentActivity } from '@/app/components/recent-activity';
+import { ActiveRooms } from '@/app/components/groups/active-rooms';
 
 export default function GroupDetailPage() {
   const params = useParams();
@@ -150,6 +151,19 @@ export default function GroupDetailPage() {
                     <div className="text-sm text-muted-foreground">Avg. Score</div>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Active Rooms */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Active Rooms</CardTitle>
+                <CardDescription>
+                  Currently active game rooms in this group
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ActiveRooms groupId={groupId} />
               </CardContent>
             </Card>
 

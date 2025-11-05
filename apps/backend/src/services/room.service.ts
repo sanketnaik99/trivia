@@ -7,6 +7,14 @@ import { logger } from '../utils/logger.util';
 import prisma from '../config/prisma';
 
 class RoomService {
+  getActiveRoomsForGroup(groupId: string): { code: string; participantCount: number; gameState: string }[] {
+    return roomStore.getRoomsForGroup(groupId).map(room => ({
+      code: room.code,
+      participantCount: room.participants.size,
+      gameState: room.gameState
+    }));
+  }
+
   async createRoom(userId: string, groupId?: string | null): Promise<{ code: string; room: Room }> {
     if (roomStore.getRoomCount() >= config.maxRooms) {
       throw new Error('ROOM_LIMIT_REACHED');
