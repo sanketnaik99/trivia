@@ -150,6 +150,27 @@ model GroupLeaderboardEntry {
 }
 
 // ============================================================================
+// ROOM (basic model for rooms created by users / group rooms)
+// ============================================================================
+
+model Room {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  groupId   String?
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  group   Group? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  creator User?  @relation("CreatedRooms", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@index([groupId])
+  @@index([createdBy])
+  @@map("rooms")
+}
+
+// ============================================================================
 // PROCESSED GAME (for duplicate prevention)
 // ============================================================================
 
