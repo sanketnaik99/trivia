@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import http from 'http';
 import { createApp } from './app';
 import { config } from './config/env';
@@ -8,6 +10,10 @@ import { registerSocketHandlers } from './socket';
 export async function startServer() {
   const app = createApp();
   const httpServer = http.createServer(app);
+
+  console.log('Starting server with config:');
+  console.log('- CLERK_SECRET_KEY present:', !!config.clerkSecretKey);
+  console.log('- CLERK_SECRET_KEY value:', config.clerkSecretKey ? 'set' : 'not set');
 
   const io = new Server(httpServer, {
     cors: {

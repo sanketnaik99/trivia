@@ -24,6 +24,12 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
           <div className="flex-1 min-w-0">
             <p className="font-medium truncate flex items-center gap-2">
               <span className="truncate">{participant.name}</span>
+              {participant.isGroupMember !== undefined && (
+                <span className={cn(
+                  'w-2 h-2 rounded-full shrink-0',
+                  participant.isGroupMember ? 'bg-green-500' : 'bg-gray-400'
+                )} title={participant.isGroupMember ? 'Group member' : 'Guest'} />
+              )}
               {/* T052: Show score next to name */}
               {typeof participant.score === 'number' && (
                 <Badge variant="secondary" className="shrink-0">

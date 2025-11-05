@@ -3,6 +3,8 @@ import { roomStore } from '../store/room.store';
 import { Question, Room } from '../types/room.types';
 import { questionService } from './question.service';
 import { logger } from '../utils/logger.util';
+import { leaderboardService } from './leaderboard.service';
+import prisma from '../config/prisma';
 
 class GameService {
   private roundTimers: Map<string, NodeJS.Timeout> = new Map();
@@ -92,11 +94,17 @@ class GameService {
     });
 
     // auto-end timer
-    const timer = setTimeout(() => this.endRound(io, roomCode), room.currentRound.duration);
+    const timer = setTimeout(async () => {
+      try {
+        await this.endRound(io, roomCode);
+      } catch (e) {
+        logger.error('Failed to end round automatically', { roomCode, error: (e as Error).message });
+      }
+    }, room.currentRound.duration);
     this.roundTimers.set(roomCode, timer);
   }
 
-  handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
+  async handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
     const start = Date.now();
   const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
   const roomCode = s.data.roomCode;
@@ -126,11 +134,11 @@ class GameService {
     io.to(roomCode).emit('ANSWER_COUNT_UPDATE', { answeredCount, totalCount });
 
     if (answeredCount >= totalCount) {
-      this.endRound(io, roomCode);
+      await this.endRound(io, roomCode);
     }
   }
 
-  endRound(io: Server, roomCode: string) {
+  async endRound(io: Server, roomCode: string) {
     const room = roomStore.getRoom(roomCode);
     if (!room || !room.currentRound || !room.currentQuestion) return;
     const round = room.currentRound;
@@ -201,6 +209,15 @@ class GameService {
   // Broadcast updated room state with reset ready flags
     const participants = Array.from(room.participants.values());
     // T050: Include leaderboard in ROOM_STATE
+    let groupName: string | undefined;
+    if (room.groupId) {
+      const group = await prisma.group.findUnique({
+        where: { id: room.groupId },
+        select: { name: true },
+      });
+      groupName = group?.name;
+    }
+
     io.to(roomCode).emit('ROOM_STATE', {
       roomCode,
       gameState: room.gameState,
@@ -208,6 +225,8 @@ class GameService {
       currentQuestion: null,
       currentRound: null,
       leaderboard,
+      groupId: room.groupId,
+      groupName,
     });
 
     // T082: Log round duration and stats
@@ -218,6 +237,39 @@ class GameService {
       answers: round.participantAnswers.length,
       durationMs: roundDuration,
     });
+
+    // Update group leaderboard after each round for group rooms
+    if (room.groupId) {
+      try {
+        // Convert round results to leaderboard format
+        const leaderboardResults = results
+          .filter(r => r.scoreChange > 0) // Only winners get points
+          .map(r => {
+            const participant = room.participants.get(r.participantId);
+            return {
+              userId: participant?.userId || '',
+              points: r.scoreChange,
+            };
+          })
+          .filter(r => r.userId); // Filter out anonymous users
+
+        if (leaderboardResults.length > 0) {
+          const updateResult = await leaderboardService.updateGroupLeaderboard(room.groupId, roomCode, leaderboardResults);
+          
+          // Broadcast leaderboard updated to group members
+          io.to(`group:${room.groupId}`).emit('leaderboard:updated', {
+            groupId: room.groupId,
+            timestamp: Date.now(),
+            updates: updateResult.updates,
+            topThree: updateResult.topThree,
+          });
+
+          logger.info('Group leaderboard updated after round', { roomCode, groupId: room.groupId, winners: leaderboardResults.length });
+        }
+      } catch (err: unknown) {
+        logger.error('Group leaderboard update failed after round', { roomCode, groupId: room.groupId, error: (err as Error).message });
+      }
+    }
   }
 
   private normalize(s: string) {

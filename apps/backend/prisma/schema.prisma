@@ -1,0 +1,188 @@
+// Prisma schema for Authentication, Groups, and Persistent Leaderboards
+// Feature: 003-auth-group-leaderboard
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USER (synced from Clerk via webhooks)
+// ============================================================================
+
+model User {
+  id          String   @id // Clerk userId
+  email       String   @unique
+  displayName String
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  createdGroups    Group[]                   @relation("CreatedGroups")
+  memberships      Membership[]
+  createdInvites   GroupInvite[]             @relation("CreatedInvites")
+  leaderboardEntries GroupLeaderboardEntry[]
+  createdRooms     Room[]                    @relation("CreatedRooms")
+
+  @@index([email])
+  @@map("users")
+}
+
+// ============================================================================
+// GROUP
+// ============================================================================
+
+enum GroupPrivacy {
+  PRIVATE // Only privacy level for MVP (per spec)
+}
+
+model Group {
+  id        String        @id @default(cuid())
+  name      String
+  privacy   GroupPrivacy  @default(PRIVATE)
+  createdBy String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Relations
+  creator      User                      @relation("CreatedGroups", fields: [createdBy], references: [id], onDelete: Cascade)
+  memberships  Membership[]
+  invites      GroupInvite[]
+  leaderboard  GroupLeaderboardEntry[]
+  rooms        Room[]
+  processedGames ProcessedGame[]
+
+  @@index([createdBy])
+  @@map("groups")
+}
+
+// ============================================================================
+// MEMBERSHIP
+// ============================================================================
+
+enum MembershipRole {
+  ADMIN
+  MEMBER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  LEFT     // User voluntarily left
+  REMOVED  // Admin removed user
+}
+
+model Membership {
+  id       String           @id @default(cuid())
+  userId   String
+  groupId  String
+  role     MembershipRole   @default(MEMBER)
+  status   MembershipStatus @default(ACTIVE)
+  joinedAt DateTime         @default(now())
+  updatedAt DateTime        @updatedAt
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  // Constraints
+  @@unique([userId, groupId]) // Prevent duplicate memberships
+  @@index([groupId])
+  @@index([userId])
+  @@index([groupId, role]) // Optimize admin checks
+  @@map("memberships")
+}
+
+// ============================================================================
+// GROUP INVITE
+// ============================================================================
+
+enum InviteStatus {
+  ACTIVE   // Invite is valid and can be used
+  USED     // Invite has been accepted
+  REVOKED  // Admin manually revoked
+  EXPIRED  // Passed expiresAt timestamp
+}
+
+model GroupInvite {
+  id        String       @id @default(cuid())
+  groupId   String
+  token     String       @unique @default(cuid()) // Shareable invite code/token
+  createdBy String
+  expiresAt DateTime     // Default 7 days from creation
+  status    InviteStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // Relations
+  group   Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  creator User  @relation("CreatedInvites", fields: [createdBy], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+  @@index([token])
+  @@index([status, expiresAt]) // Optimize active invite queries
+  @@map("group_invites")
+}
+
+// ============================================================================
+// GROUP LEADERBOARD ENTRY
+// ============================================================================
+
+model GroupLeaderboardEntry {
+  id          String   @id @default(cuid())
+  groupId     String
+  userId      String
+  totalPoints Int      @default(0)
+  lastUpdated DateTime @updatedAt
+
+  // Relations
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Constraints
+  @@unique([groupId, userId]) // One entry per user per group
+  @@index([groupId, totalPoints(sort: Desc)]) // Optimize leaderboard queries
+  @@map("group_leaderboard_entries")
+}
+
+// ============================================================================
+// ROOM (basic model for rooms created by users / group rooms)
+// ============================================================================
+
+model Room {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  groupId   String?
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  group   Group? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  creator User?  @relation("CreatedRooms", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@index([groupId])
+  @@index([createdBy])
+  @@map("rooms")
+}
+
+// ============================================================================
+// PROCESSED GAME (for duplicate prevention)
+// ============================================================================
+
+model ProcessedGame {
+  id        String   @id @default(cuid())
+  roomCode  String   @unique
+  groupId   String
+  processedAt DateTime @default(now())
+
+  // Relations
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+  @@map("processed_games")
+}

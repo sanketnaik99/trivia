@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs';
+import { AuthButtons } from './components/auth-buttons';
+import { Navigation } from "./components/navigation";
+import { QueryProvider } from "./providers/query-provider";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,12 +29,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <QueryProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <header className="border-b">
+              <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div className="flex items-center gap-6">
+                  <Link href="/" className="text-xl font-bold">Trivia</Link>
+                  <Navigation />
+                </div>
+                <AuthButtons />
+              </div>
+            </header>
+            <main>
+              {children}
+            </main>
+          </body>
+        </html>
+      </QueryProvider>
+    </ClerkProvider>
   );
 }

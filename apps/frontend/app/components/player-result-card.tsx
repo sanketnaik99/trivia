@@ -13,9 +13,10 @@ interface PlayerResult {
 interface PlayerResultCardProps {
   result: PlayerResult;
   highlight?: boolean;
+  isGroupMember?: boolean;
 }
 
-const PlayerResultCard: React.FC<PlayerResultCardProps> = ({ result, highlight }) => {
+const PlayerResultCard: React.FC<PlayerResultCardProps> = ({ result, highlight, isGroupMember }) => {
   return (
     <div
       className={`rounded-lg border p-4 flex flex-col items-center shadow-md transition-all duration-200 ${
@@ -24,7 +25,9 @@ const PlayerResultCard: React.FC<PlayerResultCardProps> = ({ result, highlight }
     >
       <div className="font-bold text-lg mb-1">{result.participantName}</div>
       {typeof result.scoreChange === 'number' && (
-        <div className={`text-sm font-medium mb-2 ${result.scoreChange > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+        <div className={`text-sm font-medium mb-2 ${
+          isGroupMember === false ? 'text-gray-400' : result.scoreChange > 0 ? 'text-green-600 font-bold' : 'text-gray-500'
+        }`}>
           {result.scoreChange > 0 ? `+${result.scoreChange} point` : '+0 points'}
           {typeof result.newScore === 'number' && (
             <span className="ml-2 text-xs text-muted-foreground">(Total: {result.newScore})</span>

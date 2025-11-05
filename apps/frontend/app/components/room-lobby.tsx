@@ -12,9 +12,11 @@ interface RoomLobbyProps {
   currentUserId: string;
   onReadyToggle?: () => void;
   onLeaveRoom?: () => void;
+  groupId?: string;
+  groupName?: string;
 }
 
-export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom }: RoomLobbyProps) {
+export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom, groupId, groupName }: RoomLobbyProps) {
   const readyCount = participants.filter((p) => p.isReady).length;
   const totalCount = participants.length;
   const allReady = readyCount === totalCount && totalCount > 1;
@@ -23,7 +25,21 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-4">
-      <RoomCodeDisplay roomCode={roomCode} />
+      <RoomCodeDisplay roomCode={roomCode} groupId={groupId} />
+
+      {groupId && groupName && (
+        <Card className="border-blue-200 bg-blue-50">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-2 text-blue-800">
+              <span className="font-medium">Group Room:</span>
+              <span className="font-semibold">{groupName}</span>
+            </div>
+            <p className="text-sm text-blue-600 mt-1">
+              Points earned in this game will count toward the {groupName} leaderboard.
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

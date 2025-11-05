@@ -9,9 +9,10 @@ interface PlayerResult {
 interface WinnerBannerProps {
   winnerId: string | null;
   results: PlayerResult[];
+  participants?: Array<{ id: string; isGroupMember?: boolean }>;
 }
 
-const WinnerBanner = ({ winnerId, results }: WinnerBannerProps) => {
+const WinnerBanner = ({ winnerId, results, participants }: WinnerBannerProps) => {
   if (!winnerId) {
     return (
       <div className="w-full text-center py-4 text-2xl font-bold text-gray-600">
@@ -19,10 +20,30 @@ const WinnerBanner = ({ winnerId, results }: WinnerBannerProps) => {
       </div>
     );
   }
+
   const winner = results.find(r => r.participantId === winnerId);
+  const isGroupRoom = participants?.some(p => p.isGroupMember !== undefined);
+
+  let topMemberName: string | null = null;
+  if (isGroupRoom) {
+    // Find fastest correct member
+    const memberResults = results.filter(r => {
+      const participant = participants?.find(p => p.id === r.participantId);
+      return participant?.isGroupMember && r.isCorrect;
+    }).sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+    topMemberName = memberResults[0]?.participantName || null;
+  }
+
   return (
-    <div className="w-full text-center py-4 text-3xl font-bold text-yellow-600 animate-bounce drop-shadow-lg" style={{textShadow: '0 2px 8px #fff, 0 0 4px #FFD700'}}>
-      🏆 Winner: <span className="text-yellow-500 font-extrabold">{winner?.participantName || 'Unknown'}</span> 🏆
+    <div className="w-full text-center py-4">
+      <div className="text-3xl font-bold text-yellow-600 animate-bounce drop-shadow-lg" style={{textShadow: '0 2px 8px #fff, 0 0 4px #FFD700'}}>
+        🏆 Round Winner: <span className="text-yellow-500 font-extrabold">{winner?.participantName || 'Unknown'}</span> 🏆
+      </div>
+      {topMemberName && topMemberName !== winner?.participantName && (
+        <div className="text-lg font-semibold text-blue-600 mt-2">
+          🏅 Top Group Member: <span className="text-blue-500 font-bold">{topMemberName}</span> 🏅
+        </div>
+      )}
     </div>
   );
 };

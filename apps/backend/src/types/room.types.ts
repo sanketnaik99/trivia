@@ -11,6 +11,7 @@ export interface Participant {
   roundsWon: number;
   lastWinTimestamp: number | null;
   joinedAt: number;
+  userId: string | null;
 }
 
 export interface Question {
@@ -45,4 +46,6 @@ export interface Room {
   usedQuestionIds: string[];
   createdAt: number;
   lastActivityAt: number;
+  groupId: string | null;
+  createdBy: string;
 }
