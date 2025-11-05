@@ -69,8 +69,9 @@ export class InviteService {
       throw new AppError('NOT_FOUND', 'Invite not found', 404);
     }
 
-    if (invite.status !== 'ACTIVE') {
-      throw new AppError('CONFLICT', `Invite has been ${invite.status.toLowerCase()}`, 409);
+    // Only check if the invite is revoked since we want to allow reuse
+    if (invite.status === 'REVOKED') {
+      throw new AppError('CONFLICT', 'This invite has been revoked', 409);
     }
 
     if (invite.expiresAt < new Date()) {
@@ -101,10 +102,9 @@ export class InviteService {
 
     // Accept invite and create membership in transaction
   const result = await prisma.$transaction(async (tx: import('@prisma/client').Prisma.TransactionClient) => {
-      // Mark invite as used
-      const updatedInvite = await tx.groupInvite.update({
+      // Keep the invite active for reuse - don't mark as used
+      const updatedInvite = await tx.groupInvite.findUnique({
         where: { id: invite.id },
-        data: { status: 'USED' },
       });
 
       // Create or reactivate membership
