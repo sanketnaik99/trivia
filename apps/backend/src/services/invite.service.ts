@@ -100,7 +100,7 @@ export class InviteService {
     }
 
     // Accept invite and create membership in transaction
-    const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx: import('@prisma/client').Prisma.TransactionClient) => {
       // Mark invite as used
       const updatedInvite = await tx.groupInvite.update({
         where: { id: invite.id },

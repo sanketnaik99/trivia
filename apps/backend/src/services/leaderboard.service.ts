@@ -121,7 +121,7 @@ export class LeaderboardService {
       take: 3,
     });
 
-    const topThree = topThreeEntries.map(entry => ({
+    const topThree = topThreeEntries.map((entry: any) => ({
       userId: entry.userId,
       displayName: entry.user.displayName,
       totalPoints: entry.totalPoints,
@@ -184,7 +184,7 @@ export class LeaderboardService {
     let currentRank = 1;
     let previousPoints = -1;
 
-    for (const entry of allEntries) {
+    for (const entry of (allEntries as any[])) {
       if (entry.totalPoints !== previousPoints) {
         currentRank = rankMap.size + 1;
         previousPoints = entry.totalPoints;
@@ -213,7 +213,7 @@ export class LeaderboardService {
     // In a real implementation, you'd track completed games separately
     const totalGamesPlayed = group._count.rooms;
 
-    const leaderboard: LeaderboardEntry[] = entries.map((entry) => ({
+    const leaderboard: LeaderboardEntry[] = entries.map((entry: any) => ({
       rank: rankMap.get(entry.userId) || 0,
       userId: entry.userId,
       displayName: entry.user.displayName,

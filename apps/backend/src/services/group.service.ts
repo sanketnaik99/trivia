@@ -1,4 +1,5 @@
 import prisma from '../config/prisma';
+import type { Prisma } from '@prisma/client';
 import { AppError } from '../utils/error-handler.util';
 
 export interface CreateGroupData {
@@ -20,7 +21,7 @@ export class GroupService {
     }
 
     // Create group and membership in a transaction
-    const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const group = await tx.group.create({
         data: {
           name: name.trim(),
@@ -72,7 +73,7 @@ export class GroupService {
       }),
     ]);
 
-    const groups = memberships.map((membership) => ({
+    const groups = memberships.map((membership: any) => ({
       id: membership.group.id,
       name: membership.group.name,
       privacy: membership.group.privacy,
@@ -146,7 +147,7 @@ export class GroupService {
         joinedAt: membership.joinedAt,
         status: membership.status,
       },
-      members: group.memberships.map((m) => ({
+      members: group.memberships.map((m: any) => ({
         id: m.id,
         userId: m.userId,
         groupId: m.groupId,
@@ -221,7 +222,7 @@ export class GroupService {
     }
 
     // Delete group and all related data in transaction
-    await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Delete all memberships
       await tx.membership.deleteMany({
         where: { groupId },
