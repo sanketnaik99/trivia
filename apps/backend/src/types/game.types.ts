@@ -9,4 +9,5 @@ export interface RoundEndResult {
   acceptedAnswers: string[];
   winnerId: string | null;
   winnerName: string | null;
+  commentary?: string;
 }

@@ -20,7 +20,7 @@ async function isGroupMember(userId: string | null, groupId: string | null): Pro
   return !!membership;
 }
 
-export async function handleCreate(io: Server, socket: Socket, payload: { groupId?: string }) {
+export async function handleCreate(io: Server, socket: Socket, payload: { groupId?: string; roastMode?: boolean }) {
   try {
     // Get userId from socket auth
     const userId = (socket as any).userId; // Assume set by auth middleware
@@ -29,7 +29,7 @@ export async function handleCreate(io: Server, socket: Socket, payload: { groupI
       return;
     }
 
-    const { groupId } = payload;
+    const { groupId, roastMode = false } = payload;
     let groupName: string | null = null;
 
     if (groupId) {
@@ -44,15 +44,16 @@ export async function handleCreate(io: Server, socket: Socket, payload: { groupI
       groupName = group.name;
     }
 
-    const { code, room } = await roomService.createRoom(userId, groupId);
+    const { code, room } = await roomService.createRoom(userId, groupId, roastMode);
 
     socket.emit('ROOM_CREATED', {
       code,
       groupId,
       groupName,
+      roastMode: room.roastMode,
     });
 
-    logger.info('Room created via socket', { code, groupId, userId });
+    logger.info('Room created via socket', { code, groupId, userId, roastMode });
   } catch (err: unknown) {
     const e = err as Error;
     logger.error('Room creation failed', { error: e.message });

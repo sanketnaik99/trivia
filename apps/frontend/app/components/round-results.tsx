@@ -26,6 +26,7 @@ interface RoundResultsProps {
   onReadyForNextRound?: () => void;
   leaderboard?: LeaderboardEntry[];
   groupId?: string;
+  commentary?: string;
 }
 
 const RoundResults: React.FC<RoundResultsProps> = ({
@@ -37,6 +38,7 @@ const RoundResults: React.FC<RoundResultsProps> = ({
   participants,
   onReadyForNextRound,
   groupId,
+  commentary,
 }) => {
   // Sort: correct first, then by timestamp (fastest), then incorrect
   const sortedResults = [...results].sort((a, b) => {
@@ -61,6 +63,24 @@ const RoundResults: React.FC<RoundResultsProps> = ({
   return (
     <div className="flex flex-col items-center w-full max-w-2xl mx-auto p-4">
       <WinnerBanner winnerId={winnerId} results={results} participants={participants} />
+      
+      {commentary && (
+        <div className="mt-4 w-full">
+          <div className="relative bg-linear-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 border-2 border-purple-200 dark:border-purple-800 rounded-lg p-4 shadow-sm">
+            <div className="flex items-start gap-2">
+              <div className="absolute -top-3 -left-2 mt-0.5">
+                <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-semibold">
+                  Trivia AI
+                </Badge>
+              </div>
+              <p className="text-sm md:text-base text-gray-800 dark:text-gray-200 leading-relaxed flex-1">
+                {commentary}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="text-lg font-semibold mt-4 mb-2 text-center">
         Correct Answer: <span className="text-green-600">{correctAnswer}</span>
         {acceptedAnswers.length > 1 && (

@@ -15,7 +15,7 @@ class RoomService {
     }));
   }
 
-  async createRoom(userId: string, groupId?: string | null): Promise<{ code: string; room: Room }> {
+  async createRoom(userId: string, groupId?: string | null, roastMode: boolean = false): Promise<{ code: string; room: Room }> {
     if (roomStore.getRoomCount() >= config.maxRooms) {
       throw new Error('ROOM_LIMIT_REACHED');
     }
@@ -54,10 +54,11 @@ class RoomService {
       lastActivityAt: now,
       groupId: groupId || null,
       createdBy: userId,
+      roastMode,
     };
 
     roomStore.createRoom(code, room);
-    logger.info('Room created', { code, groupId, userId });
+    logger.info('Room created', { code, groupId, userId, roastMode });
     return { code, room };
   }
 

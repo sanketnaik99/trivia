@@ -48,4 +48,5 @@ export interface Room {
   lastActivityAt: number;
   groupId: string | null;
   createdBy: string;
+  roastMode: boolean;
 }

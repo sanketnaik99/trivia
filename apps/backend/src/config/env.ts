@@ -7,6 +7,8 @@ export const config = {
   roomCleanupTimeout: Number(process.env.ROOM_CLEANUP_TIMEOUT || 300000),
   reconnectTimeout: Number(process.env.RECONNECT_TIMEOUT || 30000),
   nodeEnv: process.env.NODE_ENV || 'development',
+  geminiApiKey: process.env.GEMINI_API_KEY,
+  aiModel: process.env.AI_MODEL || 'gemini-flash-latest',
 };
 
 export type Config = typeof config;
