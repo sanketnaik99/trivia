@@ -29,9 +29,9 @@ This is a monorepo with web app structure:
 
 **Purpose**: Install dependencies and prepare project structure for UI redesign
 
-- [ ] T001 Install next-themes dependency in apps/frontend/package.json
-- [ ] T002 [P] Verify lucide-react is available for theme toggle icons (Moon, Sun)
-- [ ] T003 [P] Verify existing logo files exist in apps/frontend/public/ (horizontal-logo-light.png, square-logo-light.png)
+- [x] T001 Install next-themes dependency in apps/frontend/package.json
+- [x] T002 [P] Verify lucide-react is available for theme toggle icons (Moon, Sun)
+- [x] T003 [P] Verify existing logo files exist in apps/frontend/public/ (horizontal-logo-light.png, square-logo-light.png)
 
 ---
 
@@ -41,13 +41,13 @@ This is a monorepo with web app structure:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Replace apps/frontend/app/globals.css with the exact OKLCH theme provided (light and dark modes, @theme inline block)
-- [ ] T005 [P] Create ThemeProvider wrapper component in apps/frontend/app/providers/theme-provider.tsx
-- [ ] T006 [P] Create ThemeToggle component in apps/frontend/components/ui/theme-toggle.tsx
-- [ ] T007 Update apps/frontend/app/layout.tsx to wrap app with ThemeProvider (attribute="class", defaultTheme="system", enableSystem)
-- [ ] T008 Add suppressHydrationWarning prop to html element in apps/frontend/app/layout.tsx
-- [ ] T009 Add ThemeToggle component to header/navigation in apps/frontend/app/layout.tsx (top right corner)
-- [ ] T010 Add prefers-reduced-motion CSS rule to apps/frontend/app/globals.css to disable animations when user preference is set
+- [x] T004 Replace apps/frontend/app/globals.css with the exact OKLCH theme provided (light and dark modes, @theme inline block)
+- [x] T005 [P] Create ThemeProvider wrapper component in apps/frontend/app/providers/theme-provider.tsx
+- [x] T006 [P] Create ThemeToggle component in apps/frontend/components/ui/theme-toggle.tsx
+- [x] T007 Update apps/frontend/app/layout.tsx to wrap app with ThemeProvider (attribute="class", defaultTheme="system", enableSystem)
+- [x] T008 Add suppressHydrationWarning prop to html element in apps/frontend/app/layout.tsx
+- [x] T009 Add ThemeToggle component to header/navigation in apps/frontend/app/layout.tsx (top right corner)
+- [x] T010 Add prefers-reduced-motion CSS rule to apps/frontend/app/globals.css to disable animations when user preference is set
 
 **Checkpoint**: Foundation ready - theme system functional, user story implementation can now begin in parallel
 
