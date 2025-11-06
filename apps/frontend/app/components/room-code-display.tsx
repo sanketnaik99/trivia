@@ -33,27 +33,22 @@ export function RoomCodeDisplay({ roomCode, groupId }: RoomCodeDisplayProps) {
   };
 
   return (
-    <Card className="bg-linear-to-r from-primary/10 to-primary/5">
+    <Card className="bg-card border-border">
       <CardContent className="p-6">
         <div className="text-center space-y-3">
           <p className="text-sm font-medium text-muted-foreground">Room Code</p>
           <div className="flex items-center justify-center gap-3">
-            <code className="text-4xl sm:text-5xl font-bold tracking-wider font-mono">
+            <code className="text-4xl sm:text-5xl font-bold tracking-wider font-mono text-card-foreground">
               {roomCode}
             </code>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            className="mt-2"
-          >
+          <Button variant="outline" size="sm" onClick={handleCopy} className="mt-2 h-9">
             {copied ? 'Copied!' : 'Copy Code'}
           </Button>
           {/* T063: Display shareable URL with share button */}
           <div className="mt-4 space-y-2">
             <p className="text-xs text-muted-foreground">Share this link:</p>
-            <div className="p-2 bg-muted/50 rounded text-xs font-mono break-all">
+            <div className="p-2 bg-muted/50 rounded text-xs font-mono break-all text-card-foreground">
               {shareableUrl}
             </div>
             <ShareButton shareableUrl={shareableUrl} roomCode={roomCode} />

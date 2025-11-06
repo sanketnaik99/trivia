@@ -469,21 +469,21 @@ export default function RoomPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-4 flex items-center justify-center">
           {connectionStatus === 'connected' && (
-            <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
-              Connected
+            <div className="px-3 py-1 bg-card rounded-full text-sm flex items-center gap-2 border border-border">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" aria-hidden />
+              <span className="text-sm font-medium text-accent-foreground">Connected</span>
             </div>
           )}
           {connectionStatus === 'reconnecting' && (
-            <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-2">
-              <span className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
-              Reconnecting...{reconnectAttempts > 0 && ` (Attempt ${reconnectAttempts})`}
+            <div className="px-3 py-1 bg-card rounded-full text-sm flex items-center gap-2 border border-border">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" aria-hidden />
+              <span className="text-sm font-medium text-muted-foreground">Reconnecting...{reconnectAttempts > 0 && ` (Attempt ${reconnectAttempts})`}</span>
             </div>
           )}
           {connectionStatus === 'disconnected' && (
-            <div className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm flex items-center gap-2">
-              <span className="w-2 h-2 bg-red-600 rounded-full"></span>
-              Disconnected
+            <div className="px-3 py-1 bg-card rounded-full text-sm flex items-center gap-2 border border-border">
+              <span className="w-2 h-2 bg-destructive rounded-full" aria-hidden />
+              <span className="text-sm font-medium text-muted-foreground">Disconnected</span>
             </div>
           )}
         </div>

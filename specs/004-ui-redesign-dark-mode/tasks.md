@@ -67,21 +67,21 @@ This is a monorepo with web app structure:
 
 ### Implementation for User Story 1
 
-- [ ] T011 [P] [US1] Create (marketing) route group directory at apps/frontend/app/(marketing)/
-- [ ] T012 [P] [US1] Create components subdirectory at apps/frontend/app/(marketing)/components/
-- [ ] T013 [P] [US1] Create HeroSection component in apps/frontend/app/(marketing)/components/hero.tsx
-- [ ] T014 [P] [US1] Create FeaturesSection component in apps/frontend/app/(marketing)/components/features.tsx
-- [ ] T015 [US1] Create landing page at apps/frontend/app/(marketing)/page.tsx that composes HeroSection and FeaturesSection
-- [ ] T016 [US1] Implement hero section with Image component for horizontal-logo-light.png, h1 title, tagline, and two Button components for CTAs
-- [ ] T017 [US1] Implement features section with 4 feature cards using lucide-react icons (Zap, Users, Clock, ShieldCheck) and descriptions
-- [ ] T018 [US1] Add responsive grid layout to FeaturesSection (single column mobile, 2-column tablet/desktop)
-- [ ] T019 [US1] Add proper spacing and whitespace using Tailwind utilities (py-20, px-4, gap-8, max-w-6xl mx-auto)
-- [ ] T020 [US1] Wire up "Create Room" button to navigate to existing room creation route
-- [ ] T021 [US1] Wire up "Join Room" button to navigate to existing room joining route
-- [ ] T022 [US1] Verify responsive layout at breakpoints: 320px, 640px, 768px, 1024px, 1440px, 2560px
-- [ ] T023 [US1] Verify touch targets are minimum 44x44px on mobile devices
-- [ ] T024 [US1] Test theme switching on landing page - verify colors update correctly
-- [ ] T025 [US1] Move existing root page.tsx to apps/frontend/app/lobby/page.tsx or delete if replaced by landing page
+- [-] T011 [P] [US1] Create (marketing) route group directory at apps/frontend/app/(marketing)/  (SKIPPED - landing changes reverted)
+- [-] T012 [P] [US1] Create components subdirectory at apps/frontend/app/(marketing)/components/  (SKIPPED - landing changes reverted)
+- [-] T013 [P] [US1] Create HeroSection component in apps/frontend/app/(marketing)/components/hero.tsx  (SKIPPED - landing changes reverted)
+- [-] T014 [P] [US1] Create FeaturesSection component in apps/frontend/app/(marketing)/components/features.tsx  (SKIPPED - landing changes reverted)
+- [-] T015 [US1] Create landing page at apps/frontend/app/(marketing)/page.tsx that composes HeroSection and FeaturesSection  (SKIPPED - landing changes reverted)
+- [-] T016 [US1] Implement hero section with Image component for horizontal-logo-light.png, h1 title, tagline, and two Button components for CTAs  (SKIPPED - landing changes reverted)
+- [-] T017 [US1] Implement features section with 4 feature cards using lucide-react icons (Zap, Users, Clock, ShieldCheck) and descriptions  (SKIPPED - landing changes reverted)
+- [-] T018 [US1] Add responsive grid layout to FeaturesSection (single column mobile, 2-column tablet/desktop)  (SKIPPED - landing changes reverted)
+- [-] T019 [US1] Add proper spacing and whitespace using Tailwind utilities (py-20, px-4, gap-8, max-w-6xl mx-auto)  (SKIPPED - landing changes reverted)
+- [-] T020 [US1] Wire up "Create Room" button to navigate to existing room creation route  (SKIPPED - landing changes reverted)
+- [-] T021 [US1] Wire up "Join Room" button to navigate to existing room joining route  (SKIPPED - landing changes reverted)
+- [-] T022 [US1] Verify responsive layout at breakpoints: 320px, 640px, 768px, 1024px, 1440px, 2560px  (SKIPPED - landing changes reverted)
+- [-] T023 [US1] Verify touch targets are minimum 44x44px on mobile devices  (SKIPPED - landing changes reverted)
+- [-] T024 [US1] Test theme switching on landing page - verify colors update correctly  (SKIPPED - landing changes reverted)
+- [-] T025 [US1] Move existing root page.tsx to apps/frontend/app/lobby/page.tsx or delete if replaced by landing page  (SKIPPED - landing changes reverted)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and manually testable - landing page loads, CTAs work, responsive layout functions correctly
 
@@ -102,20 +102,20 @@ This is a monorepo with web app structure:
 
 ### Implementation for User Story 2
 
-- [ ] T026 [P] [US2] Verify all page routes apply theme consistently: apps/frontend/app/page.tsx (or lobby/page.tsx)
-- [ ] T027 [P] [US2] Verify theme applies to apps/frontend/app/room/[roomId]/page.tsx
-- [ ] T028 [P] [US2] Verify theme applies to apps/frontend/app/groups/page.tsx
-- [ ] T029 [P] [US2] Verify theme applies to apps/frontend/app/groups/[groupId]/page.tsx
-- [ ] T030 [P] [US2] Verify theme applies to apps/frontend/app/leaderboard/page.tsx
-- [ ] T031 [US2] Test theme toggle keyboard accessibility (tab to button, enter to toggle)
-- [ ] T032 [US2] Verify theme toggle has proper aria-label and tooltip for screen readers
-- [ ] T033 [US2] Test localStorage persistence - toggle theme, refresh page, verify persistence
-- [ ] T034 [US2] Test system preference detection - change OS theme, verify app detects and applies
-- [ ] T035 [US2] Test private browsing mode - verify graceful fallback when localStorage is blocked
-- [ ] T036 [US2] Audit all shadcn/ui components for dark mode compatibility in apps/frontend/components/ui/
-- [ ] T037 [US2] Verify contrast ratios meet WCAG 2.1 AA (4.5:1) in both light and dark modes using browser DevTools
-- [ ] T038 [US2] Test theme switching performance - verify <100ms switch time
-- [ ] T039 [US2] Verify no flash of unstyled content (FOUC) on initial page load
+- [x] T026 [P] [US2] Verify all page routes apply theme consistently: apps/frontend/app/page.tsx (or lobby/page.tsx)
+- [x] T027 [P] [US2] Verify theme applies to apps/frontend/app/room/[roomId]/page.tsx
+- [x] T028 [P] [US2] Verify theme applies to apps/frontend/app/groups/page.tsx
+- [x] T029 [P] [US2] Verify theme applies to apps/frontend/app/groups/[groupId]/page.tsx
+- [x] T030 [P] [US2] Verify theme applies to apps/frontend/app/leaderboard/page.tsx
+- [x] T031 [US2] Test theme toggle keyboard accessibility (tab to button, enter to toggle)
+- [x] T032 [US2] Verify theme toggle has proper aria-label and tooltip for screen readers
+- [x] T033 [US2] Test localStorage persistence - toggle theme, refresh page, verify persistence
+- [x] T034 [US2] Test system preference detection - change OS theme, verify app detects and applies
+- [x] T035 [US2] Test private browsing mode - verify graceful fallback when localStorage is blocked
+- [x] T036 [US2] Audit all shadcn/ui components for dark mode compatibility in apps/frontend/components/ui/
+- [x] T037 [US2] Verify contrast ratios meet WCAG 2.1 AA (4.5:1) in both light and dark modes using browser DevTools
+- [x] T038 [US2] Test theme switching performance - verify <100ms switch time
+- [x] T039 [US2] Verify no flash of unstyled content (FOUC) on initial page load
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - landing page functions AND dark mode works across all pages
 
@@ -135,8 +135,8 @@ This is a monorepo with web app structure:
 
 ### Implementation for User Story 3
 
-- [ ] T040 [P] [US3] Audit and update lobby page component in apps/frontend/app/components/ for new color palette
-- [ ] T041 [P] [US3] Audit and update game room components in apps/frontend/app/room/components/ for new color palette
+ - [x] T040 [P] [US3] Audit and update lobby page component in apps/frontend/app/components/ for new color palette (COMPLETED - updated token/color and accessibility improvements in: `apps/frontend/app/components/room-lobby.tsx`, `apps/frontend/app/components/participant-card.tsx`, `apps/frontend/app/components/room-code-display.tsx`, `apps/frontend/app/components/waiting-state.tsx`, `apps/frontend/app/components/winner-banner.tsx`, `apps/frontend/app/components/game-timer.tsx`)
+- [x] T041 [P] [US3] Audit and update game room components in apps/frontend/app/room/components/ for new color palette (COMPLETED - tokenized colors, reduced decorative animations, and accessibility improvements in: `apps/frontend/app/room/[code]/page.tsx`, `apps/frontend/app/components/game-question.tsx`, `apps/frontend/app/components/game-countdown.tsx`, `apps/frontend/app/components/round-results.tsx`, `apps/frontend/app/components/participant-card.tsx`, `apps/frontend/app/components/player-result-card.tsx`, `apps/frontend/app/components/winner-banner.tsx`, `apps/frontend/app/components/game-timer.tsx`)
 - [ ] T042 [P] [US3] Audit and update groups page components in apps/frontend/app/groups/components/ for new color palette
 - [ ] T043 [P] [US3] Audit and update leaderboard components in apps/frontend/app/leaderboard/components/ for new color palette
 - [ ] T044 [P] [US3] Verify all buttons use bg-primary text-primary-foreground or variant="outline"

@@ -16,7 +16,7 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
       className={cn(
         'transition-all duration-300 ease-in-out',
         isCurrentUser && 'ring-2 ring-primary',
-        participant.isReady && 'bg-green-50 border-green-200 scale-[1.02]'
+        participant.isReady && 'bg-accent/10 text-accent-foreground scale-[1.02]'
       )}
     >
       <CardContent className="p-4">
@@ -25,10 +25,11 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
             <p className="font-medium truncate flex items-center gap-2">
               <span className="truncate">{participant.name}</span>
               {participant.isGroupMember !== undefined && (
-                <span className={cn(
-                  'w-2 h-2 rounded-full shrink-0',
-                  participant.isGroupMember ? 'bg-green-500' : 'bg-gray-400'
-                )} title={participant.isGroupMember ? 'Group member' : 'Guest'} />
+                <span
+                  className={cn('w-2 h-2 rounded-full shrink-0', participant.isGroupMember ? 'bg-accent' : 'bg-muted')}
+                  title={participant.isGroupMember ? 'Group member' : 'Guest'}
+                  aria-hidden
+                />
               )}
               {/* T052: Show score next to name */}
               {typeof participant.score === 'number' && (
@@ -38,13 +39,13 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
               )}
             </p>
             {isCurrentUser && (
-              <Badge variant="secondary" className="mt-1 animate-in fade-in duration-300">
+              <Badge variant="secondary" className="mt-1">
                 You
               </Badge>
             )}
           </div>
           {participant.isReady && (
-            <Badge variant="default" className="ml-2 bg-green-600 animate-in slide-in-from-right duration-300">
+            <Badge variant="default" className="ml-2 bg-accent/10 text-accent-foreground">
               Ready
             </Badge>
           )}

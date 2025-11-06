@@ -7,6 +7,8 @@ import { Navigation } from "./components/navigation";
 import { QueryProvider } from "./providers/query-provider";
 import ThemeProvider from "./providers/theme-provider";
 import { ThemeToggle } from "./components/ui/theme-toggle";
+import HorizontalLogo from '@/public/horizontal-logo-light.png'
+import Image from "next/image";
 
 import "./globals.css";
 
@@ -41,7 +43,9 @@ export default function RootLayout({
               <header className="border-b">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                   <div className="flex items-center gap-6">
-                    <Link href="/" className="text-xl font-bold">Trivia</Link>
+                    <Link href="/" className="text-xl font-bold">
+                      <Image src={HorizontalLogo} alt="Trivia Room Logo" width={100} height={50} />
+                    </Link>
                     <Navigation />
                   </div>
                   <div className="flex items-center gap-3">

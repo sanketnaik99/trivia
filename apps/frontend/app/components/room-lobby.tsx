@@ -28,13 +28,13 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
       <RoomCodeDisplay roomCode={roomCode} groupId={groupId} />
 
       {groupId && groupName && (
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-border bg-card">
           <CardContent className="pt-6">
-            <div className="flex items-center gap-2 text-blue-800">
+            <div className="flex items-center gap-2 text-card-foreground">
               <span className="font-medium">Group Room:</span>
               <span className="font-semibold">{groupName}</span>
             </div>
-            <p className="text-sm text-blue-600 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Points earned in this game will count toward the {groupName} leaderboard.
             </p>
           </CardContent>
@@ -52,7 +52,7 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
         </CardHeader>
         <CardContent>
           {allReady && totalCount > 1 && (
-            <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-md text-center font-medium">
+            <div className="mb-4 p-3 bg-accent/10 text-accent-foreground rounded-md text-center font-medium">
               All players ready! Game starting soon...
             </div>
           )}
@@ -64,7 +64,7 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
                 onReadyToggle?.();
               }}
               variant={isReady ? 'outline' : 'default'}
-              className="w-full min-h-11 text-lg"
+              className="w-full h-11 text-lg"
               size="lg"
             >
               {isReady ? 'Not Ready' : 'Ready to Play'}
@@ -75,8 +75,9 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
               <Button
                 onClick={onLeaveRoom}
                 variant="ghost"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto h-11"
                 size="sm"
+                aria-label="Leave room"
               >
                 Leave Room
               </Button>

@@ -16,9 +16,29 @@
 
  [32m[1m✓[22m[39m Starting...
  [33m[1m⚠[22m[39m The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
- [32m[1m✓[22m[39m Ready in 1595ms
- GET / [32m200[39m in 2.7s[2m (compile: 1605ms, proxy.ts: 970ms, render: 151ms)[22m
- POST / [32m200[39m in 37ms[2m (compile: 6ms, proxy.ts: 11ms, render: 19ms)[22m
- POST / [32m200[39m in 12ms[2m (compile: 1743µs, proxy.ts: 6ms, render: 4ms)[22m
- [32m[1m✓[22m[39m Compiled in 91ms
- [32m[1m✓[22m[39m Compiled in 87ms
+ [32m[1m✓[22m[39m Ready in 600ms
+ GET / [32m200[39m in 1984ms[2m (compile: 1390ms, proxy.ts: 434ms, render: 159ms)[22m
+ POST / [32m200[39m in 27ms[2m (compile: 5ms, proxy.ts: 13ms, render: 9ms)[22m
+ POST / [32m200[39m in 19ms[2m (compile: 3ms, proxy.ts: 11ms, render: 5ms)[22m
+ GET /groups [32m200[39m in 429ms[2m (compile: 396ms, proxy.ts: 23ms, render: 10ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 754ms[2m (compile: 720ms, proxy.ts: 23ms, render: 10ms)[22m
+ GET /groups/invite/X731M5 [32m200[39m in 643ms[2m (compile: 595ms, proxy.ts: 7ms, render: 40ms)[22m
+ POST /groups/invite/X731M5 [32m200[39m in 18ms[2m (compile: 7ms, proxy.ts: 6ms, render: 5ms)[22m
+ POST /groups/invite/X731M5 [32m200[39m in 10ms[2m (compile: 2ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET / [32m200[39m in 63ms[2m (compile: 9ms, proxy.ts: 9ms, render: 45ms)[22m
+ POST / [32m200[39m in 14ms[2m (compile: 2ms, proxy.ts: 5ms, render: 7ms)[22m
+ POST / [32m200[39m in 11ms[2m (compile: 1232µs, proxy.ts: 5ms, render: 4ms)[22m
+ GET /groups [32m200[39m in 40ms[2m (compile: 7ms, proxy.ts: 14ms, render: 19ms)[22m
+ GET /groups/invite/X731M5 [32m200[39m in 71ms[2m (compile: 11ms, proxy.ts: 11ms, render: 48ms)[22m
+ POST /groups/invite/X731M5 [32m200[39m in 12ms[2m (compile: 4ms, proxy.ts: 5ms, render: 4ms)[22m
+ POST /groups/invite/X731M5 [32m200[39m in 10ms[2m (compile: 2ms, proxy.ts: 4ms, render: 3ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 46ms[2m (compile: 15ms, proxy.ts: 11ms, render: 20ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au/rooms/WMVSBC [32m200[39m in 560ms[2m (compile: 533ms, proxy.ts: 15ms, render: 13ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 110ms[2m (compile: 14ms, proxy.ts: 8ms, render: 88ms)[22m
+ POST /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 19ms[2m (compile: 4ms, proxy.ts: 9ms, render: 5ms)[22m
+ POST /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 11ms[2m (compile: 3ms, proxy.ts: 5ms, render: 3ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au/rooms/WMVSBC [32m200[39m in 40ms[2m (compile: 12ms, proxy.ts: 10ms, render: 18ms)[22m
+ GET / [32m200[39m in 37ms[2m (compile: 7ms, proxy.ts: 15ms, render: 15ms)[22m
+ GET /groups [32m200[39m in 45ms[2m (compile: 8ms, proxy.ts: 18ms, render: 18ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au [32m200[39m in 44ms[2m (compile: 13ms, proxy.ts: 9ms, render: 22ms)[22m
+ GET /groups/cmhmwpbo90001vakxovsux9au/rooms/WMVSBC [32m200[39m in 49ms[2m (compile: 16ms, proxy.ts: 17ms, render: 16ms)[22m

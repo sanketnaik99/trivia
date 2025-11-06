@@ -15,7 +15,7 @@ interface WinnerBannerProps {
 const WinnerBanner = ({ winnerId, results, participants }: WinnerBannerProps) => {
   if (!winnerId) {
     return (
-      <div className="w-full text-center py-4 text-2xl font-bold text-gray-600">
+      <div className="w-full text-center py-4 text-2xl font-bold text-muted-foreground">
         No Winner This Round
       </div>
     );
@@ -36,12 +36,12 @@ const WinnerBanner = ({ winnerId, results, participants }: WinnerBannerProps) =>
 
   return (
     <div className="w-full text-center py-4">
-      <div className="text-3xl font-bold text-yellow-600 animate-bounce drop-shadow-lg" style={{textShadow: '0 2px 8px #fff, 0 0 4px #FFD700'}}>
-        🏆 Round Winner: <span className="text-yellow-500 font-extrabold">{winner?.participantName || 'Unknown'}</span> 🏆
+      <div className="text-3xl font-bold text-accent-foreground">
+        🏆 Round Winner: <span className="text-accent font-extrabold">{winner?.participantName || 'Unknown'}</span> 🏆
       </div>
       {topMemberName && topMemberName !== winner?.participantName && (
-        <div className="text-lg font-semibold text-blue-600 mt-2">
-          🏅 Top Group Member: <span className="text-blue-500 font-bold">{topMemberName}</span> 🏅
+        <div className="text-lg font-semibold text-card-foreground mt-2">
+          🏅 Top Group Member: <span className="text-accent font-bold">{topMemberName}</span> 🏅
         </div>
       )}
     </div>

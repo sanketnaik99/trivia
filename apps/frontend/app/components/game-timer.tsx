@@ -45,43 +45,33 @@ export function GameTimer({ startTime, duration, onTimeExpired }: GameTimerProps
   };
 
   // Calculate progress percentage (0-100)
-  const progressPercentage = (timeRemaining / duration) * 100;
+  const progressPercentage = Math.max(0, Math.min(100, (timeRemaining / duration) * 100));
 
-  // Determine color based on time remaining
-  const getColorClass = () => {
-    if (progressPercentage > 50) return 'bg-green-500';
-    if (progressPercentage > 25) return 'bg-yellow-500';
-    return 'bg-red-500';
-  };
-
-  const getTextColorClass = () => {
-    if (progressPercentage > 50) return 'text-green-700 dark:text-green-400';
-    if (progressPercentage > 25) return 'text-yellow-700 dark:text-yellow-400';
-    return 'text-red-700 dark:text-red-400';
-  };
+  // Note: use design tokens for colors so theme (light/dark) remains consistent.
+  // We keep the progress fill as the accent color and use tokenized text colors.
 
   return (
     <Card className="w-full max-w-2xl mx-auto p-4 md:p-6">
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm md:text-base font-medium text-gray-600 dark:text-gray-400">
+          <span className="text-sm md:text-base font-medium text-muted-foreground">
             Time Remaining
           </span>
-          <span className={`text-2xl md:text-3xl font-bold ${getTextColorClass()}`}>
+          <span className="text-2xl md:text-3xl font-bold text-card-foreground">
             {formatTime(timeRemaining)}
           </span>
         </div>
 
-        {/* Progress bar */}
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 md:h-4 overflow-hidden">
+        {/* Progress bar (uses tokenized colors so dark/light are handled centrally) */}
+        <div className="w-full bg-muted/30 rounded-full h-3 md:h-4 overflow-hidden">
           <div
-            className={`h-full transition-all duration-200 ease-linear ${getColorClass()}`}
+            className="h-full transition-all duration-200 ease-linear bg-accent"
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
 
         {timeRemaining === 0 && (
-          <p className="text-center text-sm md:text-base text-gray-600 dark:text-gray-400 animate-pulse">
+          <p className="text-center text-sm md:text-base text-accent-foreground font-semibold">
             Time&apos;s up!
           </p>
         )}

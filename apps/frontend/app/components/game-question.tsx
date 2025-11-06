@@ -31,7 +31,7 @@ export function GameQuestion({ questionText, onSubmitAnswer, disabled = false }:
       <form onSubmit={handleSubmit} className="space-y-6" aria-label="Answer trivia question">
         <div className="space-y-4">
           <h2 
-            className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight"
+            className="text-xl md:text-2xl lg:text-3xl font-bold text-card-foreground leading-tight"
             id="question-text"
             role="heading"
             aria-level={2}
@@ -68,7 +68,7 @@ export function GameQuestion({ questionText, onSubmitAnswer, disabled = false }:
 
         {disabled && (
           <p 
-            className="text-sm md:text-base text-center text-gray-600 dark:text-gray-400"
+            className="text-sm md:text-base text-center text-muted-foreground"
             role="status"
             aria-live="polite"
           >
