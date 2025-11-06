@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useUser } from '@clerk/nextjs';
+import { Button } from "@/components/ui/button";
 
 export function Navigation() {
   const { isSignedIn, isLoaded } = useUser();
@@ -17,9 +18,13 @@ export function Navigation() {
 
   return (
     <nav className="flex gap-4">
-      <Link href="/" className="text-sm hover:underline">Rooms</Link>
+      <Link href="/">
+        <Button variant="ghost" size="sm">Rooms</Button>
+      </Link>
       {isSignedIn && (
-        <Link href="/groups" className="text-sm hover:underline">Groups</Link>
+      <Link href="/groups">
+        <Button variant="ghost" size="sm">Groups</Button>
+      </Link>
       )}
     </nav>
   );

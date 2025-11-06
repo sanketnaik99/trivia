@@ -36,8 +36,8 @@ const WinnerBanner = ({ winnerId, results, participants }: WinnerBannerProps) =>
 
   return (
     <div className="w-full text-center py-4">
-      <div className="text-3xl font-bold text-yellow-600 animate-bounce drop-shadow-lg" style={{textShadow: '0 2px 8px #fff, 0 0 4px #FFD700'}}>
-        🏆 Round Winner: <span className="text-yellow-500 font-extrabold">{winner?.participantName || 'Unknown'}</span> 🏆
+      <div className="text-3xl font-bold text-primary">
+        Round Winner: <span className="text-primary font-extrabold">{winner?.participantName || 'Unknown'}</span>
       </div>
       {topMemberName && topMemberName !== winner?.participantName && (
         <div className="text-lg font-semibold text-blue-600 mt-2">
