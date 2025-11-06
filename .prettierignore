@@ -1,0 +1,28 @@
+# Ignore artifacts that shouldn't be formatted or shipped
+node_modules/
+dist/
+build/
+coverage/
+
+# Next.js
+.next/
+out/
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Environment
+.env*
+
+# Misc
+*.tgz

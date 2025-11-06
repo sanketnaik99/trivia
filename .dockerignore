@@ -1,0 +1,24 @@
+# Ignore node modules and build output
+node_modules/
+.next/
+/out/
+dist/
+build/
+coverage/
+
+# Local env files
+.env*
+
+# VCS
+.git
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Misc
+*.tgz

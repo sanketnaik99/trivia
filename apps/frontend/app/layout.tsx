@@ -5,6 +5,8 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { AuthButtons } from './components/auth-buttons';
 import { Navigation } from "./components/navigation";
 import { QueryProvider } from "./providers/query-provider";
+import ThemeProvider from "./providers/theme-provider";
+import { ThemeToggle } from "./components/ui/theme-toggle";
 
 import "./globals.css";
 
@@ -31,22 +33,27 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <QueryProvider>
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
-            <header className="border-b">
-              <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <div className="flex items-center gap-6">
-                  <Link href="/" className="text-xl font-bold">Trivia</Link>
-                  <Navigation />
+            <ThemeProvider>
+              <header className="border-b">
+                <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                  <div className="flex items-center gap-6">
+                    <Link href="/" className="text-xl font-bold">Trivia</Link>
+                    <Navigation />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <ThemeToggle />
+                    <AuthButtons />
+                  </div>
                 </div>
-                <AuthButtons />
-              </div>
-            </header>
-            <main>
-              {children}
-            </main>
+              </header>
+              <main>
+                {children}
+              </main>
+            </ThemeProvider>
           </body>
         </html>
       </QueryProvider>
