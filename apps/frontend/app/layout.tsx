@@ -25,6 +25,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Trivia Room - Multiplayer Trivia Game",
   description: "Create or join trivia rooms and compete with friends in real-time!",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  openGraph: {
+    type: "website",
+    title: "Trivia Room - Multiplayer Trivia Game",
+    description: "Create or join trivia rooms and compete with friends in real-time!",
+    images: [
+      {
+        url: "/seo-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Trivia Room - Multiplayer Trivia Game",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Trivia Room - Multiplayer Trivia Game",
+    description: "Create or join trivia rooms and compete with friends in real-time!",
+    images: ["/seo-image.png"],
+  },
 };
 
 export default function RootLayout({
