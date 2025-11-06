@@ -16,7 +16,7 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
       className={cn(
         'transition-all duration-300 ease-in-out',
         isCurrentUser && 'ring-2 ring-primary',
-        participant.isReady && 'bg-green-50 border-green-200 scale-[1.02]'
+        participant.isReady && 'bg-green-50 border-green-200 ring-0 scale-[1.02]'
       )}
     >
       <CardContent className="p-4">
@@ -44,7 +44,7 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
             )}
           </div>
           {participant.isReady && (
-            <Badge variant="default" className="ml-2 bg-green-600 animate-in slide-in-from-right duration-300">
+            <Badge variant="default" className="ml-2 bg-green-600 text-white">
               Ready
             </Badge>
           )}
