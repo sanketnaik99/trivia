@@ -11,7 +11,6 @@
         "apps/*"
     ],
     "dependencies": {
-        "next-themes": "^0.4.6",
         "turbo": "^2.6.0"
     }
 }
