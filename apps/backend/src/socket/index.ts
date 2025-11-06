@@ -55,8 +55,8 @@ export function registerSocketHandlers(io: Server) {
   io.on('connection', (socket) => {
     logger.info('Socket connected', { socketId: socket.id, userId: (socket as any).userId });
 
-    socket.on('room:create', async (payload: { groupId?: string }) => {
-      logger.info('room:create event', { socketId: socket.id, groupId: payload?.groupId });
+    socket.on('room:create', async (payload: { groupId?: string; roastMode?: boolean }) => {
+      logger.info('room:create event', { socketId: socket.id, groupId: payload?.groupId, roastMode: payload?.roastMode });
       await handleCreate(io, socket, payload);
     });
     socket.on('JOIN', (payload: { playerId: string; playerName: string; roomCode: string }) => {

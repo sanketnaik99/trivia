@@ -2,14 +2,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useGroups } from '@/app/lib/api/queries/groups';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { useAuth } from '@clerk/nextjs';
 import { Loader2 } from 'lucide-react';
 import SocketClient from '@/app/lib/websocket';
 
 interface CreateGroupRoomFormProps {
   onRoomCreated?: (roomCode: string, groupId: string) => void;
+  groupId: string;
 }
 
 interface RoomCreatedData {
@@ -17,15 +18,12 @@ interface RoomCreatedData {
   room: unknown;
 }
 
-export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps) {
-  const { data: groupsResponse, isLoading } = useGroups();
+export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomFormProps) {
   const { getToken, isSignedIn } = useAuth();
-  const [selectedGroupId, setSelectedGroupId] = useState<string>('');
+  const [roastMode, setRoastMode] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const socketClientRef = useRef<SocketClient | null>(null);
-
-  const userGroups = groupsResponse?.groups || [];
 
   useEffect(() => {
     if (!isOpen || !isSignedIn) return;
@@ -64,7 +62,7 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
           if (roomData.code) {
             setIsCreating(false);
             setIsOpen(false);
-            onRoomCreated?.(roomData.code, selectedGroupId);
+            onRoomCreated?.(roomData.code, groupId);
           }
         });
 
@@ -88,15 +86,14 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
         socketClientRef.current = null;
       }
     };
-  }, [isOpen, onRoomCreated, getToken, isSignedIn, selectedGroupId]);
+  }, [isOpen, onRoomCreated, getToken, isSignedIn]);
 
   const handleCreateRoom = async () => {
-    if (!selectedGroupId || !socketClientRef.current) return;
+    if (!groupId || !socketClientRef.current) return;
 
     setIsCreating(true);
     try {
-      // Send room:create event with groupId
-      socketClientRef.current.send('room:create', { groupId: selectedGroupId });
+      socketClientRef.current.send('room:create', { groupId, roastMode });
     } catch (error) {
       console.error('Failed to create room:', error);
       setIsCreating(false);
@@ -116,52 +113,32 @@ export function CreateGroupRoomForm({ onRoomCreated }: CreateGroupRoomFormProps)
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-4">
-              <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="ml-2">Loading groups...</span>
+          <div className="flex items-center justify-between space-x-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="roast-mode" className="text-sm font-medium">
+                Roast Mode
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                Enable Trivia AI roast commentary for added fun!
+              </p>
             </div>
-          ) : userGroups.length === 0 ? (
-            <p className="text-center py-4 text-muted-foreground">
-              You are not a member of any groups. Join or create a group first.
-            </p>
-          ) : (
-            <>
-              <div>
-                <label className="text-sm font-medium">Select Group</label>
-                <Select value={selectedGroupId} onValueChange={setSelectedGroupId}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose a group for this room" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {userGroups.map((group) => (
-                      <SelectItem key={group.id} value={group.id}>
-                        {group.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsOpen(false)}>
-                  Cancel
-                </Button>
-                <Button
-                  onClick={handleCreateRoom}
-                  disabled={!selectedGroupId || isCreating}
-                >
-                  {isCreating ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                      Creating...
-                    </>
-                  ) : (
-                    'Create Room'
-                  )}
-                </Button>
-              </div>
-            </>
-          )}
+            <Switch id="roast-mode" checked={roastMode} onCheckedChange={setRoastMode} />
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleCreateRoom} disabled={!groupId || isCreating}>
+              {isCreating ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Creating...
+                </>
+              ) : (
+                'Create Room'
+              )}
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

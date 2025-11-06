@@ -5,6 +5,7 @@ import { questionService } from './question.service';
 import { logger } from '../utils/logger.util';
 import { leaderboardService } from './leaderboard.service';
 import prisma from '../config/prisma';
+import { aiService } from './ai.service';
 
 class GameService {
   private roundTimers: Map<string, NodeJS.Timeout> = new Map();
@@ -155,6 +156,44 @@ class GameService {
         winnerId = a.participantId;
       }
     }
+
+    // AI commentary for group rooms
+    let commentary: string | undefined;
+    if (room.groupId) {
+      try {
+        const participantAnswers = round.participantAnswers.map(a => {
+          const p = room.participants.get(a.participantId);
+          return {
+            participantId: a.participantId,
+            participantName: p?.name || 'Unknown',
+            answerText: a.answerText,
+            timestamp: a.timestamp,
+            isCorrect: a.isCorrect,
+          };
+        });
+
+        const aiResult = await aiService.generateCommentary(
+          room.currentQuestion,
+          participantAnswers,
+          room.roastMode,
+          winnerId
+        );
+
+        commentary = aiResult.commentary || undefined;
+
+        // Use AI winner if base logic had no winner
+        if (!winnerId && aiResult.winnerId) {
+          winnerId = aiResult.winnerId;
+          logger.info('AI selected winner in fallback scenario', { roomCode, winnerId });
+        }
+      } catch (error) {
+        logger.error('AI commentary generation failed, proceeding without it', {
+          roomCode,
+          error: (error as Error).message,
+        });
+      }
+    }
+
     round.winnerId = winnerId;
     if (winnerId) {
       const p = room.participants.get(winnerId);
@@ -194,6 +233,7 @@ class GameService {
       winnerScore: winnerId ? room.participants.get(winnerId)?.score || null : null,
       results,
       leaderboard,
+      commentary,
     });
 
     // Reset for next round

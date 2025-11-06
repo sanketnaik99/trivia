@@ -217,6 +217,7 @@ export default function GroupDetailPage() {
               </CardHeader>
               <CardContent className="space-y-2">
                 <CreateGroupRoomForm
+                  groupId={groupId}
                   onRoomCreated={(roomCode, selectedGroupId) => {
                     // Store authenticated user info in sessionStorage for room page
                     if (user) {

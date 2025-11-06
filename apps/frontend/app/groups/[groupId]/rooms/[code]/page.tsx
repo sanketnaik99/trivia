@@ -51,6 +51,7 @@ interface RoundEndPayload {
   winnerScore?: number | null;
   results: ResultEntry[];
   leaderboard?: LeaderboardEntry[];
+  commentary?: string;
 }
 
 interface CurrentRound {
@@ -531,6 +532,7 @@ export default function GroupRoomPage() {
                       onReadyForNextRound={handleReadyForNextRound}
                       leaderboard={roundResults.leaderboard || room.leaderboard}
                       groupId={room.groupId}
+                      commentary={roundResults.commentary}
                     />
                 </div>
                 {(roundResults.leaderboard || room.leaderboard) && (
