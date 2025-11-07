@@ -118,7 +118,7 @@ export default function InvitePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" forceRedirectUrl={`/groups/invite/${token}`}>
               <Button className="w-full">Sign In to Accept Invite</Button>
             </SignInButton>
           </CardContent>
