@@ -2,8 +2,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Switch } from '@/components/ui/switch';
+// Switch removed; not used anymore
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useQuestionCategories } from '@/app/lib/api/queries/questions';
 import { useAuth } from '@clerk/nextjs';
 import { Loader2 } from 'lucide-react';
 import SocketClient from '@/app/lib/websocket';
@@ -20,15 +22,16 @@ interface RoomCreatedData {
 
 export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomFormProps) {
   const { getToken, isSignedIn } = useAuth();
-  const [roastMode, setRoastMode] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [feedbackMode, setFeedbackMode] = useState<'supportive' | 'neutral' | 'roast'>('neutral');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const socketClientRef = useRef<SocketClient | null>(null);
 
   useEffect(() => {
-    if (!isOpen || !isSignedIn) return;
+  if (!isOpen || !isSignedIn) return;
 
-    // Initialize socket client when modal opens
+  // Initialize socket client when modal opens
     const initializeSocket = async () => {
       try {
         console.log('Initializing socket, isSignedIn:', isSignedIn);
@@ -80,20 +83,25 @@ export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomF
 
     initializeSocket();
 
+    // categories are fetched via react-query (see below)
+
     return () => {
       if (socketClientRef.current) {
         socketClientRef.current.disconnect();
         socketClientRef.current = null;
       }
     };
-  }, [isOpen, onRoomCreated, getToken, isSignedIn]);
+  }, [isOpen, onRoomCreated, getToken, isSignedIn, groupId]);
+
+  // React Query hook for categories (moved to lib folder)
+  const { data: categories = [], isLoading: loadingCategories } = useQuestionCategories(Boolean(isOpen && isSignedIn));
 
   const handleCreateRoom = async () => {
     if (!groupId || !socketClientRef.current) return;
 
     setIsCreating(true);
     try {
-      socketClientRef.current.send('room:create', { groupId, roastMode });
+      socketClientRef.current.send('room:create', { groupId, selectedCategory, feedbackMode });
     } catch (error) {
       console.error('Failed to create room:', error);
       setIsCreating(false);
@@ -113,17 +121,36 @@ export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomF
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
-          <div className="flex items-center justify-between space-x-2">
-            <div className="space-y-0.5">
-              <Label htmlFor="roast-mode" className="text-sm font-medium">
-                Roast Mode
-              </Label>
-              <p className="text-xs text-muted-foreground">
-                Enable Trivia AI roast commentary for added fun!
-              </p>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <Label htmlFor="category" className="text-sm font-medium">Category</Label>
+                <Select value={selectedCategory ?? "__any__"} onValueChange={(v) => setSelectedCategory(v === '__any__' ? null : v)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={loadingCategories ? 'Loading...' : 'Mixed / Any'} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__any__">Mixed / Any</SelectItem>
+                    {categories.map((c) => (
+                      <SelectItem key={c.category} value={c.category}>{c.category} ({c.count})</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid gap-1">
+                <Label htmlFor="feedbackMode" className="text-sm font-medium">AI feedback mode</Label>
+                <Select value={feedbackMode} onValueChange={(v) => setFeedbackMode(v as 'supportive' | 'neutral' | 'roast')}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Neutral" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="supportive">Supportive</SelectItem>
+                    <SelectItem value="neutral">Neutral</SelectItem>
+                    <SelectItem value="roast">Roast</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <Switch id="roast-mode" checked={roastMode} onCheckedChange={setRoastMode} />
-          </div>
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => setIsOpen(false)}>
               Cancel

@@ -221,8 +221,8 @@ export default function GroupDetailPage() {
                   onRoomCreated={(roomCode, selectedGroupId) => {
                     // Store authenticated user info in sessionStorage for room page
                     if (user) {
-                      sessionStorage.setItem('playerId', user.id);
-                      sessionStorage.setItem('playerName', user.firstName || user.username || 'Anonymous');
+                      localStorage.setItem('playerId', user.id);
+                      localStorage.setItem('playerName', user.firstName || user.username || 'Anonymous');
                     }
                     // Navigate to the group room using the selected group ID
                     router.push(`/groups/${selectedGroupId}/rooms/${roomCode}`);

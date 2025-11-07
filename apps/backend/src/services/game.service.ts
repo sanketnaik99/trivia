@@ -1,5 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import { roomStore } from '../store/room.store';
+import { roomService } from './room.service';
 import { Question, Room } from '../types/room.types';
 import { questionService } from './question.service';
 import { logger } from '../utils/logger.util';
@@ -50,31 +51,53 @@ class GameService {
     }
     const p = room.participants.get(playerId);
     if (!p) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+    // Spectators may not mark ready
+    if (p.role !== 'active') {
+      return socket.emit('ERROR', { code: 'SPECTATOR_CANNOT_READY', message: 'Spectators cannot ready up' });
+    }
     p.isReady = !!payload.isReady;
     io.to(roomCode).emit('PLAYER_READY', { playerId, isReady: p.isReady });
 
-    const participants = Array.from(room.participants.values());
-    const allReady = participants.length >= 2 && participants.every((pp) => pp.isReady);
-    if (allReady) {
-      // start 5s countdown then game start
-      if (this.countdownTimers.has(roomCode)) return; // already counting down
-      const t = setTimeout(() => {
-        this.countdownTimers.delete(roomCode);
-        try {
-          this.startGame(io, roomCode);
-        } catch (e) {
-          logger.error('Failed to start game', { roomCode, error: (e as Error).message });
-        }
-      }, 5000);
-      this.countdownTimers.set(roomCode, t);
-    }
+  // Only consider active, connected participants when evaluating readiness
+    // Defer to centralized countdown starter to avoid duplicated logic
+    this.tryStartCountdown(io, roomCode);
   }
 
-  startGame(io: Server, roomCode: string) {
+  /**
+   * Check whether active+connected participants are all ready and (if so) start the countdown.
+   * Safe to call from any socket handler after participant changes.
+   */
+  tryStartCountdown(io: Server, roomCode: string) {
+    const room = roomStore.getRoom(roomCode);
+    if (!room) return;
+    const participants = Array.from(room.participants.values());
+    const activeConnected = participants.filter((pp) => pp.role === 'active' && pp.connectionStatus === 'connected');
+    const allReady = activeConnected.length >= 2 && activeConnected.every((pp) => pp.isReady);
+    if (!allReady) return;
+    if (this.countdownTimers.has(roomCode)) return; // already counting down
+
+    const t = setTimeout(() => {
+      this.countdownTimers.delete(roomCode);
+      try {
+        this.startGame(io, roomCode);
+      } catch (e) {
+        logger.error('Failed to start game', { roomCode, error: (e as Error).message });
+      }
+    }, 5000);
+    this.countdownTimers.set(roomCode, t);
+  }
+
+  async startGame(io: Server, roomCode: string) {
     const room = roomStore.getRoom(roomCode);
     if (!room) throw new Error('ROOM_NOT_FOUND');
-    const q = questionService.getRandomUnusedQuestionForRoom(room);
-    if (!q) throw new Error('NO_QUESTIONS');
+    // Promote spectators into active slots if there is room before starting
+    try {
+      roomService.promoteSpectatorsIfNeeded(roomCode);
+    } catch (err) {
+      logger.warn('Failed to promote spectators before starting game', { roomCode, error: (err as Error).message });
+    }
+  const q = await questionService.getRandomUnusedQuestionForRoom(room);
+  if (!q) throw new Error('NO_QUESTIONS');
     room.currentQuestion = q;
     room.currentRound = {
       questionId: q.id,
@@ -93,6 +116,32 @@ class GameService {
       startTime: room.currentRound.startTime,
       duration: room.currentRound.duration,
     });
+
+    // Broadcast updated room state so clients receive any role promotions
+    try {
+      const participants = Array.from(room.participants.values());
+      const leaderboard = this.calculateLeaderboard(room);
+      let groupName: string | undefined;
+      if (room.groupId) {
+        const group = await prisma.group.findUnique({ where: { id: room.groupId }, select: { name: true } });
+        groupName = group?.name;
+      }
+      io.to(roomCode).emit('ROOM_STATE', {
+        roomCode,
+        gameState: room.gameState,
+        participants,
+        currentQuestion: { id: q.id, text: q.text },
+        currentRound: { startTime: room.currentRound.startTime, duration: room.currentRound.duration, answeredCount: 0 },
+        leaderboard,
+        groupId: room.groupId,
+        groupName,
+        selectedCategory: room.selectedCategory,
+        feedbackMode: room.feedbackMode,
+        maxActivePlayers: room.maxActivePlayers,
+      });
+    } catch (err) {
+      logger.warn('Failed to emit ROOM_STATE after GAME_START', { roomCode, error: (err as Error).message });
+    }
 
     // auto-end timer
     const timer = setTimeout(async () => {
@@ -115,6 +164,14 @@ class GameService {
     if (!room || !room.currentRound || !room.currentQuestion || room.gameState !== 'active') {
       return socket.emit('ERROR', { code: 'INVALID_STATE', message: 'Invalid state' });
     }
+    const participant = room.participants.get(playerId);
+    if (!participant) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+
+    // Only active and connected participants may submit answers
+    if (participant.role !== 'active' || participant.connectionStatus !== 'connected') {
+      return socket.emit('ERROR', { code: 'SPECTATOR_CANNOT_ANSWER', message: 'Spectators or disconnected players cannot submit answers' });
+    }
+
     const already = room.currentRound.participantAnswers.find((a) => a.participantId === playerId);
     if (already) return socket.emit('ERROR', { code: 'ALREADY_ANSWERED', message: 'Already answered' });
 
@@ -131,7 +188,8 @@ class GameService {
 
     socket.emit('ANSWER_SUBMITTED', { answerText, timestamp: ts });
     const answeredCount = room.currentRound.participantAnswers.length;
-    const totalCount = room.participants.size;
+    // Only active, connected participants count towards round completion
+    const totalCount = Array.from(room.participants.values()).filter(p => p.role === 'active' && p.connectionStatus === 'connected').length;
     io.to(roomCode).emit('ANSWER_COUNT_UPDATE', { answeredCount, totalCount });
 
     if (answeredCount >= totalCount) {
@@ -175,7 +233,7 @@ class GameService {
         const aiResult = await aiService.generateCommentary(
           room.currentQuestion,
           participantAnswers,
-          room.roastMode,
+          room.feedbackMode,
           winnerId
         );
 
@@ -267,6 +325,9 @@ class GameService {
       leaderboard,
       groupId: room.groupId,
       groupName,
+      selectedCategory: room.selectedCategory,
+      feedbackMode: room.feedbackMode,
+      maxActivePlayers: room.maxActivePlayers,
     });
 
     // T082: Log round duration and stats
