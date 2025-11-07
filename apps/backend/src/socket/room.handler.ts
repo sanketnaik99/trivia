@@ -212,18 +212,23 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
     // Check group membership
     const isGroupMemberFlag = await isGroupMember(participant.userId, room.groupId);
 
-    // Broadcast to others
-    socket.to(roomCode).emit('PLAYER_JOINED', { participant: {
-      id: participant.id,
-      name: participant.name,
-      isReady: participant.isReady,
-      connectionStatus: participant.connectionStatus,
-      score: participant.score,
-      roundsWon: participant.roundsWon,
-      lastWinTimestamp: participant.lastWinTimestamp,
-      joinedAt: participant.joinedAt,
-      isGroupMember: isGroupMemberFlag,
-    }});
+    // Broadcast to others with spectator count included
+    const spectatorCount = Array.from(room.participants.values()).filter(p => p.role === 'spectator').length;
+    socket.to(roomCode).emit('PLAYER_JOINED', {
+      participant: {
+        id: participant.id,
+        name: participant.name,
+        role: participant.role,
+        isReady: participant.isReady,
+        connectionStatus: participant.connectionStatus,
+        score: participant.score,
+        roundsWon: participant.roundsWon,
+        lastWinTimestamp: participant.lastWinTimestamp,
+        joinedAt: participant.joinedAt,
+        isGroupMember: isGroupMemberFlag,
+      },
+      spectatorCount,
+    });
 
     // Send ROOM_STATE to joiner (simple snapshot)
     const participants = Array.from(room.participants.values());

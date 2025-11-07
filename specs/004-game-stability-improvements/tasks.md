@@ -143,20 +143,20 @@ This is a Turborepo monorepo with:
 
 ### Backend Implementation for US3
 
-- [ ] T036 [P] [US3] Add role assignment logic in JOIN handler in apps/backend/src/socket/room.handler.ts (active if lobby and <16 active, else spectator)
-- [ ] T037 [P] [US3] Update SUBMIT_ANSWER validation in apps/backend/src/socket/game.handler.ts to check role='active'
-- [ ] T038 [P] [US3] Implement spectator promotion logic in NEXT_QUESTION handler in apps/backend/src/socket/game.handler.ts
-- [ ] T039 [US3] Add spectator count to PARTICIPANT_JOINED broadcast in apps/backend/src/socket/room.handler.ts
-- [ ] T040 [US3] Update PLAYER_READY to reject spectator ready-up in apps/backend/src/socket/game.handler.ts
+- [X] T036 [P] [US3] Add role assignment logic in JOIN handler in apps/backend/src/socket/room.handler.ts (active if lobby and <16 active, else spectator)
+- [X] T037 [P] [US3] Update SUBMIT_ANSWER validation in apps/backend/src/socket/game.handler.ts to check role='active'
+- [X] T038 [P] [US3] Implement spectator promotion logic in NEXT_QUESTION handler in apps/backend/src/socket/game.handler.ts
+- [X] T039 [US3] Add spectator count to PARTICIPANT_JOINED broadcast in apps/backend/src/socket/room.handler.ts
+- [X] T040 [US3] Update PLAYER_READY to reject spectator ready-up in apps/backend/src/socket/game.handler.ts
 
 ### Frontend Implementation for US3
 
-- [ ] T041 [P] [US3] Create SpectatorBadge component in apps/frontend/app/room/[code]/components/SpectatorBadge.tsx
-- [ ] T042 [P] [US3] Update game UI to show spectator badge for current user in apps/frontend/app/room/[code]/page.tsx
-- [ ] T043 [P] [US3] Disable answer submission buttons when role='spectator' in apps/frontend/app/room/[code]/page.tsx
-- [ ] T044 [US3] Display spectator indicators in participant list in apps/frontend/app/room/[code]/page.tsx
-- [ ] T045 [US3] Show toast notification when promoted from spectator to active in apps/frontend/app/room/[code]/page.tsx
-- [ ] T046 [US3] Test mid-game join and spectator promotion flow
+- [X] T041 [P] [US3] Create SpectatorBadge component in apps/frontend/app/room/[code]/components/SpectatorBadge.tsx
+- [X] T042 [P] [US3] Update game UI to show spectator badge for current user in apps/frontend/app/room/[code]/page.tsx
+- [X] T043 [P] [US3] Disable answer submission buttons when role='spectator' in apps/frontend/app/room/[code]/page.tsx
+- [X] T044 [US3] Display spectator indicators in participant list in apps/frontend/app/room/[code]/page.tsx
+- [X] T045 [US3] Show toast notification when promoted from spectator to active in apps/frontend/app/room/[code]/page.tsx
+- [X] T046 [US3] Test mid-game join and spectator promotion flow
 
 **Checkpoint**: At this point, spectators can join and watch games, then participate in next round
 

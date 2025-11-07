@@ -111,7 +111,23 @@ export default function RoomPage() {
           gameState: message.payload.gameState,
           participantCount: message.payload.participants.length
         });
-        setRoom(message.payload);
+        // Detect promotion from spectator -> active for current user and show toast
+        setRoom((prevRoom) => {
+          try {
+            const newRoom = message.payload as RoomState;
+            if (prevRoom && playerId) {
+              const prevP = prevRoom.participants.find(p => p.id === playerId);
+              const newP = newRoom.participants.find(p => p.id === playerId);
+              if (prevP && newP && prevP.role === 'spectator' && newP.role === 'active') {
+                setReconnectToast('You were promoted to an active player!');
+                window.setTimeout(() => setReconnectToast(null), 3500);
+              }
+            }
+          } catch {
+            // ignore
+          }
+          return message.payload as RoomState;
+        });
         // For anonymous rooms, find participant by name match since backend generates new ID
         if (userInfoRef.current) {
           const participant = message.payload.participants.find(
@@ -284,7 +300,7 @@ export default function RoomPage() {
         setError(message.payload.message);
         break;
     }
-  }, []);
+  }, [playerId]);
 
   const connectWebSocket = useCallback(() => {
     if (!userInfoRef.current) return;
@@ -481,6 +497,8 @@ export default function RoomPage() {
     connectWebSocket();
   }, [hasAttemptedConnection, connectWebSocket]);
 
+  const currentUser = room?.participants.find((p) => p.id === playerId) || null;
+
   if (error) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -586,11 +604,21 @@ export default function RoomPage() {
                     totalCount={room.participants.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected').length}
                   />
                 ) : (
-                  <GameQuestion
-                    questionText={room.currentQuestion.text}
-                    onSubmitAnswer={handleSubmitAnswer}
-                    disabled={hasAnswered}
-                  />
+                  // If current user is a spectator, show a spectator notice instead of the answer box
+                  currentUser && currentUser.role === 'spectator' ? (
+                    <div className="w-full max-w-2xl mx-auto p-6 md:p-8">
+                      <div className="text-center text-gray-700 dark:text-gray-300">
+                        <h3 className="text-lg font-semibold">You are spectating</h3>
+                        <p className="mt-2">This game is in progress — spectators cannot submit answers. Wait until the next round to participate.</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <GameQuestion
+                      questionText={room.currentQuestion.text}
+                      onSubmitAnswer={handleSubmitAnswer}
+                      disabled={hasAnswered || !currentUser || currentUser.connectionStatus !== 'connected'}
+                    />
+                  )
                 )}
               </div>
             )}

@@ -1,5 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import { roomStore } from '../store/room.store';
+import { roomService } from './room.service';
 import { Question, Room } from '../types/room.types';
 import { questionService } from './question.service';
 import { logger } from '../utils/logger.util';
@@ -50,6 +51,10 @@ class GameService {
     }
     const p = room.participants.get(playerId);
     if (!p) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+    // Spectators may not mark ready
+    if (p.role !== 'active') {
+      return socket.emit('ERROR', { code: 'SPECTATOR_CANNOT_READY', message: 'Spectators cannot ready up' });
+    }
     p.isReady = !!payload.isReady;
     io.to(roomCode).emit('PLAYER_READY', { playerId, isReady: p.isReady });
 
@@ -82,9 +87,15 @@ class GameService {
     this.countdownTimers.set(roomCode, t);
   }
 
-  startGame(io: Server, roomCode: string) {
+  async startGame(io: Server, roomCode: string) {
     const room = roomStore.getRoom(roomCode);
     if (!room) throw new Error('ROOM_NOT_FOUND');
+    // Promote spectators into active slots if there is room before starting
+    try {
+      roomService.promoteSpectatorsIfNeeded(roomCode);
+    } catch (err) {
+      logger.warn('Failed to promote spectators before starting game', { roomCode, error: (err as Error).message });
+    }
     const q = questionService.getRandomUnusedQuestionForRoom(room);
     if (!q) throw new Error('NO_QUESTIONS');
     room.currentQuestion = q;
@@ -105,6 +116,29 @@ class GameService {
       startTime: room.currentRound.startTime,
       duration: room.currentRound.duration,
     });
+
+    // Broadcast updated room state so clients receive any role promotions
+    try {
+      const participants = Array.from(room.participants.values());
+      const leaderboard = this.calculateLeaderboard(room);
+      let groupName: string | undefined;
+      if (room.groupId) {
+        const group = await prisma.group.findUnique({ where: { id: room.groupId }, select: { name: true } });
+        groupName = group?.name;
+      }
+      io.to(roomCode).emit('ROOM_STATE', {
+        roomCode,
+        gameState: room.gameState,
+        participants,
+        currentQuestion: { id: q.id, text: q.text },
+        currentRound: { startTime: room.currentRound.startTime, duration: room.currentRound.duration, answeredCount: 0 },
+        leaderboard,
+        groupId: room.groupId,
+        groupName,
+      });
+    } catch (err) {
+      logger.warn('Failed to emit ROOM_STATE after GAME_START', { roomCode, error: (err as Error).message });
+    }
 
     // auto-end timer
     const timer = setTimeout(async () => {

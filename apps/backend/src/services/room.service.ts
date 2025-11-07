@@ -139,9 +139,39 @@ class RoomService {
     }
     room.participants.delete(participantId);
     roomStore.updateLastActivity(code);
+    // If we're in the lobby, try to promote spectators into active slots
+    if (room.gameState === 'lobby') {
+      this.promoteSpectatorsIfNeeded(code);
+    }
     if (room.participants.size === 0) {
       roomStore.scheduleCleanup(code, config.roomCleanupTimeout);
     }
+  }
+
+  /**
+   * Promote waiting spectators into active slots when space is available.
+   * Promotion order is by joinedAt (earliest first).
+   */
+  promoteSpectatorsIfNeeded(code: string) {
+    const room = roomStore.getRoom(code);
+    if (!room) return;
+    const maxActive = room.maxActivePlayers || 16;
+    const participants = Array.from(room.participants.values());
+    const activeCount = participants.filter(p => p.role === 'active').length;
+    if (activeCount >= maxActive) return;
+
+    // Find spectators ordered by joinedAt
+    const spectators = participants
+      .filter(p => p.role === 'spectator')
+      .sort((a, b) => (a.joinedAt || 0) - (b.joinedAt || 0));
+
+    let slots = maxActive - activeCount;
+    for (const s of spectators) {
+      if (slots <= 0) break;
+      s.role = 'active';
+      slots -= 1;
+    }
+    roomStore.updateLastActivity(code);
   }
 
   updateLastActivity(code: string) {
