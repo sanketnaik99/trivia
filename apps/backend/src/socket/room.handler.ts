@@ -21,7 +21,7 @@ async function isGroupMember(userId: string | null, groupId: string | null): Pro
   return !!membership;
 }
 
-export async function handleCreate(io: Server, socket: Socket, payload: { groupId?: string; roastMode?: boolean }) {
+export async function handleCreate(io: Server, socket: Socket, payload: { groupId?: string; selectedCategory?: string | null; feedbackMode?: 'supportive' | 'neutral' | 'roast' }) {
   try {
     // Get userId from socket auth
     const userId = (socket as any).userId; // Assume set by auth middleware
@@ -29,8 +29,7 @@ export async function handleCreate(io: Server, socket: Socket, payload: { groupI
       socket.emit('ERROR', { code: 'UNAUTHORIZED', message: 'Authentication required' });
       return;
     }
-
-    const { groupId, roastMode = false } = payload;
+    const { groupId, selectedCategory = null, feedbackMode = 'neutral' } = payload;
     let groupName: string | null = null;
 
     if (groupId) {
@@ -45,16 +44,37 @@ export async function handleCreate(io: Server, socket: Socket, payload: { groupI
       groupName = group.name;
     }
 
-    const { code, room } = await roomService.createRoom(userId, groupId, roastMode);
+    // Validate category if provided: must have >= 10 questions
+    if (selectedCategory) {
+      try {
+        const count = await (prisma as any).question.count({ where: { category: selectedCategory } });
+        if (count < 10) {
+          socket.emit('ERROR', { code: 'INVALID_CATEGORY', message: `Category \"${selectedCategory}\" not found or has fewer than 10 questions` });
+          return;
+        }
+      } catch (err) {
+        socket.emit('ERROR', { code: 'INVALID_CATEGORY', message: `Category \"${selectedCategory}\" not found or has fewer than 10 questions` });
+        return;
+      }
+    }
+
+    // Validate feedbackMode
+    if (!['supportive', 'neutral', 'roast'].includes(feedbackMode)) {
+      socket.emit('ERROR', { code: 'INVALID_FEEDBACK_MODE', message: 'Invalid feedback mode' });
+      return;
+    }
+
+    const { code, room } = await roomService.createRoom(userId, groupId, false, selectedCategory, feedbackMode);
 
     socket.emit('ROOM_CREATED', {
       code,
       groupId,
       groupName,
-      roastMode: room.roastMode,
+      selectedCategory: room.selectedCategory,
+      feedbackMode: room.feedbackMode,
     });
 
-    logger.info('Room created via socket', { code, groupId, userId, roastMode });
+  logger.info('Room created via socket', { code, groupId, userId, selectedCategory, feedbackMode });
   } catch (err: unknown) {
     const e = err as Error;
     logger.error('Room creation failed', { error: e.message });
@@ -126,6 +146,9 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
           leaderboard: gameService.calculateLeaderboard(room),
           groupId: room.groupId,
           groupName,
+          selectedCategory: room.selectedCategory,
+          feedbackMode: room.feedbackMode,
+          maxActivePlayers: room.maxActivePlayers,
         });
         return;
       }
@@ -260,6 +283,9 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
       leaderboard: gameService.calculateLeaderboard(room),
       groupId: room.groupId,
       groupName,
+      selectedCategory: room.selectedCategory,
+      feedbackMode: room.feedbackMode,
+      maxActivePlayers: room.maxActivePlayers,
     });
   } catch (err: unknown) {
     const code = (err as Error)?.message || 'INTERNAL_ERROR';

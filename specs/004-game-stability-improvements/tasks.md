@@ -175,20 +175,23 @@ This is a Turborepo monorepo with:
 
 ### Backend Implementation for US4
 
-- [ ] T047 [P] [US4] Create getCategoriesWithCount method in apps/backend/src/services/question.service.ts
-- [ ] T048 [P] [US4] Create GET /api/questions/categories endpoint in apps/backend/src/routes/question.routes.ts
-- [ ] T049 [P] [US4] Add category validation to CREATE_ROOM handler in apps/backend/src/socket/room.handler.ts
-- [ ] T050 [US4] Update question fetching in apps/backend/src/services/game.service.ts to filter by selectedCategory
-- [ ] T051 [US4] Add selectedCategory to room state broadcasts in apps/backend/src/socket/room.handler.ts
-- [ ] T052 [US4] Validate category has >=10 questions in apps/backend/src/services/room.service.ts
+- [x] T047 [P] [US4] Create getCategoriesWithCount method in apps/backend/src/services/question.service.ts
+- [x] T048 [P] [US4] Create GET /api/questions/categories endpoint in apps/backend/src/routes/question.routes.ts
+- [x] T049 [P] [US4] Add category validation to CREATE_ROOM handler in apps/backend/src/socket/room.handler.ts
+- [x] T050 [US4] Update question fetching in apps/backend/src/services/game.service.ts to filter by selectedCategory
+- [x] T051 [US4] Add selectedCategory to room state broadcasts in apps/backend/src/socket/room.handler.ts
+- [x] T052 [US4] Validate category has >=10 questions in apps/backend/src/services/room.service.ts
 
 ### Frontend Implementation for US4
 
-- [ ] T053 [P] [US4] Create CategorySelect component in apps/frontend/app/groups/[id]/components/CategorySelect.tsx
-- [ ] T054 [P] [US4] Fetch categories on mount in CategorySelect component
-- [ ] T055 [US4] Add category selection to room creation form in apps/frontend/app/groups/[id]/page.tsx
-- [ ] T056 [US4] Display selected category in lobby in apps/frontend/app/lobby/[code]/page.tsx
-- [ ] T057 [US4] Show category in question display during game in apps/frontend/app/room/[code]/page.tsx
+ - [X] T053 [P] [US4] Create CategorySelect component in apps/frontend/app/groups/[id]/components/CategorySelect.tsx
+	 - Note: Instead of a separate `CategorySelect` component the project uses a shared select inside `apps/frontend/app/components/create-group-room-form.tsx` and a `useQuestionCategories` hook at `apps/frontend/app/lib/api/queries/questions.ts`.
+ - [X] T054 [P] [US4] Fetch categories on mount in CategorySelect component
+	 - Note: Category fetching is implemented with `useQuestionCategories(...)` (React Query) and is triggered when the Create Room modal opens.
+ - [X] T055 [US4] Add category selection to room creation form in apps/frontend/app/groups/[id]/page.tsx
+	 - Note: category selection was added directly to the shared `CreateGroupRoomForm` component at `apps/frontend/app/components/create-group-room-form.tsx` and it fetches `/api/questions/categories` on open.
+ - [X] T056 [US4] Display selected category in lobby in apps/frontend/app/lobby/[code]/page.tsx
+ - [X] T057 [US4] Show category in question display during game in apps/frontend/app/room/[code]/page.tsx
 - [ ] T058 [US4] Test category selection and question filtering
 
 **Checkpoint**: At this point, category selection should work and filter questions correctly
@@ -208,16 +211,17 @@ This is a Turborepo monorepo with:
 
 ### Backend Implementation for US5
 
-- [ ] T059 [P] [US5] Add feedbackMode parameter to CREATE_ROOM handler in apps/backend/src/socket/room.handler.ts
-- [ ] T060 [P] [US5] Update AI service integration in apps/backend/src/services/ai.service.ts to accept feedbackMode
-- [ ] T061 [US5] Pass feedbackMode to AI service in answer evaluation in apps/backend/src/services/game.service.ts
+- [x] T059 [P] [US5] Add feedbackMode parameter to CREATE_ROOM handler in apps/backend/src/socket/room.handler.ts
+- [x] T060 [P] [US5] Update AI service integration in apps/backend/src/services/ai.service.ts to accept feedbackMode
+- [x] T061 [P] [US5] Pass feedbackMode to AI service in answer evaluation in apps/backend/src/services/game.service.ts
 - [ ] T062 [US5] Add roastMode to feedbackMode mapping for backwards compatibility in apps/backend/src/socket/room.handler.ts
-- [ ] T063 [US5] Include feedbackMode in room state broadcasts in apps/backend/src/socket/room.handler.ts
+- [x] T063 [US5] Include feedbackMode in room state broadcasts in apps/backend/src/socket/room.handler.ts
 
 ### Frontend Implementation for US5
 
 - [ ] T064 [P] [US5] Create FeedbackModeSelect component in apps/frontend/app/groups/[id]/components/FeedbackModeSelect.tsx
-- [ ] T065 [P] [US5] Add feedback mode selector to room creation form in apps/frontend/app/groups/[id]/page.tsx
+ - [X] T065 [P] [US5] Add feedback mode selector to room creation form in apps/frontend/app/groups/[id]/page.tsx
+	 - Note: feedback mode select was added to the shared `CreateGroupRoomForm` component at `apps/frontend/app/components/create-group-room-form.tsx` and will be submitted as `feedbackMode` in the create payload.
 - [ ] T066 [US5] Display feedback mode badge in lobby in apps/frontend/app/lobby/[code]/page.tsx
 - [ ] T067 [US5] Verify AI feedback tone matches selected mode during gameplay
 - [ ] T068 [US5] Test all three feedback modes with multiple questions

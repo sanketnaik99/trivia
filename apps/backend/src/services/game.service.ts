@@ -96,8 +96,8 @@ class GameService {
     } catch (err) {
       logger.warn('Failed to promote spectators before starting game', { roomCode, error: (err as Error).message });
     }
-    const q = questionService.getRandomUnusedQuestionForRoom(room);
-    if (!q) throw new Error('NO_QUESTIONS');
+  const q = await questionService.getRandomUnusedQuestionForRoom(room);
+  if (!q) throw new Error('NO_QUESTIONS');
     room.currentQuestion = q;
     room.currentRound = {
       questionId: q.id,
@@ -135,6 +135,9 @@ class GameService {
         leaderboard,
         groupId: room.groupId,
         groupName,
+        selectedCategory: room.selectedCategory,
+        feedbackMode: room.feedbackMode,
+        maxActivePlayers: room.maxActivePlayers,
       });
     } catch (err) {
       logger.warn('Failed to emit ROOM_STATE after GAME_START', { roomCode, error: (err as Error).message });
@@ -230,7 +233,7 @@ class GameService {
         const aiResult = await aiService.generateCommentary(
           room.currentQuestion,
           participantAnswers,
-          room.roastMode,
+          room.feedbackMode,
           winnerId
         );
 
@@ -322,6 +325,9 @@ class GameService {
       leaderboard,
       groupId: room.groupId,
       groupName,
+      selectedCategory: room.selectedCategory,
+      feedbackMode: room.feedbackMode,
+      maxActivePlayers: room.maxActivePlayers,
     });
 
     // T082: Log round duration and stats

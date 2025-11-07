@@ -14,9 +14,11 @@ interface RoomLobbyProps {
   onLeaveRoom?: () => void;
   groupId?: string;
   groupName?: string;
+  selectedCategory?: string | null;
+  feedbackMode?: 'supportive' | 'neutral' | 'roast';
 }
 
-export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom, groupId, groupName }: RoomLobbyProps) {
+export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom, groupId, groupName, selectedCategory, feedbackMode }: RoomLobbyProps) {
   // Only consider active, connected participants for ready checks
   const activePlayers = participants.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected');
   const readyCount = activePlayers.filter((p) => p.isReady).length;
@@ -28,6 +30,27 @@ export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-4">
       <RoomCodeDisplay roomCode={roomCode} groupId={groupId} />
+
+      {/* Display selected category and AI feedback mode when present */}
+      {(selectedCategory || feedbackMode) && (
+        <div className="flex items-center justify-center">
+          <div className="inline-flex items-center gap-3 mt-2 mb-4 text-sm text-muted-foreground">
+            {selectedCategory !== undefined && (
+              <div className="px-3 py-1 bg-slate-50 border rounded-full text-slate-800">
+                <span className="font-medium">Category:</span>
+                <span className="ml-2 font-semibold">{selectedCategory ?? 'Any'}</span>
+              </div>
+            )}
+
+            {feedbackMode && (
+              <div className="px-3 py-1 bg-slate-50 border rounded-full text-slate-800">
+                <span className="font-medium">AI Mode:</span>
+                <span className="ml-2 font-semibold">{feedbackMode[0].toUpperCase() + feedbackMode.slice(1)}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {groupId && groupName && (
         <Card className="border-blue-200 bg-blue-50">

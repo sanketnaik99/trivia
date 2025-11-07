@@ -7,6 +7,8 @@ import groupRoutes from './group.routes';
 import inviteRoutes from './invite.routes';
 import membershipRoutes from './membership.routes';
 import leaderboardRoutes from './leaderboard.routes';
+import questionRoutes from './question.routes';
+import adminRoutes from './admin.routes';
 import { registerInternalRoutes } from './internal.routes';
 
 export function registerRoutes(app: express.Express) {
@@ -18,6 +20,8 @@ export function registerRoutes(app: express.Express) {
   app.use('/api/groups', groupRoutes);
   app.use('/api/invites', inviteRoutes);
   app.use('/api/groups', membershipRoutes); // Membership routes under groups
+  app.use('/api/admin', adminRoutes);
+  app.use('/api/questions', questionRoutes);
   app.use('/api', leaderboardRoutes); // Leaderboard routes
   registerInternalRoutes(app);
 }

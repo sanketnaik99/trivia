@@ -68,6 +68,8 @@ interface RoomState {
   currentQuestion: { id: string; text: string } | null;
   currentRound: CurrentRound | null;
   leaderboard?: LeaderboardEntry[];
+  selectedCategory?: string | null;
+  feedbackMode?: 'supportive' | 'neutral' | 'roast';
 }
 
 export default function RoomPage() {
@@ -584,6 +586,8 @@ export default function RoomPage() {
                   onLeaveRoom={handleLeaveRoom}
                   groupId={undefined}
                   groupName={undefined}
+                  selectedCategory={room.selectedCategory}
+                  feedbackMode={room.feedbackMode}
                 />
                 {room.leaderboard && room.leaderboard.length > 0 && (
                   <Leaderboard title="Leaderboard" leaderboard={room.leaderboard} />
@@ -617,6 +621,8 @@ export default function RoomPage() {
                       questionText={room.currentQuestion.text}
                       onSubmitAnswer={handleSubmitAnswer}
                       disabled={hasAnswered || !currentUser || currentUser.connectionStatus !== 'connected'}
+                      category={room.selectedCategory}
+                      feedbackMode={room.feedbackMode}
                     />
                   )
                 )}

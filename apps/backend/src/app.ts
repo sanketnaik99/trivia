@@ -7,7 +7,8 @@ import { registerRoutes } from './routes';
 export function createApp() {
   const app = express();
 
-  app.use(express.json());
+  // Increase JSON body size limit to allow large admin uploads (questions payloads)
+  app.use(express.json({ limit: '10mb' }));
   app.use(
     cors({
       origin: (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {

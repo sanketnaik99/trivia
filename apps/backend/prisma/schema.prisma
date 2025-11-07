@@ -186,3 +186,20 @@ model ProcessedGame {
   @@index([groupId])
   @@map("processed_games")
 }
+
+// ============================================================================
+// QUESTIONS (optional persistent store for question pools)
+// ============================================================================
+model Question {
+  id              String   @id
+  text            String
+  correctAnswer   String?
+  acceptedAnswers Json?    // Array of accepted answers
+  category        String?  // Optional category name
+  meta            Json?    // Original/raw question object if needed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([category])
+  @@map("questions")
+}
