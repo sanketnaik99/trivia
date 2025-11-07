@@ -39,10 +39,10 @@ export default function Home() {
     setCreateError(null);
     try {
       const data = await createRoomMutation.mutateAsync(name);
-      // Store player info in sessionStorage
-      const playerId = generatePlayerId();
-      sessionStorage.setItem('playerId', playerId);
-      sessionStorage.setItem('playerName', name);
+  // Store player info in localStorage so it survives refresh and restarts
+  const playerId = generatePlayerId();
+  localStorage.setItem('playerId', playerId);
+  localStorage.setItem('playerName', name);
       // Navigate to room
       router.push(`/room/${data.code}`);
     } catch (error) {
@@ -57,9 +57,9 @@ export default function Home() {
 
     try {
       // Generate player locally and navigate; Socket.IO will handle validation on join
-      const playerId = generatePlayerId();
-      sessionStorage.setItem('playerId', playerId);
-      sessionStorage.setItem('playerName', name);
+  const playerId = generatePlayerId();
+  localStorage.setItem('playerId', playerId);
+  localStorage.setItem('playerName', name);
       
       // Navigate to room
       router.push(`/room/${roomCode}`);

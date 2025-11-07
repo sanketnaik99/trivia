@@ -9,6 +9,8 @@ export interface Participant {
   name: string;
   isReady: boolean;
   connectionStatus: ConnectionStatus;
+  // 'active' = can play and answer questions, 'spectator' = watching only
+  role?: 'active' | 'spectator';
   score?: number;
   roundsWon?: number;
   lastWinTimestamp?: number | null;

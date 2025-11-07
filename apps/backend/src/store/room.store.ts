@@ -37,6 +37,11 @@ export class RoomStore {
       this.cleanupTimers.delete(normalizedCode);
     }, delayMs);
     this.cleanupTimers.set(normalizedCode, timer);
+    // Also set cleanupTimer on the Room object for visibility
+    const room = this.rooms.get(normalizedCode);
+    if (room) {
+      room.cleanupTimer = timer;
+    }
     logger.info('RoomStore: scheduled cleanup', { code: normalizedCode, delayMs });
   }
 
@@ -46,6 +51,10 @@ export class RoomStore {
     if (t) {
       clearTimeout(t);
       this.cleanupTimers.delete(normalizedCode);
+      const room = this.rooms.get(normalizedCode);
+      if (room) {
+        room.cleanupTimer = null;
+      }
       logger.info('RoomStore: canceled cleanup', { code: normalizedCode });
     }
   }
