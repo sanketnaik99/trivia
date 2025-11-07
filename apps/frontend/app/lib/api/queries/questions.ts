@@ -13,7 +13,9 @@ export function useQuestionCategories(enabled = true) {
       const response = await apiClient.get('/questions/categories', {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       })
-      return response.data.data as Array<{ category: string; count: number }>
+      // Backend returns { success: true, categories: [...] }
+      // Return the `categories` array for the hook consumers
+      return response.data.categories as Array<{ category: string; count: number }>
     },
     enabled: Boolean(enabled),
   })
