@@ -8,47 +8,9 @@ import { config } from '../config/env';
 
 export function registerSocketHandlers(io: Server) {
   // Socket.IO middleware for authentication
-  io.use(async (socket, next) => {
-    // Try to get token from multiple places
-    const token = socket.handshake.auth?.token || 
-                  socket.handshake.query?.token || 
-                  socket.handshake.headers?.authorization?.replace('Bearer ', '');
-    
-    console.log('Socket auth middleware - token sources checked:');
-    console.log('- auth.token:', !!socket.handshake.auth?.token);
-    console.log('- query.token:', !!socket.handshake.query?.token);
-    console.log('- headers.authorization:', !!socket.handshake.headers?.authorization);
-    console.log('Final token present:', !!token);
-    console.log('CLERK_SECRET_KEY present:', !!config.clerkSecretKey);
-    console.log('CLERK_SECRET_KEY value:', config.clerkSecretKey ? 'set' : 'not set');
-    
-    if (token) {
-      try {
-        const { createClerkClient } = await import('@clerk/clerk-sdk-node');
-        const clerkClient = createClerkClient({ secretKey: config.clerkSecretKey });
-        console.log('Verifying token with Clerk...');
-        const sessionClaims = await clerkClient.verifyToken(token);
-        (socket as any).userId = sessionClaims.sub;
-        console.log('Socket auth successful, userId:', (socket as any).userId);
-
-        // Auto-join group rooms
-        const memberships = await prisma.membership.findMany({
-          where: {
-            userId: (socket as any).userId,
-            status: 'ACTIVE',
-          },
-          select: { groupId: true },
-        });
-        for (const membership of memberships) {
-          socket.join(`group:${membership.groupId}`);
-        }
-      } catch (err) {
-        console.error('Socket auth failed:', (err as Error).message);
-        logger.warn('Socket auth failed', { socketId: socket.id, error: (err as Error).message });
-      }
-    } else {
-      console.log('No token provided in socket handshake');
-    }
+  // No authentication required for socket connections
+  io.use((socket, next) => {
+    // You may add custom logic here if you want to allow optional tokens or set userId from other sources
     next();
   });
 
