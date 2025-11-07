@@ -37,6 +37,17 @@ router.post('/questions/upload', express.json({ limit: '10mb' }), async (req, re
     for (const q of payload) {
       // Coerce numeric ids to strings to match DB primary key type and ensure consistency
       const id = String(q.id)
+      
+      // Normalize acceptedAnswers to always be a string array
+      let acceptedAnswers = null
+      if (q.acceptedAnswers !== null && q.acceptedAnswers !== undefined) {
+        if (typeof q.acceptedAnswers === 'string') {
+          acceptedAnswers = [q.acceptedAnswers]
+        } else if (Array.isArray(q.acceptedAnswers)) {
+          acceptedAnswers = q.acceptedAnswers
+        }
+      }
+      
       const exists = await (prisma as any).question.findUnique({ where: { id } })
       if (exists) {
         await (prisma as any).question.update({
@@ -44,7 +55,7 @@ router.post('/questions/upload', express.json({ limit: '10mb' }), async (req, re
           data: {
             text: q.text,
             correctAnswer: q.correctAnswer ?? null,
-            acceptedAnswers: q.acceptedAnswers ?? null,
+            acceptedAnswers,
             category: q.category ?? null,
             meta: q,
           },
@@ -56,7 +67,7 @@ router.post('/questions/upload', express.json({ limit: '10mb' }), async (req, re
             id,
             text: q.text,
             correctAnswer: q.correctAnswer ?? null,
-            acceptedAnswers: q.acceptedAnswers ?? null,
+            acceptedAnswers,
             category: q.category ?? null,
             meta: q,
           },
