@@ -3,6 +3,7 @@
 import { Participant } from '@/app/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import SpectatorBadge from '@/app/components/spectator-badge';
 import { cn } from '@/lib/utils';
 
 interface ParticipantCardProps {
@@ -37,11 +38,31 @@ export function ParticipantCard({ participant, isCurrentUser }: ParticipantCardP
                 </Badge>
               )}
             </p>
-            {isCurrentUser && (
-              <Badge variant="secondary" className="mt-1 animate-in fade-in duration-300">
-                You
-              </Badge>
-            )}
+            <div className="mt-1 flex items-center gap-2">
+              {isCurrentUser && (
+                <Badge variant="secondary" className="animate-in fade-in duration-300">
+                  You
+                </Badge>
+              )}
+
+              {/* Spectator badge */}
+              {participant.role === 'spectator' && (
+                <SpectatorBadge />
+              )}
+
+              {/* Disconnected/Reconnecting badge */}
+              {participant.connectionStatus === 'disconnected' && (
+                <Badge variant="destructive" className="animate-in fade-in duration-300">
+                  Disconnected
+                </Badge>
+              )}
+
+              {participant.connectionStatus === 'reconnecting' && (
+                <Badge variant="default" className="animate-in fade-in duration-300">
+                  Reconnecting
+                </Badge>
+              )}
+            </div>
           </div>
           {participant.isReady && (
             <Badge variant="default" className="ml-2 bg-green-600 text-white">

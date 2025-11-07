@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { SocketClient } from '@/app/lib/websocket';
-import { Participant } from '@/app/lib/types';
+import { Participant, ConnectionStatus } from '@/app/lib/types';
 import { Leaderboard, type LeaderboardEntry } from '@/app/components/leaderboard';
 import { RoomLobby } from '@/app/components/room-lobby';
 import { JoinRoomForm } from '@/app/components/join-room-form';
@@ -26,11 +26,13 @@ type ServerMessage =
   | { type: 'ROOM_STATE'; payload: RoomState }
   | { type: 'PLAYER_JOINED'; payload: { participant: Participant } }
   | { type: 'PLAYER_LEFT'; payload: { playerId: string; playerName: string } }
+  | { type: 'PARTICIPANT_LEFT'; payload: { playerId: string; playerName?: string; connectionStatus: ConnectionStatus | 'left' } }
   | { type: 'PLAYER_READY'; payload: { playerId: string; isReady: boolean } }
   | { type: 'GAME_START'; payload: { question: { id: string; text: string }; startTime: number; duration: number } }
   | { type: 'ANSWER_SUBMITTED'; payload: { answerText: string; timestamp: number } }
   | { type: 'ANSWER_COUNT_UPDATE'; payload: { answeredCount: number; totalCount: number } }
   | { type: 'ROUND_END'; payload: RoundEndPayload }
+  | { type: 'RECONNECTED'; payload: { participantId: string } }
   | { type: 'ERROR'; payload: { code: string; message: string } };
 
 interface ResultEntry {
@@ -78,6 +80,7 @@ export default function RoomPage() {
   const [room, setRoom] = useState<RoomState | null>(null);
   const [playerId, setPlayerId] = useState<string>('');
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
+  const [reconnectToast, setReconnectToast] = useState<string | null>(null);
   const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [gameStartTime, setGameStartTime] = useState<number | null>(null);
@@ -153,6 +156,55 @@ export default function RoomPage() {
         });
         break;
 
+      case 'PARTICIPANT_LEFT': {
+        // payload.connectionStatus === 'left' means the participant intentionally left and should be removed.
+        const payload = message.payload as { playerId: string; playerName?: string; connectionStatus: ConnectionStatus | 'left' };
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          if (payload.connectionStatus === 'left') {
+            return {
+              ...prevRoom,
+              participants: prevRoom.participants.filter((p) => p.id !== payload.playerId),
+            };
+          }
+
+          // Otherwise mark participant as disconnected/reconnecting but keep them in the list
+          const updated = prevRoom.participants.map((p) =>
+            p.id === payload.playerId ? { ...p, connectionStatus: payload.connectionStatus as ConnectionStatus } : p
+          );
+          return { ...prevRoom, participants: updated };
+        });
+        // Also check if the remaining active+connected players are all ready and should start countdown
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          const participantsAfter = prevRoom.participants.filter((p) => p.id !== payload.playerId || payload.connectionStatus !== 'left');
+          const activeConnected = participantsAfter.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected');
+          const allReady = activeConnected.length > 0 && activeConnected.every((p) => p.isReady);
+          const enoughPlayers = activeConnected.length >= 2;
+          if (allReady && enoughPlayers) setShowCountdown(true);
+          return prevRoom;
+        });
+        break;
+      }
+
+      case 'RECONNECTED': {
+        const participantId = (message.payload as { participantId: string }).participantId;
+        setRoom((prevRoom) => {
+          if (!prevRoom) return prevRoom;
+          const updated = prevRoom.participants.map((p) =>
+            p.id === participantId ? { ...p, connectionStatus: 'connected' as ConnectionStatus } : p
+          );
+          // Show a short toast mentioning who reconnected (if we can find the name)
+          const reconnectedParticipant = prevRoom.participants.find((p) => p.id === participantId);
+          if (reconnectedParticipant) {
+            setReconnectToast(`${reconnectedParticipant.name} reconnected`);
+            window.setTimeout(() => setReconnectToast(null), 3500);
+          }
+          return { ...prevRoom, participants: updated };
+        });
+        break;
+      }
+
       case 'PLAYER_READY':
         setRoom((prevRoom) => {
           if (!prevRoom) return prevRoom;
@@ -162,8 +214,10 @@ export default function RoomPage() {
               : p
           );
 
-          const allReady = updatedParticipants.every((p) => p.isReady);
-          const enoughPlayers = updatedParticipants.length >= 2;
+          // Only consider active, connected participants for ready checks
+          const activeConnected = updatedParticipants.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected');
+          const allReady = activeConnected.length > 0 && activeConnected.every((p) => p.isReady);
+          const enoughPlayers = activeConnected.length >= 2;
 
           if (allReady && enoughPlayers && message.payload.isReady) {
             setShowCountdown(true);
@@ -242,8 +296,11 @@ export default function RoomPage() {
       wsRef.current = client;
 
       client.on('ROOM_STATE', (payload: unknown) => handleMessage({ type: 'ROOM_STATE', payload } as ServerMessage));
-      client.on('PLAYER_JOINED', (payload: unknown) => handleMessage({ type: 'PLAYER_JOINED', payload } as ServerMessage));
-      client.on('PLAYER_LEFT', (payload: unknown) => handleMessage({ type: 'PLAYER_LEFT', payload } as ServerMessage));
+    client.on('PLAYER_JOINED', (payload: unknown) => handleMessage({ type: 'PLAYER_JOINED', payload } as ServerMessage));
+    client.on('PLAYER_LEFT', (payload: unknown) => handleMessage({ type: 'PLAYER_LEFT', payload } as ServerMessage));
+    // New event name used by server: PARTICIPANT_LEFT (disconnected vs left)
+    client.on('PARTICIPANT_LEFT', (payload: unknown) => handleMessage({ type: 'PARTICIPANT_LEFT', payload } as ServerMessage));
+    client.on('RECONNECTED', (payload: unknown) => handleMessage({ type: 'RECONNECTED', payload } as ServerMessage));
       client.on('PLAYER_READY', (payload: unknown) => handleMessage({ type: 'PLAYER_READY', payload } as ServerMessage));
       client.on('GAME_START', (payload: unknown) => handleMessage({ type: 'GAME_START', payload } as ServerMessage));
       client.on('ANSWER_SUBMITTED', (payload: unknown) => handleMessage({ type: 'ANSWER_SUBMITTED', payload } as ServerMessage));
@@ -487,6 +544,13 @@ export default function RoomPage() {
             </div>
           )}
         </div>
+        {reconnectToast && (
+          <div className="mb-4 flex items-center justify-center">
+            <div className="px-3 py-1 bg-green-50 text-green-800 rounded-full text-sm">
+              {reconnectToast}
+            </div>
+          </div>
+        )}
 
         {showCountdown ? (
           <GameCountdown onComplete={() => setShowCountdown(false)} />
@@ -519,7 +583,7 @@ export default function RoomPage() {
                 {hasAnswered ? (
                   <WaitingState
                     answeredCount={room.currentRound.answeredCount}
-                    totalCount={room.participants.length}
+                    totalCount={room.participants.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected').length}
                   />
                 ) : (
                   <GameQuestion

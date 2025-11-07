@@ -17,9 +17,11 @@ interface RoomLobbyProps {
 }
 
 export function RoomLobby({ roomCode, participants, currentUserId, onReadyToggle, onLeaveRoom, groupId, groupName }: RoomLobbyProps) {
-  const readyCount = participants.filter((p) => p.isReady).length;
-  const totalCount = participants.length;
-  const allReady = readyCount === totalCount && totalCount > 1;
+  // Only consider active, connected participants for ready checks
+  const activePlayers = participants.filter((p) => p.role !== 'spectator' && p.connectionStatus === 'connected');
+  const readyCount = activePlayers.filter((p) => p.isReady).length;
+  const totalCount = activePlayers.length;
+  const allReady = totalCount > 0 && readyCount === totalCount && totalCount > 1;
   const currentUser = participants.find((p) => p.id === currentUserId);
   const isReady = currentUser?.isReady || false;
 

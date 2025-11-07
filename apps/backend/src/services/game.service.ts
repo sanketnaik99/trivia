@@ -53,21 +53,33 @@ class GameService {
     p.isReady = !!payload.isReady;
     io.to(roomCode).emit('PLAYER_READY', { playerId, isReady: p.isReady });
 
+  // Only consider active, connected participants when evaluating readiness
+    // Defer to centralized countdown starter to avoid duplicated logic
+    this.tryStartCountdown(io, roomCode);
+  }
+
+  /**
+   * Check whether active+connected participants are all ready and (if so) start the countdown.
+   * Safe to call from any socket handler after participant changes.
+   */
+  tryStartCountdown(io: Server, roomCode: string) {
+    const room = roomStore.getRoom(roomCode);
+    if (!room) return;
     const participants = Array.from(room.participants.values());
-    const allReady = participants.length >= 2 && participants.every((pp) => pp.isReady);
-    if (allReady) {
-      // start 5s countdown then game start
-      if (this.countdownTimers.has(roomCode)) return; // already counting down
-      const t = setTimeout(() => {
-        this.countdownTimers.delete(roomCode);
-        try {
-          this.startGame(io, roomCode);
-        } catch (e) {
-          logger.error('Failed to start game', { roomCode, error: (e as Error).message });
-        }
-      }, 5000);
-      this.countdownTimers.set(roomCode, t);
-    }
+    const activeConnected = participants.filter((pp) => pp.role === 'active' && pp.connectionStatus === 'connected');
+    const allReady = activeConnected.length >= 2 && activeConnected.every((pp) => pp.isReady);
+    if (!allReady) return;
+    if (this.countdownTimers.has(roomCode)) return; // already counting down
+
+    const t = setTimeout(() => {
+      this.countdownTimers.delete(roomCode);
+      try {
+        this.startGame(io, roomCode);
+      } catch (e) {
+        logger.error('Failed to start game', { roomCode, error: (e as Error).message });
+      }
+    }, 5000);
+    this.countdownTimers.set(roomCode, t);
   }
 
   startGame(io: Server, roomCode: string) {
@@ -115,6 +127,14 @@ class GameService {
     if (!room || !room.currentRound || !room.currentQuestion || room.gameState !== 'active') {
       return socket.emit('ERROR', { code: 'INVALID_STATE', message: 'Invalid state' });
     }
+    const participant = room.participants.get(playerId);
+    if (!participant) return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+
+    // Only active and connected participants may submit answers
+    if (participant.role !== 'active' || participant.connectionStatus !== 'connected') {
+      return socket.emit('ERROR', { code: 'SPECTATOR_CANNOT_ANSWER', message: 'Spectators or disconnected players cannot submit answers' });
+    }
+
     const already = room.currentRound.participantAnswers.find((a) => a.participantId === playerId);
     if (already) return socket.emit('ERROR', { code: 'ALREADY_ANSWERED', message: 'Already answered' });
 
@@ -131,7 +151,8 @@ class GameService {
 
     socket.emit('ANSWER_SUBMITTED', { answerText, timestamp: ts });
     const answeredCount = room.currentRound.participantAnswers.length;
-    const totalCount = room.participants.size;
+    // Only active, connected participants count towards round completion
+    const totalCount = Array.from(room.participants.values()).filter(p => p.role === 'active' && p.connectionStatus === 'connected').length;
     io.to(roomCode).emit('ANSWER_COUNT_UPDATE', { answeredCount, totalCount });
 
     if (answeredCount >= totalCount) {

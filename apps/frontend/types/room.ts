@@ -1,15 +1,13 @@
 export type GameState = 'lobby' | 'active' | 'results';
 
 export type ConnectionStatus = 'connected' | 'disconnected';
-
 export type ParticipantRole = 'active' | 'spectator';
-
 export type FeedbackMode = 'supportive' | 'neutral' | 'roast';
 
 export interface Participant {
   id: string;
   name: string;
-  role: ParticipantRole;               // 'active' can answer, 'spectator' watches only
+  role: ParticipantRole;
   isReady: boolean;
   connectionStatus: ConnectionStatus;
   score: number;
@@ -19,18 +17,39 @@ export interface Participant {
   userId: string | null;
 }
 
+export interface VoteState {
+  votedParticipantIds: string[]; // serialized Set for frontend
+  createdAt: number;
+  threshold: number;
+}
+
+export interface Room {
+  code: string;
+  participants: Participant[];
+  gameState: GameState;
+  currentQuestion: Question | null;
+  currentRound: Round | null;
+  usedQuestionIds: string[];
+  createdAt: number;
+  lastActivityAt: number;
+  groupId: string | null;
+  createdBy: string;
+  roastMode: boolean;
+
+  selectedCategory: string | null;
+  feedbackMode: FeedbackMode;
+  voteState: VoteState | null;
+  cleanupTimer: number | null;
+  maxActivePlayers: number;
+}
+
 export interface Question {
   id: string;
   text: string;
-  correctAnswer: string;
+  choices?: string[];
+  correctAnswer?: string;
   acceptedAnswers?: string[];
-}
-
-export interface ParticipantAnswer {
-  participantId: string;
-  answerText: string | null;
-  timestamp: number | null;
-  isCorrect: boolean;
+  category?: string | null;
 }
 
 export interface Round {
@@ -42,24 +61,9 @@ export interface Round {
   endTime: number | null;
 }
 
-export interface Room {
-  code: string;
-  participants: Map<string, Participant>;
-  gameState: GameState;
-  currentQuestion: Question | null;
-  currentRound: Round | null;
-  usedQuestionIds: string[];
-  createdAt: number;
-  lastActivityAt: number;
-  groupId: string | null;
-  createdBy: string;
-  // Deprecated - kept for backwards compatibility
-  roastMode: boolean;
-
-  // New fields
-  selectedCategory: string | null;
-  feedbackMode: FeedbackMode;
-  voteState: import('./game.types').VoteState | null;
-  cleanupTimer: NodeJS.Timeout | null;
-  maxActivePlayers: number;
+export interface ParticipantAnswer {
+  participantId: string;
+  answerText: string | null;
+  timestamp: number | null;
+  isCorrect: boolean;
 }

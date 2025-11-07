@@ -40,11 +40,11 @@ This is a Turborepo monorepo with:
 
 ### Backend Type Definitions
 
-- [ ] T005 [P] Create ParticipantRole and ConnectionStatus types in apps/backend/src/types/room.types.ts
-- [ ] T006 [P] Create FeedbackMode type in apps/backend/src/types/room.types.ts
-- [ ] T007 [P] Create VoteState interface in apps/backend/src/types/game.types.ts
-- [ ] T008 Update Participant interface with role and connectionStatus fields in apps/backend/src/types/room.types.ts
-- [ ] T009 Update Room interface with selectedCategory, feedbackMode, voteState, cleanupTimer, maxActivePlayers in apps/backend/src/types/room.types.ts
+- [X] T005 [P] Create ParticipantRole and ConnectionStatus types in apps/backend/src/types/room.types.ts
+- [X] T006 [P] Create FeedbackMode type in apps/backend/src/types/room.types.ts
+- [X] T007 [P] Create VoteState interface in apps/backend/src/types/game.types.ts
+- [X] T008 Update Participant interface with role and connectionStatus fields in apps/backend/src/types/room.types.ts
+- [X] T009 Update Room interface with selectedCategory, feedbackMode, voteState, cleanupTimer, maxActivePlayers in apps/backend/src/types/room.types.ts
 
 ### Database Migration (if needed)
 
@@ -54,11 +54,13 @@ This is a Turborepo monorepo with:
 ### Backend Room Store
 
 - [ ] T012 Update room initialization in apps/backend/src/store/room.store.ts to include new fields (selectedCategory, feedbackMode, voteState, cleanupTimer, maxActivePlayers: 16)
+ 
+- [X] T012 Update room initialization in apps/backend/src/store/room.store.ts to include new fields (selectedCategory, feedbackMode, voteState, cleanupTimer, maxActivePlayers: 16)
 
 ### Frontend Type Definitions
 
-- [ ] T013 [P] Mirror backend types in apps/frontend/types/room.ts (ParticipantRole, ConnectionStatus, VoteState)
-- [ ] T014 [P] Update Room and Participant interfaces in apps/frontend/types/room.ts
+- [X] T013 [P] Mirror backend types in apps/frontend/types/room.ts (ParticipantRole, ConnectionStatus, VoteState)
+- [X] T014 [P] Update Room and Participant interfaces in apps/frontend/types/room.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -77,20 +79,20 @@ This is a Turborepo monorepo with:
 
 ### Backend Implementation for US1
 
-- [ ] T015 [P] [US1] Modify disconnect handler in apps/backend/src/socket/index.ts to set connectionStatus='disconnected' instead of removing participant
-- [ ] T016 [P] [US1] Add PARTICIPANT_LEFT broadcast with connectionStatus field in disconnect handler
-- [ ] T017 [P] [US1] Implement 5-minute cleanup timer in apps/backend/src/store/room.store.ts when room becomes empty
-- [ ] T018 [US1] Modify checkRoundCompletion in apps/backend/src/services/game.service.ts to exclude disconnected players
-- [ ] T019 [US1] Update round results generation in apps/backend/src/services/game.service.ts to only include connected active players
-- [ ] T020 [US1] Add cleanup timer cancellation logic in apps/backend/src/socket/room.handler.ts on reconnection
+- [X] T015 [P] [US1] Modify disconnect handler in apps/backend/src/socket/index.ts to set connectionStatus='disconnected' instead of removing participant
+- [X] T016 [P] [US1] Add PARTICIPANT_LEFT broadcast with connectionStatus field in disconnect handler
+- [X] T017 [P] [US1] Implement 5-minute cleanup timer in apps/backend/src/store/room.store.ts when room becomes empty
+- [X] T018 [US1] Modify checkRoundCompletion in apps/backend/src/services/game.service.ts to exclude disconnected players
+- [X] T019 [US1] Update round results generation in apps/backend/src/services/game.service.ts to only include connected active players
+- [X] T020 [US1] Add cleanup timer cancellation logic in apps/backend/src/socket/room.handler.ts on reconnection
 
 ### Frontend Implementation for US1
 
-- [ ] T021 [P] [US1] Create ConnectionStatus component in apps/frontend/app/room/[code]/components/ConnectionStatus.tsx
-- [ ] T022 [P] [US1] Listen for PARTICIPANT_LEFT event in apps/frontend/app/room/[code]/page.tsx
-- [ ] T023 [US1] Update participant list UI to show disconnection badges in apps/frontend/app/room/[code]/page.tsx
-- [ ] T024 [US1] Add visual indicators for disconnected players in apps/frontend/app/room/[code]/page.tsx
-- [ ] T025 [US1] Test round completion with disconnected players and verify UI updates
+- [X] T021 [P] [US1] Create ConnectionStatus component in apps/frontend/app/room/[code]/components/ConnectionStatus.tsx
+- [X] T022 [P] [US1] Listen for PARTICIPANT_LEFT event in apps/frontend/app/room/[code]/page.tsx
+	- [X] T023 [US1] Update participant list UI to show disconnection badges in apps/frontend/app/room/[code]/page.tsx
+	- [X] T024 [US1] Add visual indicators for disconnected players in apps/frontend/app/room/[code]/page.tsx
+	- [ ] T025 [US1] Test round completion with disconnected players and verify UI updates
 
 **Checkpoint**: At this point, games should continue when players disconnect without breaking
 

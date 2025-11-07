@@ -11,3 +11,10 @@ export interface RoundEndResult {
   winnerName: string | null;
   commentary?: string;
 }
+
+// Vote state for vote-to-end-game feature
+export interface VoteState {
+  votedParticipantIds: Set<string>;
+  createdAt: number;
+  threshold: number;
+}
