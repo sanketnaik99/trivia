@@ -91,6 +91,8 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
         roomStore.cancelCleanup(roomCode);
         // Mark participant as connected
         existingById.connectionStatus = 'connected';
+  // Update participant socket id
+  roomService.updateParticipantSocket(roomCode, existingById.id, socket.id);
 
         // Broadcast a RECONNECTED event to other participants so UI can react
         io.to(roomCode).emit('RECONNECTED', { participantId: existingById.id });
@@ -148,6 +150,8 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
   roomStore.cancelCleanup(roomCode);
   // Mark participant as connected
   existingByUserId.connectionStatus = 'connected';
+  // Update participant socket id
+  roomService.updateParticipantSocket(roomCode, existingByUserId.id, socket.id);
         
         // Send ROOM_STATE to reconnected user
         const participants = Array.from(room.participants.values());
@@ -202,6 +206,8 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
   const s = socket as Socket & { data: SocketData };
   s.data.roomCode = roomCode;
   s.data.playerId = participant.id;
+    // persist socket id for this participant
+    roomService.updateParticipantSocket(roomCode, participant.id, socket.id);
 
     // Check group membership
     const isGroupMemberFlag = await isGroupMember(participant.userId, room.groupId);

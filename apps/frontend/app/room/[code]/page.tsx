@@ -117,14 +117,14 @@ export default function RoomPage() {
           const participant = message.payload.participants.find(
             (p) => p.name === userInfoRef.current?.userName
           );
-          if (participant) {
+            if (participant) {
             console.log('[Room] Setting playerId from ROOM_STATE', {
               participantId: participant.id,
               participantName: participant.name,
               userName: userInfoRef.current.userName
             });
             setPlayerId(participant.id);
-            sessionStorage.setItem('playerId', participant.id);
+            localStorage.setItem('playerId', participant.id);
           } else {
             console.warn('[Room] Could not find participant in ROOM_STATE by name', {
               userName: userInfoRef.current.userName,
@@ -395,8 +395,8 @@ export default function RoomPage() {
     if (!wsRef.current) return;
     wsRef.current.send('LEAVE', {});
     wsRef.current.disconnect();
-    sessionStorage.removeItem('playerId');
-    sessionStorage.removeItem('playerName');
+    localStorage.removeItem('playerId');
+    localStorage.removeItem('playerName');
     router.push('/');
   }, [router]);
 
@@ -408,9 +408,9 @@ export default function RoomPage() {
     setJoinError(null);
 
     try {
-      const playerId = crypto.randomUUID();
-      sessionStorage.setItem('playerId', playerId);
-      sessionStorage.setItem('playerName', name);
+  const playerId = crypto.randomUUID();
+  localStorage.setItem('playerId', playerId);
+  localStorage.setItem('playerName', name);
 
       userInfoRef.current = { userId: playerId, userName: name };
       setNeedsPlayerInfo(false);
@@ -461,8 +461,8 @@ export default function RoomPage() {
     }
 
     // Check if we have stored session data
-    const storedPlayerId = sessionStorage.getItem('playerId');
-    const storedPlayerName = sessionStorage.getItem('playerName');
+  const storedPlayerId = localStorage.getItem('playerId');
+  const storedPlayerName = localStorage.getItem('playerName');
 
     if (!storedPlayerId || !storedPlayerName) {
       setNeedsPlayerInfo(true);

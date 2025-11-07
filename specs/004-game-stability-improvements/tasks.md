@@ -111,19 +111,19 @@ This is a Turborepo monorepo with:
 
 ### Backend Implementation for US2
 
-- [ ] T026 [P] [US2] Enhance JOIN handler reconnection detection logic in apps/backend/src/socket/room.handler.ts to check userId or participantId
-- [ ] T027 [P] [US2] Add participantId support for anonymous users in JOIN handler in apps/backend/src/socket/room.handler.ts
-- [ ] T028 [US2] Implement reconnection response with full room state in apps/backend/src/socket/room.handler.ts
-- [ ] T029 [US2] Add RECONNECTED event emission in apps/backend/src/socket/room.handler.ts
-- [ ] T030 [US2] Update socketId on reconnection in apps/backend/src/services/room.service.ts
+- [X] T026 [P] [US2] Enhance JOIN handler reconnection detection logic in apps/backend/src/socket/room.handler.ts to check userId or participantId
+- [X] T027 [P] [US2] Add participantId support for anonymous users in JOIN handler in apps/backend/src/socket/room.handler.ts
+- [X] T028 [US2] Implement reconnection response with full room state in apps/backend/src/socket/room.handler.ts
+- [X] T029 [US2] Add RECONNECTED event emission in apps/backend/src/socket/room.handler.ts
+- [X] T030 [US2] Update socketId on reconnection in apps/backend/src/services/room.service.ts
 
 ### Frontend Implementation for US2
 
-- [ ] T031 [P] [US2] Add participantId localStorage logic in apps/frontend/app/room/[code]/page.tsx useEffect
-- [ ] T032 [P] [US2] Implement reconnection attempt on mount in apps/frontend/app/room/[code]/page.tsx
-- [ ] T033 [US2] Listen for RECONNECTED event and update UI state in apps/frontend/app/room/[code]/page.tsx
-- [ ] T034 [US2] Handle reconnection toast notifications in apps/frontend/app/room/[code]/page.tsx
-- [ ] T035 [US2] Test refresh in all game states (lobby, active, results) for both authenticated and anonymous users
+- [X] T031 [P] [US2] Add participantId localStorage logic in apps/frontend/app/room/[code]/page.tsx useEffect
+- [X] T032 [P] [US2] Implement reconnection attempt on mount in apps/frontend/app/room/[code]/page.tsx
+- [X] T033 [US2] Listen for RECONNECTED event and update UI state in apps/frontend/app/room/[code]/page.tsx
+- [X] T034 [P] [US2] Handle reconnection toast notifications in apps/frontend/app/room/[code]/page.tsx
+- [X] T035 [P] [US2] Test refresh in all game states (lobby, active, results) for both authenticated and anonymous users
 
 **Checkpoint**: At this point, page refresh should work seamlessly in all game states
 

@@ -104,6 +104,7 @@ class RoomService {
       role,
       isReady: false,
       connectionStatus: 'connected',
+      socketId: null,
       score: 0,
       roundsWon: 0,
       lastWinTimestamp: null,
@@ -114,6 +115,15 @@ class RoomService {
     room.participants.set(participant.id, participant);
     roomStore.updateLastActivity(code);
     return participant;
+  }
+
+  updateParticipantSocket(code: string, participantId: string, socketId: string | null) {
+    const room = roomStore.getRoom(code);
+    if (!room) return;
+    const participant = room.participants.get(participantId);
+    if (!participant) return;
+    participant.socketId = socketId;
+    roomStore.updateLastActivity(code);
   }
 
   removeParticipant(code: string, participantId: string) {

@@ -12,6 +12,8 @@ export interface Participant {
   role: ParticipantRole;               // 'active' can answer, 'spectator' watches only
   isReady: boolean;
   connectionStatus: ConnectionStatus;
+  // Optional socket id for the participant's active socket connection
+  socketId?: string | null;
   score: number;
   roundsWon: number;
   lastWinTimestamp: number | null;
