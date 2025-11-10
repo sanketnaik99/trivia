@@ -21,14 +21,20 @@ async function isGroupMember(userId: string | null, groupId: string | null): Pro
   return !!membership;
 }
 
-export async function handleCreate(io: Server, socket: Socket, payload: { groupId?: string; selectedCategory?: string | null; feedbackMode?: 'supportive' | 'neutral' | 'roast' }) {
+export async function handleCreate(io: Server, socket: Socket, payload: { userId?: string; groupId?: string; selectedCategory?: string | null; feedbackMode?: 'supportive' | 'neutral' | 'roast' }) {
   try {
-    // Get userId from socket auth
-    const userId = (socket as any).userId; // Assume set by auth middleware
-    if (!userId) {
+    // Resolve user identity: prefer socket-authenticated id, fall back to payload.userId (migration)
+    const socketUserId = (socket as any).userId as string | undefined;
+    const payloadUserId = payload.userId as string | undefined;
+    if (socketUserId && payloadUserId && socketUserId !== payloadUserId) {
+      logger.warn('Mismatched userId between socket auth and payload; preferring socket auth', { socketUserId, payloadUserId });
+    }
+    const resolvedUserId = socketUserId ?? payloadUserId;
+    if (!resolvedUserId) {
       socket.emit('ERROR', { code: 'UNAUTHORIZED', message: 'Authentication required' });
       return;
     }
+    const userId = resolvedUserId;
     const { groupId, selectedCategory = null, feedbackMode = 'neutral' } = payload;
     let groupName: string | null = null;
 
@@ -82,7 +88,7 @@ export async function handleCreate(io: Server, socket: Socket, payload: { groupI
   }
 }
 
-export async function handleJoin(io: Server, socket: Socket, payload: { playerId: string; playerName: string; roomCode: string }) {
+export async function handleJoin(io: Server, socket: Socket, payload: { userId?: string; playerId?: string; playerName: string; roomCode: string }) {
   const roomCode = normalizeRoomCode(payload.roomCode);
   const room = roomStore.getRoom(roomCode);
   if (!room) {
@@ -90,7 +96,13 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
     return;
   }
   try {
-    const userId = (socket as any).userId;
+    // Resolve user identity: prefer socket-authenticated id, fall back to payload.userId (migration)
+    const socketUserId = (socket as any).userId as string | undefined;
+    const payloadUserId = payload.userId as string | undefined;
+    if (socketUserId && payloadUserId && socketUserId !== payloadUserId) {
+      logger.warn('Mismatched userId between socket auth and payload on JOIN; preferring socket auth', { socketUserId, payloadUserId });
+    }
+    const resolvedUserId = socketUserId ?? payloadUserId ?? null;
     
     // First, check if the client provided a participantId (from local/session storage)
     // and that participant exists in the room — treat this as a reconnection.
@@ -155,14 +167,14 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
     }
 
     // Check if authenticated user is already in the room
-    if (userId) {
-      const existingByUserId = Array.from(room.participants.values()).find(p => p.userId === userId);
+    if (resolvedUserId) {
+      const existingByUserId = Array.from(room.participants.values()).find(p => p.userId === resolvedUserId);
       if (existingByUserId) {
-        logger.info('Authenticated user already in room, updating connection', { 
-          roomCode, 
-          userId,
+        logger.info('Authenticated user already in room, updating connection', {
+          roomCode,
+          userId: resolvedUserId,
           existingParticipantId: existingByUserId.id,
-          name: existingByUserId.name 
+          name: existingByUserId.name
         });
   // Update the socket data to point to existing participant
         const s = socket as Socket & { data: SocketData };
@@ -223,7 +235,7 @@ export async function handleJoin(io: Server, socket: Socket, payload: { playerId
       }
     }
     
-    const participant = roomService.addParticipant(roomCode, payload.playerName, userId);
+    const participant = roomService.addParticipant(roomCode, payload.playerName, resolvedUserId);
   socket.join(roomCode);
   // track on socket (narrow data type)
   const s = socket as Socket & { data: SocketData };

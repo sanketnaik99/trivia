@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useQuestionCategories } from '@/app/lib/api/queries/questions';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, useUser } from '@clerk/nextjs';
 import { Loader2 } from 'lucide-react';
 import SocketClient from '@/app/lib/websocket';
 
@@ -22,6 +22,7 @@ interface RoomCreatedData {
 
 export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomFormProps) {
   const { getToken, isSignedIn } = useAuth();
+  const { user } = useUser();
   const [isCreating, setIsCreating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [feedbackMode, setFeedbackMode] = useState<'supportive' | 'neutral' | 'roast'>('neutral');
@@ -101,7 +102,8 @@ export function CreateGroupRoomForm({ onRoomCreated, groupId }: CreateGroupRoomF
 
     setIsCreating(true);
     try {
-      socketClientRef.current.send('room:create', { groupId, selectedCategory, feedbackMode });
+      const userId = user?.id;
+      socketClientRef.current.send('room:create', { userId, groupId, selectedCategory, feedbackMode });
     } catch (error) {
       console.error('Failed to create room:', error);
       setIsCreating(false);

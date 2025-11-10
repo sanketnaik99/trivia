@@ -352,7 +352,7 @@ export default function RoomPage() {
         console.log('[Room] WebSocket connected, sending JOIN', { userId, userName, roomCode });
         setConnectionStatus('connected');
         setReconnectAttempts(0);
-        client.send('JOIN', { playerId: userId, playerName: userName, roomCode });
+        client.send('JOIN', { userId, playerId: userId, playerName: userName, roomCode });
       }).catch((err: unknown) => {
         console.error('Socket.IO connect error:', err);
         setConnectionStatus('disconnected');
