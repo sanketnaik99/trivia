@@ -12,6 +12,13 @@ type ScheduledGame = {
   durationMinutes: number
   status: string
   roomId?: string | null
+  recurrence?: {
+    type?: string
+    interval?: number
+    byDay?: string[]
+    count?: number
+    until?: string
+  } | null
 }
 
 export function useGroupScheduledGames(groupId: string) {
@@ -35,7 +42,7 @@ export function useCreateScheduledGame(groupId: string) {
   const qc = useQueryClient()
 
   return useMutation({
-    mutationFn: async (payload: { title: string; description?: string; startAt: string; durationMinutes?: number }) => {
+    mutationFn: async (payload: { title: string; description?: string | null; startAt: string; durationMinutes?: number; recurrence?: any | null }) => {
       const token = await getToken()
       const response = await apiClient.post(`/groups/${groupId}/scheduled-games`, payload, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},

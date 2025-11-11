@@ -18,7 +18,48 @@ function buildGoogleLink(sg: any, frontendBase = window.location.origin) {
   const text = encodeURIComponent(sg.title || 'Trivia Game')
   const details = encodeURIComponent(sg.description || '')
   const location = encodeURIComponent(`${frontendBase}/groups/${sg.groupId}`)
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&details=${details}&location=${location}&dates=${fmt(start)}/${fmt(end)}`
+  const rrule = buildRRule(sg?.recurrence)
+  const recurParam = rrule ? `&recur=${encodeURIComponent(`RRULE:${rrule}`)}` : ''
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&details=${details}&location=${location}&dates=${fmt(start)}/${fmt(end)}${recurParam}`
+}
+
+function buildRRule(recurrence: any): string | null {
+  if (!recurrence) return null
+  const type = String(recurrence.type || '').toUpperCase()
+  if (!type || type === 'NONE' || type === 'ONE_TIME') return null
+  const intervalNum = Number(recurrence.interval)
+  const interval = Number.isFinite(intervalNum) && intervalNum > 0 ? intervalNum : 1
+  const allowed = new Set(['DAILY','WEEKLY','MONTHLY','YEARLY'])
+  const freq = allowed.has(type) ? type : 'WEEKLY'
+  const parts = [`FREQ=${freq}`, `INTERVAL=${interval}`]
+  if (Array.isArray(recurrence.byDay) && recurrence.byDay.length > 0) {
+    const byday = recurrence.byDay
+      .map((d: string) => String(d || '').toUpperCase().slice(0,2))
+      .filter((d: string) => ['MO','TU','WE','TH','FR','SA','SU'].includes(d))
+    if (byday.length > 0) parts.push(`BYDAY=${byday.join(',')}`)
+  }
+  if (Number.isFinite(recurrence.count) && recurrence.count > 0) {
+    parts.push(`COUNT=${recurrence.count}`)
+  } else if (recurrence.until) {
+    const untilDate = new Date(recurrence.until)
+    if (!isNaN(untilDate.getTime())) {
+      const pad = (n: number) => String(n).padStart(2,'0')
+      const toIcsDate = (d: Date) => d.getUTCFullYear() + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + 'T' + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z'
+      parts.push(`UNTIL=${toIcsDate(untilDate)}`)
+    }
+  }
+  return parts.join(';')
+}
+
+function recurrenceLabel(rec: any): string | null {
+  if (!rec || !rec.type || rec.type === 'NONE' || rec.type === 'ONE_TIME') return null
+  const type = String(rec.type).toUpperCase()
+  const map: Record<string, string> = { DAILY: 'daily', WEEKLY: 'weekly', MONTHLY: 'monthly', YEARLY: 'yearly' }
+  const base = map[type]
+  if (!base) return null
+  const interval = Number(rec.interval) || 1
+  const prefix = interval > 1 ? `Every ${interval} ` : 'Repeats '
+  return `${prefix}${base}`
 }
 
 export function UpcomingGames({ groupId, isAdmin }: { groupId: string; isAdmin?: boolean }) {
@@ -42,7 +83,10 @@ export function UpcomingGames({ groupId, isAdmin }: { groupId: string; isAdmin?:
           <div key={g.id} className="flex items-center justify-between gap-2">
             <div>
               <div className="font-medium">{g.title}</div>
-              <div className="text-sm text-muted-foreground">{formatDate(g.startAt)} • {g.durationMinutes}m • {g.status}</div>
+              <div className="text-sm text-muted-foreground">
+                {formatDate(g.startAt)} • {g.durationMinutes}m • {g.status}
+                {recurrenceLabel(g.recurrence) ? ` • ${recurrenceLabel(g.recurrence)}` : ''}
+              </div>
             </div>
             <div className="flex items-center gap-2">
               {g.roomId ? (

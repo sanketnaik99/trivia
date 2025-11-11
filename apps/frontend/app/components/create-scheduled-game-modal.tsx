@@ -19,6 +19,8 @@ export function CreateScheduledGameModal({ groupId }: Props) {
   const [description, setDescription] = useState('')
   const [startLocal, setStartLocal] = useState('')
   const [duration, setDuration] = useState('30')
+  const [frequency, setFrequency] = useState<'NONE' | 'DAILY' | 'WEEKLY' | 'MONTHLY'>('NONE')
+  const [interval, setInterval] = useState('1')
 
   const createMutation = useCreateScheduledGame(groupId)
 
@@ -27,6 +29,8 @@ export function CreateScheduledGameModal({ groupId }: Props) {
     setDescription('')
     setStartLocal('')
     setDuration('30')
+    setFrequency('NONE')
+    setInterval('1')
   }
 
   const handleOpenChange = (val: boolean) => {
@@ -45,11 +49,15 @@ export function CreateScheduledGameModal({ groupId }: Props) {
 
   const handleCreate = () => {
     const iso = startLocal ? new Date(startLocal).toISOString() : new Date().toISOString()
+    const intVal = parseInt(interval, 10)
+    const recurrence = frequency !== 'NONE' ? { type: frequency, interval: Number.isFinite(intVal) && intVal > 0 ? intVal : 1 } : null
 
     createMutation.mutate(
-      { title, description, startAt: iso, durationMinutes: parseInt(duration, 10) },
+      { title, description, startAt: iso, durationMinutes: parseInt(duration, 10), recurrence },
       {
         onSuccess: () => {
+          // Reset form then close so freshly opened modal is clean
+          reset()
           setOpen(false)
         },
       }
@@ -97,10 +105,52 @@ export function CreateScheduledGameModal({ groupId }: Props) {
             </Select>
           </div>
 
+          <div>
+            <Label htmlFor="sg-frequency">Repeats</Label>
+            <Select value={frequency} onValueChange={(v) => setFrequency(v as any)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Does not repeat" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="NONE">Does not repeat</SelectItem>
+                <SelectItem value="DAILY">Daily</SelectItem>
+                <SelectItem value="WEEKLY">Weekly</SelectItem>
+                <SelectItem value="MONTHLY">Monthly</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {frequency !== 'NONE' && (
+            <div>
+              <Label htmlFor="sg-interval">Repeat every</Label>
+              <div className="flex items-center gap-2">
+                <Input
+                  id="sg-interval"
+                  type="number"
+                  min={1}
+                  value={interval}
+                  onChange={(e) => setInterval(e.target.value.replace(/[^0-9]/g, '') || '1')}
+                  className="w-24"
+                />
+                <span className="text-sm text-muted-foreground">{frequency.toLowerCase().slice(0, -2) + (frequency.toLowerCase().endsWith('ly') ? '' : '')} interval(s)</span>
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-end">
             <DialogFooter>
-              <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-              <Button onClick={handleCreate} disabled={createMutation.isPending || !title || !startLocal}>{createMutation.isPending ? 'Creating...' : 'Create'}</Button>
+              <Button variant="outline" onClick={() => { reset(); setOpen(false) }}>Cancel</Button>
+              <Button
+                onClick={handleCreate}
+                disabled={
+                  createMutation.isPending ||
+                  !title ||
+                  !startLocal ||
+                  (frequency !== 'NONE' && (!interval || parseInt(interval, 10) < 1))
+                }
+              >
+                {createMutation.isPending ? 'Creating...' : 'Create'}
+              </Button>
             </DialogFooter>
           </div>
         </div>
