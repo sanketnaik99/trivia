@@ -18,6 +18,9 @@ export function Navigation() {
 
   return (
     <nav className="flex gap-4">
+      <Link href="/">
+        <Button variant="ghost" size="sm">Home</Button>
+      </Link>
       <Link href="/room">
         <Button variant="ghost" size="sm">Rooms</Button>
       </Link>
