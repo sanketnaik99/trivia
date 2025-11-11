@@ -255,7 +255,7 @@ curl http://localhost:3001/health
 
 ### Check Frontend
 
-Visit `http://localhost:3000` in browser. You should see the trivia homepage.
+Visit `http://localhost:3000` in browser. You should see the trivia rooms lobby (create/join UI).
 
 ### Test Room Creation
 

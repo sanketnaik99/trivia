@@ -96,7 +96,7 @@ export default function GroupRoomPage() {
 
   // Handler to return home when session is lost
   const handleReturnHome = useCallback(() => {
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   // Set page title
@@ -348,7 +348,7 @@ export default function GroupRoomPage() {
     if (!wsRef.current) return;
     wsRef.current.send('LEAVE', {});
     wsRef.current.disconnect();
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   // Validate room and check group membership
@@ -435,7 +435,7 @@ export default function GroupRoomPage() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto">
-          <ErrorDisplay message={errorMessage || runtimeError!} onRetry={() => router.push('/')} />
+          <ErrorDisplay message={errorMessage || runtimeError!} onRetry={() => router.push('/room')} />
         </div>
       </div>
     );

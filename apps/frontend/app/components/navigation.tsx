@@ -18,7 +18,7 @@ export function Navigation() {
 
   return (
     <nav className="flex gap-4">
-      <Link href="/">
+      <Link href="/room">
         <Button variant="ghost" size="sm">Rooms</Button>
       </Link>
       {isSignedIn && (

@@ -98,7 +98,7 @@ export default function RoomPage() {
   const connectFnRef = useRef<(() => void) | null>(null);
 
   const handleReturnHome = useCallback(() => {
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   useEffect(() => {
@@ -415,7 +415,7 @@ export default function RoomPage() {
     wsRef.current.disconnect();
     localStorage.removeItem('playerId');
     localStorage.removeItem('playerName');
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   const handleJoinRoomFromLink = async (name: string, _code: string) => {
@@ -506,7 +506,7 @@ export default function RoomPage() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto">
-          <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+          <ErrorDisplay message={error} onRetry={() => router.push('/room')} />
         </div>
       </div>
     );
