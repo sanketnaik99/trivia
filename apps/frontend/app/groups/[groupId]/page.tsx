@@ -14,6 +14,8 @@ import { ManageGroupModal } from '@/app/components/manage-group-modal';
 import { CreateGroupRoomForm } from '@/app/components/create-group-room-form';
 import { RecentActivity } from '@/app/components/recent-activity';
 import { ActiveRooms } from '@/app/components/groups/active-rooms';
+import UpcomingGames from '@/app/components/groups/upcoming-games';
+import CreateScheduledGameModal from '@/app/components/create-scheduled-game-modal';
 
 export default function GroupDetailPage() {
   const params = useParams();
@@ -118,6 +120,9 @@ export default function GroupDetailPage() {
                 currentName={group.name}
               />
             )}
+            {isAdmin && (
+              <CreateScheduledGameModal groupId={groupId} />
+            )}
           </div>
         </div>
 
@@ -166,6 +171,9 @@ export default function GroupDetailPage() {
                 <ActiveRooms groupId={groupId} />
               </CardContent>
             </Card>
+
+            {/* Upcoming Games */}
+            <UpcomingGames groupId={groupId} isAdmin={isAdmin} />
 
             {/* Recent Activity */}
             <Card>
@@ -240,6 +248,7 @@ export default function GroupDetailPage() {
                 )}
               </CardContent>
             </Card>
+            
           </div>
         </div>
       </div>

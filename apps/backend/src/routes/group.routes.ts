@@ -3,6 +3,8 @@ import { groupService } from '../services/group.service';
 import { membershipService } from '../services/membership.service';
 import { inviteService } from '../services/invite.service';
 import { roomService } from '../services/room.service';
+import { scheduledGameService } from '../services/scheduled-game.service';
+import { generateIcsForScheduledGame, generateGoogleCalendarLink } from '../utils/calendar.util';
 import { requireAuth } from '../middleware/auth.middleware';
 import { asyncHandler, AppError } from '../utils/error-handler.util';
 import prisma from '../config/prisma';
@@ -340,6 +342,97 @@ router.get('/:groupId/rooms', asyncHandler(async (req: Request, res: Response) =
       rooms
     }
   });
+}));
+
+// List scheduled games for a group
+router.get('/:groupId/scheduled-games', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId } = req.params;
+  const userId = req.userId!;
+
+  // Verify membership
+  const membership = await membershipService.getUserMembership(groupId, userId);
+  if (!membership || membership.status !== 'ACTIVE') {
+    throw new AppError('FORBIDDEN', 'You must be a member of this group to view scheduled games', 403);
+  }
+
+  const games = await scheduledGameService.listScheduledGamesForGroup(groupId);
+  res.json({ success: true, data: { games } });
+}));
+
+// Create scheduled game (admin only)
+router.post('/:groupId/scheduled-games', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId } = req.params;
+  const userId = req.userId!;
+  const isAdmin = await groupService.checkUserIsAdmin(groupId, userId);
+  if (!isAdmin) throw new AppError('FORBIDDEN', 'Only group admins can create scheduled games', 403);
+
+  const { title, description, startAt, durationMinutes, recurrence } = req.body;
+  const created = await scheduledGameService.createScheduledGame(groupId, userId, { title, description, startAt, durationMinutes, recurrence });
+  res.status(201).json({ success: true, data: created });
+}));
+
+// Get scheduled game details
+router.get('/:groupId/scheduled-games/:id', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId, id } = req.params;
+  const userId = req.userId!;
+
+  const membership = await membershipService.getUserMembership(groupId, userId);
+  if (!membership || membership.status !== 'ACTIVE') throw new AppError('FORBIDDEN', 'You must be a member of this group to view this scheduled game', 403);
+
+  const sg = await scheduledGameService.getScheduledGame(id);
+  res.json({ success: true, data: sg });
+}));
+
+// Update scheduled game (admin only)
+router.patch('/:groupId/scheduled-games/:id', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId, id } = req.params;
+  const userId = req.userId!;
+  const isAdmin = await groupService.checkUserIsAdmin(groupId, userId);
+  if (!isAdmin) throw new AppError('FORBIDDEN', 'Only group admins can update scheduled games', 403);
+
+  const updated = await scheduledGameService.updateScheduledGame(id, req.body);
+  res.json({ success: true, data: updated });
+}));
+
+// Delete / cancel scheduled game (admin only)
+router.delete('/:groupId/scheduled-games/:id', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId, id } = req.params;
+  const userId = req.userId!;
+  const isAdmin = await groupService.checkUserIsAdmin(groupId, userId);
+  if (!isAdmin) throw new AppError('FORBIDDEN', 'Only group admins can delete scheduled games', 403);
+
+  await scheduledGameService.deleteScheduledGame(id);
+  res.json({ success: true, message: 'Scheduled game cancelled' });
+}));
+
+// Manual start scheduled game (admin only)
+router.post('/:groupId/scheduled-games/:id/start', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId, id } = req.params;
+  const userId = req.userId!;
+  const isAdmin = await groupService.checkUserIsAdmin(groupId, userId);
+  if (!isAdmin) throw new AppError('FORBIDDEN', 'Only group admins can start scheduled games', 403);
+
+  const result = await scheduledGameService.startScheduledGame(id, userId);
+  if (result.alreadyStarted) {
+    return res.json({ success: true, data: result.scheduledGame });
+  }
+
+  res.json({ success: true, data: { scheduledGame: result.scheduledGame, roomCode: result.roomCode } });
+}));
+
+// Get ICS for scheduled game
+router.get('/:groupId/scheduled-games/:id/ics', asyncHandler(async (req: Request, res: Response) => {
+  const { groupId, id } = req.params;
+  const userId = req.userId!;
+
+  const membership = await membershipService.getUserMembership(groupId, userId);
+  if (!membership || membership.status !== 'ACTIVE') throw new AppError('FORBIDDEN', 'You must be a member of this group to download calendar invite', 403);
+
+  const sg = await scheduledGameService.getScheduledGame(id);
+  const ics = generateIcsForScheduledGame(sg);
+  res.setHeader('Content-Type', 'text/calendar');
+  res.setHeader('Content-Disposition', `attachment; filename="scheduled-game-${sg.id}.ics"`);
+  res.send(ics);
 }));
 
 export default router;

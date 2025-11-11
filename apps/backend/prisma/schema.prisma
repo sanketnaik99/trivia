@@ -23,11 +23,12 @@ model User {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  createdGroups    Group[]                   @relation("CreatedGroups")
-  memberships      Membership[]
-  createdInvites   GroupInvite[]             @relation("CreatedInvites")
-  leaderboardEntries GroupLeaderboardEntry[]
-  createdRooms     Room[]                    @relation("CreatedRooms")
+  createdGroups         Group[]                 @relation("CreatedGroups")
+  memberships           Membership[]
+  createdInvites        GroupInvite[]           @relation("CreatedInvites")
+  leaderboardEntries    GroupLeaderboardEntry[]
+  createdRooms          Room[]                  @relation("CreatedRooms")
+  createdScheduledGames ScheduledGame[]         @relation("CreatedScheduledGames")
 
   @@index([email])
   @@map("users")
@@ -42,20 +43,21 @@ enum GroupPrivacy {
 }
 
 model Group {
-  id        String        @id @default(cuid())
+  id        String       @id @default(cuid())
   name      String
-  privacy   GroupPrivacy  @default(PRIVATE)
+  privacy   GroupPrivacy @default(PRIVATE)
   createdBy String
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
   // Relations
-  creator      User                      @relation("CreatedGroups", fields: [createdBy], references: [id], onDelete: Cascade)
-  memberships  Membership[]
-  invites      GroupInvite[]
-  leaderboard  GroupLeaderboardEntry[]
-  rooms        Room[]
+  creator        User                    @relation("CreatedGroups", fields: [createdBy], references: [id], onDelete: Cascade)
+  memberships    Membership[]
+  invites        GroupInvite[]
+  leaderboard    GroupLeaderboardEntry[]
+  rooms          Room[]
   processedGames ProcessedGame[]
+  scheduledGames ScheduledGame[]         @relation("GroupScheduledGames")
 
   @@index([createdBy])
   @@map("groups")
@@ -72,18 +74,18 @@ enum MembershipRole {
 
 enum MembershipStatus {
   ACTIVE
-  LEFT     // User voluntarily left
-  REMOVED  // Admin removed user
+  LEFT // User voluntarily left
+  REMOVED // Admin removed user
 }
 
 model Membership {
-  id       String           @id @default(cuid())
-  userId   String
-  groupId  String
-  role     MembershipRole   @default(MEMBER)
-  status   MembershipStatus @default(ACTIVE)
-  joinedAt DateTime         @default(now())
-  updatedAt DateTime        @updatedAt
+  id        String           @id @default(cuid())
+  userId    String
+  groupId   String
+  role      MembershipRole   @default(MEMBER)
+  status    MembershipStatus @default(ACTIVE)
+  joinedAt  DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 
   // Relations
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -102,10 +104,10 @@ model Membership {
 // ============================================================================
 
 enum InviteStatus {
-  ACTIVE   // Invite is valid and can be used
-  USED     // Invite has been accepted
-  REVOKED  // Admin manually revoked
-  EXPIRED  // Passed expiresAt timestamp
+  ACTIVE // Invite is valid and can be used
+  USED // Invite has been accepted
+  REVOKED // Admin manually revoked
+  EXPIRED // Passed expiresAt timestamp
 }
 
 model GroupInvite {
@@ -113,7 +115,7 @@ model GroupInvite {
   groupId   String
   token     String       @unique @default(cuid()) // Shareable invite code/token
   createdBy String
-  expiresAt DateTime     // Default 7 days from creation
+  expiresAt DateTime // Default 7 days from creation
   status    InviteStatus @default(ACTIVE)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -175,9 +177,9 @@ model Room {
 // ============================================================================
 
 model ProcessedGame {
-  id        String   @id @default(cuid())
-  roomCode  String   @unique
-  groupId   String
+  id          String   @id @default(cuid())
+  roomCode    String   @unique
+  groupId     String
   processedAt DateTime @default(now())
 
   // Relations
@@ -194,12 +196,48 @@ model Question {
   id              String   @id
   text            String
   correctAnswer   String?
-  acceptedAnswers Json?    // Array of accepted answers
-  category        String?  // Optional category name
-  meta            Json?    // Original/raw question object if needed
+  acceptedAnswers Json? // Array of accepted answers
+  category        String? // Optional category name
+  meta            Json? // Original/raw question object if needed
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
   @@index([category])
   @@map("questions")
+}
+
+// ============================================================================
+// SCHEDULED GAMES
+// ============================================================================
+
+enum ScheduledGameStatus {
+  SCHEDULED
+  STARTED
+  CANCELLED
+  COMPLETED
+}
+
+model ScheduledGame {
+  id                String              @id @default(cuid())
+  groupId           String
+  createdBy         String
+  title             String
+  description       String?
+  startAt           DateTime
+  durationMinutes   Int                 @default(30)
+  recurrence        Json?
+  status            ScheduledGameStatus @default(SCHEDULED)
+  roomId            String?
+  notificationsSent Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  // Relations
+  group   Group @relation("GroupScheduledGames", fields: [groupId], references: [id], onDelete: Cascade)
+  creator User  @relation("CreatedScheduledGames", fields: [createdBy], references: [id], onDelete: SetNull)
+  // room relation left as optional string reference to Room.id
+
+  @@index([groupId, startAt])
+  @@index([startAt])
+  @@map("scheduled_games")
 }
