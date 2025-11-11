@@ -1,4 +1,5 @@
 import prisma from '../config/prisma';
+import { ScheduledGameStatus } from '@prisma/client';
 import { AppError } from '../utils/error-handler.util';
 import { roomService } from './room.service';
 import { logger } from '../utils/logger.util';
@@ -39,9 +40,33 @@ class ScheduledGameService {
     return scheduled;
   }
 
-  async listScheduledGamesForGroup(groupId: string) {
+  /**
+   * List upcoming scheduled games for a group. By default past games are excluded.
+   * A game is considered "past" if its startAt is strictly before now. This keeps
+   * the client list focused on relevant upcoming or currently starting games.
+   *
+   * If consumers ever need historical data we can expose includePast: true.
+   */
+  async listScheduledGamesForGroup(groupId: string, opts?: { includePast?: boolean }) {
+    const includePast = opts?.includePast === true;
+    const now = new Date();
+
+    // We want upcoming games (startAt >= now) and any currently ongoing game.
+    // Ongoing games are those already started (status === 'STARTED'). This avoids
+    // needing to calculate end-time boundaries in the query.
+    // If includePast is true we skip filtering entirely.
+    const where = includePast
+      ? { groupId }
+      : {
+          groupId,
+          OR: [
+            { startAt: { gte: now } },
+            { status: ScheduledGameStatus.STARTED },
+          ],
+        };
+
     return prisma.scheduledGame.findMany({
-      where: { groupId },
+      where,
       orderBy: { startAt: 'asc' },
     });
   }
