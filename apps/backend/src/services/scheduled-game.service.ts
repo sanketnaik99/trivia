@@ -25,6 +25,8 @@ class ScheduledGameService {
       throw new AppError('VALIDATION_ERROR', 'Invalid startAt timestamp', 400);
     }
 
+    const endAt = new Date(start.getTime() + durationMinutes * 60000);
+
     const scheduled = await prisma.scheduledGame.create({
       data: {
         groupId,
@@ -32,6 +34,7 @@ class ScheduledGameService {
         title: title.trim(),
         description: description || null,
         startAt: start,
+        endAt,
         durationMinutes,
         recurrence: recurrence || null,
       },
@@ -51,22 +54,19 @@ class ScheduledGameService {
     const includePast = opts?.includePast === true;
     const now = new Date();
 
-    // We want upcoming games (startAt >= now) and any currently ongoing game.
-    // Ongoing games are those already started (status === 'STARTED'). This avoids
-    // needing to calculate end-time boundaries in the query.
-    // If includePast is true we skip filtering entirely.
-    const where = includePast
-      ? { groupId }
-      : {
-          groupId,
-          OR: [
-            { startAt: { gte: now } },
-            { status: ScheduledGameStatus.STARTED },
-          ],
-        };
+    if (includePast) {
+      return prisma.scheduledGame.findMany({
+        where: { groupId },
+        orderBy: { startAt: 'asc' },
+      });
+    }
 
+    // Upcoming or ongoing via persisted endAt
     return prisma.scheduledGame.findMany({
-      where,
+      where: {
+        groupId,
+        endAt: { gte: now },
+      },
       orderBy: { startAt: 'asc' },
     });
   }
@@ -82,14 +82,23 @@ class ScheduledGameService {
     const updateData: any = {};
     if (data.title !== undefined) updateData.title = data.title;
     if (data.description !== undefined) updateData.description = data.description;
-    if (data.startAt !== undefined) {
-      const start = new Date(data.startAt as string);
-      if (Number.isNaN(start.getTime())) throw new AppError('VALIDATION_ERROR', 'Invalid startAt', 400);
-      updateData.startAt = start;
+    const providedStart = data.startAt !== undefined ? new Date(data.startAt as string) : undefined;
+    if (providedStart !== undefined) {
+      if (Number.isNaN(providedStart.getTime())) throw new AppError('VALIDATION_ERROR', 'Invalid startAt', 400);
+      updateData.startAt = providedStart;
     }
     if (data.durationMinutes !== undefined) updateData.durationMinutes = data.durationMinutes;
     if (data.recurrence !== undefined) updateData.recurrence = data.recurrence;
     if ((data as any).status !== undefined) updateData.status = (data as any).status;
+
+    // If either startAt or durationMinutes is being changed, recompute endAt
+    if (providedStart !== undefined || data.durationMinutes !== undefined) {
+      const existing = await prisma.scheduledGame.findUnique({ where: { id } });
+      if (!existing) throw new AppError('NOT_FOUND', 'Scheduled game not found', 404);
+      const startBase = providedStart ?? existing.startAt;
+      const durationBase = data.durationMinutes ?? existing.durationMinutes ?? 30;
+      updateData.endAt = new Date(new Date(startBase).getTime() + durationBase * 60000);
+    }
 
     const updated = await prisma.scheduledGame.update({ where: { id }, data: updateData });
     return updated;

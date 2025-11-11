@@ -224,6 +224,7 @@ model ScheduledGame {
   title             String
   description       String?
   startAt           DateTime
+  endAt             DateTime            @default(now())
   durationMinutes   Int                 @default(30)
   recurrence        Json?
   status            ScheduledGameStatus @default(SCHEDULED)
@@ -238,6 +239,7 @@ model ScheduledGame {
   // room relation left as optional string reference to Room.id
 
   @@index([groupId, startAt])
+  @@index([groupId, endAt])
   @@index([startAt])
   @@map("scheduled_games")
 }
