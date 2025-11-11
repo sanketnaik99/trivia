@@ -1,9 +1,10 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useGroupScheduledGames, useStartScheduledGame } from '@/app/lib/api/queries/scheduledGames'
 import { useAuth, useUser } from '@clerk/nextjs'
+import { StartGameDialog } from '../start-game-dialog'
 
 function formatDate(iso?: string) {
   if (!iso) return ''
@@ -67,16 +68,18 @@ export function UpcomingGames({ groupId, isAdmin }: { groupId: string; isAdmin?:
   const { user } = useUser()
   const { data, isLoading } = useGroupScheduledGames(groupId)
   const startMutation = useStartScheduledGame(groupId)
+  const [startGameId, setStartGameId] = useState<string | null>(null)
 
   const games = data?.games || []
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Upcoming Games</CardTitle>
-        <CardDescription>Scheduled games for this group</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-3">
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Upcoming Games</CardTitle>
+          <CardDescription>Scheduled games for this group</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
         {isLoading && <div>Loading...</div>}
         {!isLoading && games.length === 0 && <div className="text-sm text-muted-foreground">No upcoming games</div>}
         {!isLoading && games.map((g: any) => (
@@ -102,15 +105,29 @@ export function UpcomingGames({ groupId, isAdmin }: { groupId: string; isAdmin?:
               <a href={`/groups/${groupId}/scheduled-games/${g.id}/ics`}>
                 <Button variant="outline">Download .ics</Button>
               </a>
-              {/* Start button for admins only */}
               {isAdmin ? (
-                <Button onClick={() => startMutation.mutate(g.id)} disabled={g.status !== 'SCHEDULED' || startMutation.isPending}>Start</Button>
+                <Button onClick={() => setStartGameId(g.id)} disabled={g.status !== 'SCHEDULED' || startMutation.isPending}>Start</Button>
               ) : null}
             </div>
           </div>
         ))}
       </CardContent>
     </Card>
+
+      <StartGameDialog
+        open={!!startGameId}
+        onOpenChange={(open) => !open && setStartGameId(null)}
+        onStart={({ selectedCategory, feedbackMode }) => {
+          if (startGameId) {
+            startMutation.mutate({ id: startGameId, selectedCategory, feedbackMode })
+            setStartGameId(null)
+          }
+        }}
+        isLoading={startMutation.isPending}
+        title="Start Scheduled Game"
+        description="Select options before starting the game."
+      />
+    </>
   )
 }
 

@@ -61,20 +61,21 @@ export function useStartScheduledGame(groupId: string) {
   const router = useRouter()
 
   return useMutation({
-    mutationFn: async (id: string) => {
+    mutationFn: async (payload: { id: string; selectedCategory?: string | null; feedbackMode?: 'supportive' | 'neutral' | 'roast' }) => {
+      const { id, selectedCategory, feedbackMode } = payload
       const token = await getToken()
-      const response = await apiClient.post(`/groups/${groupId}/scheduled-games/${id}/start`, {}, {
+      const body: Record<string, unknown> = {}
+      if (selectedCategory) body.selectedCategory = selectedCategory
+      if (feedbackMode) body.feedbackMode = feedbackMode
+      const response = await apiClient.post(`/groups/${groupId}/scheduled-games/${id}/start`, body, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       })
       return response.data.data
     },
     onSuccess: (data) => {
-      // Refresh scheduled games and active rooms and group detail
       qc.invalidateQueries({ queryKey: queryKeys.scheduledGames(groupId) })
       qc.invalidateQueries({ queryKey: queryKeys.activeRooms(groupId) })
       qc.invalidateQueries({ queryKey: queryKeys.groupDetail(groupId) })
-
-      // If a room code was returned, navigate to it
       if (data?.roomCode) {
         router.push(`/groups/${groupId}/rooms/${data.roomCode}`)
       }
