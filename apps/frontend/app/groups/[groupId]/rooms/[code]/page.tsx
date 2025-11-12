@@ -69,6 +69,8 @@ interface RoomState {
   leaderboard?: LeaderboardEntry[];
   groupId: string;
   groupName: string;
+  selectedCategory?: string | null;
+  feedbackMode?: 'supportive' | 'neutral' | 'roast';
   lastRoundResults?: RoundEndPayload | null;
 }
 
@@ -412,18 +414,17 @@ export default function GroupRoomPage() {
       return { errorMessage: 'Room not found. Please check the room code.', canConnect: false };
     }
 
-    if (validation && !validation.canJoin) {
-      const msg = validation.gameState === 'active'
-        ? 'Game is already in progress. Please wait for the next round.'
-        : 'Unable to join room. It may be full or unavailable.';
-      return { errorMessage: msg, canConnect: false };
+    // If room is active, allow joining as spectator (do not block)
+    if (validation && !validation.canJoin && validation.gameState !== 'active') {
+      return { errorMessage: 'Unable to join room. It may be full or unavailable.', canConnect: false };
     }
 
     if (validation && validation.groupId !== groupId) {
       return { errorMessage: 'This room does not belong to the specified group', canConnect: false };
     }
 
-    const ready = isSignedIn && user && groupMembership?.data?.isMember && validation?.exists && validation?.canJoin && validation?.groupId === groupId;
+    const canJoinNow = !!validation && (validation.canJoin || validation.gameState === 'active');
+    const ready = isSignedIn && user && groupMembership?.data?.isMember && validation?.exists && canJoinNow && validation?.groupId === groupId;
     return { errorMessage: null, canConnect: ready };
   }, [isUserLoaded, isSignedIn, user, groupMembership, validation, validationError, groupId]);
 

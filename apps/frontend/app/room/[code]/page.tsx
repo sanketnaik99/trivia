@@ -484,12 +484,9 @@ export default function RoomPage() {
       setConnectionStatus('disconnected');
       return;
     }
-    if (!validation.canJoin) {
-      if (validation.gameState === 'active') {
-        setError('Game is already in progress. Please wait for the next round.');
-      } else {
-        setError('Unable to join room. It may be full or unavailable.');
-      }
+    // If room is active, allow joining as spectator (do not block)
+    if (!validation.canJoin && validation.gameState !== 'active') {
+      setError('Unable to join room. It may be full or unavailable.');
       setConnectionStatus('disconnected');
       return;
     }
