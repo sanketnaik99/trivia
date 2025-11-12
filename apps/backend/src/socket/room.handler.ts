@@ -88,7 +88,7 @@ export async function handleCreate(io: Server, socket: Socket, payload: { userId
   }
 }
 
-export async function handleJoin(io: Server, socket: Socket, payload: { userId?: string; playerId?: string; playerName: string; roomCode: string }) {
+export async function handleJoin(io: Server, socket: Socket, payload: { userId?: string; playerId?: string; playerName: string; roomCode: string; preferredRole?: 'active' | 'spectator' }) {
   const roomCode = normalizeRoomCode(payload.roomCode);
   const room = roomStore.getRoom(roomCode);
   if (!room) {
@@ -161,6 +161,7 @@ export async function handleJoin(io: Server, socket: Socket, payload: { userId?:
           selectedCategory: room.selectedCategory,
           feedbackMode: room.feedbackMode,
           maxActivePlayers: room.maxActivePlayers,
+          lastRoundResults: room.lastRoundResults || null,
         });
         return;
       }
@@ -217,6 +218,7 @@ export async function handleJoin(io: Server, socket: Socket, payload: { userId?:
           leaderboard: gameService.calculateLeaderboard(room),
           groupId: room.groupId,
           groupName,
+          lastRoundResults: room.lastRoundResults || null,
         });
         return;
       }
@@ -235,7 +237,7 @@ export async function handleJoin(io: Server, socket: Socket, payload: { userId?:
       }
     }
     
-    const participant = roomService.addParticipant(roomCode, payload.playerName, resolvedUserId);
+    const participant = roomService.addParticipant(roomCode, payload.playerName, resolvedUserId, payload.preferredRole);
   socket.join(roomCode);
   // track on socket (narrow data type)
   const s = socket as Socket & { data: SocketData };
@@ -298,7 +300,17 @@ export async function handleJoin(io: Server, socket: Socket, payload: { userId?:
       selectedCategory: room.selectedCategory,
       feedbackMode: room.feedbackMode,
       maxActivePlayers: room.maxActivePlayers,
+      lastRoundResults: room.lastRoundResults || null,
     });
+
+    // Emit room state change to group channel for real-time updates
+    if (room.groupId) {
+      io.to(`group:${room.groupId}`).emit('ROOM_STATE_CHANGED', {
+        roomCode,
+        gameState: room.gameState,
+        participantCount: room.participants.size,
+      });
+    }
   } catch (err: unknown) {
     const code = (err as Error)?.message || 'INTERNAL_ERROR';
     logger.error('JOIN failed', { roomCode, error: code });
@@ -324,6 +336,16 @@ export function handleLeave(io: Server, socket: Socket) {
       connectionStatus: 'left',
       timestamp: Date.now(),
     });
+
+    // Emit room state change to group channel for real-time updates
+    if (room.groupId) {
+      io.to(`group:${room.groupId}`).emit('ROOM_STATE_CHANGED', {
+        roomCode,
+        gameState: room.gameState,
+        participantCount: room.participants.size,
+      });
+    }
+
     // After a participant leaves, check if remaining active+connected players are all ready and start countdown server-side
     try {
       gameService.tryStartCountdown(io, roomCode);
@@ -359,4 +381,88 @@ export function handleDisconnect(io: Server, socket: Socket) {
   } catch (err) {
     logger.error('Failed to evaluate countdown after disconnect', { roomCode, error: (err as Error).message });
   }
+}
+
+export async function handleChangeRolePreference(io: Server, socket: Socket, payload: { preferredRole: 'active' | 'spectator' }) {
+  const s = socket as Socket & { data: SocketData };
+  const roomCode = s.data.roomCode;
+  const playerId = s.data.playerId;
+  
+  if (!roomCode || !playerId) {
+    return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+  }
+  
+  const room = roomStore.getRoom(roomCode);
+  if (!room) {
+    return socket.emit('ERROR', { code: 'ROOM_NOT_FOUND', message: 'Room not found' });
+  }
+  
+  const participant = room.participants.get(playerId);
+  if (!participant) {
+    return socket.emit('ERROR', { code: 'NOT_JOINED', message: 'Not joined' });
+  }
+  
+  // Update preference
+  participant.preferredRole = payload.preferredRole;
+  logger.info('Participant changed role preference', {
+    roomCode,
+    participantId: playerId,
+    newPreference: payload.preferredRole,
+    currentRole: participant.role
+  });
+  
+  // If changing to active preference and currently spectator, try immediate promotion
+  if (payload.preferredRole === 'active' && participant.role === 'spectator') {
+    const activeCount = Array.from(room.participants.values()).filter(p => p.role === 'active').length;
+    const maxActive = room.maxActivePlayers || 16;
+    
+    if (activeCount < maxActive) {
+      participant.role = 'active';
+      logger.info('Promoted spectator to active immediately', {
+        roomCode,
+        participantId: playerId,
+        participantName: participant.name
+      });
+      
+      // Broadcast updated room state
+      const participants = Array.from(room.participants.values());
+      const participantsWithMembership = await Promise.all(
+        participants.map(async (p) => ({
+          ...p,
+          isGroupMember: await isGroupMember(p.userId, room.groupId),
+        }))
+      );
+
+      let groupName: string | undefined;
+      if (room.groupId) {
+        const group = await prisma.group.findUnique({
+          where: { id: room.groupId },
+          select: { name: true },
+        });
+        groupName = group?.name;
+      }
+
+      io.to(roomCode).emit('ROOM_STATE', {
+        roomCode,
+        gameState: room.gameState,
+        participants: participantsWithMembership,
+        currentQuestion: room.currentQuestion ? { id: room.currentQuestion.id, text: room.currentQuestion.text } : null,
+        currentRound: room.currentRound
+          ? { startTime: room.currentRound.startTime, duration: room.currentRound.duration, answeredCount: room.currentRound.participantAnswers.filter(a => a.answerText !== null).length }
+          : null,
+        leaderboard: gameService.calculateLeaderboard(room),
+        groupId: room.groupId,
+        groupName,
+        selectedCategory: room.selectedCategory,
+        feedbackMode: room.feedbackMode,
+        maxActivePlayers: room.maxActivePlayers,
+        lastRoundResults: room.lastRoundResults || null,
+      });
+    }
+  }
+  
+  socket.emit('ROLE_PREFERENCE_UPDATED', {
+    preferredRole: payload.preferredRole,
+    currentRole: participant.role
+  });
 }

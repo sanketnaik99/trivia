@@ -111,6 +111,9 @@ class GameService {
     // reset ready flags
     for (const p of room.participants.values()) p.isReady = false;
 
+    // Clear last results snapshot when a new round starts
+    room.lastRoundResults = null;
+
     io.to(roomCode).emit('GAME_START', {
       question: { id: q.id, text: q.text },
       startTime: room.currentRound.startTime,
@@ -138,9 +141,19 @@ class GameService {
         selectedCategory: room.selectedCategory,
         feedbackMode: room.feedbackMode,
         maxActivePlayers: room.maxActivePlayers,
+        lastRoundResults: room.lastRoundResults,
       });
     } catch (err) {
       logger.warn('Failed to emit ROOM_STATE after GAME_START', { roomCode, error: (err as Error).message });
+    }
+
+    // Emit room state change to group channel for real-time updates
+    if (room.groupId) {
+      io.to(`group:${room.groupId}`).emit('ROOM_STATE_CHANGED', {
+        roomCode,
+        gameState: room.gameState,
+        participantCount: room.participants.size,
+      });
     }
 
     // auto-end timer
@@ -282,7 +295,7 @@ class GameService {
     // T048: Use calculateLeaderboard for consistent sorting and fields
     const leaderboard = this.calculateLeaderboard(room);
 
-    io.to(roomCode).emit('ROUND_END', {
+    const roundEndPayload = {
       correctAnswer: room.currentQuestion.correctAnswer,
       acceptedAnswers: room.currentQuestion.acceptedAnswers || [],
       winnerId,
@@ -291,13 +304,34 @@ class GameService {
       winnerScore: winnerId ? room.participants.get(winnerId)?.score || null : null,
       results,
       leaderboard,
-      commentary,
-    });
+      commentary: commentary ? [commentary] : [],
+    } as const;
+
+    // Persist snapshot so late joiners can see results
+    room.lastRoundResults = {
+      correctAnswer: roundEndPayload.correctAnswer,
+      acceptedAnswers: roundEndPayload.acceptedAnswers,
+      winnerId: roundEndPayload.winnerId,
+      winnerName: roundEndPayload.winnerName,
+      winnerScore: roundEndPayload.winnerScore,
+      results: roundEndPayload.results,
+      leaderboard: roundEndPayload.leaderboard,
+      commentary: roundEndPayload.commentary,
+    };
+
+    io.to(roomCode).emit('ROUND_END', roundEndPayload);
 
     // Reset for next round
     room.currentQuestion = null;
     room.currentRound = null;
     room.gameState = 'results';
+    
+    // Promote spectators who want to be active players
+    try {
+      roomService.promoteSpectatorsIfNeeded(roomCode);
+    } catch (err) {
+      logger.warn('Failed to promote spectators after round end', { roomCode, error: (err as Error).message });
+    }
     
     // Reset all isReady flags when transitioning to results
     for (const p of room.participants.values()) {
@@ -328,7 +362,17 @@ class GameService {
       selectedCategory: room.selectedCategory,
       feedbackMode: room.feedbackMode,
       maxActivePlayers: room.maxActivePlayers,
+      lastRoundResults: room.lastRoundResults || null,
     });
+
+    // Emit room state change to group channel for real-time updates
+    if (room.groupId) {
+      io.to(`group:${room.groupId}`).emit('ROOM_STATE_CHANGED', {
+        roomCode,
+        gameState: room.gameState,
+        participantCount: room.participants.size,
+      });
+    }
 
     // T082: Log round duration and stats
     const roundDuration = (round.endTime || Date.now()) - (round.startTime || Date.now());

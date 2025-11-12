@@ -70,6 +70,7 @@ interface RoomState {
   leaderboard?: LeaderboardEntry[];
   selectedCategory?: string | null;
   feedbackMode?: 'supportive' | 'neutral' | 'roast';
+  lastRoundResults?: RoundEndPayload | null;
 }
 
 export default function RoomPage() {
@@ -130,6 +131,10 @@ export default function RoomPage() {
           }
           return message.payload as RoomState;
         });
+        // Hydrate roundResults from lastRoundResults when joining during results phase
+        if (message.payload.gameState === 'results' && !roundResults && message.payload.lastRoundResults) {
+          setRoundResults(message.payload.lastRoundResults);
+        }
         // For anonymous rooms, find participant by name match since backend generates new ID
         if (userInfoRef.current) {
           const participant = message.payload.participants.find(
@@ -352,7 +357,13 @@ export default function RoomPage() {
         console.log('[Room] WebSocket connected, sending JOIN', { userId, userName, roomCode });
         setConnectionStatus('connected');
         setReconnectAttempts(0);
-        client.send('JOIN', { userId, playerId: userId, playerName: userName, roomCode });
+        // Get preferredRole from localStorage (set by join dialog)
+        const preferredRole = localStorage.getItem(`room_${roomCode}_preferredRole`) as 'active' | 'spectator' | null;
+        client.send('JOIN', { userId, playerId: userId, playerName: userName, roomCode, preferredRole: preferredRole || undefined });
+        // Clean up localStorage after use
+        if (preferredRole) {
+          localStorage.removeItem(`room_${roomCode}_preferredRole`);
+        }
       }).catch((err: unknown) => {
         console.error('Socket.IO connect error:', err);
         setConnectionStatus('disconnected');
@@ -408,6 +419,11 @@ export default function RoomPage() {
     if (!wsRef.current || !room) return;
     wsRef.current.send('READY', { isReady: true });
   }, [room]);
+
+  const handleJoinAsParticipant = useCallback(() => {
+    if (!wsRef.current) return;
+    wsRef.current.send('CHANGE_ROLE_PREFERENCE', { preferredRole: 'active' });
+  }, []);
 
   const handleLeaveRoom = useCallback(() => {
     if (!wsRef.current) return;
@@ -639,7 +655,9 @@ export default function RoomPage() {
                       results={roundResults.results}
                       currentUserId={playerId}
                       participants={room.participants}
-                      onReadyForNextRound={handleReadyForNextRound}
+                      onReadyForNextRound={currentUser?.role === 'active' ? handleReadyForNextRound : undefined}
+                      onJoinAsParticipant={currentUser?.role === 'spectator' ? handleJoinAsParticipant : undefined}
+                      currentUserRole={currentUser?.role}
                       leaderboard={roundResults.leaderboard || room.leaderboard}
                       groupId={undefined}
                     />

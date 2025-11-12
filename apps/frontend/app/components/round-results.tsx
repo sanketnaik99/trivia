@@ -27,6 +27,8 @@ interface RoundResultsProps {
   leaderboard?: LeaderboardEntry[];
   groupId?: string;
   commentary?: string;
+  currentUserRole?: 'active' | 'spectator';
+  onJoinAsParticipant?: () => void;
 }
 
 const RoundResults: React.FC<RoundResultsProps> = ({
@@ -39,6 +41,8 @@ const RoundResults: React.FC<RoundResultsProps> = ({
   onReadyForNextRound,
   groupId,
   commentary,
+  currentUserRole,
+  onJoinAsParticipant,
 }) => {
   // Sort: correct first, then by timestamp (fastest), then incorrect
   const sortedResults = [...results].sort((a, b) => {
@@ -108,10 +112,10 @@ const RoundResults: React.FC<RoundResultsProps> = ({
       </div>
       
       {/* T100: Ready for Next Round button with status */}
-      {onReadyForNextRound && (
+      {(onReadyForNextRound || onJoinAsParticipant) && (
         <div className="mt-6 w-full space-y-3">
           {/* Show all players ready status when at least one is ready */}
-          {readyCount > 0 && (
+          {readyCount > 0 && currentUserRole !== 'spectator' && (
             <div className="text-center space-y-2">
               {allReady ? (
                 <div className="p-3 bg-green-100 text-green-800 rounded-md font-medium">
@@ -135,21 +139,31 @@ const RoundResults: React.FC<RoundResultsProps> = ({
                 View Group Leaderboard
               </Button>
             )}
-            <Button
-              onClick={onReadyForNextRound}
-              variant={isCurrentUserReady ? 'outline' : 'default'}
-              size="lg"
-              disabled={allReady}
-            >
-              {isCurrentUserReady ? (
-                <>
-                  <Badge variant="secondary" className="mr-2">✓</Badge>
-                  Waiting for Others...
-                </>
-              ) : (
-                'Ready for Next Round'
-              )}
-            </Button>
+            {currentUserRole === 'spectator' && onJoinAsParticipant ? (
+              <Button
+                onClick={onJoinAsParticipant}
+                variant="default"
+                size="lg"
+              >
+                Join as Participant
+              </Button>
+            ) : onReadyForNextRound ? (
+              <Button
+                onClick={onReadyForNextRound}
+                variant={isCurrentUserReady ? 'outline' : 'default'}
+                size="lg"
+                disabled={allReady}
+              >
+                {isCurrentUserReady ? (
+                  <>
+                    <Badge variant="secondary" className="mr-2">✓</Badge>
+                    Waiting for Others...
+                  </>
+                ) : (
+                  'Ready for Next Round'
+                )}
+              </Button>
+            ) : null}
           </div>
         </div>
       )}

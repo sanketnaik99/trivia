@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import { logger } from '../utils/logger.util';
-import { handleJoin, handleLeave, handleDisconnect, handleCreate } from './room.handler';
+import { handleJoin, handleLeave, handleDisconnect, handleCreate, handleChangeRolePreference } from './room.handler';
 import { handleReady, handleAnswer, handleComplete } from './game.handler';
 import { handleGroupSubscribe, handleGroupUnsubscribe } from './group.handler';
 import prisma from '../config/prisma';
@@ -40,6 +40,18 @@ export function registerSocketHandlers(io: Server) {
     socket.on('LEAVE', () => {
       logger.info('LEAVE event', { socketId: socket.id });
       handleLeave(io, socket);
+    });
+    socket.on('CHANGE_ROLE_PREFERENCE', async (payload: { preferredRole: 'active' | 'spectator' }) => {
+      logger.info('CHANGE_ROLE_PREFERENCE event', { socketId: socket.id, preferredRole: payload?.preferredRole });
+      await handleChangeRolePreference(io, socket, payload);
+    });
+    socket.on('JOIN_GROUP', (payload: { groupId: string }) => {
+      logger.info('JOIN_GROUP event', { socketId: socket.id, groupId: payload?.groupId });
+      socket.join(`group:${payload.groupId}`);
+    });
+    socket.on('LEAVE_GROUP', (payload: { groupId: string }) => {
+      logger.info('LEAVE_GROUP event', { socketId: socket.id, groupId: payload?.groupId });
+      socket.leave(`group:${payload.groupId}`);
     });
     socket.on('disconnect', (reason: unknown) => {
       logger.info('Socket disconnected', { socketId: socket.id, reason });
