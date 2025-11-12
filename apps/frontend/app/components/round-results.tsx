@@ -59,9 +59,10 @@ const RoundResults: React.FC<RoundResultsProps> = ({
   const currentUser = participants?.find(p => p.id === currentUserId);
   const isCurrentUserReady = currentUser?.isReady || false;
 
-  // Count ready players
-  const readyCount = participants?.filter(p => p.isReady).length || 0;
-  const totalCount = participants?.length || 0;
+  // Count ready players (only active players, not spectators)
+  const activePlayers = participants?.filter(p => p.role === 'active') || [];
+  const readyCount = activePlayers.filter(p => p.isReady).length;
+  const totalCount = activePlayers.length;
   const allReady = readyCount === totalCount && totalCount > 1;
 
   return (
