@@ -14,4 +14,6 @@ export const queryKeys = {
 
   // Leaderboards (for future use)
   leaderboard: (groupId: string) => ['groups', groupId, 'leaderboard'] as const,
+  // Scheduled games
+  scheduledGames: (groupId: string) => ['groups', groupId, 'scheduledGames'] as const,
 }

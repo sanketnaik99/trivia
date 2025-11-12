@@ -84,7 +84,7 @@ wrangler dev --local --port 8787
 npm run dev
 ```
 
-App runs at: `http://localhost:3000`
+App runs at: `http://localhost:3000` (room lobby UI)
 
 ---
 
@@ -93,14 +93,14 @@ App runs at: `http://localhost:3000`
 ### Workflow 1: Create and Join Room
 
 **User A creates room**:
-1. Navigate to `http://localhost:3000`
+1. Navigate to `http://localhost:3000/room`
 2. Enter name: "Alice"
 3. Click "Create Room"
 4. See room code: "A3B7K9"
 5. Share code with friends
 
 **User B joins room**:
-1. Navigate to `http://localhost:3000`
+1. Navigate to `http://localhost:3000/room`
 2. Enter name: "Bob"
 3. Enter room code: "A3B7K9"
 4. Click "Join Room"
@@ -382,13 +382,15 @@ After validating this workflow:
 
 ### Important URLs
 
-- **Home**: `http://localhost:3000`
+- **Home**: (reserved for future landing) `http://localhost:3000`
+- **Rooms Lobby**: `http://localhost:3000/room`
 - **Room**: `http://localhost:3000/room/{code}`
 - **WebSocket**: `ws://localhost:8787/room/{code}`
 
 ### Key Files
 
-- `app/page.tsx` - Home page
+- `app/page.tsx` - (empty placeholder; landing TBD)
+- `app/room/page.tsx` - Rooms lobby (create/join)
 - `app/room/[code]/page.tsx` - Room page
 - `app/lib/websocket.ts` - WebSocket client
 - `workers/room-durable-object.ts` - Server logic

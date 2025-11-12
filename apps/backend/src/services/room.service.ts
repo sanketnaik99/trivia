@@ -61,6 +61,7 @@ class RoomService {
       voteState: null,
       cleanupTimer: null,
       maxActivePlayers: 16,
+      lastRoundResults: null,
     };
 
     roomStore.createRoom(code, room);
@@ -71,7 +72,9 @@ class RoomService {
   validateRoomCode(code: string) {
     const room = roomStore.getRoom(code);
     if (!room) return { exists: false, canJoin: false, participantCount: 0, gameState: 'lobby' as const };
-    const canJoin = room.gameState !== 'active';
+    // Allow joining at any time; during active rounds the server will
+    // assign new joiners as spectators and promote after the round.
+    const canJoin = true;
     return { 
       exists: true, 
       canJoin, 
@@ -81,11 +84,9 @@ class RoomService {
     };
   }
 
-  addParticipant(code: string, name: string, userId?: string | null): Participant {
+  addParticipant(code: string, name: string, userId?: string | null, preferredRole?: 'active' | 'spectator'): Participant {
     const room = roomStore.getRoom(code);
     if (!room) throw new Error('ROOM_NOT_FOUND');
-    // allow joining as spectator if game active
-    // if joining during active game, participant becomes spectator
 
     // name uniqueness in room
     for (const p of room.participants.values()) {
@@ -94,14 +95,32 @@ class RoomService {
       }
     }
 
-    // Determine role: active if in lobby and active count < maxActivePlayers
+    // Determine role based on game state, preference, and availability
     const activeCount = Array.from(room.participants.values()).filter(p => p.role === 'active').length;
-    const role: 'active' | 'spectator' = (room.gameState === 'lobby' && activeCount < (room.maxActivePlayers || 16)) ? 'active' : 'spectator';
+    const maxActive = room.maxActivePlayers || 16;
+    const hasActiveSlots = activeCount < maxActive;
+    
+    // Default to active preference if not specified
+    const userPreferredRole = preferredRole || 'active';
+    const wantsActive = userPreferredRole !== 'spectator';
+    
+    // Force spectator role during active games for fairness
+    // They'll be promoted when the round ends if they prefer active role
+    let role: 'active' | 'spectator';
+    if (room.gameState === 'active') {
+      role = 'spectator';
+      logger.info('Forcing spectator role for mid-game join', { code, name, gameState: room.gameState });
+    } else if (wantsActive && hasActiveSlots) {
+      role = 'active';
+    } else {
+      role = 'spectator';
+    }
 
     const participant: Participant = {
       id: uuidv4(),
       name: name.trim(),
       role,
+      preferredRole: userPreferredRole, // Store user's preference for promotion
       isReady: false,
       connectionStatus: 'connected',
       socketId: null,
@@ -150,6 +169,7 @@ class RoomService {
 
   /**
    * Promote waiting spectators into active slots when space is available.
+   * Only promotes spectators who prefer active role.
    * Promotion order is by joinedAt (earliest first).
    */
   promoteSpectatorsIfNeeded(code: string) {
@@ -160,9 +180,9 @@ class RoomService {
     const activeCount = participants.filter(p => p.role === 'active').length;
     if (activeCount >= maxActive) return;
 
-    // Find spectators ordered by joinedAt
+    // Find spectators who prefer active role, ordered by joinedAt
     const spectators = participants
-      .filter(p => p.role === 'spectator')
+      .filter(p => p.role === 'spectator' && p.preferredRole === 'active')
       .sort((a, b) => (a.joinedAt || 0) - (b.joinedAt || 0));
 
     let slots = maxActive - activeCount;
@@ -170,6 +190,7 @@ class RoomService {
       if (slots <= 0) break;
       s.role = 'active';
       slots -= 1;
+      logger.info('Promoted spectator to active', { roomCode: code, participantId: s.id, participantName: s.name });
     }
     roomStore.updateLastActivity(code);
   }

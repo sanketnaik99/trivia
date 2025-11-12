@@ -69,6 +69,9 @@ interface RoomState {
   leaderboard?: LeaderboardEntry[];
   groupId: string;
   groupName: string;
+  selectedCategory?: string | null;
+  feedbackMode?: 'supportive' | 'neutral' | 'roast';
+  lastRoundResults?: RoundEndPayload | null;
 }
 
 export default function GroupRoomPage() {
@@ -96,7 +99,7 @@ export default function GroupRoomPage() {
 
   // Handler to return home when session is lost
   const handleReturnHome = useCallback(() => {
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   // Set page title
@@ -114,6 +117,10 @@ export default function GroupRoomPage() {
           participants: message.payload.participants.map(p => ({ id: p.id, userId: p.userId, name: p.name }))
         });
         setRoom(message.payload);
+        // Hydrate roundResults from lastRoundResults when joining during results phase
+        if (message.payload.gameState === 'results' && !roundResults && message.payload.lastRoundResults) {
+          setRoundResults(message.payload.lastRoundResults);
+        }
         // For group rooms, find participant by userId match
         if (userInfoRef.current && message.payload.participants) {
           const participant = message.payload.participants.find(
@@ -285,7 +292,13 @@ export default function GroupRoomPage() {
         console.log('[GroupRoom] WebSocket connected, sending JOIN', { userId, userName, roomCode });
         setConnectionStatus('connected');
         setReconnectAttempts(0);
-        client.send('JOIN', { playerId: userId, playerName: userName, roomCode });
+        // Get preferredRole from localStorage (set by join dialog)
+        const preferredRole = localStorage.getItem(`room_${roomCode}_preferredRole`) as 'active' | 'spectator' | null;
+        client.send('JOIN', { userId, playerId: userId, playerName: userName, roomCode, preferredRole: preferredRole || undefined });
+        // Clean up localStorage after use
+        if (preferredRole) {
+          localStorage.removeItem(`room_${roomCode}_preferredRole`);
+        }
       }).catch((err: unknown) => {
         console.error('Socket.IO connect error:', err);
         setConnectionStatus('disconnected');
@@ -344,11 +357,16 @@ export default function GroupRoomPage() {
     wsRef.current.send('READY', { isReady: true });
   }, [room]);
 
+  const handleJoinAsParticipant = useCallback(() => {
+    if (!wsRef.current) return;
+    wsRef.current.send('CHANGE_ROLE_PREFERENCE', { preferredRole: 'active' });
+  }, []);
+
   const handleLeaveRoom = useCallback(() => {
     if (!wsRef.current) return;
     wsRef.current.send('LEAVE', {});
     wsRef.current.disconnect();
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   // Validate room and check group membership
@@ -396,18 +414,17 @@ export default function GroupRoomPage() {
       return { errorMessage: 'Room not found. Please check the room code.', canConnect: false };
     }
 
-    if (validation && !validation.canJoin) {
-      const msg = validation.gameState === 'active'
-        ? 'Game is already in progress. Please wait for the next round.'
-        : 'Unable to join room. It may be full or unavailable.';
-      return { errorMessage: msg, canConnect: false };
+    // If room is active, allow joining as spectator (do not block)
+    if (validation && !validation.canJoin && validation.gameState !== 'active') {
+      return { errorMessage: 'Unable to join room. It may be full or unavailable.', canConnect: false };
     }
 
     if (validation && validation.groupId !== groupId) {
       return { errorMessage: 'This room does not belong to the specified group', canConnect: false };
     }
 
-    const ready = isSignedIn && user && groupMembership?.data?.isMember && validation?.exists && validation?.canJoin && validation?.groupId === groupId;
+    const canJoinNow = !!validation && (validation.canJoin || validation.gameState === 'active');
+    const ready = isSignedIn && user && groupMembership?.data?.isMember && validation?.exists && canJoinNow && validation?.groupId === groupId;
     return { errorMessage: null, canConnect: ready };
   }, [isUserLoaded, isSignedIn, user, groupMembership, validation, validationError, groupId]);
 
@@ -435,7 +452,7 @@ export default function GroupRoomPage() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto">
-          <ErrorDisplay message={errorMessage || runtimeError!} onRetry={() => router.push('/')} />
+          <ErrorDisplay message={errorMessage || runtimeError!} onRetry={() => router.push('/room')} />
         </div>
       </div>
     );
@@ -449,6 +466,8 @@ export default function GroupRoomPage() {
       </div>
     );
   }
+
+  const currentUser = room?.participants.find((p) => p.id === playerId) || null;
 
   return (
     <div className="min-h-screen bg-background p-4">
@@ -507,13 +526,22 @@ export default function GroupRoomPage() {
                 {hasAnswered ? (
                   <WaitingState
                     answeredCount={room.currentRound.answeredCount}
-                    totalCount={room.participants.length}
+                    totalCount={room.participants.filter(p => p.role === 'active').length}
                   />
+                ) : currentUser?.role === 'spectator' ? (
+                  <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
+                    <div className="text-center text-gray-700 dark:text-gray-300">
+                      <h3 className="text-lg font-semibold">You are spectating</h3>
+                      <p className="mt-2">Watching the game — spectators cannot submit answers. You can request to participate in the next round.</p>
+                    </div>
+                  </div>
                 ) : (
                   <GameQuestion
                     questionText={room.currentQuestion.text}
                     onSubmitAnswer={handleSubmitAnswer}
-                    disabled={hasAnswered}
+                    disabled={hasAnswered || !currentUser || currentUser.connectionStatus !== 'connected'}
+                    category={room.selectedCategory}
+                    feedbackMode={room.feedbackMode}
                   />
                 )}
               </div>
@@ -529,7 +557,9 @@ export default function GroupRoomPage() {
                       results={roundResults.results}
                       currentUserId={playerId}
                       participants={room.participants}
-                      onReadyForNextRound={handleReadyForNextRound}
+                      onReadyForNextRound={currentUser?.role === 'active' ? handleReadyForNextRound : undefined}
+                      onJoinAsParticipant={currentUser?.role === 'spectator' ? handleJoinAsParticipant : undefined}
+                      currentUserRole={currentUser?.role}
                       leaderboard={roundResults.leaderboard || room.leaderboard}
                       groupId={room.groupId}
                       commentary={roundResults.commentary}

@@ -70,6 +70,7 @@ interface RoomState {
   leaderboard?: LeaderboardEntry[];
   selectedCategory?: string | null;
   feedbackMode?: 'supportive' | 'neutral' | 'roast';
+  lastRoundResults?: RoundEndPayload | null;
 }
 
 export default function RoomPage() {
@@ -98,7 +99,7 @@ export default function RoomPage() {
   const connectFnRef = useRef<(() => void) | null>(null);
 
   const handleReturnHome = useCallback(() => {
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   useEffect(() => {
@@ -130,6 +131,10 @@ export default function RoomPage() {
           }
           return message.payload as RoomState;
         });
+        // Hydrate roundResults from lastRoundResults when joining during results phase
+        if (message.payload.gameState === 'results' && !roundResults && message.payload.lastRoundResults) {
+          setRoundResults(message.payload.lastRoundResults);
+        }
         // For anonymous rooms, find participant by name match since backend generates new ID
         if (userInfoRef.current) {
           const participant = message.payload.participants.find(
@@ -352,7 +357,13 @@ export default function RoomPage() {
         console.log('[Room] WebSocket connected, sending JOIN', { userId, userName, roomCode });
         setConnectionStatus('connected');
         setReconnectAttempts(0);
-        client.send('JOIN', { playerId: userId, playerName: userName, roomCode });
+        // Get preferredRole from localStorage (set by join dialog)
+        const preferredRole = localStorage.getItem(`room_${roomCode}_preferredRole`) as 'active' | 'spectator' | null;
+        client.send('JOIN', { userId, playerId: userId, playerName: userName, roomCode, preferredRole: preferredRole || undefined });
+        // Clean up localStorage after use
+        if (preferredRole) {
+          localStorage.removeItem(`room_${roomCode}_preferredRole`);
+        }
       }).catch((err: unknown) => {
         console.error('Socket.IO connect error:', err);
         setConnectionStatus('disconnected');
@@ -409,13 +420,18 @@ export default function RoomPage() {
     wsRef.current.send('READY', { isReady: true });
   }, [room]);
 
+  const handleJoinAsParticipant = useCallback(() => {
+    if (!wsRef.current) return;
+    wsRef.current.send('CHANGE_ROLE_PREFERENCE', { preferredRole: 'active' });
+  }, []);
+
   const handleLeaveRoom = useCallback(() => {
     if (!wsRef.current) return;
     wsRef.current.send('LEAVE', {});
     wsRef.current.disconnect();
     localStorage.removeItem('playerId');
     localStorage.removeItem('playerName');
-    router.push('/');
+    router.push('/room');
   }, [router]);
 
   const handleJoinRoomFromLink = async (name: string, _code: string) => {
@@ -468,12 +484,9 @@ export default function RoomPage() {
       setConnectionStatus('disconnected');
       return;
     }
-    if (!validation.canJoin) {
-      if (validation.gameState === 'active') {
-        setError('Game is already in progress. Please wait for the next round.');
-      } else {
-        setError('Unable to join room. It may be full or unavailable.');
-      }
+    // If room is active, allow joining as spectator (do not block)
+    if (!validation.canJoin && validation.gameState !== 'active') {
+      setError('Unable to join room. It may be full or unavailable.');
       setConnectionStatus('disconnected');
       return;
     }
@@ -506,7 +519,7 @@ export default function RoomPage() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         {sessionLost && <SessionLostModal onGoHome={handleReturnHome} />}
         <div className="w-full max-w-md mx-auto">
-          <ErrorDisplay message={error} onRetry={() => router.push('/')} />
+          <ErrorDisplay message={error} onRetry={() => router.push('/room')} />
         </div>
       </div>
     );
@@ -639,7 +652,9 @@ export default function RoomPage() {
                       results={roundResults.results}
                       currentUserId={playerId}
                       participants={room.participants}
-                      onReadyForNextRound={handleReadyForNextRound}
+                      onReadyForNextRound={currentUser?.role === 'active' ? handleReadyForNextRound : undefined}
+                      onJoinAsParticipant={currentUser?.role === 'spectator' ? handleJoinAsParticipant : undefined}
+                      currentUserRole={currentUser?.role}
                       leaderboard={roundResults.leaderboard || room.leaderboard}
                       groupId={undefined}
                     />

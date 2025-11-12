@@ -1,5 +1,7 @@
 import { Room } from '../types/room.types';
 import { logger } from '../utils/logger.util';
+import prisma from '../config/prisma';
+import { ScheduledGameStatus } from '@prisma/client';
 
 export class RoomStore {
   private rooms: Map<string, Room> = new Map();
@@ -23,6 +25,30 @@ export class RoomStore {
     this.cancelCleanup(normalizedCode);
     this.rooms.delete(normalizedCode);
     logger.info('RoomStore: deleted room', { code: normalizedCode });
+
+    // If this room was created from a scheduled game, mark that scheduled game as COMPLETED.
+    // Fire-and-forget to avoid changing the sync signature of deleteRoom.
+    prisma.scheduledGame.updateMany({
+      where: {
+        roomId: normalizedCode,
+        status: ScheduledGameStatus.STARTED,
+      },
+      data: { status: ScheduledGameStatus.COMPLETED },
+    })
+      .then((result) => {
+        if (result.count > 0) {
+          logger.info('RoomStore: marked scheduled game(s) COMPLETED after room deletion', {
+            code: normalizedCode,
+            updatedCount: result.count,
+          });
+        }
+      })
+      .catch((err: unknown) => {
+        logger.error('RoomStore: failed to mark scheduled game COMPLETED after room deletion', {
+          code: normalizedCode,
+          error: (err as Error).message,
+        });
+      });
   }
 
   getRoomCount(): number {

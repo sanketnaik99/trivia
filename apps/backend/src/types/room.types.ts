@@ -10,6 +10,7 @@ export interface Participant {
   id: string;
   name: string;
   role: ParticipantRole;               // 'active' can answer, 'spectator' watches only
+  preferredRole: ParticipantRole;      // User's role preference for auto-promotion
   isReady: boolean;
   connectionStatus: ConnectionStatus;
   // Optional socket id for the participant's active socket connection
@@ -64,4 +65,28 @@ export interface Room {
   voteState: import('./game.types').VoteState | null;
   cleanupTimer: NodeJS.Timeout | null;
   maxActivePlayers: number;
+  lastRoundResults: {
+    correctAnswer: string;
+    acceptedAnswers: string[];
+    winnerId: string | null;
+    winnerName: string | null;
+    winnerScore: number | null;
+    results: Array<{
+      participantId: string;
+      participantName: string;
+      answerText: string | null;
+      timestamp: number | null;
+      isCorrect: boolean;
+      scoreChange: number;
+      newScore: number;
+    }>;
+    leaderboard: Array<{
+      participantId: string;
+      participantName: string;
+      score: number;
+      roundsWon: number;
+      ranking: number;
+    }>;
+    commentary: string[];
+  } | null;
 }

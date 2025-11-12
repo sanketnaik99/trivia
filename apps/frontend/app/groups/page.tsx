@@ -39,7 +39,7 @@ export default function GroupsPage() {
             <p className="text-muted-foreground">Manage your trivia groups and leaderboards</p>
           </div>
           <div className="flex gap-2">
-            <Link href="/">
+            <Link href="/room">
               <Button variant="outline">Back to Rooms</Button>
             </Link>
             <Button onClick={() => setShowCreateForm(true)}>
