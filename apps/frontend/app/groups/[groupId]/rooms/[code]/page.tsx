@@ -89,7 +89,6 @@ export default function GroupRoomPage() {
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
   const [sessionLost, setSessionLost] = useState(false);
 
@@ -193,7 +192,6 @@ export default function GroupRoomPage() {
       case 'GAME_START':
         setShowCountdown(false);
         setHasAnswered(false);
-        setGameStartTime(message.payload.startTime);
         setRoom((prevRoom) => {
           if (!prevRoom) return prevRoom;
           return {
@@ -346,11 +344,10 @@ export default function GroupRoomPage() {
   }, [room, playerId]);
 
   const handleSubmitAnswer = useCallback((answer: string) => {
-    if (!wsRef.current || !gameStartTime) return;
+    if (!wsRef.current) return;
 
-    const timestamp = Date.now() - gameStartTime;
-    wsRef.current.send('ANSWER', { answerText: answer, timestamp });
-  }, [gameStartTime]);
+    wsRef.current.send('ANSWER', { answerText: answer });
+  }, []);
 
   const handleReadyForNextRound = useCallback(() => {
     if (!wsRef.current || !room) return;
