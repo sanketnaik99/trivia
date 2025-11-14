@@ -8,7 +8,7 @@ export function handleReady(io: Server, socket: Socket, payload: { isReady: bool
   gameService.handleReady(io, socket, payload);
 }
 
-export function handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
+export function handleAnswer(io: Server, socket: Socket, payload: { answerText: string }) {
   gameService.handleAnswer(io, socket, payload);
 }
 

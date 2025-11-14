@@ -29,8 +29,8 @@ export function registerSocketHandlers(io: Server) {
       logger.info('READY event', { socketId: socket.id, isReady: payload?.isReady });
       handleReady(io, socket, payload);
     });
-    socket.on('ANSWER', async (payload: { answerText: string; timestamp: number }) => {
-      logger.info('ANSWER event', { socketId: socket.id, hasText: !!payload?.answerText, ts: payload?.timestamp });
+    socket.on('ANSWER', async (payload: { answerText: string }) => {
+      logger.info('ANSWER event', { socketId: socket.id, hasText: !!payload?.answerText });
       await handleAnswer(io, socket, payload);
     });
     socket.on('game:complete', async (payload: { results: Array<{ userId: string; points: number }> }) => {

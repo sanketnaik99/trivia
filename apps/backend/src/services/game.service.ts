@@ -167,7 +167,7 @@ class GameService {
     this.roundTimers.set(roomCode, timer);
   }
 
-  async handleAnswer(io: Server, socket: Socket, payload: { answerText: string; timestamp: number }) {
+  async handleAnswer(io: Server, socket: Socket, payload: { answerText: string }) {
     const start = Date.now();
   const s = socket as Socket & { data: { roomCode?: string; playerId?: string } };
   const roomCode = s.data.roomCode;
@@ -188,14 +188,13 @@ class GameService {
     const already = room.currentRound.participantAnswers.find((a) => a.participantId === playerId);
     if (already) return socket.emit('ERROR', { code: 'ALREADY_ANSWERED', message: 'Already answered' });
 
-    const ts = Math.max(0, Math.min(180000, Number(payload.timestamp || 0)));
+    const ts = Math.max(0, Math.min(180000, Date.now() - room.currentRound.startTime));
     const answerText = (payload.answerText || '').toString();
     const isCorrect = this.normalize(answerText) === this.normalize(room.currentQuestion.correctAnswer)
       || (room.currentQuestion.acceptedAnswers || []).some(a => this.normalize(a) === this.normalize(answerText));
 
   room.currentRound.participantAnswers.push({ participantId: playerId, answerText, timestamp: ts, isCorrect });
 
-  // T082: Log answer processing time
   const dur = Date.now() - start;
   logger.info('Processed ANSWER', { roomCode, playerId, isCorrect, ts, ms: dur });
 

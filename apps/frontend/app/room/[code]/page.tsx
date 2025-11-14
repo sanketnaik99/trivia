@@ -86,7 +86,6 @@ export default function RoomPage() {
   const [reconnectToast, setReconnectToast] = useState<string | null>(null);
   const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [gameStartTime, setGameStartTime] = useState<number | null>(null);
   const [roundResults, setRoundResults] = useState<RoundEndPayload | null>(null);
   const [needsPlayerInfo, setNeedsPlayerInfo] = useState(false);
   const [isJoining, setIsJoining] = useState(false);
@@ -258,7 +257,6 @@ export default function RoomPage() {
       case 'GAME_START':
         setShowCountdown(false);
         setHasAnswered(false);
-        setGameStartTime(message.payload.startTime);
         setRoom((prevRoom) => {
           if (!prevRoom) return prevRoom;
           return {
@@ -410,10 +408,9 @@ export default function RoomPage() {
   }, [room, playerId]);
 
   const handleSubmitAnswer = useCallback((answer: string) => {
-    if (!wsRef.current || !gameStartTime) return;
-    const timestamp = Date.now() - gameStartTime;
-    wsRef.current.send('ANSWER', { answerText: answer, timestamp });
-  }, [gameStartTime]);
+    if (!wsRef.current) return;
+    wsRef.current.send('ANSWER', { answerText: answer });
+  }, []);
 
   const handleReadyForNextRound = useCallback(() => {
     if (!wsRef.current || !room) return;
